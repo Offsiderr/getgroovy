@@ -1,6 +1,6 @@
-package seng201.team0;
+package seng201.team67;
 
-import seng201.team0.gui.MainWindow;
+import seng201.team67.gui.MainWindow;
 
 /**
  * Default entry point class
