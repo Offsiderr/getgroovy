@@ -1,4 +1,4 @@
-﻿package seng201.team0;
+package seng201.team0;
 
 public class GameEnviroment {
 
