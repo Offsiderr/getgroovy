@@ -12,9 +12,10 @@ public class Artist implements Purchasable {
     private double pay = 5;
     private double hiring_cost = 7;
 
-    public Artist(String name, int stamina, int star_power)
+    public Artist(String name, int star_power, int stamina, int health)
     {
         this.name = name;
+        this.health = health;
         this.stamina = stamina;
         this.star_power = star_power;
 
