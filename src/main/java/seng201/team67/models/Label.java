@@ -1,4 +1,4 @@
-package seng201.team0.models;
+package seng201.team67.models;
 
 import java.util.ArrayList;
 

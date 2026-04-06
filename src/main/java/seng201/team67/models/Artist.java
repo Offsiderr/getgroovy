@@ -1,6 +1,6 @@
-﻿package seng201.team0.models;
+package seng201.team67.models;
 
-import seng201.team0.interfaces.Purchasable;
+import seng201.team67.interfaces.Purchasable;
 
 public class Artist implements Purchasable {
 

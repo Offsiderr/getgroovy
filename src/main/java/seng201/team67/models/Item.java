@@ -1,7 +1,7 @@
-﻿package seng201.team0.models;
+package seng201.team67.models;
 
-import seng201.team0.interfaces.Purchasable;
-import seng201.team0.interfaces.Usable;
+import seng201.team67.interfaces.Purchasable;
+import seng201.team67.interfaces.Usable;
 
 public class Item implements Purchasable, Usable {
 
