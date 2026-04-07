@@ -6,9 +6,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
+import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.image.ImageView;
 
 public class MainController {
 
@@ -21,11 +23,16 @@ public class MainController {
     @FXML
     private Label nameDisplay;
 
+    @FXML
+    private ImageView questionMark; // <-- NEW
+
     private String guildName = "";
     private boolean cursorVisible = true;
     private Timeline cursorBlink;
 
     public void init(Stage stage) {
+
+        // ---- Blinking cursor ----
         cursorBlink = new Timeline(
                 new KeyFrame(Duration.millis(500), e -> {
                     cursorVisible = !cursorVisible;
@@ -34,6 +41,15 @@ public class MainController {
         );
         cursorBlink.setCycleCount(Timeline.INDEFINITE);
         cursorBlink.play();
+
+        // ---- Floating animation ----
+        TranslateTransition bob = new TranslateTransition(Duration.millis(1000), questionMark);
+        bob.setByY(10); // moves down 10px
+        bob.setAutoReverse(true); // goes back up
+        bob.setCycleCount(Timeline.INDEFINITE);
+        bob.play();
+
+        updateDisplay();
     }
 
     private void updateDisplay() {
@@ -55,5 +71,4 @@ public class MainController {
     @FXML
     public void onButtonClicked() {
     }
-
 }
