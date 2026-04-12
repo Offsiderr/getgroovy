@@ -24,18 +24,23 @@ public class Label {
     }
 
     //Getters
-    private ArrayList<Artist> getAll_artists()
+    public ArrayList<Artist> getAll_artists()
     {
         return all_artists;
     }
 
-    private ArrayList<Artist> getLine_Up()
+    public ArrayList<Artist> getLine_Up()
     {
         return line_up;
     }
 
+    public int getArtists_limit()
+    {
+        return artists_limit;
+    }
+
     //Setters
-    private boolean addArtistToAll(Artist artist)
+    public boolean addArtistToAll(Artist artist)
     {
         if(all_artists.size() < artists_limit)
         {
