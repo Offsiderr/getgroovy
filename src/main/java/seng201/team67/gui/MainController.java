@@ -24,15 +24,13 @@ public class MainController {
     private Label nameDisplay;
 
     @FXML
-    private ImageView questionMark; // <-- NEW
+    private ImageView questionMark;
 
     private String guildName = "";
     private boolean cursorVisible = true;
     private Timeline cursorBlink;
 
     public void init(Stage stage) {
-
-        // ---- Blinking cursor ----
         cursorBlink = new Timeline(
                 new KeyFrame(Duration.millis(500), e -> {
                     cursorVisible = !cursorVisible;
@@ -42,10 +40,9 @@ public class MainController {
         cursorBlink.setCycleCount(Timeline.INDEFINITE);
         cursorBlink.play();
 
-        // ---- Floating animation ----
         TranslateTransition bob = new TranslateTransition(Duration.millis(1000), questionMark);
-        bob.setByY(10); // moves down 10px
-        bob.setAutoReverse(true); // goes back up
+        bob.setByY(10);
+        bob.setAutoReverse(true);
         bob.setCycleCount(Timeline.INDEFINITE);
         bob.play();
 
