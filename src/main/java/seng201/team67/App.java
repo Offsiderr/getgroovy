@@ -1,6 +1,7 @@
 package seng201.team67;
 
 import seng201.team67.gui.MainWindow;
+import seng201.team67.gui.TestWindow;
 
 /**
  * Default entry point class
@@ -16,6 +17,8 @@ public class App {
      */
     public static void main(String[] args) {
 
-        MainWindow.launchWrapper(args);
+        //Using Louies GUI temporarily
+        //MainWindow.launchWrapper(args);
+        TestWindow.launchWrapper(args);
     }
 }

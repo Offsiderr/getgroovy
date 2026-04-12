@@ -8,19 +8,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Class starts the javaFX application window
- * @author seng201 teaching team
- */
-public class MainWindow extends Application {
+public class TestWindow extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/select_name.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getClassLoader().getResource("luetestgui/testmainmenu.fxml"));
         baseLoader.setClassLoader(getClass().getClassLoader());
         Parent root = baseLoader.load();
 
-        MainController baseController = baseLoader.getController();
-        baseController.init(primaryStage);
+        TestMainController baseController = baseLoader.getController();
+        //baseController.init(primaryStage);
 
         primaryStage.setTitle("Twisted Fantasy");
         Scene scene = new Scene(root, 1920, 1080);
@@ -31,6 +27,4 @@ public class MainWindow extends Application {
     public static void launchWrapper(String [] args) {
         launch(args);
     }
-
-
 }
