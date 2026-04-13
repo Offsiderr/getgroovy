@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TestWindow extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/luetestgui/testmainmenu.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/testmainmenu.fxml"));
         baseLoader.setClassLoader(getClass().getClassLoader());
         Parent root = baseLoader.load();
 

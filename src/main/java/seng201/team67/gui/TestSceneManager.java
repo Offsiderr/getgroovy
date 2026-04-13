@@ -17,7 +17,7 @@ public class TestSceneManager {
 
     public void switchToLabelNaming() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/luetestgui/testlabelenter.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/testlabelenter.fxml"));
             Parent root = loader.load();
             stage.setScene(new Scene(root, 1920, 1080));
         } catch (IOException e) {
