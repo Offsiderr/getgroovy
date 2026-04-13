@@ -21,7 +21,7 @@ public class App {
 
         //Using Louies GUI temporarily
         //MainWindow.launchWrapper(args)
-        launch(args)
+        launch(args);
     }
 
     public void start(Stage stage)

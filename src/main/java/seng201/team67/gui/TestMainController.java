@@ -1,22 +1,18 @@
 package seng201.team67.gui;
 
 import javafx.fxml.FXML;
-import seng201.team67.GameEnviroment;
+import javafx.stage.Stage;
 
 public class TestMainController {
 
-    private GameEnviroment gameEnviroment;
+    private TestSceneManager sceneManager;
 
-    @FXML
-    public void initController(GameEnviroment gameEnviroment)
-    {
-        this.gameEnviroment = gameEnviroment;
+    public void init(Stage stage) {
+        this.sceneManager = new TestSceneManager(stage);
     }
 
     @FXML
-    private void onStartGame()
-    {
-        System.out.println("Starting the game");
-        gameEnviroment.getSceneManager().switchToLabelNaming();
+    private void onStartGame() {
+        sceneManager.switchToLabelNaming();
     }
 }
