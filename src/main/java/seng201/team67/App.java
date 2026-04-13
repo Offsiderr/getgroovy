@@ -1,14 +1,16 @@
 package seng201.team67;
 
-import seng201.team67.gui.MainWindow;
+import javafx.stage.Stage;
+import seng201.team67.gui.TestSceneManager;
 import seng201.team67.gui.TestWindow;
+
+import static javafx.application.Application.launch;
 
 /**
  * Default entry point class
  * @author seng201 teaching team
  */
 public class App {
-
     /**
      * Entry point which runs the javaFX application
      * Due to how JavaFX works we must call MainWindow.launchWrapper() from here,
@@ -18,7 +20,13 @@ public class App {
     public static void main(String[] args) {
 
         //Using Louies GUI temporarily
-        //MainWindow.launchWrapper(args);
-        TestWindow.launchWrapper(args);
+        //MainWindow.launchWrapper(args)
+        launch(args)
+    }
+
+    public void start(Stage stage)
+    {
+        GameEnviroment gameEnviroment = new GameEnviroment();
+        TestSceneManager sceneManager = new TestSceneManager(stage, gameEnviroment);
     }
 }
