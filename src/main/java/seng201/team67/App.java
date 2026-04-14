@@ -1,8 +1,10 @@
 package seng201.team67;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seng201.team67.gui.TestSceneManager;
-import seng201.team67.gui.TestWindow;
 
 import static javafx.application.Application.launch;
 
@@ -10,23 +12,27 @@ import static javafx.application.Application.launch;
  * Default entry point class
  * @author seng201 teaching team
  */
-public class App {
-    /**
-     * Entry point which runs the javaFX application
-     * Due to how JavaFX works we must call MainWindow.launchWrapper() from here,
-     * trying to run MainWindow itself will cause an error
-     * @param args program arguments from command line
-     */
-    public static void main(String[] args) {
+public class App extends Application {
 
-        //Using Louies GUI temporarily
-        //MainWindow.launchWrapper(args)
+    public static void main(String[] args) {
         launch(args);
     }
 
-    public void start(Stage stage)
-    {
-        GameEnviroment gameEnviroment = new GameEnviroment();
-        TestSceneManager sceneManager = new TestSceneManager(stage, gameEnviroment);
+    //The app loads the start menu screen, and then all logic sourrounding the
+    //scenes is then passed over to the controllers, which are tied to each scene specifically
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/startmenu.fxml"));
+
+
+        primaryStage.setTitle("Twisted Fantasy");
+
+        primaryStage.setScene(new Scene(root));
+
+        primaryStage.show();
+
+
     }
 }

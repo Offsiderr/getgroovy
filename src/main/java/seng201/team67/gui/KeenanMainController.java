@@ -12,8 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.ImageView;
 
-public class MainController {
+public class KeenanMainController {
 
+    //Depreciated. Keenan's controller for name typing
     @FXML
     private Label defaultLabel;
 
