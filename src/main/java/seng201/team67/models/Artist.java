@@ -1,10 +1,21 @@
 package seng201.team67.models;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
+
+//Allows Jason to recognise the sub-class types.
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Popstar.class, name = "POP"),
+        @JsonSubTypes.Type(value = Rapper.class, name = "RAP"),
+        @JsonSubTypes.Type(value = Rockstar.class, name = "ROCK")
+})
 
 public class Artist implements Purchasable {
 
     private String name;
+    private String description;
 
     private int health;
     private int stamina;
@@ -12,9 +23,10 @@ public class Artist implements Purchasable {
     private double pay = 5;
     private double hiring_cost = 7;
 
-    public Artist(String name, int star_power, int stamina, int health)
+    public Artist(String name, int star_power, int stamina, int health, String description)
     {
         this.name = name;
+        this.description = description;
         this.health = health;
         this.stamina = stamina;
         this.star_power = star_power;
@@ -58,6 +70,8 @@ public class Artist implements Purchasable {
     {
         return pay;
     }
+
+    public String getDescription(){return description;}
 
     //Setters
 

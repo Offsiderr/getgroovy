@@ -41,6 +41,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
 
+    //Jackson (loads our json files)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+
+
 }
 
 application {

@@ -6,9 +6,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.*;
+import seng201.team67.GameEnviroment;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class SetupController {
@@ -18,6 +17,13 @@ public class SetupController {
     @FXML private Spinner<Integer> expeditionCountSpinner;
     @FXML private ToggleGroup difficultyGroup; //Difficulty toggles are grouped together in a toggle group in SceneBuilder
     @FXML private javafx.scene.control.Button startButton;
+
+    public final GameEnviroment gameEnviroment;
+
+    public SetupController(GameEnviroment gameEnviroment)
+    {
+        this.gameEnviroment = gameEnviroment;
+    }
 
     public void handleNext(ActionEvent event) throws IOException {
 
@@ -44,12 +50,6 @@ public class SetupController {
         );
     }
 
-    @FXML
-    public void startButton()
-    {
-
-    }
-
     private void validateForm() {
         startButton.setDisable(!isFormValid());
     }
@@ -64,5 +64,13 @@ public class SetupController {
         boolean difficultyValid = difficultyGroup.getSelectedToggle() != null;
 
         return nameValid && difficultyValid;
+    }
+
+    @FXML
+    public void onStartGame()
+    {
+        gameEnviroment.setLabelName(labelNameField.getText());
+        gameEnviroment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
+        gameEnviroment.setTotalTours(expeditionCountSpinner.getValue());
     }
 }

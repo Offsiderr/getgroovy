@@ -1,0 +1,32 @@
+[
+  {
+    "type": "POP",
+    "name": "Olivia Rodrigo",
+    "star_power": 4,
+    "description": "Gen Z pop phenomenon with emotionally charged songwriting"
+  },
+  {
+    "type": "RAP",
+    "name": "Kanye West",
+    "star_power": 5,
+    "description": "Visionary but unpredictable rap icon — enormous upside, enormous risk"
+  },
+  {
+    "type": "RAP",
+    "name": "Lil Uzi Vert",
+    "star_power": 3,
+    "description": "High-energy rap artist with a cult following"
+  },
+  {
+    "type": "POP",
+    "name": "Michael Jackson",
+    "star_power": 5,
+    "description": "The King of Pop — unmatched stage presence and global recognition"
+  },
+  {
+    "type": "ROCK",
+    "name": "Bon Jovi",
+    "star_power": 4,
+    "description": "Rock veteran built for marathon world tours"
+  }
+]

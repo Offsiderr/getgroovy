@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seng201.team67.gui.SetupController;
+import seng201.team67.GameEnviroment;
+import seng201.team67.gui.StartController;
 
 import static javafx.application.Application.launch;
 
@@ -21,18 +24,21 @@ public class App extends Application {
     //The app loads the start menu screen, and then all logic sourrounding the
     //scenes is then passed over to the controllers, which are tied to each scene specifically
 
+    //In our structure, the loader sets the controller, as this is how we pass the gameEnviroment through scenes.
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/startmenu.fxml"));
+        GameEnviroment gameEnvironment = new GameEnviroment();
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startmenu.fxml"));
+        loader.setController(new StartController(gameEnvironment));
 
         primaryStage.setTitle("Twisted Fantasy");
 
-        primaryStage.setScene(new Scene(root));
 
+        primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
-
 
     }
 }
