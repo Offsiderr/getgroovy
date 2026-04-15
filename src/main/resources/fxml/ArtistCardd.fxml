@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="name" prefHeight="60.0" prefWidth="600.0" text="Artist Name" textAlignment="CENTER" />
+      <Label fx:id="description" prefHeight="87.0" prefWidth="600.0" text="Description " />
+      <Label fx:id="artistCost" prefHeight="17.0" prefWidth="52.0" text="Cost" />
+      <Label fx:id="artistStamina" layoutX="10.0" layoutY="157.0" prefHeight="17.0" prefWidth="52.0" text="Stamina" />
+      <Label fx:id="star_power" layoutX="10.0" layoutY="174.0" prefHeight="17.0" prefWidth="70.0" text="Star Power" />
+      <ImageView fx:id="artistImage" fitHeight="132.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="type" layoutX="10.0" layoutY="161.0" prefHeight="17.0" prefWidth="70.0" text="Type" />
+   </children>
+</VBox>
