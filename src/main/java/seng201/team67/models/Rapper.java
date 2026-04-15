@@ -13,4 +13,10 @@ public class Rapper extends Artist{
         super(name, star_power, 120, 80, description);
 
     }
+
+    @Override
+    public String getType()
+    {
+        return "Rapper";
+    }
 }

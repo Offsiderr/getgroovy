@@ -73,6 +73,8 @@ public class Artist implements Purchasable {
 
     public String getDescription(){return description;}
 
+    public String getType(){return "Artist";}
+
     //Setters
 
     public void setHealth(int health)
@@ -84,4 +86,5 @@ public class Artist implements Purchasable {
     {
         this.stamina = stamina;
     }
+
 }

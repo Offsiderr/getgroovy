@@ -12,4 +12,10 @@ public class Rockstar extends Artist{
     {
         super(name, star_power, 80, 120, description);
     }
+
+    @Override
+    public String getType()
+    {
+        return "Rockstar";
+    }
 }
