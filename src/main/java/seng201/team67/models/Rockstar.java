@@ -2,8 +2,20 @@ package seng201.team67.models;
 
 public class Rockstar extends Artist{
 
-    public Rockstar(String name, int star_power)
+    //(Jackson needs this for Json deserialisation)
+    public Rockstar()
     {
-        super(name, star_power, 80, 120);
+        super("", 0, 0, 0, "");
+    }
+
+    public Rockstar(String name, int star_power, String description)
+    {
+        super(name, star_power, 80, 120, description);
+    }
+
+    @Override
+    public String getType()
+    {
+        return "Rockstar";
     }
 }
