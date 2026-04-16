@@ -1,4 +1,4 @@
-package seng201.team67.gui;
+package seng201.team67.gui.controllers.instantiable;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,7 +14,6 @@ public class ArtistCardController {
     @FXML private Label name;
     @FXML private Label description;
     @FXML private Label artistCost;
-    @FXML private Label artistStamina;
     @FXML private Label star_power;
     @FXML private Label type;
 
@@ -24,7 +23,6 @@ public class ArtistCardController {
         this.name.setText(artist.getName());
         this.description.setText(artist.getDescription());
         this.artistCost.setText(String.valueOf(artist.getCost()));
-        this.artistStamina.setText(String.valueOf(artist.getStamina()));
         this.star_power.setText(String.valueOf(artist.getStar_power()));
         this.type.setText(artist.getType());
 
