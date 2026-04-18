@@ -21,14 +21,28 @@ public class GachaController {
     private static final int minimumClicks = 7;
     private static final int maximumClicks = 10;
 
-    @FXML
+    private Runnable onGatchaComplete;
 
+    @FXML
     public void initialize() {
         for (int i = 1; i <= 4; i++) {
             recordStages.add(new Image(getClass().getResourceAsStream("/images/Gatcha/Stage" + i + ".png")));
         }
         recordImage.setOnMouseClicked(e -> onRecordClicked());
         resetRecord();
+    }
+
+    public void setOnGachaComplete(Runnable onGachaComplete)
+    {
+        this.onGatchaComplete = onGachaComplete;
+    }
+
+    private void finishGacha()
+    {
+        if (onGatchaComplete != null)
+        {
+            onGatchaComplete.run();
+        }
     }
 
     //used for testing. won't reset obivously in the game
@@ -48,6 +62,7 @@ public class GachaController {
 
         if (clicksSoFar >= clicksRequired) {
             System.out.println("gatcha opened");
+            finishGacha();
             //resetRecord();
         }
     }
