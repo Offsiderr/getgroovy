@@ -1,498 +1,368 @@
 [
   {
     "type": "RAP",
-    "rarity": "COMMON",
     "name": "Lil Pump",
-    "stamina": 40,
     "star_power": 1,
     "description": "Hype rapper known for high energy performances"
   },
   {
     "type": "RAP",
-    "rarity": "COMMON",
     "name": "Fetty Wap",
-    "stamina": 40,
     "star_power": 1,
     "description": "Melodic trap rapper with infectious hooks"
   },
   {
     "type": "RAP",
-    "rarity": "COMMON",
     "name": "Yeat",
-    "stamina": 40,
     "star_power": 1,
     "description": "Internet rap sensation with a unique slurred style"
   },
   {
     "type": "RAP",
-    "rarity": "COMMON",
     "name": "6ix9ine",
-    "stamina": 40,
     "star_power": 1,
     "description": "Controversial rapper with a massive online presence"
   },
   {
     "type": "RAP",
-    "rarity": "COMMON",
     "name": "BlueFace",
-    "stamina": 40,
     "star_power": 1,
     "description": "Off-beat rapper with a cult following"
   },
   {
     "type": "POP",
-    "rarity": "COMMON",
     "name": "Dua Lipa",
-    "stamina": 47,
     "star_power": 1,
     "description": "Pop powerhouse with disco-influenced hits"
   },
   {
     "type": "POP",
-    "rarity": "COMMON",
     "name": "Shawn Mendes",
-    "stamina": 47,
     "star_power": 1,
     "description": "Singer-songwriter with a loyal fanbase"
   },
   {
     "type": "POP",
-    "rarity": "COMMON",
     "name": "Ariana Grande",
-    "stamina": 50,
     "star_power": 1,
     "description": "Powerhouse vocalist with a massive global following"
   },
   {
     "type": "POP",
-    "rarity": "COMMON",
     "name": "Charlie Puth",
-    "stamina": 46,
     "star_power": 1,
     "description": "Pop musician with perfect pitch and catchy melodies"
   },
   {
     "type": "ROCK",
-    "rarity": "COMMON",
     "name": "Machine Gun Kelly",
-    "stamina": 55,
     "star_power": 1,
     "description": "Pop punk crossover artist with high energy shows"
   },
   {
     "type": "ROCK",
-    "rarity": "COMMON",
     "name": "YUNGBLUD",
-    "stamina": 53,
     "star_power": 1,
     "description": "Punk-pop rebel with a passionate fanbase"
   },
   {
     "type": "ROCK",
-    "rarity": "COMMON",
     "name": "Dave Grohl",
-    "stamina": 57,
     "star_power": 1,
     "description": "Rock legend known for relentless live performances"
   },
   {
     "type": "ROCK",
-    "rarity": "COMMON",
     "name": "Hayley Williams",
-    "stamina": 51,
     "star_power": 1,
     "description": "Paramore frontwoman with incredible stage energy"
   },
   {
     "type": "ROCK",
-    "rarity": "COMMON",
     "name": "Alex Turner",
-    "stamina": 49,
     "star_power": 1,
     "description": "Arctic Monkeys frontman with effortless cool"
   },
   {
     "type": "RAP",
-    "rarity": "RARE",
     "name": "A Boogie wit da Hoodie",
-    "stamina": 55,
     "star_power": 2,
     "description": "Melodic rapper with smooth delivery and street credibility"
   },
   {
     "type": "RAP",
-    "rarity": "RARE",
     "name": "Lil Durk",
-    "stamina": 55,
     "star_power": 2,
     "description": "Chicago drill pioneer with emotional depth"
   },
   {
     "type": "RAP",
-    "rarity": "RARE",
     "name": "Polo G",
-    "stamina": 55,
     "star_power": 2,
     "description": "Thoughtful rapper blending street stories with melody"
   },
   {
     "type": "RAP",
-    "rarity": "RARE",
     "name": "Rod Wave",
-    "stamina": 55,
     "star_power": 2,
     "description": "Emotional rap singer with a devoted following"
   },
   {
     "type": "RAP",
-    "rarity": "RARE",
     "name": "Ty Dolla $ign",
-    "stamina": 55,
     "star_power": 2,
     "description": "Versatile R&B rapper who elevates every collaboration"
   },
   {
     "type": "POP",
-    "rarity": "RARE",
     "name": "Taylor Swift",
-    "stamina": 60,
     "star_power": 2,
     "description": "Global pop icon with an unmatched touring fanbase"
   },
   {
     "type": "POP",
-    "rarity": "RARE",
     "name": "The Weeknd",
-    "stamina": 60,
     "star_power": 2,
     "description": "Dark pop superstar with cinematic stage productions"
   },
   {
     "type": "POP",
-    "rarity": "RARE",
     "name": "Sabrina Carpenter",
-    "stamina": 58,
     "star_power": 2,
     "description": "Rising pop star with sharp wit and catchy anthems"
   },
   {
     "type": "POP",
-    "rarity": "RARE",
     "name": "Olivia Rodrigo",
-    "stamina": 58,
     "star_power": 2,
     "description": "Gen Z pop phenomenon with emotionally charged songwriting"
   },
   {
     "type": "POP",
-    "rarity": "RARE",
     "name": "Harry Styles",
-    "stamina": 60,
     "star_power": 2,
     "description": "Former boy band member turned solo pop rock sensation"
   },
   {
     "type": "ROCK",
-    "rarity": "RARE",
     "name": "Arctic Monkeys",
-    "stamina": 62,
     "star_power": 2,
     "description": "Indie rock legends with a massive cult following"
   },
   {
     "type": "ROCK",
-    "rarity": "RARE",
     "name": "Paramore",
-    "stamina": 62,
     "star_power": 2,
     "description": "Pop punk icons with explosive live performances"
   },
   {
     "type": "ROCK",
-    "rarity": "RARE",
     "name": "Foo Fighters",
-    "stamina": 65,
     "star_power": 2,
     "description": "Rock giants known for legendary festival headline sets"
   },
   {
     "type": "ROCK",
-    "rarity": "RARE",
     "name": "Muse",
-    "stamina": 63,
     "star_power": 2,
     "description": "Progressive rock band with theatrical stadium shows"
   },
   {
     "type": "ROCK",
-    "rarity": "RARE",
     "name": "Queens of the Stone Age",
-    "stamina": 62,
     "star_power": 2,
     "description": "Heavy rock veterans with a cult following"
   },
   {
     "type": "RAP",
-    "rarity": "EPIC",
     "name": "Playboi Carti",
-    "stamina": 65,
     "star_power": 3,
     "description": "Cult rap phenomenon with hypnotic performances"
   },
   {
     "type": "RAP",
-    "rarity": "EPIC",
     "name": "A$AP Rocky",
-    "stamina": 65,
     "star_power": 3,
     "description": "Fashion forward rapper with slick stage presence"
   },
   {
     "type": "RAP",
-    "rarity": "EPIC",
     "name": "Don Toliver",
-    "stamina": 63,
     "star_power": 3,
     "description": "Melodic rap singer with a psychedelic live show"
   },
   {
     "type": "RAP",
-    "rarity": "EPIC",
     "name": "Trippie Redd",
-    "stamina": 63,
     "star_power": 3,
     "description": "Emo rap pioneer with a fiercely loyal fanbase"
   },
   {
     "type": "RAP",
-    "rarity": "EPIC",
     "name": "Future",
-    "stamina": 65,
     "star_power": 3,
     "description": "Trap music legend with an endless catalogue of hits"
   },
   {
     "type": "POP",
-    "rarity": "EPIC",
     "name": "Billie Eilish",
-    "stamina": 65,
     "star_power": 3,
     "description": "Genre defying pop star with a unique dark aesthetic"
   },
   {
     "type": "POP",
-    "rarity": "EPIC",
     "name": "Doja Cat",
-    "stamina": 65,
     "star_power": 3,
     "description": "Versatile pop rapper with viral hits and wild performances"
   },
   {
     "type": "POP",
-    "rarity": "EPIC",
     "name": "Post Malone",
-    "stamina": 67,
     "star_power": 3,
     "description": "Genre blending superstar comfortable in any setting"
   },
   {
     "type": "POP",
-    "rarity": "EPIC",
     "name": "SZA",
-    "stamina": 65,
     "star_power": 3,
     "description": "R&B superstar with deeply emotional performances"
   },
   {
     "type": "POP",
-    "rarity": "EPIC",
     "name": "Bruno Mars",
-    "stamina": 68,
     "star_power": 3,
     "description": "Showman extraordinaire with flawless live performances"
   },
   {
     "type": "ROCK",
-    "rarity": "EPIC",
     "name": "Linkin Park",
-    "stamina": 68,
     "star_power": 3,
     "description": "Nu metal legends with massive crossover appeal"
   },
   {
     "type": "ROCK",
-    "rarity": "EPIC",
     "name": "Green Day",
-    "stamina": 67,
     "star_power": 3,
     "description": "Punk rock icons with decades of anthem-worthy hits"
   },
   {
     "type": "ROCK",
-    "rarity": "EPIC",
     "name": "My Chemical Romance",
-    "stamina": 66,
     "star_power": 3,
     "description": "Emo rock legends with a fiercely devoted fanbase"
   },
   {
     "type": "ROCK",
-    "rarity": "EPIC",
     "name": "Nirvana",
-    "stamina": 70,
     "star_power": 3,
     "description": "Grunge pioneers who changed rock music forever"
   },
   {
     "type": "ROCK",
-    "rarity": "EPIC",
     "name": "The Strokes",
-    "stamina": 65,
     "star_power": 3,
     "description": "Indie rock icons who defined early 2000s cool"
   },
   {
     "type": "RAP",
-    "rarity": "LEGENDARY",
     "name": "Lil Uzi Vert",
-    "stamina": 75,
     "star_power": 4,
     "description": "High energy rap artist with a cult following"
   },
   {
     "type": "RAP",
-    "rarity": "LEGENDARY",
     "name": "Drake",
-    "stamina": 75,
     "star_power": 4,
     "description": "The most streamed rapper alive with global dominance"
   },
   {
     "type": "RAP",
-    "rarity": "LEGENDARY",
     "name": "Kendrick Lamar",
-    "stamina": 78,
     "star_power": 4,
     "description": "Pulitzer Prize winning rapper with powerful live shows"
   },
   {
     "type": "RAP",
-    "rarity": "LEGENDARY",
     "name": "MF DOOM",
-    "stamina": 72,
     "star_power": 4,
     "description": "Masked villain of hip hop with a legendary mystique"
   },
   {
     "type": "RAP",
-    "rarity": "LEGENDARY",
     "name": "Travis Scott",
-    "stamina": 78,
     "star_power": 4,
     "description": "Astroworld creator with the most immersive concerts alive"
   },
   {
     "type": "POP",
-    "rarity": "LEGENDARY",
     "name": "Elvis Presley",
-    "stamina": 80,
     "star_power": 4,
     "description": "The King of Rock and Roll — a true icon"
   },
   {
     "type": "POP",
-    "rarity": "LEGENDARY",
     "name": "Beyonce",
-    "stamina": 82,
     "star_power": 4,
     "description": "Queen Bey — the most complete performer of her generation"
   },
   {
     "type": "POP",
-    "rarity": "LEGENDARY",
     "name": "Rihanna",
-    "stamina": 78,
     "star_power": 4,
     "description": "Global pop icon with an unstoppable catalogue"
   },
   {
     "type": "POP",
-    "rarity": "LEGENDARY",
     "name": "Justin Bieber",
-    "stamina": 76,
     "star_power": 4,
     "description": "Pop phenomenon with a fanbase that spans generations"
   },
   {
     "type": "POP",
-    "rarity": "LEGENDARY",
     "name": "Adele",
-    "stamina": 76,
     "star_power": 4,
     "description": "Voice of a generation with emotionally devastating live shows"
   },
   {
     "type": "ROCK",
-    "rarity": "LEGENDARY",
     "name": "Queen",
-    "stamina": 85,
     "star_power": 4,
     "description": "One of the greatest live bands in rock history"
   },
   {
     "type": "ROCK",
-    "rarity": "LEGENDARY",
     "name": "The Beatles",
-    "stamina": 85,
     "star_power": 4,
     "description": "The most influential band of all time"
   },
   {
     "type": "ROCK",
-    "rarity": "LEGENDARY",
     "name": "Led Zeppelin",
-    "stamina": 85,
     "star_power": 4,
     "description": "Hard rock gods with legendary live performances"
   },
   {
     "type": "ROCK",
-    "rarity": "LEGENDARY",
     "name": "Metallica",
-    "stamina": 87,
     "star_power": 4,
     "description": "Heavy metal titans with unmatched touring endurance"
   },
   {
     "type": "ROCK",
-    "rarity": "LEGENDARY",
     "name": "Pink Floyd",
-    "stamina": 85,
     "star_power": 4,
     "description": "Psychedelic rock legends with iconic visual shows"
   },
   {
     "type": "RAP",
-    "rarity": "GOAT",
     "name": "Kanye West",
-    "stamina": 99,
     "star_power": 5,
     "description": "The greatest of all time"
   },
   {
     "type": "POP",
-    "rarity": "GOAT",
     "name": "Michael Jackson",
-    "stamina": 95,
     "star_power": 5,
     "description": "The King of Pop"
-  },
-  {
-    "type": "ROCK",
-    "rarity": "GOAT",
-    "name": "Pink Floyd",
-    "stamina": 95,
-    "star_power": 5,
-    "description": "The ultimate psychedelic rock band"
   }
 ]
