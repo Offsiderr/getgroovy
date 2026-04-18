@@ -1,6 +1,7 @@
 package seng201.team67.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Label {
 
@@ -15,11 +16,12 @@ public class Label {
     private ArrayList<Artist> all_artists = new ArrayList<Artist>();
 
     //This is a list of artists from the player's line up.
-    private ArrayList<Artist> line_up = new ArrayList<Artist>();
+    private List<Artist> line_up = new ArrayList<Artist>();
 
-    public Label(String name, ArrayList<Artist> selected_artists)
+    public Label(String name, List<Artist> selected_artists)
     {
         all_artists.addAll(selected_artists);
+        line_up.addAll(selected_artists);
         this.name = name;
     }
 
@@ -29,7 +31,7 @@ public class Label {
         return all_artists;
     }
 
-    public ArrayList<Artist> getLine_Up()
+    public List<Artist> getLine_Up()
     {
         return line_up;
     }
@@ -37,6 +39,11 @@ public class Label {
     public int getArtists_limit()
     {
         return artists_limit;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     //Setters
@@ -52,4 +59,12 @@ public class Label {
             return false;
         }
     }
+
+    public void setLine_up(List<Artist> line_up)
+    {
+        line_up.clear();
+        line_up.addAll(line_up);
+    }
+
+
 }

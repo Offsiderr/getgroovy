@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="goOnTour" layoutX="145.0" layoutY="80.0" mnemonicParsing="false" onAction="#startLocalTour" prefHeight="413.0" prefWidth="319.0" text="Local Tour" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Button>
+      <Button fx:id="goOnTour1" layoutX="474.0" layoutY="80.0" mnemonicParsing="false" onAction="#startCountryTour" prefHeight="413.0" prefWidth="319.0" text="Country Tour" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Button>
+      <Button fx:id="goOnTour11" layoutX="803.0" layoutY="80.0" mnemonicParsing="false" onAction="#startWorldTour" prefHeight="413.0" prefWidth="319.0" text="World Tour" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelTour" layoutX="1102.0" layoutY="16.0" mnemonicParsing="false" onAction="#cancelTour" prefHeight="28.0" prefWidth="164.0" text="Cancel" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Label fx:id="labelName" layoutX="524.0" layoutY="14.0" text="Select a Tour:">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="139.0" layoutY="510.0" prefHeight="133.0" prefWidth="977.0">
+         <items>
+            <AnchorPane fx:id="artistOne" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+            <AnchorPane fx:id="artistTwo" minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="316.0" />
+            <AnchorPane fx:id="artistThree" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="128.0" prefWidth="301.0" />
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

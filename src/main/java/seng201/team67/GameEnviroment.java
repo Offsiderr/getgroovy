@@ -4,6 +4,7 @@ import seng201.team67.models.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;
 import seng201.team67.services.ArtistLoaderService;
+import seng201.team67.services.LabelService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,13 +18,15 @@ public class GameEnviroment {
 
     //Game variables
     private Label label;
-    //Temp label name. This is because the artist selection is on another scene.
     private String tempName;
 
-    private int money;
+    private double money;
     private int currentTour;
-    private int totalTours;
+    private int totalTours; //Selected amount of tours
+    private int tourCount = 1; //tours so far
     private Difficulty difficulty;
+
+    private LabelService labelService;
 
     //Artist Variables
     private ArrayList<Artist> artistPool;
@@ -40,6 +43,8 @@ public class GameEnviroment {
         for (Artist artist : this.getArtistPool()) {
             System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStar_power());
         }
+
+
     }
 
 
@@ -48,7 +53,6 @@ public class GameEnviroment {
     public void setLabelName(String name)
     {
         tempName = name;
-        System.out.println(tempName);
     }
 
     public void setDifficulty(int difType)
@@ -82,7 +86,45 @@ public class GameEnviroment {
         System.out.println(totalTours);
     }
 
+    public void setArtistPool(List<Artist> artistList)
+    {
+        artistPool.clear();
+        artistPool.addAll(artistList);
+    }
+
+    public void createLabel(List<Artist> selectedArtists)
+    {
+        labelService = new LabelService();
+        labelService.setLabel(new Label(tempName, selectedArtists));
+    }
+
     //getters
 
     public ArrayList<Artist> getArtistPool(){return artistPool;}
+
+
+    public Difficulty getDifficulty()
+    {
+        return difficulty;
+    }
+
+    public double getMoney()
+    {
+        return money;
+    }
+
+    public LabelService getLabelService()
+    {
+        return labelService;
+    }
+
+    public int getTourCount()
+    {
+        return tourCount;
+    }
+
+    public int getTotalTours()
+    {
+        return totalTours;
+    }
 }

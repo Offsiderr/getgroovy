@@ -20,8 +20,8 @@ public class Artist implements Purchasable {
     private int health;
     private int stamina;
     private int star_power; // 1 - Common, 2 - Rare 3 - Epic 4 - Legendary - 5 GOAT
-    private double pay = 5;
-    private double hiring_cost = 7;
+    private static final double basePay         = 5;
+    private static final double baseHiringCost = 7;
 
     public Artist(String name, int star_power, int stamina, int health, String description)
     {
@@ -31,19 +31,18 @@ public class Artist implements Purchasable {
         this.stamina = stamina;
         this.star_power = star_power;
 
-        //Now we calculate the costs... These are relative to the star power (rarity)
-        //of the artist, so we times the pay and hiring cost by the star_power to get our values..
-
-        pay = pay * star_power;
-        hiring_cost = hiring_cost * star_power;
     }
 
     //Getters
 
-    @Override
+    public double getPay()
+    {
+        return basePay * star_power;
+    }
+
     public double getCost()
     {
-        return hiring_cost;
+        return baseHiringCost * star_power;
     }
 
     public String getName()
@@ -64,11 +63,6 @@ public class Artist implements Purchasable {
     public int getStar_power()
     {
         return star_power;
-    }
-
-    public double getPay()
-    {
-        return pay;
     }
 
     public String getDescription(){return description;}
