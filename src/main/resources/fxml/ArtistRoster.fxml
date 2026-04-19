@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
@@ -28,14 +28,15 @@
          <font><Font size="37.0" /></font>
       </Label>
 
-      <ScrollPane layoutX="152.0" layoutY="405.0" prefHeight="240.0" prefWidth="977.0" fitToWidth="true">
+      <ScrollPane fitToWidth="true" layoutX="152.0" layoutY="405.0" prefHeight="240.0" prefWidth="977.0">
          <content>
-            <FlowPane fx:id="allArtistsContainer" hgap="8" vgap="8" style="-fx-padding: 8;" />
+            <FlowPane fx:id="allArtistsContainer" hgap="8" style="-fx-padding: 8;" vgap="8" />
          </content>
       </ScrollPane>
 
-      <Button layoutX="1052.0" layoutY="660.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="40.0" prefWidth="214.0" text="Return">
-         <font><Font size="29.0" /></font>
+      <Button layoutX="980.0" layoutY="662.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="46.0" prefWidth="286.0" text="Return &amp; Save Lineup">
+         <font><Font size="22.0" /></font>
       </Button>
+      <Label fx:id="lineupWarning" layoutX="153.0" layoutY="338.0" text="You Must Have Three Artists In Your Line-Up!" textFill="#da0707" />
    </children>
 </AnchorPane>

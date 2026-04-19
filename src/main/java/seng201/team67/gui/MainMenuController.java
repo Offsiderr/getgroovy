@@ -51,7 +51,7 @@ public class MainMenuController {
     {
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         gameDifficulty.setText(gameEnviroment.getDifficulty().name());
-        moneyText.setText(Double.toString(gameEnviroment.getMoney()));
+        moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
         gameTours.setText(gameEnviroment.getTourCount() + "/" + gameEnviroment.getTotalTours() + " Tours");
 
         lineup = gameEnviroment.getLabelService().label.getLine_Up();
@@ -103,9 +103,16 @@ public class MainMenuController {
 
     }
 
-    @FXML public void startStudio()
+    @FXML public void startStudio(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TheStudio.fxml"));
+        loader.setController(new TheStudioController(gameEnviroment));
 
+        Parent root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

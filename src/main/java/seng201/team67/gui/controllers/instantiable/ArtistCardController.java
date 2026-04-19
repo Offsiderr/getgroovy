@@ -30,6 +30,7 @@ public class ArtistCardController {
         CardRoot.setStyle("-fx-cursor: hand;");
     }
 
+
     public boolean isSelected()
     {
         return selected;

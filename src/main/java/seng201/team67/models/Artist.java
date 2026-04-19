@@ -22,6 +22,7 @@ public class Artist implements Purchasable {
     private int star_power; // 1 - Common, 2 - Rare 3 - Epic 4 - Legendary - 5 GOAT
     private static final double basePay         = 5;
     private static final double baseHiringCost = 7;
+    public boolean owned = false;
 
     public Artist(String name, int star_power, int stamina, int health, String description)
     {

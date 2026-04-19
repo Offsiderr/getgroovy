@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,7 @@ public class RosterController {
     @FXML private AnchorPane artistTwo;
     @FXML private AnchorPane artistThree;
     @FXML private FlowPane allArtistsContainer;
+    @FXML private Label lineupWarning;
 
     private final ArtistCardController[] lineupCards = new ArtistCardController[3];
     private final List<ArtistCardController> poolCards = new ArrayList<>();
@@ -38,6 +40,7 @@ public class RosterController {
     public void initialize() {
         populateLineup();
         populateAllArtists();
+        lineupWarning.setVisible(false);
     }
 
     private void populateLineup() {
@@ -87,7 +90,7 @@ public class RosterController {
     }
 
     private void removeFromLineup(ArtistCardController card, int slotIndex) {
-        if (lineupCount() <= 1) return;
+
 
         List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
         slots.get(slotIndex).getChildren().clear();
@@ -139,6 +142,13 @@ public class RosterController {
 
     @FXML
     private void returnToMainMenu(ActionEvent event) throws IOException {
+        if(lineupCount() != 3)
+        {
+            lineupWarning.setVisible(true);
+            return;
+        }
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         loader.setController(new MainMenuController(gameEnviroment));
         Parent root = loader.load();

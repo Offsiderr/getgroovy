@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng201.team67.gui.SetupController;
 import seng201.team67.GameEnviroment;
@@ -35,7 +36,7 @@ public class App extends Application {
         loader.setController(new StartController(gameEnvironment));
 
         primaryStage.setTitle("Twisted Fantasy");
-
+        primaryStage.getIcons().add(new Image("/images/Market/golden_record.png"));
 
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();

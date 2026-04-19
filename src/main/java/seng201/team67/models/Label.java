@@ -9,6 +9,8 @@ public class Label {
     private String name;
     private int artists_limit = 12;
     private int line_up_limit = 5;
+    private double money = 1000;
+
 
     private ArrayList<Item> items = new ArrayList<Item>();
 
@@ -46,6 +48,8 @@ public class Label {
         return name;
     }
 
+    public double getMoney(){return money;}
+
     //Setters
     public boolean addArtistToAll(Artist artist)
     {
@@ -62,8 +66,8 @@ public class Label {
 
     public void setLine_up(List<Artist> line_up)
     {
-        line_up.clear();
-        line_up.addAll(line_up);
+        this.line_up.clear();
+        this.line_up.addAll(line_up);
     }
 
 

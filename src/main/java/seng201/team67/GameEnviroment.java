@@ -28,7 +28,7 @@ public class GameEnviroment {
 
     private LabelService labelService;
 
-    //Artist Variables
+    //All artists loaded into the game. Not artists in the label.
     private ArrayList<Artist> artistPool;
 
 
@@ -106,11 +106,6 @@ public class GameEnviroment {
     public Difficulty getDifficulty()
     {
         return difficulty;
-    }
-
-    public double getMoney()
-    {
-        return money;
     }
 
     public LabelService getLabelService()

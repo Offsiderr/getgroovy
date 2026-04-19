@@ -84,7 +84,7 @@ public class SetupController {
         gameEnviroment.setTotalTours(expeditionCountSpinner.getValue());
 
         //Now let's load the artist selection scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artistSelection.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartingArtistSelection.fxml"));
         loader.setController(new ArtistSelectionController(gameEnviroment));
 
         Parent root = loader.load();
