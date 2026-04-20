@@ -9,8 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
+import seng201.team67.models.Artist;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static seng201.team67.models.enums.Rarity.*;
 
 public class TheStudioController {
 
@@ -28,6 +32,8 @@ public class TheStudioController {
     {
         this.labelName.setText(gameEnviroment.getLabelService().getLabelName());
         this.moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+
+
     }
 
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
@@ -44,7 +50,7 @@ public class TheStudioController {
         if(gameEnviroment.getLabelService().buyItem(100))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -57,7 +63,7 @@ public class TheStudioController {
         if(gameEnviroment.getLabelService().buyItem(500))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, VERY_RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -70,11 +76,17 @@ public class TheStudioController {
         if(gameEnviroment.getLabelService().buyItem(1000))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, ULTRA));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         }
     }
+
+    private ArrayList<Artist> getArtistPool()
+    {
+        return gameEnviroment.resetArtistPurchasePool();
+    }
+
 }

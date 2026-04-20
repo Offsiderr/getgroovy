@@ -7,6 +7,9 @@ import java.util.List;
 
 public class LabelService {
 
+    //This class needs a considerable amount of work along with the actual Label class to bring it inline with our
+    //standards
+
     public Label label;
 
     public void setLabel(Label label){this.label = label;}
@@ -22,6 +25,9 @@ public class LabelService {
         {
             return false;
         }
+        label.money = label.money - cost;
+
+        artist.owned = true;
 
         label.addArtistToAll(artist);
         return true;
@@ -37,6 +43,7 @@ public class LabelService {
         {
             return false;
         }
+        label.money = label.money - artist.getCost();
 
         artist.owned = true;
         label.addArtistToAll(artist);
@@ -51,6 +58,7 @@ public class LabelService {
         }
         else
         {
+            label.money = label.money - cost;
             return true;
         }
     }

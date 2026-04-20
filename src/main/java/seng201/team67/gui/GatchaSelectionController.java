@@ -15,6 +15,7 @@ import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.gui.controllers.instantiable.GachaController;
 import seng201.team67.models.Artist;
+import seng201.team67.models.enums.Rarity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class GatchaSelectionController extends ArtistSelectionController {
 
     private int hboxSize;
 
+    private Rarity rarity;
+
     //this needs to be implemented in the super class later... hard coded for now.
     private int selectionSize;
 
@@ -46,11 +49,12 @@ public class GatchaSelectionController extends ArtistSelectionController {
 
     private final List<ArtistCardController> artistCards = new ArrayList<>();
 
-    public GatchaSelectionController(GameEnviroment gameEnviroment, Boolean artists, int hboxSize) {
+    public GatchaSelectionController(GameEnviroment gameEnviroment, Boolean artists, int hboxSize, Rarity rarity) {
         super(gameEnviroment);
         this.gameEnviroment = gameEnviroment;
         this.artists = artists;
         this.hboxSize = hboxSize;
+        this.rarity = rarity;
     }
 
     @FXML
@@ -76,11 +80,11 @@ public class GatchaSelectionController extends ArtistSelectionController {
         List<HBox> slots = List.of(itemOne, itemTwo, itemThree);
 
         List<Artist> picked = new ArrayList<>();
-
         for (int i = 0; i < slots.size(); i++)
         {
+            int selected_starpower = rarity.get_starpower();
             int z = i;
-            while (pool.get(z).owned)
+            while (pool.get(z).owned && pool.get(z).getStar_power() != selected_starpower)
             {
                 z += 1;
             }

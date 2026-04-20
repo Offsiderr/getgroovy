@@ -3,12 +3,11 @@ package seng201.team67;
 import seng201.team67.models.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;
+import seng201.team67.models.enums.Rarity;
 import seng201.team67.services.ArtistLoaderService;
 import seng201.team67.services.LabelService;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GameEnviroment {
 
@@ -30,6 +29,9 @@ public class GameEnviroment {
 
     //All artists loaded into the game. Not artists in the label.
     private ArrayList<Artist> artistPool;
+
+    //the studio and the market use these arrays
+    private ArrayList<Artist> artistPurchasePool;
 
 
     public GameEnviroment()
@@ -98,6 +100,29 @@ public class GameEnviroment {
         labelService.setLabel(new Label(tempName, selectedArtists));
     }
 
+    public ArrayList<Artist> resetArtistPurchasePool()
+    {
+        //Clear and regenerate the purchase pool. For each artist pick it selects a random rarity
+
+        artistPurchasePool.clear();
+
+        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
+
+        ArrayList<Artist> picked = new ArrayList<>();
+        for (int i = 0; i < rarities.size(); i++)
+        {
+            int selected_starpower = rarities.get(new Random().nextInt(3)).get_starpower();
+            int z = i;
+            while (artistPool.get(z).owned && artistPool.get(z).getStar_power() != selected_starpower)
+            {
+                z += 1;
+            }
+            picked.add(artistPool.get(z));
+        }
+        artistPurchasePool.addAll(picked);
+        return artistPurchasePool;
+    }
+
     //getters
 
     public ArrayList<Artist> getArtistPool(){return artistPool;}
@@ -122,4 +147,8 @@ public class GameEnviroment {
     {
         return totalTours;
     }
+
+    public ArrayList<Artist> getArtistPurchasePool(){return artistPool;}
+
+
 }

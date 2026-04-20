@@ -6,10 +6,10 @@ import java.util.List;
 public class Label {
 
     //(Guilds) Since our project is music themed, guilds are called music labels
-    private String name;
-    private int artists_limit = 12;
-    private int line_up_limit = 5;
-    private double money = 1000;
+    public String name;
+    public int artists_limit = 12;
+    public int line_up_limit = 5;
+    public double money = 1000;
 
 
     private ArrayList<Item> items = new ArrayList<Item>();
