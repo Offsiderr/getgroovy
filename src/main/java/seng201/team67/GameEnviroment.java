@@ -31,7 +31,7 @@ public class GameEnviroment {
     private ArrayList<Artist> artistPool;
 
     //the studio and the market use these arrays
-    private ArrayList<Artist> artistPurchasePool;
+    private ArrayList<Artist> artistPurchasePool = new ArrayList<>();;
 
 
     public GameEnviroment()
@@ -102,24 +102,28 @@ public class GameEnviroment {
 
     public ArrayList<Artist> resetArtistPurchasePool()
     {
-        //Clear and regenerate the purchase pool. For each artist pick it selects a random rarity
-
         artistPurchasePool.clear();
 
         ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
+        Collections.shuffle(rarities);
 
-        ArrayList<Artist> picked = new ArrayList<>();
-        for (int i = 0; i < rarities.size(); i++)
+        for (Rarity rarity : rarities)
         {
-            int selected_starpower = rarities.get(new Random().nextInt(3)).get_starpower();
-            int z = i;
-            while (artistPool.get(z).owned && artistPool.get(z).getStar_power() != selected_starpower)
+            ArrayList<Artist> candidates = new ArrayList<>();
+            for (Artist artist : artistPool)
             {
-                z += 1;
+                if (!artist.owned && artist.getStar_power() == rarity.get_starpower())
+                {
+                    candidates.add(artist);
+                }
             }
-            picked.add(artistPool.get(z));
+
+            if (!candidates.isEmpty())
+            {
+                artistPurchasePool.add(candidates.get(new Random().nextInt(candidates.size())));
+            }
         }
-        artistPurchasePool.addAll(picked);
+
         return artistPurchasePool;
     }
 
