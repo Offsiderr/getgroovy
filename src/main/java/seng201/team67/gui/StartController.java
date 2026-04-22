@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class StartController {
 
-    private SoundEffectsService soundEffectsService;
+    private SoundEffectsService soundEffectsService = new SoundEffectsService();
 
     private Stage stage;
     private Scene scene;

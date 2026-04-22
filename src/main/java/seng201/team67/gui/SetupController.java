@@ -25,7 +25,7 @@ public class SetupController {
     @FXML private javafx.scene.control.Button startButton;
 
     public final GameEnviroment gameEnviroment;
-    private SoundEffectsService soundEffectsService;
+    private SoundEffectsService soundEffectsService  = new SoundEffectsService();
 
     private Stage stage;
     private Scene scene;

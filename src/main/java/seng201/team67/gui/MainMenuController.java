@@ -23,7 +23,7 @@ import java.util.List;
 public class MainMenuController {
 
     private GameEnviroment gameEnviroment;
-    private SoundEffectsService soundEffectsService;
+    private SoundEffectsService soundEffectsService = new SoundEffectsService();
 
     private List<Artist> lineup;
 
