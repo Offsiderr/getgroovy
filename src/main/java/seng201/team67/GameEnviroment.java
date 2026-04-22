@@ -4,8 +4,10 @@ import seng201.team67.models.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.ArtistLoaderService;
 import seng201.team67.services.LabelService;
+import seng201.team67.services.QuestionLoaderService;
 
 import java.util.*;
 
@@ -29,9 +31,14 @@ public class GameEnviroment {
 
     //All artists loaded into the game. Not artists in the label.
     private ArrayList<Artist> artistPool;
-
     //the studio and the market use these arrays
     private ArrayList<Artist> artistPurchasePool = new ArrayList<>();;
+
+    //question pools
+    private ArrayList<Question> commonQuestionPool;
+    private ArrayList<Question> localQuestionPool;
+    private ArrayList<Question> countryQuestionPool;
+    private ArrayList<Question> worldQuestionPool;
 
 
     public GameEnviroment()
@@ -46,7 +53,16 @@ public class GameEnviroment {
             System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStar_power());
         }
 
+        this.commonQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
+        this.localQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
+        this.countryQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
+        this.worldQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
 
+
+        for (Question question : commonQuestionPool)
+        {
+            System.out.println(question.getPrompt() +  " " + question.getAnswers().get(0).getLabel());
+        }
     }
 
 
