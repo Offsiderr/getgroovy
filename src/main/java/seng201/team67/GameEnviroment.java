@@ -22,7 +22,7 @@ public class GameEnviroment {
     private double money;
     private int currentTour;
     private int totalTours; //Selected amount of tours
-    private int tourCount = 1; //tours so far
+    private int tourCount = 0; //tours so far
     private Difficulty difficulty;
 
     private LabelService labelService;

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,11 +23,6 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button layoutX="1064.0" layoutY="659.0" mnemonicParsing="false" onAction="#endTourEarly" prefHeight="46.0" prefWidth="193.0" text="End tour early">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Button>
       <VBox layoutY="118.0" prefHeight="485.0" prefWidth="320.0">
          <children>
             <VBox fx:id="artistCardOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
@@ -56,12 +50,12 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="tourProgressBar" layoutX="162.0" layoutY="673.0" prefHeight="18.0" prefWidth="874.0" progress="0.0" />
-      <Label layoutX="30.0" layoutY="669.0" text="Tour Progress" textAlignment="RIGHT">
+      <Slider fx:id="crowdMeter" layoutX="1187.0" layoutY="94.0" orientation="VERTICAL" prefHeight="604.0" prefWidth="56.0" showTickLabels="true" showTickMarks="true" />
+      <Label layoutX="1158.0" layoutY="68.0" text="Crowd Meter">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="mapAnchorPane" layoutX="387.0" layoutY="118.0" prefHeight="485.0" prefWidth="728.0" />
+      <AnchorPane fx:id="eventBox" layoutX="332.0" layoutY="118.0" prefHeight="485.0" prefWidth="785.0" />
    </children>
 </AnchorPane>

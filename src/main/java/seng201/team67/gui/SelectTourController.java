@@ -13,6 +13,10 @@ import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.models.Artist;
 
 import javafx.event.ActionEvent;
+import seng201.team67.models.Tour;
+import seng201.team67.models.enums.TourType;
+import seng201.team67.services.TourService;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,21 +70,36 @@ public class SelectTourController {
     //All the buttons
 
     @FXML
-    public void startLocalTour()
+    public void startLocalTour(ActionEvent event) throws IOException
     {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.LOCAL))));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
-    public void startCountryTour()
+    public void startCountryTour(ActionEvent event) throws IOException
     {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.COUNTRY))));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
-    public void startWorldTour()
+    public void startWorldTour(ActionEvent event) throws IOException
     {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.WORLD))));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML public void cancelTour(ActionEvent event) throws IOException {
