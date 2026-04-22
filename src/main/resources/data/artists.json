@@ -364,5 +364,11 @@
     "name": "Michael Jackson",
     "star_power": 5,
     "description": "The King of Pop"
+  },
+  {
+    "type": "RAP",
+    "name": "KennyDub",
+    "star_power": 1,
+    "description": "The King of FL Studio"
   }
 ]
