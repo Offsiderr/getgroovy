@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.models.Artist;
+import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 public class MainMenuController {
 
     private GameEnviroment gameEnviroment;
+    private SoundEffectsService soundEffectsService;
 
     private List<Artist> lineup;
 
@@ -76,6 +78,8 @@ public class MainMenuController {
 
     @FXML public void startTour(ActionEvent event) throws IOException
     {
+        soundEffectsService.playYes();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectTour.fxml"));
         loader.setController(new SelectTourController(gameEnviroment));
 
@@ -88,6 +92,8 @@ public class MainMenuController {
 
     @FXML public void startRoster(ActionEvent event) throws IOException
     {
+        soundEffectsService.playYes();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistRoster.fxml"));
         loader.setController(new RosterController(gameEnviroment));
 
@@ -100,11 +106,14 @@ public class MainMenuController {
 
     @FXML public void startMarket()
     {
+        soundEffectsService.playYes();
 
     }
 
     @FXML public void startStudio(ActionEvent event) throws IOException
     {
+        soundEffectsService.playYes();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TheStudio.fxml"));
         loader.setController(new TheStudioController(gameEnviroment));
 

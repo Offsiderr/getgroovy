@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
+import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class SetupController {
     @FXML private javafx.scene.control.Button startButton;
 
     public final GameEnviroment gameEnviroment;
+    private SoundEffectsService soundEffectsService;
 
     private Stage stage;
     private Scene scene;
@@ -78,6 +80,8 @@ public class SetupController {
     @FXML
     public void onStartGame(ActionEvent event) throws IOException
     {
+        soundEffectsService.playYes();
+
         //setting up the game enviroment
         gameEnviroment.setLabelName(labelNameField.getText());
         gameEnviroment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
