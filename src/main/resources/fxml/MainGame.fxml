@@ -62,6 +62,11 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="mapAnchorPane" layoutX="387.0" layoutY="118.0" prefHeight="485.0" prefWidth="728.0" />
+      <AnchorPane fx:id="mapAnchorPane" layoutX="432.0" layoutY="78.0" prefHeight="485.0" prefWidth="728.0" />
+      <Button fx:id="startConcertButton" layoutX="700.0" layoutY="580.0" mnemonicParsing="false" onAction="#startConcert" prefHeight="46.0" prefWidth="193.0" text="Start Concert">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

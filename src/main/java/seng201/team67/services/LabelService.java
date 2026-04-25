@@ -88,4 +88,14 @@ public class LabelService {
         return label.getMoney();
     }
 
+    public void takeMoney(double money)
+    {
+        label.money = label.getMoney() - money;
+    }
+
+    public void giveMoney(double money)
+    {
+        label.money = label.getMoney() + money;
+    }
+
 }

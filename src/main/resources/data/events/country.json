@@ -6,22 +6,22 @@
       {
         "label": "Hire emergency vans and split the gear",
         "outcomes": [
-          { "weight": 75, "description": "You make it with an hour to spare. Exhausted but the show goes on.", "creditChange": -100, "staminaChange": -15, "crowdEnergyChange": 0, "expeditionEnds": false },
-          { "weight": 25, "description": "One van gets a flat too. You arrive with ten minutes to setup.", "creditChange": -150, "staminaChange": -25, "crowdEnergyChange": -10, "expeditionEnds": false }
+          { "weight": 75, "description": "You make it with an hour to spare. Exhausted but the show goes on.", "creditChange": -100, "staminaChange": -15, "crowdEnergyChange": 0, "concertEnds": false },
+          { "weight": 25, "description": "One van gets a flat too. You arrive with ten minutes to setup.", "creditChange": -150, "staminaChange": -25, "crowdEnergyChange": -10, "concertEnds": false }
         ]
       },
       {
         "label": "Call the venue and push the start time back",
         "outcomes": [
-          { "weight": 60, "description": "The venue agrees. Fans are annoyed but the show happens.", "creditChange": -50, "staminaChange": -10, "crowdEnergyChange": -10, "expeditionEnds": false },
-          { "weight": 40, "description": "The venue can't hold the crowd that long. Half the audience leaves.", "creditChange": -200, "staminaChange": -10, "crowdEnergyChange": -25, "expeditionEnds": false }
+          { "weight": 60, "description": "The venue agrees. Fans are annoyed but the show happens.", "creditChange": -50, "staminaChange": -10, "crowdEnergyChange": -10, "concertEnds": false },
+          { "weight": 40, "description": "The venue can't hold the crowd that long. Half the audience leaves.", "creditChange": -200, "staminaChange": -10, "crowdEnergyChange": -25, "concertEnds": false }
         ]
       },
       {
         "label": "Livestream an acoustic set from the roadside as an apology",
         "outcomes": [
-          { "weight": 65, "description": "The clip goes viral. The hashtag trends for a day.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 35, "description": "The stream drops halfway through. Fans see a pixelated mess.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": -10, "expeditionEnds": false }
+          { "weight": 65, "description": "The clip goes viral. The hashtag trends for a day.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 35, "description": "The stream drops halfway through. Fans see a pixelated mess.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": -10, "concertEnds": false }
         ]
       }
     ]
@@ -33,14 +33,14 @@
       {
         "label": "Accept — free promotion",
         "outcomes": [
-          { "weight": 70, "description": "The interview is smooth. Ticket sales for tonight spike.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 30, "description": "The host asks a loaded question. It gets tense.", "creditChange": 50, "staminaChange": -10, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 70, "description": "The interview is smooth. Ticket sales for tonight spike.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 30, "description": "The host asks a loaded question. It gets tense.", "creditChange": 50, "staminaChange": -10, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       },
       {
         "label": "Decline — preserve energy for the show",
         "outcomes": [
-          { "weight": 100, "description": "Smart call. Your artist is sharp and focused tonight.", "creditChange": 0, "staminaChange": 5, "crowdEnergyChange": 5, "expeditionEnds": false }
+          { "weight": 100, "description": "Smart call. Your artist is sharp and focused tonight.", "creditChange": 0, "staminaChange": 5, "crowdEnergyChange": 5, "concertEnds": false }
         ]
       }
     ]
@@ -52,22 +52,22 @@
       {
         "label": "Slash door prices to compete",
         "outcomes": [
-          { "weight": 70, "description": "The lower price pulls in a bigger crowd than expected.", "creditChange": -50, "staminaChange": 0, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 30, "description": "People still go to the big show. You've cut prices for a half-empty room.", "creditChange": -150, "staminaChange": 0, "crowdEnergyChange": -15, "expeditionEnds": false }
+          { "weight": 70, "description": "The lower price pulls in a bigger crowd than expected.", "creditChange": -50, "staminaChange": 0, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 30, "description": "People still go to the big show. You've cut prices for a half-empty room.", "creditChange": -150, "staminaChange": 0, "crowdEnergyChange": -15, "concertEnds": false }
         ]
       },
       {
         "label": "Lean into being the underdog — market it that way",
         "outcomes": [
-          { "weight": 60, "description": "The underdog framing resonates. You get a surge of contrarian fans.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": 15, "expeditionEnds": false },
-          { "weight": 40, "description": "Nobody takes the bait. The room stays quiet.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 60, "description": "The underdog framing resonates. You get a surge of contrarian fans.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": 15, "concertEnds": false },
+          { "weight": 40, "description": "Nobody takes the bait. The room stays quiet.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       },
       {
         "label": "Start late to catch the overflow crowd after the other gig ends",
         "outcomes": [
-          { "weight": 55, "description": "Smart play. A wave of people floods in after the big show wraps.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 20, "expeditionEnds": false },
-          { "weight": 45, "description": "Most people go home after the big show. You played to almost nobody.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": -20, "expeditionEnds": false }
+          { "weight": 55, "description": "Smart play. A wave of people floods in after the big show wraps.", "creditChange": 200, "staminaChange": -10, "crowdEnergyChange": 20, "concertEnds": false },
+          { "weight": 45, "description": "Most people go home after the big show. You played to almost nobody.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": -20, "concertEnds": false }
         ]
       }
     ]

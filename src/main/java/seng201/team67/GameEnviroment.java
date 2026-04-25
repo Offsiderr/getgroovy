@@ -170,5 +170,21 @@ public class GameEnviroment {
 
     public ArrayList<Artist> getArtistPurchasePool(){return artistPool;}
 
+    public Question getQuestion(String type)
+    { //TODO: potential bug here:
+        switch (type)
+            {
+                case "common":
+                    return commonQuestionPool.get((int) (Math.random() * (commonQuestionPool.size())));
+                case "local":
+                    return localQuestionPool.get((int) (Math.random() * (localQuestionPool.size())));
+                case "country":
+                    return countryQuestionPool.get((int) (Math.random() * (countryQuestionPool.size())));
+                case "world":
+                    return worldQuestionPool.get((int) (Math.random() * (worldQuestionPool.size())));
+            }
+
+        return null; //TODO: add exception handling for this
+    }
 
 }

@@ -5,11 +5,14 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.util.Duration;
+import seng201.team67.services.TourService;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class WorldTourController {
 
@@ -70,11 +73,16 @@ public class WorldTourController {
     @FXML
     private CheckBox stop26;
 
+    private TourService tourService;
+
     //not sure what I am really doing with timelines
     //TODO: make improvements to the pulsing anim.
     private Timeline pulseTimeline;
 
     private ArrayList<CheckBox> allStops;
+
+    private List<Integer> stopOrder;
+    private Integer currentStop = 0;
 
     @FXML
     public void initialize()
@@ -89,9 +97,23 @@ public class WorldTourController {
         //stops the play from clicking them.
         allStops.forEach(checkBox -> checkBox.setMouseTransparent(true));
 
-        Collections.shuffle(allStops);
+    }
 
-        pulseCheckBox(0);
+    public void applyStopOrder(List<Integer> order)
+    {
+        this.stopOrder = new ArrayList<>(order);
+    }
+
+    public void applyRandomOrder()
+    {
+        stopOrder = IntStream.range(0, allStops.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
+
+        Collections.shuffle(stopOrder);
+    }
+
+    public List<Integer> getStopOrder()
+    {
+        return stopOrder;
     }
 
     public void initialiseStops(int count)
@@ -107,15 +129,26 @@ public class WorldTourController {
             cb.setVisible(i < count);
             cb.setSelected(false);
         }
+        pulseCheckBox(0);
     }
 
     public void markStopCompleted(int index)
     {
         allStops.get(index).setSelected(true);
+        currentStop = index + 1;
+
+        long visibleCount = allStops.stream().filter(CheckBox::isVisible).count();
+        if (currentStop < visibleCount) {
+            pulseCheckBox(currentStop);
+        } else {
+            //all stops done
+            stopPulse();
+        }
     }
 
     public int getCompletedCount()
     {
+        //Don't need this really
         return (int) allStops.stream()
                 .filter(CheckBox::isVisible)
                 .filter(CheckBox::isSelected)

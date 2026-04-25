@@ -6,21 +6,21 @@
       {
         "label": "Respect the curfew — wrap up gracefully",
         "outcomes": [
-          { "weight": 100, "description": "You finish on time. The owner says you're welcome back anytime.", "creditChange": 50, "staminaChange": 0, "crowdEnergyChange": 0, "expeditionEnds": false }
+          { "weight": 100, "description": "You finish on time. The owner says you're welcome back anytime.", "creditChange": 50, "staminaChange": 0, "crowdEnergyChange": 0, "concertEnds": false }
         ]
       },
       {
         "label": "Play the last song anyway — beg forgiveness later",
         "outcomes": [
-          { "weight": 40, "description": "The owner lets it slide. The crowd rewards you for going the extra mile.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": 15, "expeditionEnds": false },
-          { "weight": 60, "description": "The owner pulls the plug mid-song. You're not welcome back.", "creditChange": -50, "staminaChange": 0, "crowdEnergyChange": -25, "expeditionEnds": false }
+          { "weight": 40, "description": "The owner lets it slide. The crowd rewards you for going the extra mile.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": 15, "concertEnds": false },
+          { "weight": 60, "description": "The owner pulls the plug mid-song. You're not welcome back.", "creditChange": -50, "staminaChange": 0, "crowdEnergyChange": -25, "concertEnds": false }
         ]
       },
       {
         "label": "Negotiate for one more song",
         "outcomes": [
-          { "weight": 70, "description": "The owner agrees to five more minutes. You make them count.", "creditChange": 80, "staminaChange": -5, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 30, "description": "The owner says no. You end on a slightly flat note.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 70, "description": "The owner agrees to five more minutes. You make them count.", "creditChange": 80, "staminaChange": -5, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 30, "description": "The owner says no. You end on a slightly flat note.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       }
     ]
@@ -32,21 +32,21 @@
       {
         "label": "Play the request — make their night",
         "outcomes": [
-          { "weight": 60, "description": "The artist nails it from memory. The crowd sings along spontaneously.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 20, "expeditionEnds": false },
-          { "weight": 40, "description": "A few fumbled chords, but the sentiment wins everyone over anyway.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 5, "expeditionEnds": false }
+          { "weight": 60, "description": "The artist nails it from memory. The crowd sings along spontaneously.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 20, "concertEnds": false },
+          { "weight": 40, "description": "A few fumbled chords, but the sentiment wins everyone over anyway.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 5, "concertEnds": false }
         ]
       },
       {
         "label": "Acknowledge them but stay on setlist",
         "outcomes": [
-          { "weight": 100, "description": "You wish them happy birthday over the mic. They smile and clap.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 5, "expeditionEnds": false }
+          { "weight": 100, "description": "You wish them happy birthday over the mic. They smile and clap.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 5, "concertEnds": false }
         ]
       },
       {
         "label": "Invite them on stage for a shoutout",
         "outcomes": [
-          { "weight": 70, "description": "They're a great sport. The crowd absolutely loves the chaos.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": 20, "expeditionEnds": false },
-          { "weight": 30, "description": "They freeze on stage. Awkward three minutes for everyone.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -10, "expeditionEnds": false }
+          { "weight": 70, "description": "They're a great sport. The crowd absolutely loves the chaos.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": 20, "concertEnds": false },
+          { "weight": 30, "description": "They freeze on stage. Awkward three minutes for everyone.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -10, "concertEnds": false }
         ]
       }
     ]
@@ -58,15 +58,15 @@
       {
         "label": "Feed off their energy and match the hype",
         "outcomes": [
-          { "weight": 65, "description": "You channel the room's energy perfectly. The crowd transfers their excitement to you.", "creditChange": 50, "staminaChange": -5, "crowdEnergyChange": 15, "expeditionEnds": false },
-          { "weight": 35, "description": "You come out swinging too hard and burn out early.", "creditChange": 0, "staminaChange": -20, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 65, "description": "You channel the room's energy perfectly. The crowd transfers their excitement to you.", "creditChange": 50, "staminaChange": -5, "crowdEnergyChange": 15, "concertEnds": false },
+          { "weight": 35, "description": "You come out swinging too hard and burn out early.", "creditChange": 0, "staminaChange": -20, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       },
       {
         "label": "Start slow and build — let the crowd come to you",
         "outcomes": [
-          { "weight": 70, "description": "A measured opening wins them over gradually.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 30, "description": "Too slow. The crowd never fully transitions over.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 70, "description": "A measured opening wins them over gradually.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 30, "description": "Too slow. The crowd never fully transitions over.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       }
     ]

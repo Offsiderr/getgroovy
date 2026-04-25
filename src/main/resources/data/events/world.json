@@ -6,21 +6,21 @@
       {
         "label": "Call your legal team immediately",
         "outcomes": [
-          { "weight": 65, "description": "The lawyers sort it out. Everyone makes the show with time to spare.", "creditChange": -200, "staminaChange": -15, "crowdEnergyChange": 0, "expeditionEnds": false },
-          { "weight": 35, "description": "Legal can't resolve it in time. The artist misses the show entirely.", "creditChange": -400, "staminaChange": -20, "crowdEnergyChange": -20, "expeditionEnds": false }
+          { "weight": 65, "description": "The lawyers sort it out. Everyone makes the show with time to spare.", "creditChange": -200, "staminaChange": -15, "crowdEnergyChange": 0, "concertEnds": false },
+          { "weight": 35, "description": "Legal can't resolve it in time. The artist misses the show entirely.", "creditChange": -400, "staminaChange": -20, "crowdEnergyChange": -20, "concertEnds": false }
         ]
       },
       {
         "label": "Swap in a backup artist",
         "outcomes": [
-          { "weight": 75, "description": "The backup steps up brilliantly. The audience never knows.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 5, "expeditionEnds": false },
-          { "weight": 25, "description": "Local fans specifically came for the detained artist. Disappointment spreads.", "creditChange": -100, "staminaChange": -10, "crowdEnergyChange": -20, "expeditionEnds": false }
+          { "weight": 75, "description": "The backup steps up brilliantly. The audience never knows.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": 5, "concertEnds": false },
+          { "weight": 25, "description": "Local fans specifically came for the detained artist. Disappointment spreads.", "creditChange": -100, "staminaChange": -10, "crowdEnergyChange": -20, "concertEnds": false }
         ]
       },
       {
         "label": "Cancel and issue a public apology",
         "outcomes": [
-          { "weight": 100, "description": "Professional and transparent. It costs you tonight but protects the tour's reputation.", "creditChange": -500, "staminaChange": 0, "crowdEnergyChange": -10, "expeditionEnds": false }
+          { "weight": 100, "description": "Professional and transparent. It costs you tonight but protects the tour's reputation.", "creditChange": -500, "staminaChange": 0, "crowdEnergyChange": -10, "concertEnds": false }
         ]
       }
     ]
@@ -32,22 +32,22 @@
       {
         "label": "Tailor the set to showcase commercial appeal",
         "outcomes": [
-          { "weight": 55, "description": "The scout is impressed. A meeting is requested for tomorrow morning.", "creditChange": 500, "staminaChange": -5, "crowdEnergyChange": 10, "expeditionEnds": false },
-          { "weight": 45, "description": "The crowd can feel the set is being performed for someone. The energy dips.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": -10, "expeditionEnds": false }
+          { "weight": 55, "description": "The scout is impressed. A meeting is requested for tomorrow morning.", "creditChange": 500, "staminaChange": -5, "crowdEnergyChange": 10, "concertEnds": false },
+          { "weight": 45, "description": "The crowd can feel the set is being performed for someone. The energy dips.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": -10, "concertEnds": false }
         ]
       },
       {
         "label": "Play your most authentic fan-favourite set",
         "outcomes": [
-          { "weight": 70, "description": "The scout loves the authenticity. They want to sign without compromising the sound.", "creditChange": 600, "staminaChange": 0, "crowdEnergyChange": 15, "expeditionEnds": false },
-          { "weight": 30, "description": "The scout wanted something more radio-friendly. They leave after four songs.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 5, "expeditionEnds": false }
+          { "weight": 70, "description": "The scout loves the authenticity. They want to sign without compromising the sound.", "creditChange": 600, "staminaChange": 0, "crowdEnergyChange": 15, "concertEnds": false },
+          { "weight": 30, "description": "The scout wanted something more radio-friendly. They leave after four songs.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 5, "concertEnds": false }
         ]
       },
       {
         "label": "Don't tell your artists the scout is there",
         "outcomes": [
-          { "weight": 80, "description": "Natural performance wins the scout over completely. No nerves, just talent.", "creditChange": 550, "staminaChange": 0, "crowdEnergyChange": 20, "expeditionEnds": false },
-          { "weight": 20, "description": "Your artist finds out and is furious. Pre-show blow-up.", "creditChange": 0, "staminaChange": -15, "crowdEnergyChange": -15, "expeditionEnds": false }
+          { "weight": 80, "description": "Natural performance wins the scout over completely. No nerves, just talent.", "creditChange": 550, "staminaChange": 0, "crowdEnergyChange": 20, "concertEnds": false },
+          { "weight": 20, "description": "Your artist finds out and is furious. Pre-show blow-up.", "creditChange": 0, "staminaChange": -15, "crowdEnergyChange": -15, "concertEnds": false }
         ]
       }
     ]
@@ -59,15 +59,15 @@
       {
         "label": "Take it — this is the opportunity of a lifetime",
         "outcomes": [
-          { "weight": 60, "description": "Your artists rise to the occasion. A genuinely career-defining performance.", "creditChange": 1000, "staminaChange": -25, "crowdEnergyChange": 30, "expeditionEnds": false },
-          { "weight": 40, "description": "Underprepared for the scale. Visible stumbles in front of ten times your usual crowd.", "creditChange": 200, "staminaChange": -25, "crowdEnergyChange": -5, "expeditionEnds": false }
+          { "weight": 60, "description": "Your artists rise to the occasion. A genuinely career-defining performance.", "creditChange": 1000, "staminaChange": -25, "crowdEnergyChange": 30, "concertEnds": false },
+          { "weight": 40, "description": "Underprepared for the scale. Visible stumbles in front of ten times your usual crowd.", "creditChange": 200, "staminaChange": -25, "crowdEnergyChange": -5, "concertEnds": false }
         ]
       },
       {
         "label": "Negotiate a mid-bill slot instead",
         "outcomes": [
-          { "weight": 85, "description": "A perfectly timed mid-bill set to a primed crowd. Solid win.", "creditChange": 500, "staminaChange": -10, "crowdEnergyChange": 15, "expeditionEnds": false },
-          { "weight": 15, "description": "The festival gives the slot to someone else. You stay where you were.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 0, "expeditionEnds": false }
+          { "weight": 85, "description": "A perfectly timed mid-bill set to a primed crowd. Solid win.", "creditChange": 500, "staminaChange": -10, "crowdEnergyChange": 15, "concertEnds": false },
+          { "weight": 15, "description": "The festival gives the slot to someone else. You stay where you were.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 0, "concertEnds": false }
         ]
       }
     ]

@@ -1,22 +1,27 @@
 package seng201.team67.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.tourmaps.WorldTourController;
 import seng201.team67.models.Artist;
 import seng201.team67.models.enums.TourType;
+import seng201.team67.services.SoundEffectsService;
 import seng201.team67.services.TourService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainGameController {
@@ -25,6 +30,9 @@ public class MainGameController {
 
     private GameEnviroment gameEnviroment;
     private TourService tourService;
+    private SoundEffectsService sfx;
+
+    private Boolean initStops = false;
 
     @FXML private Label labelName;
     @FXML private Label moneyText;
@@ -37,7 +45,14 @@ public class MainGameController {
     @FXML private VBox artistCardTwo;
     @FXML private VBox artistCardThree;
 
+    @FXML private Button startConcertButton;
+
     @FXML private AnchorPane mapAnchorPane;
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
 
     public MainGameController(GameEnviroment gameEnviroment, TourService tourService)
     {
@@ -50,7 +65,20 @@ public class MainGameController {
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
 
         loadLineup();
+
+        if(tourService.getConcertStatus())
+        {
+            initStops = true;
+            concertFinished();
+        }
+
         loadMap(tourService.getTourType());
+
+        if(tourService.isTourComplete())
+        {
+            startConcertButton.setText("Finish Tour");
+        }
+
     }
 
     private void loadLineup()
@@ -91,7 +119,23 @@ public class MainGameController {
         Parent mapView = mapLoader.load();
 
         mapAnchorPane.getChildren().add(mapView);
-        worldMapController.initialiseStops(type.getStops());
+
+
+        WorldTourController mapController = mapLoader.getController();
+
+        if (tourService.hasStopOrder()) {
+            mapController.applyStopOrder(tourService.getStopOrder());
+        } else {
+            mapController.applyRandomOrder();
+            tourService.setStopOrder(mapController.getStopOrder());
+        }
+
+        mapController.initialiseStops(tourService.getTourType().getStops());
+
+        for (int i = 0; i < tourService.getStopIndex(); i++) {
+            mapController.markStopCompleted(i);
+        }
+
     }
 
     public void endTourEarly()
@@ -99,5 +143,40 @@ public class MainGameController {
 
     }
 
+    @FXML public void startConcert(ActionEvent event) throws IOException
+    {
+        //sfx.playYes(); TODO: wire this up.
 
+        if(tourService.isTourComplete())
+        {
+            returnToMainMenu(event);
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainConcert.fxml"));
+        loader.setController(new MainConcertController(gameEnviroment, tourService));
+
+        Parent root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private boolean concertFinished()
+    {
+        //Returns false if the tour is finished
+        return true;
+    }
+
+    private void returnToMainMenu(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
+        loader.setController(new MainMenuController(gameEnviroment));
+
+        Parent root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
