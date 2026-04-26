@@ -1,6 +1,7 @@
 package seng201.team67;
 
 import seng201.team67.models.Artist;
+import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.Rarity;
@@ -34,6 +35,8 @@ public class GameEnviroment {
     //the studio and the market use these arrays
     private ArrayList<Artist> artistPurchasePool = new ArrayList<>();
     private boolean poolGenerated = false;
+
+    private GameConfig gameConfig;
 
     //question pools
     private ArrayList<Question> commonQuestionPool;
@@ -80,17 +83,22 @@ public class GameEnviroment {
         if(difType == 0)
         {
             difficulty = Difficulty.EASY;
+            this.gameConfig = GameConfig.easy();
 
         }
         if(difType == 1)
         {
             difficulty = Difficulty.A_CHALLENGE;
+            this.gameConfig = GameConfig.aChallenge();
 
         }
         if(difType == 2)
         {
             difficulty = Difficulty.HEARTLESS;
+            this.gameConfig = GameConfig.hard();
+
         }
+
 
         money = difficulty.getStartingCredits();
 
@@ -114,7 +122,7 @@ public class GameEnviroment {
     public void createLabel(List<Artist> selectedArtists)
     {
         labelService = new LabelService();
-        labelService.setLabel(new Label(tempName, selectedArtists));
+        labelService.setLabel(new Label(tempName, selectedArtists, this));
     }
 
     public ArrayList<Artist> resetArtistPurchasePool()
@@ -181,6 +189,16 @@ public class GameEnviroment {
     public void setPoolGenerated(Boolean poolGenerated)
     {
         this.poolGenerated = poolGenerated;
+    }
+
+    public GameConfig getConfig()
+    {
+        if(gameConfig == null)
+        {
+            //fallback
+            return GameConfig.easy();
+        }
+        return gameConfig;
     }
 
     public Question getQuestion(String type)

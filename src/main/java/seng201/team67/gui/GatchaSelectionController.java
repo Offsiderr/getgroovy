@@ -62,7 +62,7 @@ public class GatchaSelectionController extends ArtistSelectionController {
         selectArtists.setDisable(true);
 
         FXMLLoader gachaLoader = new FXMLLoader(getClass().getResource("/fxml/Gatcha.fxml"));
-        GachaController gachaController = new GachaController();
+        GachaController gachaController = new GachaController(gameEnviroment);
         gachaLoader.setController(gachaController);
 
         gachaController.setOnGachaComplete(() -> {if(artists){showArtistCards();}else{showItemCards();}});

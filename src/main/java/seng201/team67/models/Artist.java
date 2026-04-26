@@ -2,6 +2,7 @@ package seng201.team67.models;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import seng201.team67.GameEnviroment;
 import seng201.team67.interfaces.Purchasable;
 
 //Allows Jason to recognise the sub-class types.
@@ -14,14 +15,15 @@ import seng201.team67.interfaces.Purchasable;
 
 public class Artist implements Purchasable {
 
+
     private String name;
     private String description;
 
     private int health;
     private int stamina;
     private int star_power; // 1 - Common, 2 - Rare 3 - Epic 4 - Legendary - 5 GOAT
-    private static final double basePay         = 5;
-    private static final double baseHiringCost = 7;
+    private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
+    private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
     public boolean owned = false;
 
     public Artist(String name, int star_power, int stamina, int health, String description)
@@ -31,7 +33,6 @@ public class Artist implements Purchasable {
         this.health = health;
         this.stamina = stamina;
         this.star_power = star_power;
-
     }
 
     //Getters

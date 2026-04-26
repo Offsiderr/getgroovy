@@ -36,17 +36,8 @@ public class ConcertService {
 
     private int generateQuestionCount()
     {
-        //TODO: change the numbers to something we are happy with and don't hardcode them.
-        switch (gameEnviroment.getDifficulty())
-        {
-            case EASY:
-               return 5;
-            case A_CHALLENGE:
-                return 7;
-            case HEARTLESS:
-                return 9;
-        }
-        return 5; //TODO: exception handling here
+        //TODO: get rid of this
+        return gameEnviroment.getConfig().concertQuestionsCount;
     }
 
     private List<Question> generateConcertQuestions()
@@ -57,7 +48,7 @@ public class ConcertService {
         for(int i = 1; i <= generateQuestionCount(); i++)
         {
             String type = "";
-            boolean result = Math.random() < 0.5;
+            boolean result = Math.random() < gameEnviroment.getConfig().questionCommonChance;
             if(result)
             {
                 type = "common";

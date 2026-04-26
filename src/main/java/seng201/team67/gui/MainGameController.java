@@ -65,6 +65,7 @@ public class MainGameController {
         cancelTourPane.setVisible(false);
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        payText.setText(Double.toString(tourService.getCreditsEarned()));
 
         loadLineup();
 

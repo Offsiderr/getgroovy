@@ -116,10 +116,10 @@ public class TheStudioController {
 
     @FXML public void buyStandard(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(100))
+        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaStandardCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, RARE));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -129,10 +129,10 @@ public class TheStudioController {
 
     @FXML public void buyGolden(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(500))
+        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaGoldenCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, VERY_RARE));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, VERY_RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -142,10 +142,10 @@ public class TheStudioController {
 
     @FXML public void buyPlatinum(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(1000))
+        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaPlatinumCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, 3, ULTRA));
+            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, ULTRA));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -160,7 +160,7 @@ public class TheStudioController {
 
     @FXML public void rerollArtists()
     {
-        if (gameEnviroment.getLabelService().buyItem(100)) {
+        if (gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().artistRerollCost)) {
             gameEnviroment.setPoolGenerated(false);
             moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
             loadArtistPool();

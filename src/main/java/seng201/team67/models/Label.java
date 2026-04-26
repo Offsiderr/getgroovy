@@ -1,15 +1,19 @@
 package seng201.team67.models;
 
+import seng201.team67.GameEnviroment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Label {
 
+    private GameEnviroment gameEnviroment;
+
     //(Guilds) Since our project is music themed, guilds are called music labels
     public String name;
-    public int artists_limit = 12;
-    public int line_up_limit = 5;
-    public double money = 1000;
+    public int artists_limit;
+    public int line_up_limit; //not in use currently
+    public double money;
 
 
     private ArrayList<Item> items = new ArrayList<Item>();
@@ -20,11 +24,16 @@ public class Label {
     //This is a list of artists from the player's line up.
     private List<Artist> line_up = new ArrayList<Artist>();
 
-    public Label(String name, List<Artist> selected_artists)
+    public Label(String name, List<Artist> selected_artists, GameEnviroment gameEnviroment)
     {
+        this.gameEnviroment = gameEnviroment;
         all_artists.addAll(selected_artists);
         line_up.addAll(selected_artists);
         this.name = name;
+
+        this.money = gameEnviroment.getConfig().startingCredits;
+        this.artists_limit = gameEnviroment.getConfig().artistsRosterLimit;
+        this.line_up_limit = gameEnviroment.getConfig().lineUpLimit;
     }
 
     //Getters

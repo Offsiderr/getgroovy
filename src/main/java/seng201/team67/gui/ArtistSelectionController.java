@@ -52,7 +52,7 @@ public class ArtistSelectionController {
         selectArtists.setDisable(true);
 
         FXMLLoader gachaLoader = new FXMLLoader(getClass().getResource("/fxml/Gatcha.fxml"));
-        GachaController gachaController = new GachaController();
+        GachaController gachaController = new GachaController(gameEnviroment);
         gachaLoader.setController(gachaController);
 
         gachaController.setOnGachaComplete(() -> showArtistCards());
@@ -66,7 +66,18 @@ public class ArtistSelectionController {
 
         List<Artist> pool = gameEnviroment.getArtistPool();
         Collections.shuffle(pool);
-        List<Artist> picked = pool.subList(0, 5);
+
+        List<Artist> picked = new ArrayList<>();
+        //pick artists
+        for(int i = 0; i < gameEnviroment.getConfig().startingArtistPoolSize; i++)
+        {
+            int z = i;
+            while (pool.get(z).getStar_power() > gameEnviroment.getConfig().maxSPInStartingSelection || picked.contains(pool.get(z)))
+            {
+                z += 1;
+            }
+            picked.add(pool.get(z));
+        }
 
         List<HBox> slots = List.of(artistOne, artistTwo, artistThree, artistFour, artistFive);
 
@@ -92,11 +103,11 @@ public class ArtistSelectionController {
 
         artistCards.forEach(c -> {
             if (!c.isSelected()) {
-                c.setSelectable(selectedCount < 3);
+                c.setSelectable(selectedCount < gameEnviroment.getConfig().maxStartingArtists);
             }
         });
 
-        selectArtists.setDisable(selectedCount != 3);
+        selectArtists.setDisable(selectedCount != gameEnviroment.getConfig().maxStartingArtists);
     }
 
     public List<Artist> getSelectedArtists() {

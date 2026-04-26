@@ -1,5 +1,6 @@
 package seng201.team67.models.enums;
 
+import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.SoundEngineerStandoffController;
 import seng201.team67.models.MiniGameResult;
 import seng201.team67.models.minigames.SoundEngineerStandoff;
@@ -12,7 +13,6 @@ public enum Minigame {
             new MiniGameResult(-15, 0)
             );
 
-
     //Paths
     private final String soundEngineerPath = "/fxml/soundMixer.fxml";
 
@@ -24,7 +24,7 @@ public enum Minigame {
     private final MiniGameResult goodResult;
     private final MiniGameResult badResult;
 
-    Minigame(int minCrowdmeterPercentage, int maxCrowdmeterPercentage, double maxReward, MiniGameResult perfectResult, MiniGameResult goodResult, MiniGameResult badResult)
+    Minigame(int minCrowdmeterPercentage, int maxCrowdmeterPercentage, double maxReward, MiniGameResult perfectResult, MiniGameResult goodResult, MiniGameResult badResult )
     {
         this.minCrowdmeterPercentage = minCrowdmeterPercentage;
         this.maxCrowdmeterPercentage = maxCrowdmeterPercentage;

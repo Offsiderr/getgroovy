@@ -101,7 +101,7 @@ public class SelectTourController {
     public void startLocalTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.LOCAL))));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.LOCAL), gameEnviroment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -112,7 +112,7 @@ public class SelectTourController {
     public void startCountryTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(COUNTRY))));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(COUNTRY), gameEnviroment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -123,7 +123,7 @@ public class SelectTourController {
     public void startWorldTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.WORLD))));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.WORLD), gameEnviroment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

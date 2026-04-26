@@ -47,7 +47,7 @@ public class SetupController {
         startButton.setDisable(true);
 
         //Set spinner values
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 15, 5);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(gameEnviroment.getConfig().minTourCount, gameEnviroment.getConfig().maxTourCount, gameEnviroment.getConfig().defaultTourCount);
         expeditionCountSpinner.setValueFactory(valueFactory);
 
         // Revalidate whenever name changes
@@ -68,8 +68,8 @@ public class SetupController {
     private boolean isFormValid() {
         String name = labelNameField.getText();
         boolean nameValid = name != null
-                && name.length() >= 3
-                && name.length() <= 15
+                && name.length() >= gameEnviroment.getConfig().labelNameMinLength
+                && name.length() <= gameEnviroment.getConfig().labelNameMaxLength
                 && name.matches("[a-zA-Z0-9 ]+");
 
         boolean difficultyValid = difficultyGroup.getSelectedToggle() != null;

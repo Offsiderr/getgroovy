@@ -138,7 +138,7 @@ public class MainConcertController {
         switch (minigame)
         {
             case SOUNDENGINEER -> {
-                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete);
+                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnviroment);
                 loader.setController(miniGameController);
             }
 

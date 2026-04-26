@@ -1,6 +1,6 @@
 package seng201.team67.services;
 
-import javafx.scene.control.CheckBox;
+import seng201.team67.GameEnviroment;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.enums.TourType;
@@ -11,12 +11,15 @@ import java.util.stream.Collectors;
 public class TourService {
 
     private Tour tour;
-    private static final double miniGameTriggerChance = 0.15; //TODO: decide a percentage
+    private GameEnviroment gameEnviroment;
+    private static double miniGameTriggerChance; //TODO: decide a percentage
     private final Random random = new Random();
 
-    public TourService(Tour tour)
+    public TourService(Tour tour, GameEnviroment gameEnviroment)
     {
         this.tour = tour;
+        this.gameEnviroment = gameEnviroment;
+        this.miniGameTriggerChance = gameEnviroment.getConfig().miniGameTriggerChance;
     }
 
     public TourType getTourType()
