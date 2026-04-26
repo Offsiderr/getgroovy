@@ -11,7 +11,6 @@ public enum TourType {
     private final int stops;
     private final double payMultiplier;
     private final int expeditionsUnlocked; //How many expeditions before we can do this kind of tour.
-    //This will stay unused for now for debugging purposes.
 
 
     TourType(int stops, double payMultiplier, int expeditionsUnlocked)
@@ -24,4 +23,16 @@ public enum TourType {
     public int getStops(){return stops;}
     public double getPayMultiplier(){return payMultiplier;}
     public int getExpeditionsUnlocked(){return expeditionsUnlocked;}
+
+
+    //while this is the to string method, you must adjust the concert controller class methods
+    //if you adjust this, as they rely on this method
+    @Override
+    public String toString() {
+        return switch (this) {
+            case LOCAL   -> "local";
+            case COUNTRY -> "country";
+            case WORLD   -> "world";
+        };
+    }
 }

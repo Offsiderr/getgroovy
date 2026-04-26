@@ -85,7 +85,7 @@ public class SetupController {
         //setting up the game enviroment
         gameEnviroment.setLabelName(labelNameField.getText());
         gameEnviroment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
-        gameEnviroment.setTotalTours(expeditionCountSpinner.getValue());
+        gameEnviroment.setSelectedNumTours(expeditionCountSpinner.getValue());
 
         //Now let's load the artist selection scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartingArtistSelection.fxml"));

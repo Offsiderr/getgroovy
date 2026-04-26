@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
@@ -54,7 +53,7 @@ public class MainMenuController {
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         gameDifficulty.setText(gameEnviroment.getDifficulty().name());
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
-        gameTours.setText(gameEnviroment.getTourCount() + "/" + gameEnviroment.getTotalTours() + " Tours");
+        gameTours.setText(gameEnviroment.getTourCount() + "/" + gameEnviroment.getSelectedNumTours() + " Tours");
 
         lineup = gameEnviroment.getLabelService().label.getLine_Up();
 

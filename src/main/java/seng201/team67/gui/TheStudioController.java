@@ -161,6 +161,7 @@ public class TheStudioController {
     @FXML public void rerollArtists()
     {
         if (gameEnviroment.getLabelService().buyItem(100)) {
+            gameEnviroment.setPoolGenerated(false);
             moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
             loadArtistPool();
         }

@@ -11,7 +11,7 @@ public class Tour {
     public final TourType type;
     private List<Integer> stopOrder;
     public int currentStopIndex;
-    public int creditsEarned;
+    public double creditsEarned;
     public boolean concertFinished = false;
 
     public Tour(TourType type)
@@ -37,5 +37,15 @@ public class Tour {
 
     public boolean isComplete() {
         return type.getStops() > 0 && currentStopIndex >= type.getStops();
+    }
+
+    public double getCreditsEarned()
+    {
+        return creditsEarned;
+    }
+
+    public void addCreditsEarned(double creditsEarned)
+    {
+        this.creditsEarned += creditsEarned;
     }
 }

@@ -3,6 +3,7 @@ package seng201.team67.services;
 import javafx.scene.control.Button;
 import seng201.team67.GameEnviroment;
 import seng201.team67.models.Concert;
+import seng201.team67.models.MiniGameResult;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.TourType;
@@ -23,7 +24,7 @@ public class ConcertService {
     private List<Question> concertQuestions;
     private int count = 0;
     private Double income = 0.0; //pay for the concert
-    private boolean isEnded;
+    private boolean isEnded = false;
 
     public ConcertService(GameEnviroment gameEnviroment, TourService tourService)
     {
@@ -63,7 +64,7 @@ public class ConcertService {
             }
             else
             {
-                type = tourService.getTourType().toString().toLowerCase();
+                type = tourService.getTourType().toString();
             }
             concertQuestions.add(gameEnviroment.getQuestion(type));
         }
@@ -146,12 +147,19 @@ public class ConcertService {
         }
 
         income += outcome.getCreditChange();
+        tourService.addCreditsEarned(income);
 
         //stamina change goes here
 
         concert.addEnergy(outcome.getCrowdEnergyChange());
 
 
+    }
+
+    public void applyMiniGameResult(MiniGameResult result)
+    {
+        concert.addEnergy(result.getCrowdMeterResult());
+        income += result.getCreditResult();
     }
 
     public boolean isEnded()

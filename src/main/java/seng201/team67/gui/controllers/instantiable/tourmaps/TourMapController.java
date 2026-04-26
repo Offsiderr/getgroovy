@@ -7,14 +7,13 @@ import javafx.scene.control.CheckBox;
 import javafx.util.Duration;
 import seng201.team67.services.TourService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class WorldTourController {
+public class TourMapController {
 
     //This controller handles the map checkpoints, visibility and checked state.
     //no decisions are made about checking or unchecking stops in this class.

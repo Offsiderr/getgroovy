@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
@@ -20,6 +22,9 @@ import seng201.team67.services.TourService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static seng201.team67.models.enums.TourType.COUNTRY;
+import static seng201.team67.models.enums.TourType.WORLD;
 
 public class SelectTourController {
 
@@ -36,6 +41,12 @@ public class SelectTourController {
     @FXML private AnchorPane artistOne;
     @FXML private AnchorPane artistTwo;
     @FXML private AnchorPane artistThree;
+
+    @FXML private Label countryTourText;
+    @FXML private Label worldTourText;
+
+    @FXML private Pane countryTourPane;
+    @FXML private Pane worldTourPane;
 
     private Stage stage;
     private Scene scene;
@@ -65,6 +76,23 @@ public class SelectTourController {
                 throw new RuntimeException("Failed to load ArtistCard.fxml", e);
             }
         }
+
+        checkTours(countryTourText, countryTourPane, COUNTRY);
+        checkTours(worldTourText, worldTourPane, WORLD);
+    }
+
+    private void checkTours(Label label, Pane pane, TourType tour)
+    {
+        if(gameEnviroment.getTourCount() < tour.getExpeditionsUnlocked())
+        {
+            pane.setVisible(true);
+            label.setText("Complete " + Integer.toString(tour.getExpeditionsUnlocked() - gameEnviroment.getTourCount()) +
+            " more tours to unlock the " + tour + " tour.");
+        }
+        else
+        {
+            pane.setVisible(false);
+        }
     }
 
     //All the buttons
@@ -84,7 +112,7 @@ public class SelectTourController {
     public void startCountryTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.COUNTRY))));
+        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(COUNTRY))));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

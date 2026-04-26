@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="495.0" fitWidth="795.0" layoutX="21.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/tempGameMapNZ.png" />
+         </image>
+      </ImageView>
+      <CheckBox fx:id="stop1" layoutX="462.0" layoutY="234.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop2" layoutX="422.0" layoutY="243.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop3" layoutX="385.0" layoutY="51.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop4" layoutX="454.0" layoutY="117.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop5" layoutX="470.0" layoutY="201.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop6" layoutX="355.0" layoutY="320.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop7" layoutX="393.0" layoutY="169.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop8" layoutX="377.0" layoutY="243.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop9" layoutX="272.0" layoutY="300.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop10" layoutX="361.0" layoutY="283.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop11" layoutX="256.0" layoutY="418.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop12" layoutX="272.0" layoutY="371.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop13" layoutX="301.0" layoutY="391.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop14" layoutX="198.0" layoutY="391.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop15" layoutX="214.0" layoutY="410.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop16" layoutX="414.0" layoutY="94.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop17" layoutX="230.0" layoutY="345.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop18" layoutX="454.0" layoutY="152.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop19" layoutX="524.0" layoutY="134.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop20" layoutX="422.0" layoutY="117.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop21" layoutX="406.0" layoutY="59.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop22" layoutX="438.0" layoutY="209.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop23" layoutX="493.0" layoutY="144.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop24" layoutX="214.0" layoutY="447.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop25" layoutX="438.0" layoutY="94.0" mnemonicParsing="false" />
+      <CheckBox fx:id="stop26" layoutX="414.0" layoutY="187.0" mnemonicParsing="false" />
+   </children>
+</AnchorPane>

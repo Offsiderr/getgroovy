@@ -2,14 +2,17 @@ package seng201.team67.services;
 
 import javafx.scene.control.CheckBox;
 import seng201.team67.models.Tour;
+import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.enums.TourType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TourService {
 
     private Tour tour;
+    private static final double miniGameTriggerChance = 0.15; //TODO: decide a percentage
+    private final Random random = new Random();
 
     public TourService(Tour tour)
     {
@@ -63,5 +66,32 @@ public class TourService {
 
     public boolean isTourComplete() {
         return tour.isComplete();
+    }
+
+    public double getCreditsEarned()
+    {
+        return tour.getCreditsEarned();
+    }
+
+    public void addCreditsEarned(Double earned)
+    {
+        tour.addCreditsEarned(earned);
+    }
+
+    public Minigame rollMiniGameTrigger(int crowdMeter)
+    {
+        if (random.nextDouble() >= miniGameTriggerChance)
+        {
+            return null;
+        }
+
+        List<Minigame> minigameList = Arrays.stream(Minigame.values()).filter(mg -> mg.isEligible(crowdMeter)).collect(Collectors.toList());
+
+        if (minigameList.isEmpty())
+        {
+            return null;
+        }
+
+        return minigameList.get(random.nextInt(minigameList.size()));
     }
 }

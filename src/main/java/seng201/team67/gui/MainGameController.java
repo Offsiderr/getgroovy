@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
-import seng201.team67.gui.controllers.instantiable.tourmaps.WorldTourController;
+import seng201.team67.gui.controllers.instantiable.tourmaps.TourMapController;
 import seng201.team67.models.Artist;
 import seng201.team67.models.enums.TourType;
 import seng201.team67.services.SoundEffectsService;
@@ -48,6 +48,7 @@ public class MainGameController {
     @FXML private Button startConcertButton;
 
     @FXML private AnchorPane mapAnchorPane;
+    @FXML private AnchorPane cancelTourPane;
 
     private Stage stage;
     private Scene scene;
@@ -61,6 +62,7 @@ public class MainGameController {
     }
 
     @FXML public void initialize() throws IOException {
+        cancelTourPane.setVisible(false);
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
 
@@ -79,6 +81,7 @@ public class MainGameController {
             startConcertButton.setText("Finish Tour");
         }
 
+        tourProgressBar.setProgress((double) tourService.getStopIndex() / tourService.getTourType().getStops());
     }
 
     private void loadLineup()
@@ -113,15 +116,29 @@ public class MainGameController {
 
     private void loadMap(TourType type) throws IOException {
         //TODO: make the world tour controller a class variable instead of local.
-        FXMLLoader mapLoader = new FXMLLoader(getClass().getResource("/fxml/worldMap.fxml"));
-        WorldTourController worldMapController = new WorldTourController();
+        String path = "";
+        //TODO: something weird is up with this switch statement. investigate.
+        switch (type)
+        {
+            case LOCAL:
+                path = "/fxml/regionMap.fxml";
+                break;
+            case COUNTRY:
+                path = "/fxml/countryMap.fxml";
+                break;
+            case WORLD:
+                path = "/fxml/worldMap.fxml";
+        }
+
+        FXMLLoader mapLoader = new FXMLLoader(getClass().getResource(path));
+        TourMapController worldMapController = new TourMapController();
         mapLoader.setController(worldMapController);
         Parent mapView = mapLoader.load();
 
         mapAnchorPane.getChildren().add(mapView);
 
 
-        WorldTourController mapController = mapLoader.getController();
+        TourMapController mapController = mapLoader.getController();
 
         if (tourService.hasStopOrder()) {
             mapController.applyStopOrder(tourService.getStopOrder());
@@ -149,7 +166,8 @@ public class MainGameController {
 
         if(tourService.isTourComplete())
         {
-            returnToMainMenu(event);
+            cancelTour(event);
+            return;
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainConcert.fxml"));
@@ -178,5 +196,28 @@ public class MainGameController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML private void endTourEarly(ActionEvent event) throws IOException
+    {
+        cancelTourPane.setVisible(true);
+    }
+
+
+     @FXML private void cancelTour(ActionEvent event) throws IOException {
+         gameEnviroment.setPoolGenerated(false);
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
+        loader.setController(new TourResultsController(gameEnviroment, tourService));
+
+        Parent root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML private void closePane(ActionEvent event) throws IOException
+    {
+        cancelTourPane.setVisible(false);
     }
 }

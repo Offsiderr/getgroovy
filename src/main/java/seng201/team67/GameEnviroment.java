@@ -23,7 +23,7 @@ public class GameEnviroment {
 
     private double money;
     private int currentTour;
-    private int totalTours; //Selected amount of tours
+    private int selectedNumTours; //Selected amount of tours
     private int tourCount = 0; //tours so far
     private Difficulty difficulty;
 
@@ -32,7 +32,8 @@ public class GameEnviroment {
     //All artists loaded into the game. Not artists in the label.
     private ArrayList<Artist> artistPool;
     //the studio and the market use these arrays
-    private ArrayList<Artist> artistPurchasePool = new ArrayList<>();;
+    private ArrayList<Artist> artistPurchasePool = new ArrayList<>();
+    private boolean poolGenerated = false;
 
     //question pools
     private ArrayList<Question> commonQuestionPool;
@@ -54,9 +55,9 @@ public class GameEnviroment {
         }
 
         this.commonQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
-        this.localQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
-        this.countryQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
-        this.worldQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
+        this.localQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("local"));
+        this.countryQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("country"));
+        this.worldQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("world"));
 
 
         for (Question question : commonQuestionPool)
@@ -98,10 +99,10 @@ public class GameEnviroment {
 
     }
 
-    public void setTotalTours(int totalTours)
+    public void setSelectedNumTours(int selectedNumTours)
     {
-        this.totalTours = totalTours;
-        System.out.println(totalTours);
+        this.selectedNumTours = selectedNumTours;
+        System.out.println(selectedNumTours);
     }
 
     public void setArtistPool(List<Artist> artistList)
@@ -118,6 +119,12 @@ public class GameEnviroment {
 
     public ArrayList<Artist> resetArtistPurchasePool()
     {
+        //return the existing pool if it has been generated already.
+        if (poolGenerated)
+        {
+            return artistPurchasePool;
+        }
+
         artistPurchasePool.clear();
 
         ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
@@ -140,6 +147,7 @@ public class GameEnviroment {
             }
         }
 
+        poolGenerated = true;
         return artistPurchasePool;
     }
 
@@ -163,12 +171,17 @@ public class GameEnviroment {
         return tourCount;
     }
 
-    public int getTotalTours()
+    public int getSelectedNumTours()
     {
-        return totalTours;
+        return selectedNumTours;
     }
 
     public ArrayList<Artist> getArtistPurchasePool(){return artistPool;}
+
+    public void setPoolGenerated(Boolean poolGenerated)
+    {
+        this.poolGenerated = poolGenerated;
+    }
 
     public Question getQuestion(String type)
     { //TODO: potential bug here:
@@ -187,4 +200,8 @@ public class GameEnviroment {
         return null; //TODO: add exception handling for this
     }
 
+    public void increaseTours()
+    {
+        tourCount += 1;
+    }
 }
