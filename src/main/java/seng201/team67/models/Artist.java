@@ -20,8 +20,9 @@ public class Artist implements Purchasable {
     private String description;
 
     private int health;
+    private int baseStamina;
     private int stamina;
-    private int star_power; // 1 - Common, 2 - Rare 3 - Epic 4 - Legendary - 5 GOAT
+    private int star_power;
     private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
     private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
     public boolean owned = false;
@@ -33,6 +34,7 @@ public class Artist implements Purchasable {
         this.health = health;
         this.stamina = stamina;
         this.star_power = star_power;
+        this.baseStamina = stamina;
     }
 
     //Getters
@@ -73,6 +75,8 @@ public class Artist implements Purchasable {
 
     //Setters
 
+    public void setBaseStamina(int stamina){this.stamina = stamina;}
+
     public void setHealth(int health)
     {
         this.health = health;
@@ -81,6 +85,15 @@ public class Artist implements Purchasable {
     public void setStamina(int stamina)
     {
         this.stamina = stamina;
+        if(this.stamina > baseStamina)
+        {
+            this.stamina = baseStamina;
+        }
+
+        if(this.stamina < 0)
+        {
+            this.stamina = 0;
+        }
     }
 
 }

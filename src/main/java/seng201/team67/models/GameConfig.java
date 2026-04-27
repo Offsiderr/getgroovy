@@ -108,6 +108,8 @@ public class GameConfig {
 
     public final int cancelTourPenalty;
 
+    public final double ticketSalesAmount;
+
 
     public GameConfig(
             // Economy
@@ -144,7 +146,8 @@ public class GameConfig {
             // UI / Validation
             int labelNameMinLength,
             int labelNameMaxLength,
-            int cancelTourPenalty
+            int cancelTourPenalty,
+            double ticketSalesAmount
     ) {
         //this.artistBasePay                    = artistBasePay;
         //this.artistBaseHiringCost             = artistBaseHiringCost;
@@ -178,6 +181,7 @@ public class GameConfig {
         this.labelNameMinLength               = labelNameMinLength;
         this.labelNameMaxLength               = labelNameMaxLength;
         this.cancelTourPenalty                = cancelTourPenalty;
+        this.ticketSalesAmount                = ticketSalesAmount;
     }
 
     // ── Difficulty presets ────────────────────────────────────────────────────
@@ -198,7 +202,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15, 100
+                3, 15, 100, 250
         );
     }
 
@@ -218,7 +222,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15, 300
+                3, 15, 300, 250
         );
     }
 
@@ -238,7 +242,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15, 500
+                3, 15, 500, 250
         );
     }
 }

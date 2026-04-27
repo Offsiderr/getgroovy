@@ -76,9 +76,20 @@ public class TourService {
         return tour.getCreditsEarned();
     }
 
+    public double getTourPayMultiplier()
+    {
+        return tour.getPayMultiplier();
+    }
+
     public void addCreditsEarned(Double earned)
     {
         tour.addCreditsEarned(earned);
+    }
+
+    public void tourEnded()
+    {
+        gameEnviroment.getLabelService().giveMoney(tour.getCreditsEarned());
+
     }
 
     public Minigame rollMiniGameTrigger(int crowdMeter)
@@ -96,5 +107,15 @@ public class TourService {
         }
 
         return minigameList.get(random.nextInt(minigameList.size()));
+    }
+
+    public void addStamina(double stamina)
+    {
+        tour.addStamina(stamina);
+    }
+
+    public Double getTotalStamina()
+    {
+        return tour.getTotalStaminaDrained();
     }
 }

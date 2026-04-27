@@ -14,22 +14,22 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Label fx:id="payText" layoutX="590.0" layoutY="266.0" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="payText" layoutX="673.0" layoutY="160.0" text="\$1000" textAlignment="RIGHT">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Label layoutX="595.0" layoutY="126.0" text="Ticket Sales:" textAlignment="RIGHT">
+      <Label layoutX="501.0" layoutY="125.0" text="Ticket Sales:" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="bonusMoney" layoutX="587.0" layoutY="231.0" text="Bonus Money:" textAlignment="RIGHT">
+      <Label fx:id="bonusMoney" layoutX="670.0" layoutY="125.0" text="Bonus Money:" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="ticketSales" layoutX="590.0" layoutY="157.0" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="ticketSales" layoutX="497.0" layoutY="160.0" text="\$1000" textAlignment="RIGHT">
          <font>
             <Font size="37.0" />
          </font>
@@ -46,5 +46,45 @@
             <Font size="29.0" />
          </font>
       </Button>
+      <Label layoutX="483.0" layoutY="230.0" text="Stamina Change:" textAlignment="RIGHT">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="641.0" layoutY="230.0" text="Finishing Crowd Hype" textAlignment="RIGHT">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="staminaChange" layoutX="497.0" layoutY="268.0" text="\$1000" textAlignment="RIGHT">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label fx:id="crowdHype" layoutX="673.0" layoutY="268.0" text="\$1000" textAlignment="RIGHT">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="341.0" text="Total:" textAlignment="RIGHT">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalMoney" layoutX="670.0" layoutY="367.0" text="\$1000" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="504.0" layoutY="341.0" text="Artist's Pay:" textAlignment="RIGHT">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="artistPay" layoutX="494.0" layoutY="367.0" text="\$1000" textAlignment="RIGHT">
+         <font>
+            <Font name="System Italic" size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

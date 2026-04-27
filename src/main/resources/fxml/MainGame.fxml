@@ -70,6 +70,16 @@
             <Font size="22.0" />
          </font>
       </Button>
+      <Label fx:id="staminaText" layoutX="951.0" layoutY="22.0" text="\$1000" textAlignment="RIGHT">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="833.0" layoutY="36.0" text="Stamina Drain:" textAlignment="RIGHT">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
       <AnchorPane fx:id="cancelTourPane" layoutX="-9.0" layoutY="-7.0" prefHeight="731.0" prefWidth="1294.0">
          <children>
             <ImageView fitHeight="1074.0" fitWidth="1512.0" layoutX="-66.0" layoutY="-143.0" opacity="0.76" pickOnBounds="true" preserveRatio="true">

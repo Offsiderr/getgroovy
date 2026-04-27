@@ -79,5 +79,11 @@ public class Label {
         this.line_up.addAll(line_up);
     }
 
-
+    public void applyStaminaToLineup(double stamina)
+    {
+        for(Artist artist : line_up)
+        {
+            artist.setStamina(artist.getStamina() - (int) stamina);
+        }
+    }
 }

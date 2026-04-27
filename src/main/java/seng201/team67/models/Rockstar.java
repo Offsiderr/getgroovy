@@ -6,6 +6,8 @@ public class Rockstar extends Artist{
     public Rockstar()
     {
         super("", 0, 0, 0, "");
+        setStamina(80);
+        setBaseStamina(80);
     }
 
     public Rockstar(String name, int star_power, String description)

@@ -1,6 +1,8 @@
 package seng201.team67.services;
 
+import seng201.team67.GameEnviroment;
 import seng201.team67.models.Artist;
+import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 
 import java.util.List;
@@ -11,6 +13,12 @@ public class LabelService {
     //standards
 
     public Label label;
+    private GameEnviroment gameEnviroment;
+
+    public LabelService(GameEnviroment gameEnviroment)
+    {
+        this.gameEnviroment = gameEnviroment;
+    }
 
     public void setLabel(Label label){this.label = label;}
 
@@ -98,4 +106,63 @@ public class LabelService {
         label.money = label.getMoney() + money;
     }
 
+    public double getLineupTotalPay()
+    {
+        List<Artist> artists = label.getLine_Up();
+
+        double totalCost = 0;
+
+        for (Artist artist : artists)
+        {
+            totalCost += artist.getPay() * gameEnviroment.getDifficulty().getPayMultiplier();
+        }
+        return totalCost;
+    }
+
+    public double getAverageSP()
+    {
+        List<Artist> artists = label.getLine_Up();
+
+        double sp = 0;
+        for (Artist artist : artists)
+        {
+            sp += artist.getStar_power();
+        }
+        return sp / artists.size();
+    }
+
+    public double getMaxSP()
+    {
+        List<Artist> artists = label.getLine_Up();
+
+        double sp = 0;
+        for (Artist artist : artists)
+        {
+            if(sp < artist.getStar_power())
+            {
+                sp = artist.getStar_power();
+            }
+        }
+        return sp;
+    }
+
+    public double getMinSP()
+    {
+        List<Artist> artists = label.getLine_Up();
+
+        double sp = 6;
+        for (Artist artist : artists)
+        {
+            if(sp > artist.getStar_power())
+            {
+                sp = artist.getStar_power();
+            }
+        }
+        return sp;
+    }
+
+    public void applyStaminaChange(double staminaChange)
+    {
+        label.applyStaminaToLineup(staminaChange);
+    }
 }

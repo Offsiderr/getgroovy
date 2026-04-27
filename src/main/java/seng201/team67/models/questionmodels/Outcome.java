@@ -11,7 +11,7 @@ public class Outcome {
     private final String description;
     private final PayoutType payoutType;
 
-    private final int staminaChange; //TODO: stamina needs to be implemented properly with artists.
+    private final double staminaChange; //TODO: stamina needs to be implemented properly with artists.
     private final int crowdEnergyChange;
     private final boolean concertEnds;
 
@@ -21,7 +21,7 @@ public class Outcome {
             @JsonProperty("weight") int weight,
             @JsonProperty("description") String description,
             @JsonProperty("payout") PayoutType payoutType,
-            @JsonProperty("staminaChange") int staminaChange,
+            @JsonProperty("staminaChange") double staminaChange,
             @JsonProperty("crowdEnergyChange") int crowdEnergyChange,
             @JsonProperty("concertEnds") boolean concertEnds) {
         this.weight = weight;
@@ -45,7 +45,7 @@ public class Outcome {
 
     public PayoutType getPayoutType(){return payoutType;}
 
-    public int getStaminaChange()
+    public double getStaminaChange()
     {
         return staminaChange;
     }

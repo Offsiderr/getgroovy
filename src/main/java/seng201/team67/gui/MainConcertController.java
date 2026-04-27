@@ -42,6 +42,7 @@ public class MainConcertController {
     @FXML private Label moneyText;
     @FXML private Label expeditionCount;
     @FXML private Label payText;
+    @FXML private Label staminaText;
 
     @FXML private Slider crowdMeter;
 
@@ -63,14 +64,14 @@ public class MainConcertController {
     }
 
     @FXML public void initialize() throws IOException {
-        labelName.setText(gameEnviroment.getLabelService().getLabelName());
-        moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
-        payText.setText(Double.toString(tourService.getCreditsEarned()));
+
 
         loadLineup();
         concertService = new ConcertService(gameEnviroment, tourService);
 
         populateQuestion();
+        refreshView();
+
     }
 
     private void loadLineup()
@@ -153,10 +154,16 @@ public class MainConcertController {
 
     private void refreshView()
     {
+        labelName.setText(gameEnviroment.getLabelService().getLabelName());
+        moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        payText.setText(Double.toString(tourService.getCreditsEarned()));
+
         //refresh UI components
         //crowd meter. is there a more efficent way of doing this?
         crowdMeter.setBlockIncrement(concertService.getCrowdEnergyChange());
         crowdMeter.increment();
+
+        staminaText.setText(Double.toString(concertService.totalStaminaDrain()));
 
         payText.setText(Double.toString(concertService.getIncome()));
     }

@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
@@ -41,6 +40,10 @@ public class ResultsController {
 
     @FXML private Label ticketSales;
     @FXML private Label payText; //bonus money
+    @FXML private Label crowdHype;
+    @FXML private Label staminaChange;
+    @FXML private Label artistPay;
+    @FXML private Label totalMoney;
 
     private Stage stage;
     private Scene scene;
@@ -55,7 +58,11 @@ public class ResultsController {
     @FXML private void initialize()
     {
         loadLineup();
-        payText.setText(Double.toString(concertService.getIncome()));
+        payText.setText("$" + Double.toString(concertService.getIncome()));
+        ticketSales.setText("$" + Double.toString(gameEnviroment.getConfig().ticketSalesAmount));
+        crowdHype.setText(Integer.toString(concertService.getCrowdEnergyChange()));
+        artistPay.setText("-$" + Double.toString(gameEnviroment.getLabelService().getLineupTotalPay()));
+        totalMoney.setText("$" + Double.toString(gameEnviroment.getConfig().ticketSalesAmount + concertService.getIncome() - gameEnviroment.getLabelService().getLineupTotalPay()));
     }
 
     private void loadLineup()

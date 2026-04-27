@@ -39,6 +39,7 @@ public class MainGameController {
     @FXML private Label expeditionCount;
     @FXML private Label payText;
     @FXML private Label cancelTourLabel;
+    @FXML private Label staminaText;
 
     @FXML private ProgressBar tourProgressBar;
 
@@ -67,6 +68,8 @@ public class MainGameController {
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
+
+        staminaText.setText(Double.toString(tourService.getTotalStamina()));
 
         loadLineup();
 
@@ -214,6 +217,8 @@ public class MainGameController {
 
 
      @FXML private void finishTour(ActionEvent event) throws IOException {
+
+         tourService.tourEnded();
          gameEnviroment.setPoolGenerated(false);
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
         loader.setController(new TourResultsController(gameEnviroment, tourService));

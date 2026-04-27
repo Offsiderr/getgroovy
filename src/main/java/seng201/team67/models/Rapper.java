@@ -6,12 +6,14 @@ public class Rapper extends Artist{
     public Rapper()
     {
         super("", 0, 0, 0, "");
+        setStamina(120);
+        setBaseStamina(120);
+
     }
 
     public Rapper (String name, int star_power, String description)
     {
         super(name, star_power, 120, 80, description);
-
     }
 
     @Override

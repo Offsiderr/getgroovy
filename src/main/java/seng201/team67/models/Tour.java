@@ -12,12 +12,23 @@ public class Tour {
     private List<Integer> stopOrder;
     public int currentStopIndex;
     public double creditsEarned;
+    public double totalStaminaDrained;
     public boolean concertFinished = false;
 
     public Tour(TourType type)
     {
         this.type = type;
        //this.concerts = concerts; I have questions about doing it this way
+    }
+
+    public void addStamina(double stamina)
+    {
+        totalStaminaDrained += stamina;
+    }
+
+    public double getTotalStaminaDrained()
+    {
+        return totalStaminaDrained;
     }
 
     public void setStopOrder(List<Integer> stopOrder)
@@ -47,5 +58,10 @@ public class Tour {
     public void addCreditsEarned(double creditsEarned)
     {
         this.creditsEarned += creditsEarned;
+    }
+
+    public double getPayMultiplier()
+    {
+        return type.getPayMultiplier();
     }
 }

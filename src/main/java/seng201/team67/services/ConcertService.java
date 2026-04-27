@@ -21,13 +21,14 @@ public class ConcertService {
     private List<Question> concertQuestions;
     private int count = 0;
     private Double income = 0.0; //pay for the concert
+    private double staminaDrain;
     private boolean isEnded = false;
 
     public ConcertService(GameEnviroment gameEnviroment, TourService tourService)
     {
         this.gameEnviroment = gameEnviroment;
         this.tourService = tourService;
-        concert = new Concert();
+        concert = new Concert(gameEnviroment);
         concertQuestions = generateConcertQuestions();
     }
 
@@ -61,7 +62,14 @@ public class ConcertService {
 
     private void endConcert()
     {
-
+        //add ticket revenue
+        tourService.addCreditsEarned(calculateTicketRevenue());
+        //take away lineup's pay
+        tourService.addCreditsEarned(-gameEnviroment.getLabelService().getLineupTotalPay());
+        //apply the stamina changes
+        staminaDrain += calculateStaminaDrain();
+        gameEnviroment.getLabelService().applyStaminaChange(staminaDrain);
+        tourService.addStamina(staminaDrain);
     }
 
     public Question getNextQuestion()
@@ -70,6 +78,7 @@ public class ConcertService {
         if(count == concertQuestions.size())
         {
             isEnded = true;
+            endConcert();
             return null;
         }
 
@@ -131,10 +140,11 @@ public class ConcertService {
         }
 
         //stamina change goes here
+        gameEnviroment.getLabelService().applyStaminaChange(outcome.getStaminaChange());
+        tourService.addStamina(outcome.getStaminaChange());
 
-        concert.addEnergy(outcome.getCrowdEnergyChange());
-
-
+        //Calculate concert crowd energy gain
+        concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
     }
 
     public void applyMiniGameResult(MiniGameResult result)
@@ -162,5 +172,31 @@ public class ConcertService {
     public TourService getTourService()
     {
         return tourService;
+    }
+
+    public double calculateCrowdGain(double baseGain)
+    {
+        return baseGain * (0.5 + gameEnviroment.getLabelService().getAverageSP() / gameEnviroment.getLabelService().getMaxSP());
+    }
+
+    public double calculateTicketRevenue()
+    {
+        //concert ticket pay = (crowdMeter / 100) × baseTicketRevenue × (1 + avgSP / maxSP)
+        return (concert.getEnergy() / 100) * gameEnviroment.getConfig().ticketSalesAmount * (1 + gameEnviroment.getLabelService().getAverageSP() / gameEnviroment.getLabelService().getMaxSP());
+    }
+
+    public double calculateStaminaDrain()
+    {
+        //base drain + crowd penalty
+        //base drain
+        int baseDrain = tourService.getTourType().getBaseStaminaDrain();
+        //crowdPenalty = baseDrain × max(0, (50 - crowdMeter) / 50)
+        double crowdPenalty = baseDrain * Math.max(0, (50.0 -concert.getEnergy()) / 50.0);
+        return baseDrain + crowdPenalty;
+    }
+
+    public double totalStaminaDrain()
+    {
+        return staminaDrain;
     }
 }

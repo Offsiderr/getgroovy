@@ -137,7 +137,7 @@ public class GameEnviroment {
 
     public void createLabel(List<Artist> selectedArtists)
     {
-        labelService = new LabelService();
+        labelService = new LabelService(this);
         labelService.setLabel(new Label(tempName, selectedArtists, this));
     }
 

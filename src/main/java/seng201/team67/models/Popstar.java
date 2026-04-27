@@ -6,6 +6,8 @@ public class Popstar extends Artist{
     public Popstar()
     {
         super("", 0, 0, 0, "");
+        setStamina(100);
+        setBaseStamina(100);
     }
 
     public Popstar(String name, int star_power, String description)
