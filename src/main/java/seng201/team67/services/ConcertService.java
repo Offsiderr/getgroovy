@@ -62,6 +62,8 @@ public class ConcertService {
 
     private void endConcert()
     {
+        if (isEnded) return;
+        isEnded = true;
         //add ticket revenue
         tourService.addCreditsEarned(calculateTicketRevenue());
         //take away lineup's pay
@@ -77,7 +79,6 @@ public class ConcertService {
         //TODO: needs work
         if(count == concertQuestions.size())
         {
-            isEnded = true;
             endConcert();
             return null;
         }

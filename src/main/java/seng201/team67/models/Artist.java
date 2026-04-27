@@ -75,7 +75,7 @@ public class Artist implements Purchasable {
 
     //Setters
 
-    public void setBaseStamina(int stamina){this.stamina = stamina;}
+    public void setBaseStamina(int stamina){this.baseStamina = stamina;}
 
     public void setHealth(int health)
     {
