@@ -12,8 +12,8 @@ group = 'seng201.team67'
 version = '1.0-SNAPSHOT'
 
 def mainAppClass = 'seng201.team67.App'
-def javaVersion = '17'
-def javafxVersion = '17.0.2'
+def javaVersion = '25'
+def javafxVersion = '25.0.2'
 
 java {
     toolchain {
