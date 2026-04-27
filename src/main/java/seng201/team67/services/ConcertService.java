@@ -1,12 +1,9 @@
 package seng201.team67.services;
 
-import javafx.scene.control.Button;
 import seng201.team67.GameEnviroment;
 import seng201.team67.models.Concert;
 import seng201.team67.models.MiniGameResult;
-import seng201.team67.models.Tour;
-import seng201.team67.models.enums.Difficulty;
-import seng201.team67.models.enums.TourType;
+import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
@@ -128,17 +125,10 @@ public class ConcertService {
         }
 
         //if statement not needed. fix later
-        if(outcome.getCreditChange() > 0)
+        if(outcome.getPayoutType() != PayoutType.NONE)
         {
-            gameEnviroment.getLabelService().giveMoney(outcome.getCreditChange());
+            gameEnviroment.getLabelService().giveMoney(gameEnviroment.getPayoutAmount(outcome.getPayoutType()));
         }
-        else
-        {
-            gameEnviroment.getLabelService().takeMoney(outcome.getCreditChange());
-        }
-
-        income += outcome.getCreditChange();
-        tourService.addCreditsEarned(income);
 
         //stamina change goes here
 

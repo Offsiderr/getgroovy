@@ -4,7 +4,7 @@ import seng201.team67.services.MinigamesService;
 
 public class MiniGameResult {
 
-    private final int crowdMeterResult;
+    private final int crowdMeterResult; //GOES up by, not gets set to
     private final int creditResult;
 
     public MiniGameResult(int crowdMeterResult, int creditResult)

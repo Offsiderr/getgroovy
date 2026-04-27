@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seng201.team67.GameEnviroment;
+import seng201.team67.gui.controllers.instantiable.OutcomeController;
 import seng201.team67.gui.controllers.instantiable.QuestionController;
 import seng201.team67.gui.controllers.instantiable.SoundEngineerStandoffController;
 import seng201.team67.models.Artist;
@@ -19,6 +20,7 @@ import seng201.team67.models.Concert;
 import seng201.team67.models.MiniGameResult;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.questionmodels.Answer;
+import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.ConcertService;
 import seng201.team67.services.MinigamesService;
@@ -63,6 +65,7 @@ public class MainConcertController {
     @FXML public void initialize() throws IOException {
         labelName.setText(gameEnviroment.getLabelService().getLabelName());
         moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        payText.setText(Double.toString(tourService.getCreditsEarned()));
 
         loadLineup();
         concertService = new ConcertService(gameEnviroment, tourService);
@@ -160,11 +163,26 @@ public class MainConcertController {
 
     private void handleAnswer(Answer answer) {
         try {
-            concertService.handleAnswer(answer);
+            Outcome outcome = concertService.handleAnswer(answer);
             refreshView();
+            loadOutcome(outcome);
+        } catch (IOException e) {
+            throw new RuntimeException("Outcome view couldn't load", e);
+        }
+    }
+
+    private void loadOutcome(Outcome outcome) throws IOException {
+        eventBox.getChildren().clear();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OutcomeEvent.fxml"));
+        loader.setController(new OutcomeController(outcome, this::onOutcomeContinue));
+        eventBox.getChildren().add(loader.load());
+    }
+
+    private void onOutcomeContinue() {
+        try {
             populateQuestion();
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException("Next question couldn't load", e);
         }
     }

@@ -89,6 +89,7 @@ public class TourResultsController {
 
     @FXML private void continueGame(ActionEvent event) throws IOException {
         gameEnviroment.increaseTours();
+        gameEnviroment.getLabelService().giveMoney(tourService.getCreditsEarned());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         loader.setController(new MainMenuController(gameEnviroment));
 

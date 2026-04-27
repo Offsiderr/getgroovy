@@ -4,24 +4,66 @@
     "prompt": "A loud heckler near the front is throwing off your artists. How do you handle it?",
     "answers": [
       {
-        "label": "Engage them — turn it into a moment",
+        "label": "Engage them \u2014 turn it into a moment",
         "outcomes": [
-          { "weight": 60, "description": "Your artist fires back with a perfect comeback. The crowd erupts.", "creditChange": 50, "staminaChange": 0, "crowdEnergyChange": 20, "concertEnds": false },
-          { "weight": 40, "description": "The exchange falls flat. The heckler doubles down.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": -10, "concertEnds": false }
+          {
+            "weight": 60,
+            "description": "Your artist fires back with a perfect comeback. The crowd erupts.",
+            "staminaChange": 0,
+            "crowdEnergyChange": 20,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 40,
+            "description": "The exchange falls flat. The heckler doubles down.",
+            "staminaChange": -5,
+            "crowdEnergyChange": -10,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       },
       {
         "label": "Signal security to remove them",
         "outcomes": [
-          { "weight": 75, "description": "Security handles it quietly. The show continues without a hitch.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 5, "concertEnds": false },
-          { "weight": 25, "description": "The removal causes a scene. Half the crowd sides with the heckler.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -20, "concertEnds": false }
+          {
+            "weight": 75,
+            "description": "Security handles it quietly. The show continues without a hitch.",
+            "staminaChange": 0,
+            "crowdEnergyChange": 5,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 25,
+            "description": "The removal causes a scene. Half the crowd sides with the heckler.",
+            "staminaChange": 0,
+            "crowdEnergyChange": -20,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       },
       {
         "label": "Ignore them and push through",
         "outcomes": [
-          { "weight": 50, "description": "The artist stays locked in. The heckler eventually gives up.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": 5, "concertEnds": false },
-          { "weight": 50, "description": "The distraction lingers. The performance suffers.", "creditChange": 0, "staminaChange": -10, "crowdEnergyChange": -10, "concertEnds": false }
+          {
+            "weight": 50,
+            "description": "The artist stays locked in. The heckler eventually gives up.",
+            "staminaChange": -5,
+            "crowdEnergyChange": 5,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 50,
+            "description": "The distraction lingers. The performance suffers.",
+            "staminaChange": -10,
+            "crowdEnergyChange": -10,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       }
     ]
@@ -33,14 +75,35 @@
       {
         "label": "Give them the encore",
         "outcomes": [
-          { "weight": 65, "description": "They dig deep and deliver. The room ends on a high.", "creditChange": 200, "staminaChange": -15, "crowdEnergyChange": 30, "concertEnds": false },
-          { "weight": 35, "description": "Fatigue shows. The encore feels like a formality.", "creditChange": 50, "staminaChange": -20, "crowdEnergyChange": -5, "concertEnds": false }
+          {
+            "weight": 65,
+            "description": "They dig deep and deliver. The room ends on a high.",
+            "staminaChange": -15,
+            "crowdEnergyChange": 30,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 35,
+            "description": "Fatigue shows. The encore feels like a formality.",
+            "staminaChange": -20,
+            "crowdEnergyChange": -5,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       },
       {
-        "label": "End the show — leave them wanting more",
+        "label": "End the show \u2014 leave them wanting more",
         "outcomes": [
-          { "weight": 100, "description": "Classic move. The buzz lasts all week.", "creditChange": 100, "staminaChange": 0, "crowdEnergyChange": 15, "concertEnds": false }
+          {
+            "weight": 100,
+            "description": "Classic move. The buzz lasts all week.",
+            "staminaChange": 0,
+            "crowdEnergyChange": 15,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       }
     ]
@@ -50,17 +113,45 @@
     "prompt": "A guitar string snaps mid-song. There's a spare in the case but it'll take a minute.",
     "answers": [
       {
-        "label": "Change it on stage — make it part of the show",
+        "label": "Change it on stage \u2014 make it part of the show",
         "outcomes": [
-          { "weight": 65, "description": "The crowd cheers them on. An authentic moment captured on a dozen phones.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": 10, "concertEnds": false },
-          { "weight": 35, "description": "The pause kills the momentum. People start checking their phones.", "creditChange": 0, "staminaChange": -5, "crowdEnergyChange": -10, "concertEnds": false }
+          {
+            "weight": 65,
+            "description": "The crowd cheers them on. An authentic moment captured on a dozen phones.",
+            "staminaChange": -5,
+            "crowdEnergyChange": 10,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 35,
+            "description": "The pause kills the momentum. People start checking their phones.",
+            "staminaChange": -5,
+            "crowdEnergyChange": -10,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       },
       {
         "label": "Swap to a backup instrument",
         "outcomes": [
-          { "weight": 90, "description": "Seamless. Barely a hiccup.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 0, "concertEnds": false },
-          { "weight": 10, "description": "The backup is badly out of tune. The next song sounds rough.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": -15, "concertEnds": false }
+          {
+            "weight": 90,
+            "description": "Seamless. Barely a hiccup.",
+            "staminaChange": 0,
+            "crowdEnergyChange": 0,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 10,
+            "description": "The backup is badly out of tune. The next song sounds rough.",
+            "staminaChange": 0,
+            "crowdEnergyChange": -15,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       }
     ]
@@ -72,15 +163,43 @@
       {
         "label": "Let them go for it",
         "outcomes": [
-          { "weight": 50, "description": "A raw, electric moment. The crowd feels like they witnessed something real.", "creditChange": 100, "staminaChange": -10, "crowdEnergyChange": 25, "concertEnds": false },
-          { "weight": 35, "description": "Rough around the edges but the crowd respects the effort.", "creditChange": 20, "staminaChange": -10, "crowdEnergyChange": 5, "concertEnds": false },
-          { "weight": 15, "description": "They lose the flow completely. An awkward stumble mid-set.", "creditChange": 0, "staminaChange": -15, "crowdEnergyChange": -20, "concertEnds": false }
+          {
+            "weight": 50,
+            "description": "A raw, electric moment. The crowd feels like they witnessed something real.",
+            "staminaChange": -10,
+            "crowdEnergyChange": 25,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 35,
+            "description": "Rough around the edges but the crowd respects the effort.",
+            "staminaChange": -10,
+            "crowdEnergyChange": 5,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 15,
+            "description": "They lose the flow completely. An awkward stumble mid-set.",
+            "staminaChange": -15,
+            "crowdEnergyChange": -20,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       },
       {
         "label": "Stick to the setlist",
         "outcomes": [
-          { "weight": 100, "description": "Solid, professional performance. Everything goes to plan.", "creditChange": 0, "staminaChange": 0, "crowdEnergyChange": 0, "concertEnds": false }
+          {
+            "weight": 100,
+            "description": "Solid, professional performance. Everything goes to plan.",
+            "staminaChange": 0,
+            "crowdEnergyChange": 0,
+            "concertEnds": false,
+            "payout": "none"
+          }
         ]
       }
     ]

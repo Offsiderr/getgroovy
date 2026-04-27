@@ -38,6 +38,7 @@ public class MainGameController {
     @FXML private Label moneyText;
     @FXML private Label expeditionCount;
     @FXML private Label payText;
+    @FXML private Label cancelTourLabel;
 
     @FXML private ProgressBar tourProgressBar;
 
@@ -167,7 +168,7 @@ public class MainGameController {
 
         if(tourService.isTourComplete())
         {
-            cancelTour(event);
+            finishTour(event);
             return;
         }
 
@@ -202,10 +203,17 @@ public class MainGameController {
     @FXML private void endTourEarly(ActionEvent event) throws IOException
     {
         cancelTourPane.setVisible(true);
+        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $" + gameEnviroment.getConfig().cancelTourPenalty + " of tickets");
+        tourService.addCreditsEarned((double) -gameEnviroment.getConfig().cancelTourPenalty);
+    }
+
+    @FXML private void notCancellingTour(ActionEvent event) throws IOException
+    {
+        tourService.addCreditsEarned((double) gameEnviroment.getConfig().cancelTourPenalty);
     }
 
 
-     @FXML private void cancelTour(ActionEvent event) throws IOException {
+     @FXML private void finishTour(ActionEvent event) throws IOException {
          gameEnviroment.setPoolGenerated(false);
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
         loader.setController(new TourResultsController(gameEnviroment, tourService));

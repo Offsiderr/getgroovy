@@ -4,6 +4,8 @@ import seng201.team67.models.Artist;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;
+import seng201.team67.models.enums.PayoutTier;
+import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.ArtistLoaderService;
@@ -22,7 +24,6 @@ public class GameEnviroment {
     private Label label;
     private String tempName;
 
-    private double money;
     private int currentTour;
     private int selectedNumTours; //Selected amount of tours
     private int tourCount = 0; //tours so far
@@ -37,6 +38,8 @@ public class GameEnviroment {
     private boolean poolGenerated = false;
 
     private GameConfig gameConfig;
+
+    private PayoutTier payoutTier;
 
     //question pools
     private ArrayList<Question> commonQuestionPool;
@@ -67,6 +70,8 @@ public class GameEnviroment {
         {
             System.out.println(question.getPrompt() +  " " + question.getAnswers().get(0).getLabel());
         }
+
+
     }
 
 
@@ -100,10 +105,21 @@ public class GameEnviroment {
         }
 
 
-        money = difficulty.getStartingCredits();
 
         System.out.println(difficulty);
-        System.out.println(money);
+
+        switch (difficulty)
+        {
+            case EASY:
+                payoutTier = PayoutTier.EASY;
+                break;
+            case A_CHALLENGE:
+                payoutTier = PayoutTier.MEDIUM;
+                break;
+            case HEARTLESS:
+                payoutTier = PayoutTier.HARD;
+                break;
+        }
 
     }
 
@@ -221,5 +237,10 @@ public class GameEnviroment {
     public void increaseTours()
     {
         tourCount += 1;
+    }
+
+    public Double getPayoutAmount(PayoutType payoutType)
+    {
+        return payoutTier.resolve(payoutType);
     }
 }

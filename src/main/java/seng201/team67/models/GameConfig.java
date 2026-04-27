@@ -106,6 +106,8 @@ public class GameConfig {
     //Maximum character count for the label name
     public final int labelNameMaxLength;
 
+    public final int cancelTourPenalty;
+
 
     public GameConfig(
             // Economy
@@ -141,7 +143,8 @@ public class GameConfig {
             double soundEngineerSliderDefault,
             // UI / Validation
             int labelNameMinLength,
-            int labelNameMaxLength
+            int labelNameMaxLength,
+            int cancelTourPenalty
     ) {
         //this.artistBasePay                    = artistBasePay;
         //this.artistBaseHiringCost             = artistBaseHiringCost;
@@ -174,6 +177,7 @@ public class GameConfig {
         this.soundEngineerSliderDefault       = soundEngineerSliderDefault;
         this.labelNameMinLength               = labelNameMinLength;
         this.labelNameMaxLength               = labelNameMaxLength;
+        this.cancelTourPenalty                = cancelTourPenalty;
     }
 
     // ── Difficulty presets ────────────────────────────────────────────────────
@@ -194,7 +198,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15
+                3, 15, 100
         );
     }
 
@@ -214,7 +218,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15
+                3, 15, 300
         );
     }
 
@@ -234,7 +238,7 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15
+                3, 15, 500
         );
     }
 }
