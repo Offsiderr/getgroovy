@@ -83,7 +83,7 @@ public class MainMenuController {
             }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(lineup.get(i));

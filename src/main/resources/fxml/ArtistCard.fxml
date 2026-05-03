@@ -18,7 +18,7 @@
       <Label fx:id="star_power" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #f5a623; -fx-font-size: 11px;" text="Star Power" textAlignment="CENTER" />
       <Label fx:id="description" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #cccccc; -fx-font-size: 11px;" text="Description" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
       <Label fx:id="artistCost" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #a8ff78; -fx-font-size: 12px; -fx-font-weight: bold;" text="Cost" textAlignment="CENTER" />
-      <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#retireButton" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4;" text="Fire" textAlignment="CENTER">
+      <Button fx:id="retireButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#retireButton" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4;" text="Fire" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>

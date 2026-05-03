@@ -15,6 +15,7 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.gui.controllers.instantiable.GachaController;
 import seng201.team67.models.Artist;
+import seng201.team67.services.ArtistSelectionService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ArtistSelectionController {
     //that other classes can inherit from in the future.
 
     public final GameEnvironment gameEnvironment;
+    private final ArtistSelectionService artistSelectionService;
 
     @FXML private HBox artistOne;
     @FXML private HBox artistTwo;
@@ -45,6 +47,7 @@ public class ArtistSelectionController {
 
     public ArtistSelectionController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
+        this.artistSelectionService = new ArtistSelectionService(gameEnvironment);
     }
 
     @FXML
@@ -64,27 +67,15 @@ public class ArtistSelectionController {
     private void showArtistCards() {
         gachaContainer.setVisible(false);
 
-        List<Artist> pool = gameEnvironment.getArtistPool();
-        Collections.shuffle(pool);
+        List<Artist> picked = artistSelectionService.pickArtists();
 
-        List<Artist> picked = new ArrayList<>();
-        //pick artists
-        for(int i = 0; i < gameEnvironment.getConfig().startingArtistPoolSize; i++)
-        {
-            int z = i;
-            while (pool.get(z).getStarPower() > gameEnvironment.getConfig().maxSPInStartingSelection || picked.contains(pool.get(z)))
-            {
-                z += 1;
-            }
-            picked.add(pool.get(z));
-        }
 
         List<HBox> slots = List.of(artistOne, artistTwo, artistThree, artistFour, artistFive);
 
         for (int i = 0; i < slots.size(); i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(picked.get(i));
@@ -97,16 +88,8 @@ public class ArtistSelectionController {
     }
 
     public void onSelectionChanged() {
-        long selectedCount = artistCards.stream()
-                .filter(ArtistCardController::isSelected)
-                .count();
 
-        artistCards.forEach(c -> {
-            if (!c.isSelected()) {
-                c.setSelectable(selectedCount < gameEnvironment.getConfig().maxStartingArtists);
-            }
-        });
-
+        long selectedCount = artistSelectionService.onSelectionChanged(artistCards);
         selectArtists.setDisable(selectedCount != gameEnvironment.getConfig().maxStartingArtists);
     }
 

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
+import seng201.team67.services.SetupService;
 import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class SetupController {
     @FXML private javafx.scene.control.Button startButton;
 
     public final GameEnvironment gameEnvironment;
+    private final SetupService setupService;
     private SoundEffectsService soundEffectsService  = new SoundEffectsService();
 
     private Stage stage;
@@ -34,6 +36,7 @@ public class SetupController {
     public SetupController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
+        setupService = new SetupService(gameEnvironment);
     }
 
     public void handleNext(ActionEvent event) throws IOException {
@@ -43,6 +46,7 @@ public class SetupController {
     @FXML
     public void initialize()
     {
+
         //Is disabled anyway in the scene builder but doesn't hurt to make sure it is
         startButton.setDisable(true);
 
@@ -62,20 +66,9 @@ public class SetupController {
     }
 
     private void validateForm() {
-        startButton.setDisable(!isFormValid());
+        startButton.setDisable(!setupService.isFormValid(labelNameField, difficultyGroup));
     }
 
-    private boolean isFormValid() {
-        String name = labelNameField.getText();
-        boolean nameValid = name != null
-                && name.length() >= gameEnvironment.getConfig().labelNameMinLength
-                && name.length() <= gameEnvironment.getConfig().labelNameMaxLength
-                && name.matches("[a-zA-Z0-9 ]+");
-
-        boolean difficultyValid = difficultyGroup.getSelectedToggle() != null;
-
-        return nameValid && difficultyValid;
-    }
 
     @FXML
     public void onStartGame(ActionEvent event) throws IOException

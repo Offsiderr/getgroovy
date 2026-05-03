@@ -191,7 +191,7 @@ public class GameConfig {
         return new GameConfig(
                 // Economy
                 500,  // startingCredits
-                12, 5,
+                12, 3,
                 100, 500, 1000, 100,
                 // Probabilities
                 0.15, 0.5, 3,
@@ -211,7 +211,7 @@ public class GameConfig {
         return new GameConfig(
                 // Economy
                 300,  // startingCredits
-                12, 5,
+                12, 3,
                 100, 500, 1000, 100,
                 // Probabilities
                 0.15, 0.5, 2,
@@ -231,7 +231,7 @@ public class GameConfig {
         return new GameConfig(
                 // Economy
                 150,  // startingCredits
-                12, 5,
+                12, 3,
                 100, 500, 1000, 100,
                 // Probabilities
                 0.15, 0.5, 1,

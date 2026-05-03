@@ -85,6 +85,11 @@ public class LabelService {
         return label.getLineUp();
     }
 
+    public int getLineupLimit()
+    {
+        return label.getLineUpLimit();
+    }
+
     public List<Artist> getAllArtists()
     {
         return label.getAllArtists();

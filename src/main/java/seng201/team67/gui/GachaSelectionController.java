@@ -16,6 +16,7 @@ import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.gui.controllers.instantiable.GachaController;
 import seng201.team67.models.Artist;
 import seng201.team67.models.enums.Rarity;
+import seng201.team67.services.GachaService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class GachaSelectionController extends ArtistSelectionController {
     //in making the split panes adjustable.
 
     public final GameEnvironment gameEnvironment;
+    private final GachaService gachaService;
     private boolean artists; //Yes if artists are being opened, otherwise it is items.
 
     @FXML private HBox itemOne;
@@ -55,6 +57,7 @@ public class GachaSelectionController extends ArtistSelectionController {
         this.artists = artists;
         this.hboxSize = hboxSize;
         this.rarity = rarity;
+        gachaService = new GachaService(gameEnvironment);
     }
 
     @FXML
@@ -74,27 +77,15 @@ public class GachaSelectionController extends ArtistSelectionController {
     private void showArtistCards() {
         gachaContainer.setVisible(false);
 
-        List<Artist> pool = gameEnvironment.getArtistPool();
-        Collections.shuffle(pool);
-
         List<HBox> slots = List.of(itemOne, itemTwo, itemThree);
 
-        List<Artist> picked = new ArrayList<>();
-        for (int i = 0; i < slots.size(); i++)
-        {
-            int selectedStarpower = rarity.get_starpower();
-            int z = i;
-            while (pool.get(z).owned && pool.get(z).getStarPower() != selectedStarpower)
-            {
-                z += 1;
-            }
-            picked.add(pool.get(z));
-        }
+        List<Artist> picked = gachaService.getPickedArtists(slots, rarity);
+
 
         for (int i = 0; i < slots.size(); i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(picked.get(i));
@@ -106,6 +97,7 @@ public class GachaSelectionController extends ArtistSelectionController {
         }
     }
 
+    //Will move this later
     private void showItemCards() {
         gachaContainer.setVisible(false);
 
@@ -130,7 +122,7 @@ public class GachaSelectionController extends ArtistSelectionController {
         for (int i = 0; i < slots.size(); i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(picked.get(i));
@@ -143,15 +135,7 @@ public class GachaSelectionController extends ArtistSelectionController {
     }
 
     public void onSelectionChanged() {
-        long selectedCount = artistCards.stream()
-                .filter(ArtistCardController::isSelected)
-                .count();
-
-        artistCards.forEach(c -> {
-            if (!c.isSelected()) {
-                c.setSelectable(selectedCount < 1);
-            }
-        });
+        long selectedCount = gachaService.onSelectionChanged(artistCards);
 
         selectArtists.setDisable(selectedCount != 1);
     }
