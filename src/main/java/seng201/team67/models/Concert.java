@@ -1,8 +1,7 @@
 package seng201.team67.models;
 
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.models.questionmodels.Question;
-import seng201.team67.services.ConcertService;
 
 import java.util.List;
 
@@ -13,9 +12,9 @@ public class Concert {
     private int energy;
     private double ticketSales;
 
-    public Concert(GameEnviroment gameEnviroment)
+    public Concert(GameEnvironment gameEnvironment)
     {
-        ticketSales = gameEnviroment.getConfig().artistRerollCost;
+        ticketSales = gameEnvironment.getConfig().artistRerollCost;
     }
 
     public int getEnergy()
@@ -25,7 +24,7 @@ public class Concert {
 
     public void addEnergy(int toAdd)
     {
-        energy = energy = toAdd;
+        energy = energy + toAdd;
     }
 
     public double getTicketSales()

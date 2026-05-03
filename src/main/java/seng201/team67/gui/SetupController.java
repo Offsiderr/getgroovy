@@ -11,7 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
@@ -24,16 +24,16 @@ public class SetupController {
     @FXML private ToggleGroup difficultyGroup; //Difficulty toggles are grouped together in a toggle group in SceneBuilder
     @FXML private javafx.scene.control.Button startButton;
 
-    public final GameEnviroment gameEnviroment;
+    public final GameEnvironment gameEnvironment;
     private SoundEffectsService soundEffectsService  = new SoundEffectsService();
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    public SetupController(GameEnviroment gameEnviroment)
+    public SetupController(GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
     }
 
     public void handleNext(ActionEvent event) throws IOException {
@@ -47,7 +47,7 @@ public class SetupController {
         startButton.setDisable(true);
 
         //Set spinner values
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(gameEnviroment.getConfig().minTourCount, gameEnviroment.getConfig().maxTourCount, gameEnviroment.getConfig().defaultTourCount);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(gameEnvironment.getConfig().minTourCount, gameEnvironment.getConfig().maxTourCount, gameEnvironment.getConfig().defaultTourCount);
         expeditionCountSpinner.setValueFactory(valueFactory);
 
         // Revalidate whenever name changes
@@ -68,8 +68,8 @@ public class SetupController {
     private boolean isFormValid() {
         String name = labelNameField.getText();
         boolean nameValid = name != null
-                && name.length() >= gameEnviroment.getConfig().labelNameMinLength
-                && name.length() <= gameEnviroment.getConfig().labelNameMaxLength
+                && name.length() >= gameEnvironment.getConfig().labelNameMinLength
+                && name.length() <= gameEnvironment.getConfig().labelNameMaxLength
                 && name.matches("[a-zA-Z0-9 ]+");
 
         boolean difficultyValid = difficultyGroup.getSelectedToggle() != null;
@@ -83,13 +83,13 @@ public class SetupController {
         soundEffectsService.playYes();
 
         //setting up the game enviroment
-        gameEnviroment.setLabelName(labelNameField.getText());
-        gameEnviroment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
-        gameEnviroment.setSelectedNumTours(expeditionCountSpinner.getValue());
+        gameEnvironment.setLabelName(labelNameField.getText());
+        gameEnvironment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
+        gameEnvironment.setSelectedNumTours(expeditionCountSpinner.getValue());
 
         //Now let's load the artist selection scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartingArtistSelection.fxml"));
-        loader.setController(new ArtistSelectionController(gameEnviroment));
+        loader.setController(new ArtistSelectionController(gameEnvironment));
 
         Parent root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

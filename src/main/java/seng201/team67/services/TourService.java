@@ -1,6 +1,7 @@
 package seng201.team67.services;
 
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
+import seng201.team67.models.Artist;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.enums.TourType;
@@ -11,15 +12,15 @@ import java.util.stream.Collectors;
 public class TourService {
 
     private Tour tour;
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private static double miniGameTriggerChance; //TODO: decide a percentage
     private final Random random = new Random();
 
-    public TourService(Tour tour, GameEnviroment gameEnviroment)
+    public TourService(Tour tour, GameEnvironment gameEnvironment)
     {
         this.tour = tour;
-        this.gameEnviroment = gameEnviroment;
-        this.miniGameTriggerChance = gameEnviroment.getConfig().miniGameTriggerChance;
+        this.gameEnvironment = gameEnvironment;
+        this.miniGameTriggerChance = gameEnvironment.getConfig().miniGameTriggerChance;
     }
 
     public TourType getTourType()
@@ -88,7 +89,7 @@ public class TourService {
 
     public void tourEnded()
     {
-        gameEnviroment.getLabelService().giveMoney(tour.getCreditsEarned());
+        gameEnvironment.getLabelService().giveMoney(tour.getCreditsEarned());
 
     }
 
@@ -114,8 +115,51 @@ public class TourService {
         tour.addStamina(stamina);
     }
 
+    public int getCurrentLineupStaminaIndex()
+    {
+        return tour.currentLineupStaminaIndex;
+    }
+
+    public void advanceLineupStaminaIndex()
+    {
+        tour.currentLineupStaminaIndex += 1;
+    }
+
     public Double getTotalStamina()
     {
         return tour.getTotalStaminaDrained();
+    }
+
+    public boolean isLineupExhausted()
+    {
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        return !lineup.isEmpty() && lineup.stream().allMatch(artist -> artist.getStamina() <= 0);
+    }
+
+    public int getRemainingConcerts()
+    {
+        return Math.max(0, tour.type.getStops() - tour.currentStopIndex);
+    }
+
+    public void endTourDueToExhaustion()
+    {
+        int remainingConcerts = getRemainingConcerts();
+        double refund = remainingConcerts * gameEnvironment.getConfig().cancelTourPenalty;
+        tour.setEndedByExhaustion(true);
+        tour.setExhaustionRefund(refund);
+        if (refund > 0)
+        {
+            tour.addCreditsEarned(-refund);
+        }
+    }
+
+    public boolean isEndedByExhaustion()
+    {
+        return tour.isEndedByExhaustion();
+    }
+
+    public double getExhaustionRefund()
+    {
+        return tour.getExhaustionRefund();
     }
 }

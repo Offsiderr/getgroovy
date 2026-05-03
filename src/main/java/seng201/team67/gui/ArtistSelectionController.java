@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.gui.controllers.instantiable.GachaController;
 import seng201.team67.models.Artist;
@@ -27,7 +27,7 @@ public class ArtistSelectionController {
     //but will be split out into a basic selection interface super class
     //that other classes can inherit from in the future.
 
-    public final GameEnviroment gameEnviroment;
+    public final GameEnvironment gameEnvironment;
 
     @FXML private HBox artistOne;
     @FXML private HBox artistTwo;
@@ -43,8 +43,8 @@ public class ArtistSelectionController {
 
     private final List<ArtistCardController> artistCards = new ArrayList<>();
 
-    public ArtistSelectionController(GameEnviroment gameEnviroment) {
-        this.gameEnviroment = gameEnviroment;
+    public ArtistSelectionController(GameEnvironment gameEnvironment) {
+        this.gameEnvironment = gameEnvironment;
     }
 
     @FXML
@@ -52,7 +52,7 @@ public class ArtistSelectionController {
         selectArtists.setDisable(true);
 
         FXMLLoader gachaLoader = new FXMLLoader(getClass().getResource("/fxml/Gatcha.fxml"));
-        GachaController gachaController = new GachaController(gameEnviroment);
+        GachaController gachaController = new GachaController(gameEnvironment);
         gachaLoader.setController(gachaController);
 
         gachaController.setOnGachaComplete(() -> showArtistCards());
@@ -64,15 +64,15 @@ public class ArtistSelectionController {
     private void showArtistCards() {
         gachaContainer.setVisible(false);
 
-        List<Artist> pool = gameEnviroment.getArtistPool();
+        List<Artist> pool = gameEnvironment.getArtistPool();
         Collections.shuffle(pool);
 
         List<Artist> picked = new ArrayList<>();
         //pick artists
-        for(int i = 0; i < gameEnviroment.getConfig().startingArtistPoolSize; i++)
+        for(int i = 0; i < gameEnvironment.getConfig().startingArtistPoolSize; i++)
         {
             int z = i;
-            while (pool.get(z).getStar_power() > gameEnviroment.getConfig().maxSPInStartingSelection || picked.contains(pool.get(z)))
+            while (pool.get(z).getStarPower() > gameEnvironment.getConfig().maxSPInStartingSelection || picked.contains(pool.get(z)))
             {
                 z += 1;
             }
@@ -84,7 +84,7 @@ public class ArtistSelectionController {
         for (int i = 0; i < slots.size(); i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController();
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(picked.get(i));
@@ -103,11 +103,11 @@ public class ArtistSelectionController {
 
         artistCards.forEach(c -> {
             if (!c.isSelected()) {
-                c.setSelectable(selectedCount < gameEnviroment.getConfig().maxStartingArtists);
+                c.setSelectable(selectedCount < gameEnvironment.getConfig().maxStartingArtists);
             }
         });
 
-        selectArtists.setDisable(selectedCount != gameEnviroment.getConfig().maxStartingArtists);
+        selectArtists.setDisable(selectedCount != gameEnvironment.getConfig().maxStartingArtists);
     }
 
     public List<Artist> getSelectedArtists() {
@@ -120,8 +120,8 @@ public class ArtistSelectionController {
     @FXML
     public void artistsSelected(ActionEvent event) throws IOException
     {
-        gameEnviroment.createLabel(getSelectedArtists());
-        gameEnviroment.getLabelService().getAllArtists().forEach(artist -> {
+        gameEnvironment.createLabel(getSelectedArtists());
+        gameEnvironment.getLabelService().getAllArtists().forEach(artist -> {
             artist.owned = true;
         });
 
@@ -133,7 +133,7 @@ public class ArtistSelectionController {
     {
         //Now let's load the artist selection scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnviroment));
+        loader.setController(new MainMenuController(gameEnvironment));
 
         Parent root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

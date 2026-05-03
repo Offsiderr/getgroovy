@@ -2,7 +2,6 @@ package seng201.team67.models;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import seng201.team67.GameEnviroment;
 import seng201.team67.interfaces.Purchasable;
 
 //Allows Jason to recognise the sub-class types.
@@ -13,7 +12,7 @@ import seng201.team67.interfaces.Purchasable;
         @JsonSubTypes.Type(value = Rockstar.class, name = "ROCK")
 })
 
-public class Artist implements Purchasable {
+public abstract class Artist implements Purchasable {
 
 
     private String name;
@@ -22,18 +21,18 @@ public class Artist implements Purchasable {
     private int health;
     private int baseStamina;
     private int stamina;
-    private int star_power;
+    private int starPower;
     private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
     private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
     public boolean owned = false;
 
-    public Artist(String name, int star_power, int stamina, int health, String description)
+    public Artist(String name, int starPower, int stamina, int health, String description)
     {
         this.name = name;
         this.description = description;
         this.health = health;
         this.stamina = stamina;
-        this.star_power = star_power;
+        this.starPower = starPower;
         this.baseStamina = stamina;
     }
 
@@ -41,12 +40,12 @@ public class Artist implements Purchasable {
 
     public double getPay()
     {
-        return basePay * star_power;
+        return basePay * starPower;
     }
 
     public double getCost()
     {
-        return baseHiringCost * star_power;
+        return baseHiringCost * starPower;
     }
 
     public String getName()
@@ -64,18 +63,21 @@ public class Artist implements Purchasable {
         return stamina;
     }
 
-    public int getStar_power()
+    public int getStarPower()
     {
-        return star_power;
+        return starPower;
     }
 
     public String getDescription(){return description;}
 
     public String getType(){return "Artist";}
 
-    //Setters
+    public String getImagePath()
+    {
+        return "/images/Artists/" + this.name + ".png";
+    }
 
-    public void setBaseStamina(int stamina){this.baseStamina = stamina;}
+    //Setters
 
     public void setHealth(int health)
     {
@@ -95,5 +97,7 @@ public class Artist implements Purchasable {
             this.stamina = 0;
         }
     }
+
+
 
 }

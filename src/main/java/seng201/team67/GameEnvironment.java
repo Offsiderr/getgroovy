@@ -14,7 +14,7 @@ import seng201.team67.services.QuestionLoaderService;
 
 import java.util.*;
 
-public class GameEnviroment {
+public class GameEnvironment {
 
     //This is the main hub, this class wires everything together.
 
@@ -27,6 +27,7 @@ public class GameEnviroment {
     private int currentTour;
     private int selectedNumTours; //Selected amount of tours
     private int tourCount = 0; //tours so far
+    private int concertCount = 0;
     private Difficulty difficulty;
 
     private LabelService labelService;
@@ -47,8 +48,7 @@ public class GameEnviroment {
     private ArrayList<Question> countryQuestionPool;
     private ArrayList<Question> worldQuestionPool;
 
-
-    public GameEnviroment()
+    public GameEnvironment()
     {
         //Load our artists
         List<Artist> allArtists = new ArtistLoaderService().loadAll();
@@ -57,7 +57,7 @@ public class GameEnviroment {
 
         //just testing for now
         for (Artist artist : this.getArtistPool()) {
-            System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStar_power());
+            System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStarPower());
         }
 
         this.commonQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
@@ -93,7 +93,7 @@ public class GameEnviroment {
         }
         if(difType == 1)
         {
-            difficulty = Difficulty.A_CHALLENGE;
+            difficulty = Difficulty.ACHALLENGE;
             this.gameConfig = GameConfig.aChallenge();
 
         }
@@ -113,7 +113,7 @@ public class GameEnviroment {
             case EASY:
                 payoutTier = PayoutTier.EASY;
                 break;
-            case A_CHALLENGE:
+            case ACHALLENGE:
                 payoutTier = PayoutTier.MEDIUM;
                 break;
             case HEARTLESS:
@@ -159,7 +159,7 @@ public class GameEnviroment {
             ArrayList<Artist> candidates = new ArrayList<>();
             for (Artist artist : artistPool)
             {
-                if (!artist.owned && artist.getStar_power() == rarity.get_starpower())
+                if (!artist.owned && artist.getStarPower() == rarity.get_starpower())
                 {
                     candidates.add(artist);
                 }
@@ -215,6 +215,48 @@ public class GameEnviroment {
             return GameConfig.easy();
         }
         return gameConfig;
+    }
+
+    public int getConcertCount()
+    {
+        return concertCount;
+    }
+
+    public void increaseConcertCount()
+    {
+        concertCount += 1;
+    }
+
+    public boolean checkGameStatus()
+    {
+        boolean noArtists = labelService.getAllArtists().isEmpty();
+        if (!noArtists)
+        {
+            return false;
+        }
+
+        return !canAffordArtistRecovery();
+    }
+
+    private boolean canAffordArtistRecovery()
+    {
+        double money = labelService.getMoney();
+        boolean hasAvailableArtist = artistPool.stream().anyMatch(artist -> !artist.owned);
+
+        if (!hasAvailableArtist)
+        {
+            return false;
+        }
+
+        boolean canAffordHire = artistPool.stream()
+                .filter(artist -> !artist.owned)
+                .anyMatch(artist -> artist.getCost() <= money);
+
+        boolean canAffordGacha = money >= getConfig().gachaStandardCost
+                || money >= getConfig().gachaGoldenCost
+                || money >= getConfig().gachaPlatinumCost;
+
+        return canAffordHire || canAffordGacha;
     }
 
     public Question getQuestion(String type)

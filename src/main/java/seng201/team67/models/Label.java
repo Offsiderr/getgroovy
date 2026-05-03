@@ -1,55 +1,55 @@
 package seng201.team67.models;
 
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Label {
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
 
     //(Guilds) Since our project is music themed, guilds are called music labels
     public String name;
-    public int artists_limit;
-    public int line_up_limit; //not in use currently
+    public int artistsLimit;
+    public int lineUpLimit; //not in use currently
     public double money;
 
 
     private ArrayList<Item> items = new ArrayList<Item>();
 
     //This is a list of every artist that the player has in their label
-    private ArrayList<Artist> all_artists = new ArrayList<Artist>();
+    private ArrayList<Artist> allArtists = new ArrayList<Artist>();
 
     //This is a list of artists from the player's line up.
-    private List<Artist> line_up = new ArrayList<Artist>();
+    private List<Artist> lineUp = new ArrayList<Artist>();
 
-    public Label(String name, List<Artist> selected_artists, GameEnviroment gameEnviroment)
+    public Label(String name, List<Artist> selected_artists, GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
-        all_artists.addAll(selected_artists);
-        line_up.addAll(selected_artists);
+        this.gameEnvironment = gameEnvironment;
+        allArtists.addAll(selected_artists);
+        lineUp.addAll(selected_artists);
         this.name = name;
 
-        this.money = gameEnviroment.getConfig().startingCredits;
-        this.artists_limit = gameEnviroment.getConfig().artistsRosterLimit;
-        this.line_up_limit = gameEnviroment.getConfig().lineUpLimit;
+        this.money = gameEnvironment.getConfig().startingCredits;
+        this.artistsLimit = gameEnvironment.getConfig().artistsRosterLimit;
+        this.lineUpLimit = gameEnvironment.getConfig().lineUpLimit;
     }
 
     //Getters
-    public ArrayList<Artist> getAll_artists()
+    public ArrayList<Artist> getAllArtists()
     {
-        return all_artists;
+        return allArtists;
     }
 
-    public List<Artist> getLine_Up()
+    public List<Artist> getLineUp()
     {
-        return line_up;
+        return lineUp;
     }
 
-    public int getArtists_limit()
+    public int getArtistsLimit()
     {
-        return artists_limit;
+        return artistsLimit;
     }
 
     public String getName()
@@ -62,9 +62,9 @@ public class Label {
     //Setters
     public boolean addArtistToAll(Artist artist)
     {
-        if(all_artists.size() < artists_limit)
+        if(allArtists.size() < artistsLimit)
         {
-            all_artists.add(artist);
+            allArtists.add(artist);
             return true;
         }
         else
@@ -73,17 +73,34 @@ public class Label {
         }
     }
 
-    public void setLine_up(List<Artist> line_up)
+    public void setLineUp(List<Artist> line_up)
     {
-        this.line_up.clear();
-        this.line_up.addAll(line_up);
+        this.lineUp.clear();
+        this.lineUp.addAll(line_up);
     }
 
-    public void applyStaminaToLineup(double stamina)
+    public void applyStaminaToLineup(int staminaChange)
     {
-        for(Artist artist : line_up)
+        for(Artist artist : lineUp)
         {
-            artist.setStamina(artist.getStamina() - (int) stamina);
+            artist.setStamina(artist.getStamina() + staminaChange);
         }
+    }
+
+    public void applyStaminaToLineupArtist(int lineupIndex, int staminaChange)
+    {
+        if (lineUp.isEmpty())
+        {
+            return;
+        }
+
+        Artist artist = lineUp.get(Math.floorMod(lineupIndex, lineUp.size()));
+        artist.setStamina(artist.getStamina() + staminaChange);
+    }
+
+    public void removeArtist(Artist artist)
+    {
+        allArtists.remove(artist);
+        lineUp.remove(artist);
     }
 }

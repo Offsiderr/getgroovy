@@ -1,8 +1,7 @@
 package seng201.team67.services;
 
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.models.Artist;
-import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 
 import java.util.List;
@@ -13,11 +12,11 @@ public class LabelService {
     //standards
 
     public Label label;
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
 
-    public LabelService(GameEnviroment gameEnviroment)
+    public LabelService(GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
     }
 
     public void setLabel(Label label){this.label = label;}
@@ -29,7 +28,7 @@ public class LabelService {
         {
             return false;
         }
-        else if (label.getAll_artists().size() >= label.getArtists_limit())
+        else if (label.getAllArtists().size() >= label.getArtistsLimit())
         {
             return false;
         }
@@ -47,7 +46,7 @@ public class LabelService {
         {
             return false;
         }
-        else if (label.getAll_artists().size() >= label.getArtists_limit())
+        else if (label.getAllArtists().size() >= label.getArtistsLimit())
         {
             return false;
         }
@@ -73,7 +72,7 @@ public class LabelService {
 
     public void setLineUp(List<Artist> artist_lineup)
     {
-        label.setLine_up(artist_lineup);
+        label.setLineUp(artist_lineup);
     }
 
     public String getLabelName()
@@ -83,12 +82,12 @@ public class LabelService {
 
     public List<Artist> getLineup()
     {
-        return label.getLine_Up();
+        return label.getLineUp();
     }
 
     public List<Artist> getAllArtists()
     {
-        return label.getAll_artists();
+        return label.getAllArtists();
     }
 
     public Double getMoney()
@@ -108,39 +107,43 @@ public class LabelService {
 
     public double getLineupTotalPay()
     {
-        List<Artist> artists = label.getLine_Up();
+        List<Artist> artists = label.getLineUp();
 
         double totalCost = 0;
 
         for (Artist artist : artists)
         {
-            totalCost += artist.getPay() * gameEnviroment.getDifficulty().getPayMultiplier();
+            totalCost += artist.getPay() * gameEnvironment.getDifficulty().getPayMultiplier();
         }
         return totalCost;
     }
 
     public double getAverageSP()
     {
-        List<Artist> artists = label.getLine_Up();
+        List<Artist> artists = label.getLineUp();
+        if (artists.isEmpty())
+        {
+            return 0;
+        }
 
         double sp = 0;
         for (Artist artist : artists)
         {
-            sp += artist.getStar_power();
+            sp += artist.getStarPower();
         }
         return sp / artists.size();
     }
 
     public double getMaxSP()
     {
-        List<Artist> artists = label.getLine_Up();
+        List<Artist> artists = label.getLineUp();
 
         double sp = 0;
         for (Artist artist : artists)
         {
-            if(sp < artist.getStar_power())
+            if(sp < artist.getStarPower())
             {
-                sp = artist.getStar_power();
+                sp = artist.getStarPower();
             }
         }
         return sp;
@@ -148,14 +151,18 @@ public class LabelService {
 
     public double getMinSP()
     {
-        List<Artist> artists = label.getLine_Up();
+        List<Artist> artists = label.getLineUp();
+        if (artists.isEmpty())
+        {
+            return 0;
+        }
 
-        double sp = 6;
+        double sp = artists.getFirst().getStarPower();
         for (Artist artist : artists)
         {
-            if(sp > artist.getStar_power())
+            if(sp > artist.getStarPower())
             {
-                sp = artist.getStar_power();
+                sp = artist.getStarPower();
             }
         }
         return sp;
@@ -163,6 +170,16 @@ public class LabelService {
 
     public void applyStaminaChange(double staminaChange)
     {
-        label.applyStaminaToLineup(staminaChange);
+        label.applyStaminaToLineup((int) Math.round(staminaChange));
+    }
+
+    public void applyStaminaChangeToLineupArtist(int lineupIndex, double staminaChange)
+    {
+        label.applyStaminaToLineupArtist(lineupIndex, (int) Math.round(staminaChange));
+    }
+
+    public void retireArtist(Artist artist)
+    {
+        label.removeArtist(artist);
     }
 }

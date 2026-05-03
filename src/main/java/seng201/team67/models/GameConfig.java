@@ -197,7 +197,7 @@ public class GameConfig {
                 0.15, 0.5, 3,
                 // Expedition
                 5, 15, 5,
-                5, 3, 3, 3, 1,
+                5, 3, 1, 3, 1,
                 5,          // concertQuestionsCount (EASY)
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
@@ -217,7 +217,7 @@ public class GameConfig {
                 0.15, 0.5, 2,
                 // Expedition
                 5, 15, 5,
-                5, 3, 3, 3, 1,
+                5, 3, 1, 3, 1,
                 7,          // concertQuestionsCount (A_CHALLENGE)
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
@@ -237,7 +237,7 @@ public class GameConfig {
                 0.15, 0.5, 1,
                 // Expedition
                 5, 15, 5,
-                5, 3, 3, 3, 1,
+                5, 3, 1, 3, 1,
                 9,          // concertQuestionsCount (HEARTLESS)
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,

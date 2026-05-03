@@ -77,15 +77,5 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="staminaText" layoutX="941.0" layoutY="14.0" text="\$1000" textAlignment="RIGHT">
-         <font>
-            <Font size="37.0" />
-         </font>
-      </Label>
-      <Label layoutX="823.0" layoutY="28.0" text="Stamina Drain:" textAlignment="RIGHT">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

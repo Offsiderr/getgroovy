@@ -5,15 +5,12 @@ public class Rapper extends Artist{
     //(Jackson needs this for Json deserialisation)
     public Rapper()
     {
-        super("", 0, 0, 0, "");
-        setStamina(120);
-        setBaseStamina(120);
-
+        super("", 0, 120, 100, "");
     }
 
-    public Rapper (String name, int star_power, String description)
+    public Rapper (String name, int starPower, String description)
     {
-        super(name, star_power, 120, 80, description);
+        super(name, starPower, 120, 100, description);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package seng201.team67.services;
 
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
 import seng201.team67.models.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
@@ -16,7 +16,7 @@ public class ConcertService {
     //TODO: Refactor questions to be in a dict
 
     private Concert concert;
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private TourService tourService;
     private List<Question> concertQuestions;
     private int count = 0;
@@ -24,18 +24,18 @@ public class ConcertService {
     private double staminaDrain;
     private boolean isEnded = false;
 
-    public ConcertService(GameEnviroment gameEnviroment, TourService tourService)
+    public ConcertService(GameEnvironment gameEnvironment, TourService tourService)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
-        concert = new Concert(gameEnviroment);
+        concert = new Concert(gameEnvironment);
         concertQuestions = generateConcertQuestions();
     }
 
     private int generateQuestionCount()
     {
         //TODO: get rid of this
-        return gameEnviroment.getConfig().concertQuestionsCount;
+        return gameEnvironment.getConfig().concertQuestionsCount;
     }
 
     private List<Question> generateConcertQuestions()
@@ -46,7 +46,7 @@ public class ConcertService {
         for(int i = 1; i <= generateQuestionCount(); i++)
         {
             String type = "";
-            boolean result = Math.random() < gameEnviroment.getConfig().questionCommonChance;
+            boolean result = Math.random() < gameEnvironment.getConfig().questionCommonChance;
             if(result)
             {
                 type = "common";
@@ -55,7 +55,7 @@ public class ConcertService {
             {
                 type = tourService.getTourType().toString();
             }
-            concertQuestions.add(gameEnviroment.getQuestion(type));
+            concertQuestions.add(gameEnvironment.getQuestion(type));
         }
         return concertQuestions;
     }
@@ -67,11 +67,10 @@ public class ConcertService {
         //add ticket revenue
         tourService.addCreditsEarned(calculateTicketRevenue());
         //take away lineup's pay
-        tourService.addCreditsEarned(-gameEnviroment.getLabelService().getLineupTotalPay());
+        tourService.addCreditsEarned(-gameEnvironment.getLabelService().getLineupTotalPay());
         //apply the stamina changes
-        staminaDrain += calculateStaminaDrain();
-        gameEnviroment.getLabelService().applyStaminaChange(staminaDrain);
-        tourService.addStamina(staminaDrain);
+        int endConcertDrain = roundStaminaChange(calculateStaminaDrain());
+        applySequentialLineupDrain(endConcertDrain);
     }
 
     public Question getNextQuestion()
@@ -137,12 +136,19 @@ public class ConcertService {
         //if statement not needed. fix later
         if(outcome.getPayoutType() != PayoutType.NONE)
         {
-            gameEnviroment.getLabelService().giveMoney(gameEnviroment.getPayoutAmount(outcome.getPayoutType()));
+            gameEnvironment.getLabelService().giveMoney(gameEnvironment.getPayoutAmount(outcome.getPayoutType()));
         }
 
         //stamina change goes here
-        gameEnviroment.getLabelService().applyStaminaChange(outcome.getStaminaChange());
-        tourService.addStamina(outcome.getStaminaChange());
+        int staminaChange = roundStaminaChange(outcome.getStaminaChange());
+        if (staminaChange < 0)
+        {
+            applySequentialLineupDrain(-staminaChange);
+        }
+        else if (staminaChange > 0)
+        {
+            gameEnvironment.getLabelService().applyStaminaChange(staminaChange);
+        }
 
         //Calculate concert crowd energy gain
         concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
@@ -177,13 +183,20 @@ public class ConcertService {
 
     public double calculateCrowdGain(double baseGain)
     {
-        return baseGain * (0.5 + gameEnviroment.getLabelService().getAverageSP() / gameEnviroment.getLabelService().getMaxSP());
+        double maxSp = gameEnvironment.getLabelService().getMaxSP();
+        if (maxSp <= 0)
+        {
+            return baseGain * 0.5;
+        }
+        return baseGain * (0.5 + gameEnvironment.getLabelService().getAverageSP() / maxSp);
     }
 
     public double calculateTicketRevenue()
     {
         //concert ticket pay = (crowdMeter / 100) × baseTicketRevenue × (1 + avgSP / maxSP)
-        return (concert.getEnergy() / 100) * gameEnviroment.getConfig().ticketSalesAmount * (1 + gameEnviroment.getLabelService().getAverageSP() / gameEnviroment.getLabelService().getMaxSP());
+        double maxSp = gameEnvironment.getLabelService().getMaxSP();
+        double starPowerMultiplier = maxSp <= 0 ? 1 : 1 + gameEnvironment.getLabelService().getAverageSP() / maxSp;
+        return (concert.getEnergy() / 100.0) * gameEnvironment.getConfig().ticketSalesAmount * starPowerMultiplier;
     }
 
     public double calculateStaminaDrain()
@@ -199,5 +212,26 @@ public class ConcertService {
     public double totalStaminaDrain()
     {
         return staminaDrain;
+    }
+
+    private int roundStaminaChange(double staminaChange)
+    {
+        return (int) Math.round(staminaChange);
+    }
+
+    private void applySequentialLineupDrain(int drainAmount)
+    {
+        if (drainAmount <= 0)
+        {
+            return;
+        }
+
+        gameEnvironment.getLabelService().applyStaminaChangeToLineupArtist(
+                tourService.getCurrentLineupStaminaIndex(),
+                -drainAmount
+        );
+        staminaDrain += drainAmount;
+        tourService.addStamina(drainAmount);
+        tourService.advanceLineupStaminaIndex();
     }
 }

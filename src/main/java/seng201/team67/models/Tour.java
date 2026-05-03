@@ -1,9 +1,7 @@
 package seng201.team67.models;
 
-import javafx.scene.control.CheckBox;
 import seng201.team67.models.enums.TourType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Tour {
@@ -11,9 +9,12 @@ public class Tour {
     public final TourType type;
     private List<Integer> stopOrder;
     public int currentStopIndex;
+    public int currentLineupStaminaIndex;
     public double creditsEarned;
     public double totalStaminaDrained;
     public boolean concertFinished = false;
+    public boolean endedByExhaustion = false;
+    public double exhaustionRefund = 0;
 
     public Tour(TourType type)
     {
@@ -63,5 +64,25 @@ public class Tour {
     public double getPayMultiplier()
     {
         return type.getPayMultiplier();
+    }
+
+    public void setEndedByExhaustion(boolean endedByExhaustion)
+    {
+        this.endedByExhaustion = endedByExhaustion;
+    }
+
+    public boolean isEndedByExhaustion()
+    {
+        return endedByExhaustion;
+    }
+
+    public void setExhaustionRefund(double exhaustionRefund)
+    {
+        this.exhaustionRefund = exhaustionRefund;
+    }
+
+    public double getExhaustionRefund()
+    {
+        return exhaustionRefund;
     }
 }

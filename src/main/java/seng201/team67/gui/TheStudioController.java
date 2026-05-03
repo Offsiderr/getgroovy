@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.models.Artist;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ import static seng201.team67.models.enums.Rarity.*;
 
 public class TheStudioController {
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private Artist selectedArtist;
 
     @FXML public javafx.scene.control.Label labelName;
@@ -33,15 +33,15 @@ public class TheStudioController {
     @FXML private Button buyArtistButton;
 
 
-    public TheStudioController(GameEnviroment gameEnviroment)
+    public TheStudioController(GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
     }
 
     @FXML public void initialize() throws IOException
     {
-        this.labelName.setText(gameEnviroment.getLabelService().getLabelName());
-        this.moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
+        this.moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
 
         loadArtistPool();
 
@@ -73,7 +73,7 @@ public class TheStudioController {
         //insets are a new thing I discovered that we should be using later.
         Label nameLabel = new Label(artist.getName());
         Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStar_power());
+        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
         Label staminaLabel = new Label("Stamina: " + artist.getStamina());
         Label healthLabel = new Label("Health: " + artist.getHealth());
         Label costLabel = new Label("Hire: $" + (int) artist.getCost());
@@ -98,16 +98,16 @@ public class TheStudioController {
 
     @FXML public void handleHireArtist()
     {
-        if (selectedArtist != null && gameEnviroment.getLabelService().hireArtist(selectedArtist))
+        if (selectedArtist != null && gameEnvironment.getLabelService().hireArtist(selectedArtist))
         {
-            moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadArtistPool();
         }
     }
 
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnviroment));
+        loader.setController(new MainMenuController(gameEnvironment));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -116,10 +116,10 @@ public class TheStudioController {
 
     @FXML public void buyStandard(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaStandardCost))
+        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, RARE));
+            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -129,10 +129,10 @@ public class TheStudioController {
 
     @FXML public void buyGolden(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaGoldenCost))
+        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, VERY_RARE));
+            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, VERY_RARE));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -142,10 +142,10 @@ public class TheStudioController {
 
     @FXML public void buyPlatinum(ActionEvent event) throws IOException
     {
-        if(gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().gachaPlatinumCost))
+        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GatchaSelectionController(gameEnviroment, true, gameEnviroment.getConfig().gachaPoolSize, ULTRA));
+            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, ULTRA));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -155,14 +155,14 @@ public class TheStudioController {
 
     private ArrayList<Artist> getArtistPool()
     {
-        return gameEnviroment.resetArtistPurchasePool();
+        return gameEnvironment.resetArtistPurchasePool();
     }
 
     @FXML public void rerollArtists()
     {
-        if (gameEnviroment.getLabelService().buyItem(gameEnviroment.getConfig().artistRerollCost)) {
-            gameEnviroment.setPoolGenerated(false);
-            moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {
+            gameEnvironment.setPoolGenerated(false);
+            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadArtistPool();
         }
     }
