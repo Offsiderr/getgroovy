@@ -11,7 +11,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.OutcomeController;
 import seng201.team67.gui.controllers.instantiable.QuestionController;
 import seng201.team67.gui.controllers.instantiable.SoundEngineerStandoffController;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class MainConcertController {
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private Concert concert;
     private TourService tourService;
     private ConcertService concertService;
@@ -57,9 +57,9 @@ public class MainConcertController {
     private Parent root;
 
 
-    public MainConcertController(GameEnviroment gameEnviroment, TourService tourService)
+    public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
     }
 
@@ -67,7 +67,7 @@ public class MainConcertController {
 
 
         loadLineup();
-        concertService = new ConcertService(gameEnviroment, tourService);
+        concertService = new ConcertService(gameEnvironment, tourService);
 
         populateQuestion();
         refreshView();
@@ -76,15 +76,20 @@ public class MainConcertController {
 
     private void loadLineup()
     {
-        List<Artist> pool = gameEnviroment.getLabelService().getLineup();
+        List<Artist> pool = gameEnvironment.getLabelService().getLineup();
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
             cards[i].getChildren().clear();
-            cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
             if (i < pool.size()) {
+                cards[i].setManaged(true);
+                cards[i].setVisible(true);
+                cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
                 Artist artist = pool.get(i);
                 populateCard(cards[i], artist);
+            } else {
+                cards[i].setManaged(false);
+                cards[i].setVisible(false);
             }
         }
     }
@@ -93,7 +98,7 @@ public class MainConcertController {
     {
         Label nameLabel = new Label(artist.getName());
         Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStar_power());
+        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
         Label staminaLabel = new Label("Stamina: " + artist.getStamina());
         Label healthLabel = new Label("Health: " + artist.getHealth());
         Label costLabel = new Label("Hire: $" + (int) artist.getCost());
@@ -142,7 +147,7 @@ public class MainConcertController {
         switch (minigame)
         {
             case SOUNDENGINEER -> {
-                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnviroment);
+                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
                 loader.setController(miniGameController);
             }
 
@@ -154,16 +159,14 @@ public class MainConcertController {
 
     private void refreshView()
     {
-        labelName.setText(gameEnviroment.getLabelService().getLabelName());
-        moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        labelName.setText(gameEnvironment.getLabelService().getLabelName());
+        moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
 
         //refresh UI components
         //crowd meter. is there a more efficent way of doing this?
         crowdMeter.setBlockIncrement(concertService.getCrowdEnergyChange());
         crowdMeter.increment();
-
-        staminaText.setText(Double.toString(concertService.totalStaminaDrain()));
 
         payText.setText(Double.toString(concertService.getIncome()));
     }
@@ -209,11 +212,17 @@ public class MainConcertController {
 
     private void handleConcertEnd() throws IOException
     {
+        gameEnvironment.increaseConcertCount();
         concertService.getTourService().setConcertFinished();
         concertService.getTourService().increaseStopIndex();
+        if (!concertService.getTourService().isTourComplete()
+                && concertService.getTourService().isLineupExhausted())
+        {
+            concertService.getTourService().endTourDueToExhaustion();
+        }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConcertResults.fxml"));
-        loader.setController(new ResultsController(gameEnviroment, concertService));
+        loader.setController(new ResultsController(gameEnvironment, concertService));
 
         Parent root = loader.load();
         stage = (Stage)  eventBox.getScene().getWindow();

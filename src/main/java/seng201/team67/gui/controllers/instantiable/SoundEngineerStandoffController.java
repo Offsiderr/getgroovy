@@ -8,11 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import seng201.team67.GameEnviroment;
-import seng201.team67.interfaces.Minigame;
-import seng201.team67.models.GameConfig;
+import seng201.team67.GameEnvironment;
 import seng201.team67.models.MiniGameResult;
-import seng201.team67.models.minigames.SoundEngineerStandoff;
 import seng201.team67.services.MinigamesService;
 
 import java.io.IOException;
@@ -21,7 +18,7 @@ import java.util.function.Consumer;
 
 public class SoundEngineerStandoffController {
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private MinigamesService minigamesService;
 
     private Consumer<MiniGameResult> gameResult;
@@ -40,9 +37,9 @@ public class SoundEngineerStandoffController {
 
     private Boolean shown = false;
 
-    public SoundEngineerStandoffController(MinigamesService minigamesService, Consumer<MiniGameResult> gameResult, GameEnviroment gameEnviroment)
+    public SoundEngineerStandoffController(MinigamesService minigamesService, Consumer<MiniGameResult> gameResult, GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
         this.minigamesService = minigamesService;
         this.gameResult = gameResult;
     }
@@ -71,13 +68,13 @@ public class SoundEngineerStandoffController {
     {
         //target values the player must recall — generated randomly
         targetValues = List.of(
-                gameEnviroment.getConfig().soundEngineerTargetMin + Math.random() * gameEnviroment.getConfig().soundEngineerTargetRange,
-                gameEnviroment.getConfig().soundEngineerTargetMin + Math.random() * gameEnviroment.getConfig().soundEngineerTargetRange,
-                gameEnviroment.getConfig().soundEngineerTargetMin + Math.random() * gameEnviroment.getConfig().soundEngineerTargetRange,
-                gameEnviroment.getConfig().soundEngineerTargetMin + Math.random() * gameEnviroment.getConfig().soundEngineerTargetRange
+                gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange,
+                gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange,
+                gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange,
+                gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange
         );
 
-        double flashSeconds = gameEnviroment.getConfig().soundEngineerFlashDurationSeconds; //(stamina / 100.0);  //Stamina will affect this in the future
+        double flashSeconds = gameEnvironment.getConfig().soundEngineerFlashDurationSeconds; //(stamina / 100.0);  //Stamina will affect this in the future
         showTargetBriefly(flashSeconds);
     }
 
@@ -90,7 +87,7 @@ public class SoundEngineerStandoffController {
                 sliderFour.getValue()
         );
 
-        long matched = minigamesService.soundEngineerStandoff.countMatches(playerValues, targetValues, gameEnviroment.getConfig().soundEngineerMatchTolerance); // within 15 units
+        long matched = minigamesService.soundEngineerStandoff.countMatches(playerValues, targetValues, gameEnvironment.getConfig().soundEngineerMatchTolerance); // within 15 units
 
         resultsPane.setVisible(true);
 
@@ -129,10 +126,10 @@ public class SoundEngineerStandoffController {
 
         PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
         pause.setOnFinished(e -> {
-            sliderOne.setValue(gameEnviroment.getConfig().soundEngineerSliderDefault);
-            sliderTwo.setValue(gameEnviroment.getConfig().soundEngineerSliderDefault);
-            sliderThree.setValue(gameEnviroment.getConfig().soundEngineerSliderDefault);
-            sliderFour.setValue(gameEnviroment.getConfig().soundEngineerSliderDefault);
+            sliderOne.setValue(gameEnvironment.getConfig().soundEngineerSliderDefault);
+            sliderTwo.setValue(gameEnvironment.getConfig().soundEngineerSliderDefault);
+            sliderThree.setValue(gameEnvironment.getConfig().soundEngineerSliderDefault);
+            sliderFour.setValue(gameEnvironment.getConfig().soundEngineerSliderDefault);
             buttonOne.setVisible(true);
             buttonOne.setText("Confirm Mix");
         });

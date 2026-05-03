@@ -10,7 +10,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.models.Artist;
 
@@ -28,7 +28,7 @@ import static seng201.team67.models.enums.TourType.WORLD;
 
 public class SelectTourController {
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
 
     private List<Artist> lineup;
 
@@ -53,21 +53,26 @@ public class SelectTourController {
     private Parent root;
 
 
-    public SelectTourController(GameEnviroment gameEnviroment) {
-        this.gameEnviroment = gameEnviroment;
+    public SelectTourController(GameEnvironment gameEnvironment) {
+        this.gameEnvironment = gameEnvironment;
     }
 
     @FXML
     public void initialize() throws IOException
     {
-        lineup = gameEnviroment.getLabelService().label.getLine_Up();
+        lineup = gameEnvironment.getLabelService().label.getLineUp();
 
         List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
+        configureArtistPane(slots, lineup.size());
 
         for (int i = 0; i < slots.size(); i++) {
+            slots.get(i).getChildren().clear();
+            if (i >= lineup.size()) {
+                continue;
+            }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController();
+                ArtistCardController cardController = new ArtistCardController(gameEnvironment);
                 loader.setController(cardController);
                 slots.get(i).getChildren().add(loader.load());
                 cardController.setArtist(lineup.get(i));
@@ -81,12 +86,33 @@ public class SelectTourController {
         checkTours(worldTourText, worldTourPane, WORLD);
     }
 
+    private void configureArtistPane(List<AnchorPane> slots, int lineupSize) {
+        List<AnchorPane> visibleSlots = new ArrayList<>();
+        int visibleCount = Math.max(1, Math.min(lineupSize, slots.size()));
+
+        for (int i = 0; i < slots.size(); i++) {
+            AnchorPane slot = slots.get(i);
+            if (i < visibleCount) {
+                slot.setVisible(true);
+                slot.setManaged(true);
+                visibleSlots.add(slot);
+            } else {
+                slot.setVisible(false);
+                slot.setManaged(false);
+            }
+        }
+
+        artistPane.getItems().setAll(visibleSlots);
+        artistPane.setPrefWidth(visibleCount == 1 ? 320 : visibleCount == 2 ? 650 : 977);
+        artistPane.setLayoutX((1280 - artistPane.getPrefWidth()) / 2);
+    }
+
     private void checkTours(Label label, Pane pane, TourType tour)
     {
-        if(gameEnviroment.getTourCount() < tour.getExpeditionsUnlocked())
+        if(gameEnvironment.getTourCount() < tour.getExpeditionsUnlocked())
         {
             pane.setVisible(true);
-            label.setText("Complete " + Integer.toString(tour.getExpeditionsUnlocked() - gameEnviroment.getTourCount()) +
+            label.setText("Complete " + Integer.toString(tour.getExpeditionsUnlocked() - gameEnvironment.getTourCount()) +
             " more tours to unlock the " + tour + " tour.");
         }
         else
@@ -101,7 +127,7 @@ public class SelectTourController {
     public void startLocalTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.LOCAL), gameEnviroment)));
+        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -112,7 +138,7 @@ public class SelectTourController {
     public void startCountryTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(COUNTRY), gameEnviroment)));
+        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -123,7 +149,7 @@ public class SelectTourController {
     public void startWorldTour(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnviroment, new TourService(new Tour(TourType.WORLD), gameEnviroment)));
+        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -132,7 +158,7 @@ public class SelectTourController {
 
     @FXML public void cancelTour(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnviroment));
+        loader.setController(new MainMenuController(gameEnvironment));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

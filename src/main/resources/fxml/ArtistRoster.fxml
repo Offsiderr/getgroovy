@@ -37,6 +37,6 @@
       <Button layoutX="980.0" layoutY="662.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="46.0" prefWidth="286.0" text="Return &amp; Save Lineup">
          <font><Font size="22.0" /></font>
       </Button>
-      <Label fx:id="lineupWarning" layoutX="153.0" layoutY="338.0" text="You Must Have Three Artists In Your Line-Up!" textFill="#da0707" />
+      <Label fx:id="lineupWarning" layoutX="153.0" layoutY="338.0" text="You must have a valid lineup." textFill="#da0707" />
    </children>
 </AnchorPane>

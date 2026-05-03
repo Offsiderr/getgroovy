@@ -3,7 +3,7 @@ package seng201.team67.models.enums;
 public enum Difficulty {
 
     EASY("Easy", 500, 1.0, 0.1, PayoutTier.EASY),
-    A_CHALLENGE("A Challenge", 300, 1.25, 0.2, PayoutTier.MEDIUM),
+    ACHALLENGE("A Challenge", 300, 1.25, 0.2, PayoutTier.MEDIUM),
     HEARTLESS("Heartless", 150, 1.5, 0.35, PayoutTier.HARD);
 
     private final String displayName;

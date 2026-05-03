@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
@@ -20,11 +20,11 @@ public class StartController {
     private Scene scene;
     private Parent root;
 
-    private final GameEnviroment gameEnviroment;
+    private final GameEnvironment gameEnvironment;
 
-    public StartController(GameEnviroment gameEnviroment)
+    public StartController(GameEnvironment gameEnvironment)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
     }
 
     //When the title screen is clicked... move into setup screen
@@ -32,7 +32,7 @@ public class StartController {
     public void onStartGame(ActionEvent event) throws IOException {
         soundEffectsService.playYes();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PlayerSelections.fxml"));
-        loader.setController(new SetupController(gameEnviroment));
+        loader.setController(new SetupController(gameEnvironment));
 
         Parent root = loader.load();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

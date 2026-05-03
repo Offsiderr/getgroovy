@@ -14,7 +14,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.tourmaps.TourMapController;
 import seng201.team67.models.Artist;
 import seng201.team67.models.enums.TourType;
@@ -28,7 +28,7 @@ public class MainGameController {
 
     //TODO: implement different maps
 
-    private GameEnviroment gameEnviroment;
+    private GameEnvironment gameEnvironment;
     private TourService tourService;
     private SoundEffectsService sfx;
 
@@ -57,19 +57,19 @@ public class MainGameController {
     private Parent root;
 
 
-    public MainGameController(GameEnviroment gameEnviroment, TourService tourService)
+    public MainGameController(GameEnvironment gameEnvironment, TourService tourService)
     {
-        this.gameEnviroment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
     }
 
     @FXML public void initialize() throws IOException {
         cancelTourPane.setVisible(false);
-        labelName.setText(gameEnviroment.getLabelService().getLabelName());
-        moneyText.setText(Double.toString(gameEnviroment.getLabelService().getMoney()));
+        labelName.setText(gameEnvironment.getLabelService().getLabelName());
+        moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
 
-        staminaText.setText(Double.toString(tourService.getTotalStamina()));
+        staminaText.setText(Integer.toString((int) Math.round(tourService.getTotalStamina())));
 
         loadLineup();
 
@@ -91,15 +91,20 @@ public class MainGameController {
 
     private void loadLineup()
     {
-        List<Artist> pool = gameEnviroment.getLabelService().getLineup();
+        List<Artist> pool = gameEnvironment.getLabelService().getLineup();
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
             cards[i].getChildren().clear();
-            cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
             if (i < pool.size()) {
+                cards[i].setManaged(true);
+                cards[i].setVisible(true);
+                cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
                 Artist artist = pool.get(i);
                 populateCard(cards[i], artist);
+            } else {
+                cards[i].setManaged(false);
+                cards[i].setVisible(false);
             }
         }
     }
@@ -108,7 +113,7 @@ public class MainGameController {
     {
         Label nameLabel = new Label(artist.getName());
         Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStar_power());
+        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
         Label staminaLabel = new Label("Stamina: " + artist.getStamina());
         Label healthLabel = new Label("Health: " + artist.getHealth());
         Label costLabel = new Label("Hire: $" + (int) artist.getCost());
@@ -176,7 +181,7 @@ public class MainGameController {
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainConcert.fxml"));
-        loader.setController(new MainConcertController(gameEnviroment, tourService));
+        loader.setController(new MainConcertController(gameEnvironment, tourService));
 
         Parent root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -194,7 +199,7 @@ public class MainGameController {
     private void returnToMainMenu(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnviroment));
+        loader.setController(new MainMenuController(gameEnvironment));
 
         Parent root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -206,22 +211,30 @@ public class MainGameController {
     @FXML private void endTourEarly(ActionEvent event) throws IOException
     {
         cancelTourPane.setVisible(true);
-        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $" + gameEnviroment.getConfig().cancelTourPenalty + " of tickets");
-        tourService.addCreditsEarned((double) -gameEnviroment.getConfig().cancelTourPenalty);
+        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $" + gameEnvironment.getConfig().cancelTourPenalty + " of tickets");
     }
 
     @FXML private void notCancellingTour(ActionEvent event) throws IOException
     {
-        tourService.addCreditsEarned((double) gameEnviroment.getConfig().cancelTourPenalty);
     }
 
 
      @FXML private void finishTour(ActionEvent event) throws IOException {
+         if (cancelTourPane.isVisible() && !tourService.isTourComplete()) {
+             tourService.addCreditsEarned((double) -gameEnvironment.getConfig().cancelTourPenalty);
+         }
 
          tourService.tourEnded();
-         gameEnviroment.setPoolGenerated(false);
+         gameEnvironment.setPoolGenerated(false);
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
-        loader.setController(new TourResultsController(gameEnviroment, tourService));
+         if (tourService.isEndedByExhaustion())
+         {
+             loader.setController(new TourResultsController(gameEnvironment, tourService, true));
+         }
+         else
+         {
+             loader.setController(new TourResultsController(gameEnvironment, tourService, false));
+         }
 
         Parent root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

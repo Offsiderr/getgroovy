@@ -2,373 +2,373 @@
   {
     "type": "RAP",
     "name": "Lil Pump",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Hype rapper known for high energy performances"
   },
   {
     "type": "RAP",
     "name": "Fetty Wap",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Melodic trap rapper with infectious hooks"
   },
   {
     "type": "RAP",
     "name": "Yeat",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Internet rap sensation with a unique slurred style"
   },
   {
     "type": "RAP",
     "name": "6ix9ine",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Controversial rapper with a massive online presence"
   },
   {
     "type": "RAP",
     "name": "BlueFace",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Off-beat rapper with a cult following"
   },
   {
     "type": "POP",
     "name": "Dua Lipa",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Pop powerhouse with disco-influenced hits"
   },
   {
     "type": "POP",
     "name": "Shawn Mendes",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Singer-songwriter with a loyal fanbase"
   },
   {
     "type": "POP",
     "name": "Ariana Grande",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Powerhouse vocalist with a massive global following"
   },
   {
     "type": "POP",
     "name": "Charlie Puth",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Pop musician with perfect pitch and catchy melodies"
   },
   {
     "type": "ROCK",
     "name": "Machine Gun Kelly",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Pop punk crossover artist with high energy shows"
   },
   {
     "type": "ROCK",
     "name": "YUNGBLUD",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Punk-pop rebel with a passionate fanbase"
   },
   {
     "type": "ROCK",
     "name": "Dave Grohl",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Rock legend known for relentless live performances"
   },
   {
     "type": "ROCK",
     "name": "Hayley Williams",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Paramore frontwoman with incredible stage energy"
   },
   {
     "type": "ROCK",
     "name": "Alex Turner",
-    "star_power": 1,
+    "starPower": 1,
     "description": "Arctic Monkeys frontman with effortless cool"
   },
   {
     "type": "RAP",
     "name": "A Boogie wit da Hoodie",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Melodic rapper with smooth delivery and street credibility"
   },
   {
     "type": "RAP",
     "name": "Lil Durk",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Chicago drill pioneer with emotional depth"
   },
   {
     "type": "RAP",
     "name": "Polo G",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Thoughtful rapper blending street stories with melody"
   },
   {
     "type": "RAP",
     "name": "Rod Wave",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Emotional rap singer with a devoted following"
   },
   {
     "type": "RAP",
     "name": "Ty Dolla $ign",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Versatile R&B rapper who elevates every collaboration"
   },
   {
     "type": "POP",
     "name": "Taylor Swift",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Global pop icon with an unmatched touring fanbase"
   },
   {
     "type": "POP",
     "name": "The Weeknd",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Dark pop superstar with cinematic stage productions"
   },
   {
     "type": "POP",
     "name": "Sabrina Carpenter",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Rising pop star with sharp wit and catchy anthems"
   },
   {
     "type": "POP",
     "name": "Olivia Rodrigo",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Gen Z pop phenomenon with emotionally charged songwriting"
   },
   {
     "type": "POP",
     "name": "Harry Styles",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Former boy band member turned solo pop rock sensation"
   },
   {
     "type": "ROCK",
     "name": "Arctic Monkeys",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Indie rock legends with a massive cult following"
   },
   {
     "type": "ROCK",
     "name": "Paramore",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Pop punk icons with explosive live performances"
   },
   {
     "type": "ROCK",
     "name": "Foo Fighters",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Rock giants known for legendary festival headline sets"
   },
   {
     "type": "ROCK",
     "name": "Muse",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Progressive rock band with theatrical stadium shows"
   },
   {
     "type": "ROCK",
     "name": "Queens of the Stone Age",
-    "star_power": 2,
+    "starPower": 2,
     "description": "Heavy rock veterans with a cult following"
   },
   {
     "type": "RAP",
     "name": "Playboi Carti",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Cult rap phenomenon with hypnotic performances"
   },
   {
     "type": "RAP",
     "name": "A$AP Rocky",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Fashion forward rapper with slick stage presence"
   },
   {
     "type": "RAP",
     "name": "Don Toliver",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Melodic rap singer with a psychedelic live show"
   },
   {
     "type": "RAP",
     "name": "Trippie Redd",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Emo rap pioneer with a fiercely loyal fanbase"
   },
   {
     "type": "RAP",
     "name": "Future",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Trap music legend with an endless catalogue of hits"
   },
   {
     "type": "POP",
     "name": "Billie Eilish",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Genre defying pop star with a unique dark aesthetic"
   },
   {
     "type": "POP",
     "name": "Doja Cat",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Versatile pop rapper with viral hits and wild performances"
   },
   {
     "type": "POP",
     "name": "Post Malone",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Genre blending superstar comfortable in any setting"
   },
   {
     "type": "POP",
     "name": "SZA",
-    "star_power": 3,
+    "starPower": 3,
     "description": "R&B superstar with deeply emotional performances"
   },
   {
     "type": "POP",
     "name": "Bruno Mars",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Showman extraordinaire with flawless live performances"
   },
   {
     "type": "ROCK",
     "name": "Linkin Park",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Nu metal legends with massive crossover appeal"
   },
   {
     "type": "ROCK",
     "name": "Green Day",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Punk rock icons with decades of anthem-worthy hits"
   },
   {
     "type": "ROCK",
     "name": "My Chemical Romance",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Emo rock legends with a fiercely devoted fanbase"
   },
   {
     "type": "ROCK",
     "name": "Nirvana",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Grunge pioneers who changed rock music forever"
   },
   {
     "type": "ROCK",
     "name": "The Strokes",
-    "star_power": 3,
+    "starPower": 3,
     "description": "Indie rock icons who defined early 2000s cool"
   },
   {
     "type": "RAP",
     "name": "Lil Uzi Vert",
-    "star_power": 4,
+    "starPower": 4,
     "description": "High energy rap artist with a cult following"
   },
   {
     "type": "RAP",
     "name": "Drake",
-    "star_power": 4,
+    "starPower": 4,
     "description": "The most streamed rapper alive with global dominance"
   },
   {
     "type": "RAP",
     "name": "Kendrick Lamar",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Pulitzer Prize winning rapper with powerful live shows"
   },
   {
     "type": "RAP",
     "name": "MF DOOM",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Masked villain of hip hop with a legendary mystique"
   },
   {
     "type": "RAP",
     "name": "Travis Scott",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Astroworld creator with the most immersive concerts alive"
   },
   {
     "type": "POP",
     "name": "Elvis Presley",
-    "star_power": 4,
+    "starPower": 4,
     "description": "The King of Rock and Roll — a true icon"
   },
   {
     "type": "POP",
     "name": "Beyonce",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Queen Bey — the most complete performer of her generation"
   },
   {
     "type": "POP",
     "name": "Rihanna",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Global pop icon with an unstoppable catalogue"
   },
   {
     "type": "POP",
     "name": "Justin Bieber",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Pop phenomenon with a fanbase that spans generations"
   },
   {
     "type": "POP",
     "name": "Adele",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Voice of a generation with emotionally devastating live shows"
   },
   {
     "type": "ROCK",
     "name": "Queen",
-    "star_power": 4,
+    "starPower": 4,
     "description": "One of the greatest live bands in rock history"
   },
   {
     "type": "ROCK",
     "name": "The Beatles",
-    "star_power": 4,
+    "starPower": 4,
     "description": "The most influential band of all time"
   },
   {
     "type": "ROCK",
     "name": "Led Zeppelin",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Hard rock gods with legendary live performances"
   },
   {
     "type": "ROCK",
     "name": "Metallica",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Heavy metal titans with unmatched touring endurance"
   },
   {
     "type": "ROCK",
     "name": "Pink Floyd",
-    "star_power": 4,
+    "starPower": 4,
     "description": "Psychedelic rock legends with iconic visual shows"
   },
   {
     "type": "RAP",
     "name": "Kanye West",
-    "star_power": 5,
+    "starPower": 5,
     "description": "The greatest of all time"
   },
   {
     "type": "POP",
     "name": "Michael Jackson",
-    "star_power": 5,
+    "starPower": 5,
     "description": "The King of Pop"
   },
   {
     "type": "RAP",
     "name": "KennyDub",
-    "star_power": 1,
+    "starPower": 1,
     "description": "The King of FL Studio"
   }
 ]

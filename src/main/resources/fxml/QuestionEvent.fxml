@@ -7,76 +7,39 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextAlignment?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="485.0" prefWidth="785.0"
-            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <Label fx:id="questionTitle"
-             layoutX="0.0" layoutY="14.0"
-             prefWidth="785.0"
-             text="QUESTION ONE"
-             textAlignment="CENTER"
-             wrapText="true"
-             AnchorPane.leftAnchor="0.0"
-             AnchorPane.rightAnchor="0.0"
-             AnchorPane.topAnchor="14.0">
+      <Label fx:id="questionTitle" layoutX="0.0" layoutY="14.0" prefWidth="785.0" text="QUESTION ONE" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
 
-      <GridPane layoutX="14.0" layoutY="155.0"
-                prefHeight="316.0" prefWidth="757.0"
-                hgap="8.0" vgap="8.0"
-                AnchorPane.bottomAnchor="14.0"
-                AnchorPane.leftAnchor="14.0"
-                AnchorPane.rightAnchor="14.0"
-                AnchorPane.topAnchor="155.0">
+      <GridPane hgap="8.0" layoutX="14.0" layoutY="155.0" prefHeight="316.0" prefWidth="757.0" vgap="8.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="155.0">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
             <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints vgrow="ALWAYS" percentHeight="50.0" />
-            <RowConstraints vgrow="ALWAYS" percentHeight="50.0" />
+            <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
          </rowConstraints>
 
-         <Button fx:id="answerOne"
-                 maxHeight="Infinity" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 text="Button"
-                 wrapText="true"
-                 GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <Button fx:id="answerOne" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" text="Button" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <font><Font size="16.0" /></font>
          </Button>
 
-         <Button fx:id="answerTwo"
-                 maxHeight="Infinity" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 text="Button"
-                 wrapText="true"
-                 GridPane.columnIndex="1" GridPane.rowIndex="0">
+         <Button fx:id="answerTwo" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" text="Button" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <font><Font size="16.0" /></font>
          </Button>
 
-         <Button fx:id="answerThree"
-                 maxHeight="Infinity" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 text="Button"
-                 wrapText="true"
-                 GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <Button fx:id="answerThree" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" text="Button" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
             <font><Font size="16.0" /></font>
          </Button>
 
-         <Button fx:id="answerFour"
-                 maxHeight="Infinity" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 text="Button"
-                 wrapText="true"
-                 GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <Button fx:id="answerFour" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" text="Button" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font><Font size="16.0" /></font>
          </Button>
 

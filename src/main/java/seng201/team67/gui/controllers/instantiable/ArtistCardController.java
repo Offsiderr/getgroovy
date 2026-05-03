@@ -2,14 +2,22 @@ package seng201.team67.gui.controllers.instantiable;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.ArtistSelectionController;
 import seng201.team67.models.Artist;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class ArtistCardController {
 
     //The artist cards are instanciatable representations of artists. These can be placed anywhere, and just
     //created by passing in the artist object.
+
+    private GameEnvironment gameEnvironment;
 
     public Artist artist;
     private boolean selected = false;
@@ -21,6 +29,12 @@ public class ArtistCardController {
     @FXML private Label artistCost;
     @FXML private Label star_power;
     @FXML private Label type;
+    @FXML private ImageView artistImage;
+
+    public ArtistCardController(GameEnvironment gameEnvironment)
+    {
+        this.gameEnvironment = gameEnvironment;
+    }
 
     //In the artist seleciton controller, we need to notify the parent controller when an artist is selected.
     public void setSelectionController(ArtistSelectionController parentController)
@@ -44,9 +58,25 @@ public class ArtistCardController {
         this.name.setText(artist.getName());
         this.description.setText(artist.getDescription());
         this.artistCost.setText(String.valueOf(artist.getCost()));
-        this.star_power.setText(String.valueOf(artist.getStar_power()));
+        this.star_power.setText(String.valueOf(artist.getStarPower()));
         this.type.setText(artist.getType());
 
+        this.artistImage.setImage(loadArtistImage(artist));
+
+    }
+
+    public Image loadArtistImage(Artist artist)
+    {
+        URL resource = getClass().getResource(artist.getImagePath());
+
+        if (resource != null)
+        {
+            return new javafx.scene.image.Image(resource.toExternalForm());
+        }
+        else
+        {
+            return new javafx.scene.image.Image(getClass().getResource("/images/Artists/placeholder.png").toExternalForm());
+        }
     }
 
     private void toggleSelected() {
@@ -79,4 +109,8 @@ public class ArtistCardController {
         return CardRoot;
     }
 
+    @FXML public void retireButton() throws IOException
+    {
+        gameEnvironment.getLabelService().retireArtist(artist);
+    }
 }

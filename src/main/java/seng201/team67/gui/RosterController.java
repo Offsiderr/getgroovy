@@ -9,9 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seng201.team67.GameEnviroment;
+import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.models.Artist;
 
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class RosterController {
 
-    private final GameEnviroment gameEnviroment;
+    private final GameEnvironment gameEnvironment;
 
     @FXML private AnchorPane artistOne;
     @FXML private AnchorPane artistTwo;
@@ -32,20 +31,21 @@ public class RosterController {
     private final ArtistCardController[] lineupCards = new ArtistCardController[3];
     private final List<ArtistCardController> poolCards = new ArrayList<>();
 
-    public RosterController(GameEnviroment gameEnviroment) {
-        this.gameEnviroment = gameEnviroment;
+    public RosterController(GameEnvironment gameEnvironment) {
+        this.gameEnvironment = gameEnvironment;
     }
 
     @FXML
     public void initialize() {
         populateLineup();
         populateAllArtists();
+        lineupWarning.setText("You must have exactly " + gameEnvironment.getConfig().requiredLineupSize + " artist(s) in your lineup.");
         lineupWarning.setVisible(false);
     }
 
     private void populateLineup() {
         List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
-        List<Artist> lineup = gameEnviroment.getLabelService().getLineup();
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
 
         for (int i = 0; i < lineup.size() && i < 3; i++) {
             ArtistCardController card = loadCard(lineup.get(i));
@@ -58,9 +58,9 @@ public class RosterController {
     }
 
     private void populateAllArtists() {
-        List<Artist> lineup = gameEnviroment.getLabelService().getLineup();
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
 
-        for (Artist artist : gameEnviroment.getLabelService().getAllArtists()) {
+        for (Artist artist : gameEnvironment.getLabelService().getAllArtists()) {
             if (lineup.contains(artist)) continue;
 
             ArtistCardController card = loadCard(artist);
@@ -90,8 +90,6 @@ public class RosterController {
     }
 
     private void removeFromLineup(ArtistCardController card, int slotIndex) {
-
-
         List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
         slots.get(slotIndex).getChildren().clear();
         lineupCards[slotIndex] = null;
@@ -109,7 +107,7 @@ public class RosterController {
         for (ArtistCardController card : lineupCards) {
             if (card != null) newLineup.add(card.artist);
         }
-        gameEnviroment.getLabelService().setLineUp(newLineup);
+        gameEnvironment.getLabelService().setLineUp(newLineup);
     }
 
     private int findEmptySlot() {
@@ -130,7 +128,7 @@ public class RosterController {
     private ArtistCardController loadCard(Artist artist) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-            ArtistCardController card = new ArtistCardController();
+            ArtistCardController card = new ArtistCardController(gameEnvironment);
             loader.setController(card);
             loader.load();
             card.setArtist(artist);
@@ -142,7 +140,7 @@ public class RosterController {
 
     @FXML
     private void returnToMainMenu(ActionEvent event) throws IOException {
-        if(lineupCount() != 3)
+        if(lineupCount() != gameEnvironment.getConfig().requiredLineupSize)
         {
             lineupWarning.setVisible(true);
             return;
@@ -150,7 +148,7 @@ public class RosterController {
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnviroment));
+        loader.setController(new MainMenuController(gameEnvironment));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

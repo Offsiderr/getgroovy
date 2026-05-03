@@ -5,14 +5,12 @@ public class Popstar extends Artist{
     //(Jackson needs this for Json deserialisation)
     public Popstar()
     {
-        super("", 0, 0, 0, "");
-        setStamina(100);
-        setBaseStamina(100);
+        super("", 0, 100, 100,  "");
     }
 
-    public Popstar(String name, int star_power, String description)
+    public Popstar(String name, int starPower, String description)
     {
-        super(name, star_power, 100, 100, description);
+        super(name, starPower, 100, 100, description);
     }
 
     @Override
