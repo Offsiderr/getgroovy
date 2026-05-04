@@ -1,7 +1,7 @@
 package seng201.team67.services;
 
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.models.Artist;
 
 import java.util.ArrayList;

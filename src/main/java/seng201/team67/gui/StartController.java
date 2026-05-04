@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class StartController {
 
-    private SoundEffectsService soundEffectsService = new SoundEffectsService();
+    private final SoundEffectsService soundEffectsService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     private final GameEnvironment gameEnvironment;
@@ -18,6 +18,7 @@ public class StartController {
     public StartController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
+        this.soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     //When the title screen is clicked... move into setup screen

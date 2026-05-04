@@ -1,4 +1,4 @@
-package seng201.team67.gui.controllers.instantiable.tourmaps;
+package seng201.team67.gui.instantiable.tourmaps;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

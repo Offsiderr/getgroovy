@@ -23,13 +23,14 @@ public class SetupController {
 
     public final GameEnvironment gameEnvironment;
     private final SetupService setupService;
-    private SoundEffectsService soundEffectsService  = new SoundEffectsService();
+    private SoundEffectsService soundEffectsService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     public SetupController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
         setupService = new SetupService(gameEnvironment);
+        soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     public void handleNext(ActionEvent event) throws IOException {

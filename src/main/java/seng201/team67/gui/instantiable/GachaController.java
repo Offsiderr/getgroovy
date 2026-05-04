@@ -1,4 +1,4 @@
-package seng201.team67.gui.controllers.instantiable;
+package seng201.team67.gui.instantiable;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;

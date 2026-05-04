@@ -11,8 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import seng201.team67.GameEnvironment;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.dev.DevFunctionsController;
+import seng201.team67.gui.instantiable.MainSettingsController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
@@ -24,8 +25,8 @@ import java.util.List;
 
 public class MainMenuController {
 
-    private GameEnvironment gameEnvironment;
-    private SoundEffectsService soundEffectsService = new SoundEffectsService();
+    private final GameEnvironment gameEnvironment;
+    private final SoundEffectsService soundEffectsService;
 
     private List<Artist> lineup;
 
@@ -37,6 +38,8 @@ public class MainMenuController {
     @FXML private AnchorPane artistOne;
     @FXML private AnchorPane artistTwo;
     @FXML private AnchorPane artistThree;
+    @FXML private AnchorPane settingsHolder;
+
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
 
@@ -46,11 +49,14 @@ public class MainMenuController {
 
     public MainMenuController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
+        this.soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     @FXML
     public void initialize() throws IOException
     {
+        settingsHolder.setVisible(false);
+        settingsHolder.setManaged(false);
 
         if (gameEnvironment.checkGameStatus())
         {
@@ -159,5 +165,13 @@ public class MainMenuController {
     private void openDevMenu() throws IOException
     {
         screenNavigator.navigate(labelName, "/fxml/devui/DevFunctions.fxml", new DevFunctionsController(gameEnvironment));
+    }
+
+    @FXML public void openSettings(ActionEvent event) throws IOException
+    {
+        settingsHolder.setVisible(true);
+        settingsHolder.setManaged(true);
+        viewLoader.loadInto(settingsHolder, "/fxml/MainSettings.fxml",
+                new MainSettingsController(gameEnvironment, settingsHolder));
     }
 }

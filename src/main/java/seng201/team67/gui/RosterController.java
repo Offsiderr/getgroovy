@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;

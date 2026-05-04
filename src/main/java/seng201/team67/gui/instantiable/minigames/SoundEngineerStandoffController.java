@@ -1,4 +1,4 @@
-package seng201.team67.gui.controllers.instantiable;
+package seng201.team67.gui.instantiable.minigames;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -96,10 +96,13 @@ public class SoundEngineerStandoffController {
         {
             case 4:
                 resultsText.setText("Perfect mix. The fans love it!");
+                break;
             case 3, 2:
                 resultsText.setText("Decent fix. The fans don't notice anything.");
+                break;
             default:
                 resultsText.setText("Awful mix! Your engineer storms off!");
+                break;
         }
 
 
