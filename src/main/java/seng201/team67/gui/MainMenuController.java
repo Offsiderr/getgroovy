@@ -12,7 +12,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.dev.DevFunctionsController;
 import seng201.team67.models.Artist;
 import seng201.team67.services.SoundEffectsService;
 
@@ -70,6 +73,23 @@ public class MainMenuController {
         gameDifficulty.setText(gameEnvironment.getDifficulty().name());
         moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
+
+
+        Platform.runLater(() -> {
+            Scene scene = labelName.getScene();
+            if (scene != null) {
+                scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                    if (event.isControlDown() && event.getCode() == KeyCode.D) {
+                        try {
+                            openDevMenu();
+                        } catch (IOException e) {
+                            throw new RuntimeException("Failed to load DevFunctions.fxml", e);
+                        }
+                        event.consume();
+                    }
+                });
+            }
+        });
 
         lineup = gameEnvironment.getLabelService().label.getLineUp();
 
@@ -176,4 +196,15 @@ public class MainMenuController {
         stage.show();
     }
 
+    private void openDevMenu() throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/devui/DevFunctions.fxml"));
+        loader.setController(new DevFunctionsController(gameEnvironment));
+
+        Parent root = loader.load();
+        stage = (Stage) labelName.getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

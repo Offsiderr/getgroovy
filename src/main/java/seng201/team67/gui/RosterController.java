@@ -37,11 +37,15 @@ public class RosterController {
 
     @FXML
     public void initialize() {
+        refreshView();
+        lineupWarning.setText("You must have between 1 and " + gameEnvironment.getLabelService().getLineupLimit() + " artist(s) in your lineup.");
+        lineupWarning.setVisible(false);
+    }
+
+    public void refreshView() {
         buildLineupSlots();
         populateLineup();
         populateAllArtists();
-        lineupWarning.setText("You must have between 1 and " + gameEnvironment.getLabelService().getLineupLimit() + " artist(s) in your lineup.");
-        lineupWarning.setVisible(false);
     }
 
     private void buildLineupSlots() {
@@ -81,6 +85,9 @@ public class RosterController {
     }
 
     private void populateAllArtists() {
+        allArtistsContainer.getChildren().clear();
+        poolCards.clear();
+
         List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
 
         for (Artist artist : gameEnvironment.getLabelService().getAllArtists()) {
@@ -190,8 +197,4 @@ public class RosterController {
         stage.show();
     }
 
-    public void refreshView()
-    {
-        initialize();
-    }
 }

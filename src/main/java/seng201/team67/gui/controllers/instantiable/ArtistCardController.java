@@ -127,5 +127,6 @@ public class ArtistCardController {
     {
         gameEnvironment.getLabelService().retireArtist(artist);
         rosterController.refreshView();
+
     }
 }
