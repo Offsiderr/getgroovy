@@ -47,6 +47,11 @@ public class Label {
         return lineUp;
     }
 
+    public int getLineUpLimit()
+    {
+        return lineUpLimit;
+    }
+
     public int getArtistsLimit()
     {
         return artistsLimit;
@@ -75,6 +80,10 @@ public class Label {
 
     public void setLineUp(List<Artist> line_up)
     {
+        if (line_up.size() > lineUpLimit)
+        {
+            throw new IllegalArgumentException("Lineup exceeds the configured limit of " + lineUpLimit + " artists.");
+        }
         this.lineUp.clear();
         this.lineUp.addAll(line_up);
     }

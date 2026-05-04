@@ -1,12 +1,14 @@
 package seng201.team67.gui.controllers.instantiable;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.ArtistSelectionController;
+import seng201.team67.gui.RosterController;
 import seng201.team67.models.Artist;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class ArtistCardController {
     //created by passing in the artist object.
 
     private GameEnvironment gameEnvironment;
+    private RosterController rosterController;
 
     public Artist artist;
     private boolean selected = false;
@@ -30,10 +33,12 @@ public class ArtistCardController {
     @FXML private Label star_power;
     @FXML private Label type;
     @FXML private ImageView artistImage;
+    @FXML private Button retireButton;
 
-    public ArtistCardController(GameEnvironment gameEnvironment)
+    public ArtistCardController(GameEnvironment gameEnvironment, RosterController rosterController)
     {
         this.gameEnvironment = gameEnvironment;
+        this.rosterController = rosterController;
     }
 
     //In the artist seleciton controller, we need to notify the parent controller when an artist is selected.
@@ -62,6 +67,15 @@ public class ArtistCardController {
         this.type.setText(artist.getType());
 
         this.artistImage.setImage(loadArtistImage(artist));
+
+        if(rosterController == null)
+        {
+            retireButton.setVisible(false);
+        }
+        else
+        {
+            retireButton.setVisible(true);
+        }
 
     }
 
@@ -112,5 +126,6 @@ public class ArtistCardController {
     @FXML public void retireButton() throws IOException
     {
         gameEnvironment.getLabelService().retireArtist(artist);
+        rosterController.refreshView();
     }
 }

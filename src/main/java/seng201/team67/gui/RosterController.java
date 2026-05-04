@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
@@ -22,13 +23,12 @@ public class RosterController {
 
     private final GameEnvironment gameEnvironment;
 
-    @FXML private AnchorPane artistOne;
-    @FXML private AnchorPane artistTwo;
-    @FXML private AnchorPane artistThree;
+    @FXML private HBox lineupPane;
     @FXML private FlowPane allArtistsContainer;
     @FXML private Label lineupWarning;
 
-    private final ArtistCardController[] lineupCards = new ArtistCardController[3];
+    private final List<AnchorPane> lineupSlots = new ArrayList<>();
+    private final List<ArtistCardController> lineupCards = new ArrayList<>();
     private final List<ArtistCardController> poolCards = new ArrayList<>();
 
     public RosterController(GameEnvironment gameEnvironment) {
@@ -37,23 +37,46 @@ public class RosterController {
 
     @FXML
     public void initialize() {
+        buildLineupSlots();
         populateLineup();
         populateAllArtists();
-        lineupWarning.setText("You must have exactly " + gameEnvironment.getConfig().requiredLineupSize + " artist(s) in your lineup.");
+        lineupWarning.setText("You must have between 1 and " + gameEnvironment.getLabelService().getLineupLimit() + " artist(s) in your lineup.");
         lineupWarning.setVisible(false);
     }
 
-    private void populateLineup() {
-        List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
-        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+    private void buildLineupSlots() {
+        lineupPane.getChildren().clear();
+        lineupSlots.clear();
+        lineupCards.clear();
 
-        for (int i = 0; i < lineup.size() && i < 3; i++) {
+        int slotCount = gameEnvironment.getLabelService().getLineupLimit();
+        for (int i = 0; i < slotCount; i++) {
+            AnchorPane slot = new AnchorPane();
+            slot.setMinHeight(0.0);
+            slot.setPrefHeight(200.0);
+            HBox.setHgrow(slot, javafx.scene.layout.Priority.ALWAYS);
+            lineupPane.getChildren().add(slot);
+            lineupSlots.add(slot);
+            lineupCards.add(null);
+        }
+    }
+
+    private void populateLineup() {
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        int maxLineupSize = gameEnvironment.getLabelService().getLineupLimit();
+
+        if (lineup.size() > maxLineupSize) {
+            lineup = new ArrayList<>(lineup.subList(0, maxLineupSize));
+            gameEnvironment.getLabelService().setLineUp(lineup);
+        }
+
+        for (int i = 0; i < lineup.size(); i++) {
             ArtistCardController card = loadCard(lineup.get(i));
             int slotIndex = i;
             card.getCardRoot().setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
             card.getCardRoot().setStyle("-fx-cursor: hand;");
-            slots.get(i).getChildren().setAll(card.getCardRoot());
-            lineupCards[i] = card;
+            lineupSlots.get(i).getChildren().setAll(card.getCardRoot());
+            lineupCards.set(i, card);
         }
     }
 
@@ -61,7 +84,9 @@ public class RosterController {
         List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
 
         for (Artist artist : gameEnvironment.getLabelService().getAllArtists()) {
-            if (lineup.contains(artist)) continue;
+            if (lineup.contains(artist)) {
+                continue;
+            }
 
             ArtistCardController card = loadCard(artist);
             card.getCardRoot().setOnMouseClicked(e -> addToLineup(card));
@@ -73,31 +98,34 @@ public class RosterController {
 
     private void addToLineup(ArtistCardController card) {
         int emptySlot = findEmptySlot();
-        if (emptySlot == -1) return;
+        if (emptySlot == -1) {
+            lineupWarning.setVisible(true);
+            return;
+        }
 
-        List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
-        slots.get(emptySlot).getChildren().setAll(card.getCardRoot());
+        lineupSlots.get(emptySlot).getChildren().setAll(card.getCardRoot());
 
         int slotIndex = emptySlot;
         card.getCardRoot().setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
 
-        lineupCards[emptySlot] = card;
+        lineupCards.set(emptySlot, card);
         allArtistsContainer.getChildren().remove(card.getCardRoot());
         poolCards.remove(card);
         allArtistsContainer.requestLayout();
+        lineupWarning.setVisible(false);
 
         syncLineup();
     }
 
     private void removeFromLineup(ArtistCardController card, int slotIndex) {
-        List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
-        slots.get(slotIndex).getChildren().clear();
-        lineupCards[slotIndex] = null;
+        lineupSlots.get(slotIndex).getChildren().clear();
+        lineupCards.set(slotIndex, null);
 
         card.getCardRoot().setOnMouseClicked(e -> addToLineup(card));
         allArtistsContainer.getChildren().add(card.getCardRoot());
         poolCards.add(card);
         allArtistsContainer.requestLayout();
+        lineupWarning.setVisible(false);
 
         syncLineup();
     }
@@ -105,14 +133,18 @@ public class RosterController {
     private void syncLineup() {
         List<Artist> newLineup = new ArrayList<>();
         for (ArtistCardController card : lineupCards) {
-            if (card != null) newLineup.add(card.artist);
+            if (card != null) {
+                newLineup.add(card.artist);
+            }
         }
         gameEnvironment.getLabelService().setLineUp(newLineup);
     }
 
     private int findEmptySlot() {
-        for (int i = 0; i < lineupCards.length; i++) {
-            if (lineupCards[i] == null) return i;
+        for (int i = 0; i < lineupCards.size(); i++) {
+            if (lineupCards.get(i) == null) {
+                return i;
+            }
         }
         return -1;
     }
@@ -120,7 +152,9 @@ public class RosterController {
     private int lineupCount() {
         int count = 0;
         for (ArtistCardController card : lineupCards) {
-            if (card != null) count++;
+            if (card != null) {
+                count++;
+            }
         }
         return count;
     }
@@ -128,7 +162,7 @@ public class RosterController {
     private ArtistCardController loadCard(Artist artist) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-            ArtistCardController card = new ArtistCardController(gameEnvironment);
+            ArtistCardController card = new ArtistCardController(gameEnvironment, this);
             loader.setController(card);
             loader.load();
             card.setArtist(artist);
@@ -140,12 +174,13 @@ public class RosterController {
 
     @FXML
     private void returnToMainMenu(ActionEvent event) throws IOException {
-        if(lineupCount() != gameEnvironment.getConfig().requiredLineupSize)
-        {
+        int lineupCount = lineupCount();
+        int lineupLimit = gameEnvironment.getLabelService().getLineupLimit();
+
+        if (lineupCount < 1 || lineupCount > lineupLimit) {
             lineupWarning.setVisible(true);
             return;
         }
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         loader.setController(new MainMenuController(gameEnvironment));
@@ -153,5 +188,10 @@ public class RosterController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void refreshView()
+    {
+        initialize();
     }
 }
