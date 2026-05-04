@@ -30,7 +30,7 @@
       <Button layoutX="254.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="156.0" prefWidth="203.0">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image><Image url="@../images/Gatcha/Stage1.png" /></image>
+               <image><Image url="@../images/Market/record.png" /></image>
             </ImageView>
          </graphic>
       </Button>
