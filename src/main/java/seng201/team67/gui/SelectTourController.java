@@ -1,17 +1,14 @@
 package seng201.team67.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
 
 import javafx.event.ActionEvent;
@@ -47,10 +44,8 @@ public class SelectTourController {
 
     @FXML private Pane countryTourPane;
     @FXML private Pane worldTourPane;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
 
     public SelectTourController(GameEnvironment gameEnvironment) {
@@ -70,16 +65,10 @@ public class SelectTourController {
             if (i >= lineup.size()) {
                 continue;
             }
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-                loader.setController(cardController);
-                slots.get(i).getChildren().add(loader.load());
-                cardController.setArtist(lineup.get(i));
-                artistCards.add(cardController);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to load ArtistCard.fxml", e);
-            }
+            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
+            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
+            cardController.setArtist(lineup.get(i));
+            artistCards.add(cardController);
         }
 
         checkTours(countryTourText, countryTourPane, COUNTRY);
@@ -126,43 +115,26 @@ public class SelectTourController {
     @FXML
     public void startLocalTour(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainGame.fxml",
+                new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
     }
 
     @FXML
     public void startCountryTour(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainGame.fxml",
+                new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
     }
 
     @FXML
     public void startWorldTour(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainGame.fxml",
+                new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
     }
 
     @FXML public void cancelTour(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnvironment));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
 }

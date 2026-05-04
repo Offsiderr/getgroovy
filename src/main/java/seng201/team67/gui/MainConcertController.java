@@ -1,22 +1,19 @@
 package seng201.team67.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.OutcomeController;
 import seng201.team67.gui.controllers.instantiable.QuestionController;
 import seng201.team67.gui.controllers.instantiable.SoundEngineerStandoffController;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
-import seng201.team67.models.Concert;
 import seng201.team67.models.MiniGameResult;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.questionmodels.Answer;
@@ -32,10 +29,10 @@ import java.util.List;
 public class MainConcertController {
 
     private GameEnvironment gameEnvironment;
-    private Concert concert;
     private TourService tourService;
     private ConcertService concertService;
-    private MinigamesService minigamesService;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
     @FXML
     private Label labelName;
@@ -51,10 +48,6 @@ public class MainConcertController {
     @FXML private VBox artistCardThree;
 
     @FXML private AnchorPane eventBox;//we load the questions in here
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
 
     public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
@@ -125,8 +118,6 @@ public class MainConcertController {
             return;
         }
 
-        FXMLLoader questionLoader = new FXMLLoader(getClass().getResource("/fxml/QuestionEvent.fxml"));
-
         Question question = concertService.getNextQuestion();
         if(question == null)
         {
@@ -135,26 +126,21 @@ public class MainConcertController {
         }
 
         QuestionController questionController = new QuestionController(question, this::handleAnswer);
-        questionLoader.setController(questionController);
-        Parent mapView = questionLoader.load();
-
-        eventBox.getChildren().add(mapView);
+        viewLoader.loadInto(eventBox, "/fxml/QuestionEvent.fxml", questionController);
     }
 
     private void startMinigame(Minigame minigame) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(minigame.path()));
+        Object controller;
 
         switch (minigame)
         {
             case SOUNDENGINEER -> {
-                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
-                loader.setController(miniGameController);
+                controller = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
             }
+            default -> throw new IllegalStateException("Unexpected minigame: " + minigame);
 
         }
-        Parent view = loader.load();
-
-        eventBox.getChildren().add(view);
+        viewLoader.loadInto(eventBox, minigame.path(), controller);
     }
 
     private void refreshView()
@@ -183,10 +169,7 @@ public class MainConcertController {
 
     private void loadOutcome(Outcome outcome) throws IOException {
         eventBox.getChildren().clear();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OutcomeEvent.fxml"));
-        loader.setController(new OutcomeController(outcome, this::onOutcomeContinue));
-        eventBox.getChildren().add(loader.load());
+        viewLoader.loadInto(eventBox, "/fxml/OutcomeEvent.fxml", new OutcomeController(outcome, this::onOutcomeContinue));
     }
 
     private void onOutcomeContinue() {
@@ -221,14 +204,7 @@ public class MainConcertController {
             concertService.getTourService().endTourDueToExhaustion();
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConcertResults.fxml"));
-        loader.setController(new ResultsController(gameEnvironment, concertService));
-
-        Parent root = loader.load();
-        stage = (Stage)  eventBox.getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(eventBox, "/fxml/ConcertResults.fxml", new ResultsController(gameEnvironment, concertService));
     }
 
 }

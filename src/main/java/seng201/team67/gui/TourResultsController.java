@@ -2,18 +2,14 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
 import seng201.team67.services.TourService;
 
@@ -43,10 +39,7 @@ public class TourResultsController {
 
     @FXML private Label payText;
     @FXML private Label labelName;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     public TourResultsController(GameEnvironment gameEnvironment, TourService tourService, Boolean staminaLoss)
     {
@@ -120,13 +113,6 @@ public class TourResultsController {
 
     @FXML private void continueGame(ActionEvent event) throws IOException {
         gameEnvironment.increaseTours();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }

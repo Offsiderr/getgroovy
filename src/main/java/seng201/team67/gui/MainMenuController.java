@@ -3,19 +3,18 @@ package seng201.team67.gui;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
 import seng201.team67.gui.dev.DevFunctionsController;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
 import seng201.team67.services.SoundEffectsService;
 
@@ -38,10 +37,8 @@ public class MainMenuController {
     @FXML private AnchorPane artistOne;
     @FXML private AnchorPane artistTwo;
     @FXML private AnchorPane artistThree;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
     //not needed currently, but here if needed in the future.
     private final List<ArtistCardController> artistCards = new ArrayList<>();
@@ -101,16 +98,10 @@ public class MainMenuController {
             if (i >= lineup.size()) {
                 continue;
             }
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-                loader.setController(cardController);
-                slots.get(i).getChildren().add(loader.load());
-                cardController.setArtist(lineup.get(i));
-                artistCards.add(cardController);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to load ArtistCard.fxml", e);
-            }
+            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
+            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
+            cardController.setArtist(lineup.get(i));
+            artistCards.add(cardController);
         }
     }
 
@@ -136,14 +127,7 @@ public class MainMenuController {
     }
 
     private void showLoseScreen() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoseScreen.fxml"));
-        loader.setController(new LoseScreenController(gameEnvironment));
-
-        Parent loseScreenRoot = loader.load();
-        stage = (Stage) labelName.getScene().getWindow();
-        scene = new Scene(loseScreenRoot);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(labelName, "/fxml/LoseScreen.fxml", new LoseScreenController(gameEnvironment));
     }
 
     //Mainmenu buttons
@@ -151,29 +135,13 @@ public class MainMenuController {
     @FXML public void startTour(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectTour.fxml"));
-        loader.setController(new SelectTourController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/SelectTour.fxml", new SelectTourController(gameEnvironment));
     }
 
     @FXML public void startRoster(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistRoster.fxml"));
-        loader.setController(new RosterController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/ArtistRoster.fxml", new RosterController(gameEnvironment));
     }
 
     @FXML public void startMarket()
@@ -185,26 +153,11 @@ public class MainMenuController {
     @FXML public void startStudio(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TheStudio.fxml"));
-        loader.setController(new TheStudioController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/TheStudio.fxml", new TheStudioController(gameEnvironment));
     }
 
     private void openDevMenu() throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/devui/DevFunctions.fxml"));
-        loader.setController(new DevFunctionsController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) labelName.getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(labelName, "/fxml/devui/DevFunctions.fxml", new DevFunctionsController(gameEnvironment));
     }
 }

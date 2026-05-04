@@ -2,20 +2,16 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +26,8 @@ public class RosterController {
     private final List<AnchorPane> lineupSlots = new ArrayList<>();
     private final List<ArtistCardController> lineupCards = new ArrayList<>();
     private final List<ArtistCardController> poolCards = new ArrayList<>();
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
     public RosterController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
@@ -167,20 +165,14 @@ public class RosterController {
     }
 
     private ArtistCardController loadCard(Artist artist) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-            ArtistCardController card = new ArtistCardController(gameEnvironment, this);
-            loader.setController(card);
-            loader.load();
-            card.setArtist(artist);
-            return card;
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load ArtistCard.fxml", e);
-        }
+        ArtistCardController card = new ArtistCardController(gameEnvironment, this);
+        viewLoader.load("/fxml/ArtistCard.fxml", card);
+        card.setArtist(artist);
+        return card;
     }
 
     @FXML
-    private void returnToMainMenu(ActionEvent event) throws IOException {
+    private void returnToMainMenu(ActionEvent event) {
         int lineupCount = lineupCount();
         int lineupLimit = gameEnvironment.getLabelService().getLineupLimit();
 
@@ -189,12 +181,7 @@ public class RosterController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnvironment));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
 }

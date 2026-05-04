@@ -2,18 +2,14 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.controllers.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
 import seng201.team67.services.ConcertService;
 
@@ -44,10 +40,7 @@ public class ResultsController {
     @FXML private Label staminaChange;
     @FXML private Label artistPay;
     @FXML private Label totalMoney;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     public ResultsController(GameEnvironment gameEnvironment, ConcertService concertService)
     {
@@ -123,31 +116,20 @@ public class ResultsController {
             concertService.getTourService().tourEnded();
             gameEnvironment.setPoolGenerated(false);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
             if(concertService.getTourService().isEndedByExhaustion())
             {
-                loader.setController(new TourResultsController(gameEnvironment, concertService.getTourService(), true));
+                screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                        new TourResultsController(gameEnvironment, concertService.getTourService(), true));
             }
             else
             {
-                loader.setController(new TourResultsController(gameEnvironment, concertService.getTourService(), false));
+                screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                        new TourResultsController(gameEnvironment, concertService.getTourService(), false));
             }
-
-            Parent root = loader.load();
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnvironment, concertService.getTourService()));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainGame.fxml",
+                new MainGameController(gameEnvironment, concertService.getTourService()));
     }
 }

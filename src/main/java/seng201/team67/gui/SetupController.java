@@ -2,16 +2,12 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
+import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.services.SetupService;
 import seng201.team67.services.SoundEffectsService;
 
@@ -28,10 +24,7 @@ public class SetupController {
     public final GameEnvironment gameEnvironment;
     private final SetupService setupService;
     private SoundEffectsService soundEffectsService  = new SoundEffectsService();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     public SetupController(GameEnvironment gameEnvironment)
     {
@@ -80,14 +73,6 @@ public class SetupController {
         gameEnvironment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
         gameEnvironment.setSelectedNumTours(expeditionCountSpinner.getValue());
 
-        //Now let's load the artist selection scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartingArtistSelection.fxml"));
-        loader.setController(new ArtistSelectionController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/StartingArtistSelection.fxml", new ArtistSelectionController(gameEnvironment));
     }
 }

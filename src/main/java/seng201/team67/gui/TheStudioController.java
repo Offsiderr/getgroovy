@@ -2,17 +2,13 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
+import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
 
 import java.io.IOException;
@@ -24,6 +20,7 @@ public class TheStudioController {
 
     private GameEnvironment gameEnvironment;
     private Artist selectedArtist;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     @FXML public javafx.scene.control.Label labelName;
     @FXML public Label moneyText;
@@ -106,24 +103,15 @@ public class TheStudioController {
     }
 
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnvironment));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
     @FXML public void buyStandard(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, RARE));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            screenNavigator.navigate(event, "/fxml/GatchaSelection.fxml",
+                    new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, RARE));
         }
     }
 
@@ -131,12 +119,8 @@ public class TheStudioController {
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, VERY_RARE));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            screenNavigator.navigate(event, "/fxml/GatchaSelection.fxml",
+                    new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, VERY_RARE));
         }
     }
 
@@ -144,12 +128,8 @@ public class TheStudioController {
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GatchaSelection.fxml"));
-            loader.setController(new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, ULTRA));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            screenNavigator.navigate(event, "/fxml/GatchaSelection.fxml",
+                    new GachaSelectionController(gameEnvironment, true, gameEnvironment.getConfig().gachaPoolSize, ULTRA));
         }
     }
 
