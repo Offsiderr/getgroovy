@@ -9,29 +9,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1A1A2E;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labelName" layoutX="504.0" layoutY="41.0" style="-fx-effect: dropshadow(three-pass-box, hotpink, 15, 0.9, 0, 0);;" text="Concert Finished" textFill="WHITE">
+      <Label fx:id="labelName" layoutX="506.0" layoutY="22.0" style="-fx-effect: dropshadow(three-pass-box, hotpink, 15, 0.9, 0, 0);;" text="Concert Finished" textFill="WHITE">
          <font>
-            <Font size="37.0" />
+            <Font name="Javanese Text" size="37.0" />
          </font>
       </Label>
-      <Label fx:id="payText" layoutX="673.0" layoutY="160.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="payText" layoutX="674.0" layoutY="136.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="37.0" />
+            <Font name="Javanese Text" size="37.0" />
          </font>
       </Label>
-      <Label layoutX="501.0" layoutY="125.0" text="Ticket Sales:" textAlignment="RIGHT" textFill="WHITE">
+      <Label layoutX="500.0" layoutY="114.0" text="Ticket Sales:" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="17.0" />
+            <Font name="Javanese Text" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="bonusMoney" layoutX="670.0" layoutY="125.0" text="Bonus Money:" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="bonusMoney" layoutX="671.0" layoutY="114.0" text="Bonus Money:" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="17.0" />
+            <Font name="Javanese Text" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="ticketSales" layoutX="497.0" layoutY="160.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="ticketSales" layoutX="495.0" layoutY="136.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="37.0" />
+            <Font name="Javanese Text" size="37.0" />
          </font>
       </Label>
       <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="155.0" layoutY="520.0" prefHeight="133.0" prefWidth="977.0">
@@ -46,14 +46,14 @@
             <Font size="29.0" />
          </font>
       </Button>
-      <Label layoutX="483.0" layoutY="230.0" text="Stamina Change:" textAlignment="RIGHT" textFill="WHITE">
+      <Label layoutX="482.0" layoutY="219.0" text="Stamina Change:" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="17.0" />
+            <Font name="Javanese Text" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="641.0" layoutY="230.0" text="Finishing Crowd Hype" textAlignment="RIGHT" textFill="WHITE">
+      <Label layoutX="641.0" layoutY="219.0" text="Finishing Crowd Hype" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font size="17.0" />
+            <Font name="Javanese Text" size="17.0" />
          </font>
       </Label>
       <Label fx:id="staminaChange" layoutX="497.0" layoutY="268.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
@@ -71,9 +71,9 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="totalMoney" layoutX="670.0" layoutY="367.0" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="totalMoney" layoutX="666.0" layoutY="354.0" style="-fx-effect: dropshadow(three-pass-box, darkgreen, 15, 0.9, 0, 0);;" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="37.0" />
+            <Font name="System Bold" size="55.0" />
          </font>
       </Label>
       <Label layoutX="504.0" layoutY="341.0" text="Artist's Pay:" textAlignment="RIGHT" textFill="WHITE">
