@@ -34,6 +34,7 @@ public class MainMenuController {
     @FXML private Label gameDifficulty;
     @FXML private Label moneyText;
     @FXML private Label gameTours;
+    @FXML private Label scoreLabel;
     @FXML private SplitPane artistPane;
     @FXML private AnchorPane artistOne;
     @FXML private AnchorPane artistTwo;
@@ -57,6 +58,7 @@ public class MainMenuController {
     {
         settingsHolder.setVisible(false);
         settingsHolder.setManaged(false);
+        settingsHolder.setDisable(true);
 
         if (gameEnvironment.checkGameStatus())
         {
@@ -76,7 +78,7 @@ public class MainMenuController {
         gameDifficulty.setText(gameEnvironment.getDifficulty().name());
         moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
-
+        scoreLabel.setText(Integer.toString(gameEnvironment.getGameScore()));
 
         Platform.runLater(() -> {
             Scene scene = labelName.getScene();
@@ -169,9 +171,14 @@ public class MainMenuController {
 
     @FXML public void openSettings(ActionEvent event) throws IOException
     {
+        settingsHolder.setDisable(false);
         settingsHolder.setVisible(true);
         settingsHolder.setManaged(true);
         viewLoader.loadInto(settingsHolder, "/fxml/MainSettings.fxml",
                 new MainSettingsController(gameEnvironment, settingsHolder));
+    }
+
+    @FXML public void openHelp(ActionEvent event) throws IOException
+    {
     }
 }

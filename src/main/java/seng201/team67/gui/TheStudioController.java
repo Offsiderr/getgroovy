@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
+import seng201.team67.services.MusicService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static seng201.team67.models.enums.Rarity.*;
 public class TheStudioController {
 
     private GameEnvironment gameEnvironment;
+    private MusicService musicService;
     private Artist selectedArtist;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
@@ -33,6 +35,7 @@ public class TheStudioController {
     public TheStudioController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
+        this.musicService = new MusicService(gameEnvironment);
     }
 
     @FXML public void initialize() throws IOException
@@ -42,6 +45,7 @@ public class TheStudioController {
 
         loadArtistPool();
 
+        musicService.playTheStudioMusic();
     }
 
     private void loadArtistPool()
@@ -97,6 +101,7 @@ public class TheStudioController {
     {
         if (selectedArtist != null && gameEnvironment.getLabelService().hireArtist(selectedArtist))
         {
+            gameEnvironment.removeArtistFromPurchasePool(selectedArtist);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadArtistPool();
         }

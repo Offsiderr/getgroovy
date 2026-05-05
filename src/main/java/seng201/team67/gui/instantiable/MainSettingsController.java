@@ -39,6 +39,7 @@ public class MainSettingsController {
     @FXML public void goBack(ActionEvent event)
     {
         settingsHolder.getChildren().clear();
+        settingsHolder.setDisable(true);
         settingsHolder.setVisible(false);
         settingsHolder.setManaged(false);
     }

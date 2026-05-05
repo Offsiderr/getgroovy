@@ -62,6 +62,20 @@
             <Font size="17.0" />
          </font>
       </Label>
+      <Label fx:id="scoreLabel" layoutX="500.0" layoutY="20.0" text="000000000000" textAlignment="CENTER">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Button layoutX="1150.0" layoutY="665.0" mnemonicParsing="false" onAction="#openHelp" prefHeight="11.0" prefWidth="36.0">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../images/Icons/question-line.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <Button layoutX="1217.0" layoutY="665.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="11.0" prefWidth="36.0">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
@@ -71,6 +85,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane fx:id="settingsHolder" layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" />
+      <AnchorPane fx:id="settingsHolder" disable="true" layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" />
+      <Label fx:id="labelName11" layoutX="585.0" layoutY="7.0" text="Score:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

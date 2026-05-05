@@ -30,6 +30,8 @@ public class GameEnvironment {
     private int concertCount = 0;
     private Difficulty difficulty;
 
+    private int gameScore = 0;
+
     private LabelService labelService;
 
     //All artists loaded into the game. Not artists in the label.
@@ -200,7 +202,12 @@ public class GameEnvironment {
         return selectedNumTours;
     }
 
-    public ArrayList<Artist> getArtistPurchasePool(){return artistPool;}
+    public ArrayList<Artist> getArtistPurchasePool(){return artistPurchasePool;}
+
+    public void removeArtistFromPurchasePool(Artist artist)
+    {
+        artistPurchasePool.remove(artist);
+    }
 
     public void setPoolGenerated(Boolean poolGenerated)
     {
@@ -284,5 +291,15 @@ public class GameEnvironment {
     public Double getPayoutAmount(PayoutType payoutType)
     {
         return payoutTier.resolve(payoutType);
+    }
+
+    public int getGameScore()
+    {
+        return gameScore;
+    }
+
+    public void addGameScore(int score)
+    {
+        gameScore += score;
     }
 }
