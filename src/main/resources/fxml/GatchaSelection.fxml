@@ -12,12 +12,12 @@
    <children>
       <SplitPane dividerPositions="0.33, 0.66" prefHeight="720.0" prefWidth="1280.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0" style="-fx-background-color: #1A1A2D;">
                <children>
                   <HBox fx:id="itemOne" prefHeight="384.0" prefWidth="256.0" />
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0" style="-fx-background-color: #1A1A2D;">
                <children>
                   <HBox fx:id="itemTwo" prefHeight="384.0" prefWidth="256.0" />
                   <Button fx:id="selectArtists" disable="true" layoutX="124.0" layoutY="653.0" mnemonicParsing="false" onAction="#artistsSelected" text="Select Artists" textAlignment="CENTER">
@@ -27,7 +27,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0" style="-fx-background-color: #1A1A2D;">
                <children>
                   <HBox fx:id="itemThree" prefHeight="384.0" prefWidth="256.0" />
                </children>
@@ -35,7 +35,7 @@
          </items>
       </SplitPane>
       <StackPane fx:id="gachaContainer" layoutX="515.0" layoutY="235.0" prefHeight="250.0" prefWidth="250.0" />
-      <Label alignment="CENTER" layoutX="551.0" layoutY="20.0" text="Select One:" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="551.0" layoutY="20.0" text="Select One:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>

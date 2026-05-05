@@ -33,7 +33,7 @@ public class App extends Application {
         loader.setController(new StartController(gameEnvironment));
 
         primaryStage.setTitle("Twisted Fantasy");
-        primaryStage.getIcons().add(new Image("/images/Market/record.png"));
+        primaryStage.getIcons().add(new Image("/images/GameIcon.png"));
 
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
