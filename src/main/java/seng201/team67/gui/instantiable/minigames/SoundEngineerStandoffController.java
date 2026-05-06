@@ -9,7 +9,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.MiniGameResult;
+import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.services.MinigamesService;
 
 import java.io.IOException;

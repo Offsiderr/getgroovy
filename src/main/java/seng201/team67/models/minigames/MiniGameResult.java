@@ -1,6 +1,4 @@
-package seng201.team67.models;
-
-import seng201.team67.services.MinigamesService;
+package seng201.team67.models.minigames;
 
 public class MiniGameResult {
 

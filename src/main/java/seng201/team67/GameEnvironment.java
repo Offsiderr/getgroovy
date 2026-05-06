@@ -1,6 +1,6 @@
 package seng201.team67;
 
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.enums.Difficulty;

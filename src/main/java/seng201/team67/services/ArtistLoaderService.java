@@ -2,7 +2,7 @@ package seng201.team67.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 
 import java.io.InputStream;
 import java.util.List;

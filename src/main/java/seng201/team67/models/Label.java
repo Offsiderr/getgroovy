@@ -1,6 +1,8 @@
 package seng201.team67.models;
 
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package seng201.team67.services;
 
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
 
 import java.util.List;

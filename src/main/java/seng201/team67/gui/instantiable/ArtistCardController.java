@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.ArtistSelectionController;
 import seng201.team67.gui.RosterController;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 
 import java.io.IOException;
 import java.net.URL;

@@ -2,10 +2,10 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.Artist;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
-import seng201.team67.models.Rockstar;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
+import seng201.team67.models.artists.Rockstar;
 import seng201.team67.services.ArtistSelectionService;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package seng201.team67.services;
 import javafx.scene.layout.HBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.ArtistCardController;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Rarity;
 
 import java.util.ArrayList;

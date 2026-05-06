@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 
 public final class ArtistDetailBoxFiller {
 

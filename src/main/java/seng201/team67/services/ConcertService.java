@@ -2,7 +2,7 @@ package seng201.team67.services;
 
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
-import seng201.team67.models.MiniGameResult;
+import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;

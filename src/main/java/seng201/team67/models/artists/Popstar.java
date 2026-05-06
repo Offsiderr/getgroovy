@@ -1,6 +1,6 @@
-package seng201.team67.models;
+package seng201.team67.models.artists;
 
-public class Popstar extends Artist{
+public class Popstar extends Artist {
 
     //(Jackson needs this for Json deserialisation)
     public Popstar()

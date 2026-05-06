@@ -10,7 +10,7 @@ import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.instantiable.GachaController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.services.ArtistSelectionService;
 
 import java.io.IOException;

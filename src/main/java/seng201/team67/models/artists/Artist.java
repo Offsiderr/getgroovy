@@ -1,4 +1,4 @@
-package seng201.team67.models;
+package seng201.team67.models.artists;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

@@ -1,7 +1,7 @@
 package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
-import seng201.team67.models.Artist;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.services.ArtistLoaderService;
 
 import java.util.List;
