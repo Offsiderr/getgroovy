@@ -2,12 +2,11 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
 import seng201.team67.services.MusicService;
@@ -54,12 +53,14 @@ public class TheStudioController {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
-            cards[i].getChildren().clear();
-            cards[i].setOnMouseClicked(null);
-            cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
+            VBox card = cards[i];
             if (i < pool.size()) {
                 Artist artist = pool.get(i);
-                populateCard(cards[i], artist);
+                card.setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(card, artist);
+                card.setOnMouseClicked(e -> selectArtist(card, artist));
+            } else {
+                clearArtistCard(card);
             }
         }
 
@@ -67,32 +68,22 @@ public class TheStudioController {
         buyArtistButton.setVisible(false);
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        //Ended up using a different thing than the artist card for the studio,
-        //this was for sizing but reminds me I need to fix the labels on the card bc it isn't clear.
-        //insets are a new thing I discovered that we should be using later.
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
-
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
-
-        card.setOnMouseClicked(e -> selectArtist(card, artist));
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        card.setOnMouseClicked(null);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void selectArtist(VBox card, Artist artist)
     {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
         for (VBox c : cards) {
-            c.setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
+            if (!c.isDisable()) {
+                ArtistDetailBoxFiller.applyBaseStyle(c);
+            }
         }
-        card.setStyle("-fx-border-color: #0078d7; -fx-border-width: 3; -fx-background-color: #dce9f7;");
+        ArtistDetailBoxFiller.applySelectedStyle(card);
         selectedArtist = artist;
         buyArtistButton.setVisible(true);
     }

@@ -2,30 +2,23 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.Artist;
 import seng201.team67.services.ConcertService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsController {
 
     private GameEnvironment gameEnvironment;
     private ConcertService concertService;
-
-    private List<Artist> lineup;
-
-    //not needed currently, but here if needed in the future.
-    private final List<ArtistCardController> artistCards = new ArrayList<>();
 
     //FXML stuff
     @FXML
@@ -67,48 +60,30 @@ public class ResultsController {
 
         for (int i = 0; i < cards.size(); i++) {
             VBox card = cards.get(i);
-            card.getChildren().clear();
             if (i < pool.size()) {
-                Artist artist = pool.get(i);
-                card.setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
-                populateCard(card, artist);
-            }
-        }
-    }
-
-    private void configureArtistPane(List<VBox> cards, int lineupSize) {
-        List<VBox> visibleCards = new ArrayList<>();
-        int visibleCount = Math.max(1, Math.min(lineupSize, cards.size()));
-
-        for (int i = 0; i < cards.size(); i++) {
-            VBox card = cards.get(i);
-            if (i < visibleCount) {
-                card.setVisible(true);
-                card.setManaged(true);
-                visibleCards.add(card);
+                card.setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(card, pool.get(i));
             } else {
-                card.setVisible(false);
-                card.setManaged(false);
+                clearArtistCard(card);
             }
         }
-
-        artistPane.getItems().setAll(visibleCards);
-        artistPane.setPrefWidth(visibleCount == 1 ? 320 : visibleCount == 2 ? 650 : 977);
-        artistPane.setLayoutX((1280 - artistPane.getPrefWidth()) / 2);
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
+    private void configureArtistPane(List<VBox> cards, int artistCount) {
+        int visibleCount = Math.max(0, Math.min(artistCount, cards.size()));
+        artistPane.getItems().setAll(cards.subList(0, visibleCount).toArray(Node[]::new));
 
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
+        if (visibleCount == 2) {
+            artistPane.setDividerPositions(0.5);
+        } else if (visibleCount >= 3) {
+            artistPane.setDividerPositions(1.0 / 3.0, 2.0 / 3.0);
+        }
+    }
+
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     @FXML private void continueGame(ActionEvent event) throws IOException {

@@ -8,19 +8,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.dev.DevFunctionsController;
 import seng201.team67.gui.instantiable.MainSettingsController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
 import seng201.team67.services.SoundEffectsService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenuController {
@@ -36,16 +36,13 @@ public class MainMenuController {
     @FXML private Label gameTours;
     @FXML private Label scoreLabel;
     @FXML private SplitPane artistPane;
-    @FXML private AnchorPane artistOne;
-    @FXML private AnchorPane artistTwo;
-    @FXML private AnchorPane artistThree;
+    @FXML private VBox artistOne;
+    @FXML private VBox artistTwo;
+    @FXML private VBox artistThree;
     @FXML private AnchorPane settingsHolder;
 
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
-
-    //not needed currently, but here if needed in the future.
-    private final List<ArtistCardController> artistCards = new ArrayList<>();
 
 
     public MainMenuController(GameEnvironment gameEnvironment) {
@@ -98,40 +95,35 @@ public class MainMenuController {
 
         lineup = gameEnvironment.getLabelService().label.getLineUp();
 
-        List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
+        List<VBox> slots = List.of(artistOne, artistTwo, artistThree);
         configureArtistPane(slots, lineup.size());
 
         for (int i = 0; i < slots.size(); i++) {
-            slots.get(i).getChildren().clear();
-            if (i >= lineup.size()) {
-                continue;
+            VBox slot = slots.get(i);
+            if (i < lineup.size()) {
+                slot.setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(slot, lineup.get(i));
+            } else {
+                clearArtistCard(slot);
             }
-            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
-            cardController.setArtist(lineup.get(i));
-            artistCards.add(cardController);
         }
     }
 
-    private void configureArtistPane(List<AnchorPane> slots, int lineupSize) {
-        List<Node> visibleSlots = new ArrayList<>();
-        int visibleCount = Math.max(1, Math.min(lineupSize, slots.size()));
+    private void configureArtistPane(List<VBox> slots, int artistCount) {
+        int visibleCount = Math.max(0, Math.min(artistCount, slots.size()));
+        artistPane.getItems().setAll(slots.subList(0, visibleCount).toArray(Node[]::new));
 
-        for (int i = 0; i < slots.size(); i++) {
-            AnchorPane slot = slots.get(i);
-            if (i < visibleCount) {
-                slot.setVisible(true);
-                slot.setManaged(true);
-                visibleSlots.add(slot);
-            } else {
-                slot.setVisible(false);
-                slot.setManaged(false);
-            }
+        if (visibleCount == 2) {
+            artistPane.setDividerPositions(0.5);
+        } else if (visibleCount >= 3) {
+            artistPane.setDividerPositions(1.0 / 3.0, 2.0 / 3.0);
         }
+    }
 
-        artistPane.getItems().setAll(visibleSlots);
-        artistPane.setPrefWidth(visibleCount == 1 ? 320 : visibleCount == 2 ? 650 : 977);
-        artistPane.setLayoutX((1280 - artistPane.getPrefWidth()) / 2);
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void showLoseScreen() throws IOException {

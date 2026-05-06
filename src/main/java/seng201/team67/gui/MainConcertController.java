@@ -1,8 +1,6 @@
 package seng201.team67.gui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
@@ -11,6 +9,7 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.questions.OutcomeController;
 import seng201.team67.gui.instantiable.questions.QuestionController;
 import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.Artist;
@@ -73,33 +72,19 @@ public class MainConcertController {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
-            cards[i].getChildren().clear();
             if (i < pool.size()) {
-                cards[i].setManaged(true);
-                cards[i].setVisible(true);
-                cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
-                Artist artist = pool.get(i);
-                populateCard(cards[i], artist);
+                cards[i].setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i));
             } else {
-                cards[i].setManaged(false);
-                cards[i].setVisible(false);
+                clearArtistCard(cards[i]);
             }
         }
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
-
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
-
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void populateQuestion() throws IOException {

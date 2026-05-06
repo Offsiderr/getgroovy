@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
@@ -30,11 +31,11 @@
             <Font size="53.0" />
          </font>
       </Button>
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="152.0" layoutY="514.0" prefHeight="133.0" prefWidth="977.0">
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0">
         <items>
-          <AnchorPane fx:id="artistOne" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-          <AnchorPane fx:id="artistTwo" minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="316.0" />
-            <AnchorPane fx:id="artistThree" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="128.0" prefWidth="301.0" />
+          <VBox fx:id="artistOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+          <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
         </items>
       </SplitPane>
       <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" text="label_name">

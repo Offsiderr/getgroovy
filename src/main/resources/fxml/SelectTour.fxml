@@ -36,11 +36,11 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="145.0" layoutY="510.0" prefHeight="133.0" prefWidth="977.0">
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0">
          <items>
-            <AnchorPane fx:id="artistOne" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-            <AnchorPane fx:id="artistTwo" minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="316.0" />
-            <AnchorPane fx:id="artistThree" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="128.0" prefWidth="301.0" />
+            <AnchorPane fx:id="artistOne" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="315.0" />
+            <AnchorPane fx:id="artistTwo" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="315.0" />
+            <AnchorPane fx:id="artistThree" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="315.0" />
          </items>
       </SplitPane>
       <Pane fx:id="countryTourPane" layoutX="474.0" layoutY="80.0" prefHeight="413.0" prefWidth="319.0">
