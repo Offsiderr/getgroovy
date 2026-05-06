@@ -7,8 +7,10 @@ import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.PayoutTier;
 import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.ArtistLoaderService;
+import seng201.team67.services.ItemLoaderService;
 import seng201.team67.services.LabelService;
 import seng201.team67.services.QuestionLoaderService;
 
@@ -50,6 +52,8 @@ public class GameEnvironment {
     private ArrayList<Question> countryQuestionPool;
     private ArrayList<Question> worldQuestionPool;
 
+    private ArrayList<Item> allItems;
+
     public GameEnvironment()
     {
         //Load our artists
@@ -57,11 +61,20 @@ public class GameEnvironment {
         this.artistPool = new ArrayList<>(allArtists);
         Collections.shuffle(this.artistPool);
 
+        //Load our items
+        this.allItems = new ArrayList<>(new ItemLoaderService().loadAll());
+
         //just testing for now
         for (Artist artist : this.getArtistPool()) {
             System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStarPower());
         }
 
+        for (Item item : this.allItems)
+        {
+            System.out.println(item.getName() + " | " + item.getDescription() + " | Cost: " + Double.toString(item.getCost()));
+        }
+
+        //load our questions
         this.commonQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
         this.localQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("local"));
         this.countryQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("country"));

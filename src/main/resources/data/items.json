@@ -1,0 +1,33 @@
+[
+  {
+    "type": "CONSUMABLE",
+    "name": "Energy Drink",
+    "description": "A quick backstage boost that helps an artist push through another show.",
+    "uses": 2,
+    "cost": 150,
+    "rarity": "COMMON",
+    "effect": "SECOND_WIND",
+    "imagePath": "/images/Items/Mythic/Alien microphone.png",
+    "multiplier": 1.1
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Lucky Microphone",
+    "description": "A stage mic that seems to bring out stronger performances.",
+    "cost": 325,
+    "rarity": "RARE",
+    "effect": "STAR_FUELLED",
+    "imagePath": "/images/Items/Rare/Lucky broken microphone.png",
+    "multiplier": 1.25
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Encore Pass",
+    "description": "Unlocks extra momentum when the lineup digs deep late in the concert.",
+    "cost": 500,
+    "rarity": "RARE",
+    "effect": "SECOND_WIND",
+    "imagePath": "/images/Items/Rare/off-brand designer.png",
+    "multiplier": 1.4
+  }
+]
