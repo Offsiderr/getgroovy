@@ -186,7 +186,7 @@ public class MainGameController {
          }
 
          tourService.tourEnded();
-         gameEnvironment.setPoolGenerated(false);
+         gameEnvironment.setArtistPoolGenerated(false);
          if (tourService.isEndedByExhaustion())
          {
              screenNavigator.navigate(event, "/fxml/TourResults.fxml",

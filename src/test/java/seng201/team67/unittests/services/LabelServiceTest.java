@@ -6,6 +6,10 @@ import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
+import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.EquippedItem;
+import seng201.team67.models.items.Item;
 import seng201.team67.services.LabelService;
 
 import java.util.ArrayList;
@@ -54,6 +58,27 @@ public class LabelServiceTest {
 
         assertTrue(result);
         assertEquals(startingMoney - 50, service.getMoney(), 0.0001);
+    }
+
+    @Test
+    void buyItemAddsPurchasedItemToRosterItems() {
+        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+        double startingMoney = service.getMoney();
+
+        boolean result = service.buyItem(item);
+
+        assertTrue(result);
+        assertTrue(item.getOwned());
+        assertTrue(service.getAllItems().contains(item));
+        assertEquals(1, service.getAllItems().size());
+        assertEquals(startingMoney - item.getCost(), service.getMoney(), 0.0001);
     }
 
     @Test

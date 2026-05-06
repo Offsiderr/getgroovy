@@ -6,7 +6,7 @@
     "uses": 2,
     "cost": 150,
     "rarity": "COMMON",
-    "effect": "SECOND_WIND",
+    "effects": ["SECOND_WIND", "STAR_FUELLED"],
     "imagePath": "/images/Items/Mythic/Alien microphone.png",
     "multiplier": 1.1
   },
@@ -16,7 +16,7 @@
     "description": "A stage mic that seems to bring out stronger performances.",
     "cost": 325,
     "rarity": "RARE",
-    "effect": "STAR_FUELLED",
+    "effects": ["STAR_FUELLED"],
     "imagePath": "/images/Items/Rare/Lucky broken microphone.png",
     "multiplier": 1.25
   },
@@ -26,7 +26,7 @@
     "description": "Unlocks extra momentum when the lineup digs deep late in the concert.",
     "cost": 500,
     "rarity": "RARE",
-    "effect": "SECOND_WIND",
+    "effects": ["SECOND_WIND"],
     "imagePath": "/images/Items/Rare/off-brand designer.png",
     "multiplier": 1.4
   }

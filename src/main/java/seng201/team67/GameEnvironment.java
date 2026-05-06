@@ -12,6 +12,7 @@ import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.ArtistLoaderService;
 import seng201.team67.services.ItemLoaderService;
 import seng201.team67.services.LabelService;
+import seng201.team67.services.MusicService;
 import seng201.team67.services.QuestionLoaderService;
 
 import java.util.*;
@@ -35,12 +36,16 @@ public class GameEnvironment {
     private int gameScore = 0;
 
     private LabelService labelService;
+    private final MusicService musicService;
 
     //All artists loaded into the game. Not artists in the label.
     private ArrayList<Artist> artistPool;
     //the studio and the market use these arrays
     private ArrayList<Artist> artistPurchasePool = new ArrayList<>();
-    private boolean poolGenerated = false;
+    private boolean artistPoolGenerated = false;
+
+    private ArrayList<Item> itemPurchasePool = new ArrayList<>();
+    private boolean itemPoolGenerated = false;
 
     private GameConfig gameConfig;
 
@@ -56,6 +61,8 @@ public class GameEnvironment {
 
     public GameEnvironment()
     {
+        this.musicService = new MusicService(this);
+
         //Load our artists
         List<Artist> allArtists = new ArtistLoaderService().loadAll();
         this.artistPool = new ArrayList<>(allArtists);
@@ -159,7 +166,7 @@ public class GameEnvironment {
     public ArrayList<Artist> resetArtistPurchasePool()
     {
         //return the existing pool if it has been generated already.
-        if (poolGenerated)
+        if (artistPoolGenerated)
         {
             return artistPurchasePool;
         }
@@ -186,8 +193,42 @@ public class GameEnvironment {
             }
         }
 
-        poolGenerated = true;
+        artistPoolGenerated = true;
         return artistPurchasePool;
+    }
+
+    public ArrayList<Item> resetItemPurchasePool()
+    {
+        //return the existing pool if it has been generated already.
+        if (itemPoolGenerated)
+        {
+            return itemPurchasePool;
+        }
+
+        itemPurchasePool.clear();
+
+        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
+        Collections.shuffle(rarities);
+
+        for (Rarity rarity : rarities)
+        {
+            ArrayList<Item> candidates = new ArrayList<>();
+            for (Item item : allItems)
+            {
+                if (!item.getOwned() && item.getRarity() == rarity)
+                {
+                    candidates.add(item);
+                }
+            }
+
+            if (!candidates.isEmpty())
+            {
+                itemPurchasePool.add(candidates.get(new Random().nextInt(candidates.size())));
+            }
+        }
+
+        itemPoolGenerated = true;
+        return itemPurchasePool;
     }
 
     //getters
@@ -203,6 +244,11 @@ public class GameEnvironment {
     public LabelService getLabelService()
     {
         return labelService;
+    }
+
+    public MusicService getMusicService()
+    {
+        return musicService;
     }
 
     public int getTourCount()
@@ -222,9 +268,9 @@ public class GameEnvironment {
         artistPurchasePool.remove(artist);
     }
 
-    public void setPoolGenerated(Boolean poolGenerated)
+    public void setArtistPoolGenerated(Boolean artistPoolGenerated)
     {
-        this.poolGenerated = poolGenerated;
+        this.artistPoolGenerated = artistPoolGenerated;
     }
 
     public GameConfig getConfig()

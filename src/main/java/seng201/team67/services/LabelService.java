@@ -3,6 +3,7 @@ package seng201.team67.services;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
+import seng201.team67.models.items.Item;
 
 import java.util.List;
 
@@ -70,6 +71,35 @@ public class LabelService {
         }
     }
 
+
+    public boolean buyItem(Item item, int cost)
+    {
+        if(label.getMoney() < cost)
+        {
+            return false;
+        }
+
+
+        label.money = label.money - cost;
+        item.purchase();
+        label.addItemToAll(item);
+        return true;
+    }
+
+    public boolean buyItem(Item item)
+    {
+        if(label.getMoney() < item.getCost())
+        {
+            return false;
+        }
+
+        label.money = label.money - item.getCost();
+
+        item.purchase();
+        label.addItemToAll(item);
+        return true;
+    }
+
     public void setLineUp(List<Artist> artist_lineup)
     {
         label.setLineUp(artist_lineup);
@@ -93,6 +123,11 @@ public class LabelService {
     public List<Artist> getAllArtists()
     {
         return label.getAllArtists();
+    }
+
+    public List<Item> getAllItems()
+    {
+        return label.getItems();
     }
 
     public Double getMoney()
@@ -186,5 +221,15 @@ public class LabelService {
     public void retireArtist(Artist artist)
     {
         label.removeArtist(artist);
+    }
+
+    private void addItemToArtist(Artist artist, Item item)
+    {
+        artist.addItem(item);
+    }
+
+    private void removeItemFromArtist(Artist artist, Item item)
+    {
+        artist.removeItem(item);
     }
 }

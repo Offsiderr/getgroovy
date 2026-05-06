@@ -89,7 +89,7 @@ public class ResultsController {
     @FXML private void continueGame(ActionEvent event) throws IOException {
         if (concertService.getTourService().isEndedByExhaustion()) {
             concertService.getTourService().tourEnded();
-            gameEnvironment.setPoolGenerated(false);
+            gameEnvironment.setArtistPoolGenerated(false);
 
             if(concertService.getTourService().isEndedByExhaustion())
             {

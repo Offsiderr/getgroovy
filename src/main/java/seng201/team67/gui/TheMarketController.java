@@ -7,29 +7,31 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
+import seng201.team67.gui.util.ItemDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.models.artists.Artist;
+import seng201.team67.models.items.Item;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static seng201.team67.models.enums.Rarity.*;
 
-public class TheStudioController {
+public class TheMarketController {
 
     private final GameEnvironment gameEnvironment;
-    private Artist selectedArtist;
+    private Item selectedItem;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
-    @FXML public javafx.scene.control.Label labelName;
+    @FXML
+    public javafx.scene.control.Label labelName;
     @FXML public Label moneyText;
     @FXML private VBox artistCardOne;
     @FXML private VBox artistCardTwo;
     @FXML private VBox artistCardThree;
-    @FXML private Button buyArtistButton;
+    @FXML private Button buyItemButton;
 
 
-    public TheStudioController(GameEnvironment gameEnvironment)
+    public TheMarketController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
@@ -39,30 +41,30 @@ public class TheStudioController {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
         this.moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
 
-        loadArtistPool();
+        loadItemPool();
 
         gameEnvironment.getMusicService().playTheStudioMusic();
     }
 
-    private void loadArtistPool()
+    private void loadItemPool()
     {
-        ArrayList<Artist> pool = getArtistPool();
+        ArrayList<Item> pool = getItemPool();
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
             VBox card = cards[i];
             if (i < pool.size()) {
-                Artist artist = pool.get(i);
+                Item item = pool.get(i);
                 card.setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(card, artist);
-                card.setOnMouseClicked(e -> selectArtist(card, artist));
+                ItemDetailBoxFiller.populateArtistBox(card, item);
+                card.setOnMouseClicked(e -> selectItem(card, item));
             } else {
                 clearArtistCard(card);
             }
         }
 
-        selectedArtist = null;
-        buyArtistButton.setVisible(false);
+        selectedItem = null;
+        buyItemButton.setVisible(false);
     }
 
     private void clearArtistCard(VBox card) {
@@ -72,26 +74,25 @@ public class TheStudioController {
         ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
-    private void selectArtist(VBox card, Artist artist)
+    private void selectItem(VBox card, Item item)
     {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
         for (VBox c : cards) {
             if (!c.isDisable()) {
-                ArtistDetailBoxFiller.applyBaseStyle(c);
+                ItemDetailBoxFiller.applyBaseStyle(c);
             }
         }
-        ArtistDetailBoxFiller.applySelectedStyle(card);
-        selectedArtist = artist;
-        buyArtistButton.setVisible(true);
+        ItemDetailBoxFiller.applySelectedStyle(card);
+        selectedItem = item;
+        buyItemButton.setVisible(true);
     }
 
-    @FXML public void handleHireArtist()
+    @FXML public void handleBuyItem()
     {
-        if (selectedArtist != null && gameEnvironment.getLabelService().hireArtist(selectedArtist))
+        if (selectedItem != null && gameEnvironment.getLabelService().buyItem(selectedItem))
         {
-            gameEnvironment.removeArtistFromPurchasePool(selectedArtist);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
-            loadArtistPool();
+            loadItemPool();
         }
     }
 
@@ -126,18 +127,19 @@ public class TheStudioController {
         }
     }
 
-    private ArrayList<Artist> getArtistPool()
+    private ArrayList<Item> getItemPool()
     {
-        return gameEnvironment.resetArtistPurchasePool();
+        return gameEnvironment.resetItemPurchasePool();
     }
 
-    @FXML public void rerollArtists()
+    @FXML public void rerollItems()
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {
             gameEnvironment.setArtistPoolGenerated(false);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
-            loadArtistPool();
+            loadItemPool();
         }
     }
 
 }
+

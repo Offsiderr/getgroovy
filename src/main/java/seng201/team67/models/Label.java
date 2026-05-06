@@ -66,6 +66,11 @@ public class Label {
 
     public double getMoney(){return money;}
 
+    public ArrayList<Item> getItems()
+    {
+        return new ArrayList<>(items);
+    }
+
     //Setters
     public boolean addArtistToAll(Artist artist)
     {
@@ -78,6 +83,12 @@ public class Label {
         {
             return false;
         }
+    }
+
+    public void addItemToAll(Item item)
+    {
+        //add max items later
+        items.add(item);
     }
 
     public void setLineUp(List<Artist> line_up)
@@ -113,5 +124,15 @@ public class Label {
     {
         allArtists.remove(artist);
         lineUp.remove(artist);
+    }
+
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
+
+    public void removeItem(Item item)
+    {
+        items.remove(item);
     }
 }

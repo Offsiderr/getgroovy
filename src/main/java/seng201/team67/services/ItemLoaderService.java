@@ -2,6 +2,8 @@ package seng201.team67.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.EquippedItem;
@@ -26,11 +28,12 @@ public class ItemLoaderService {
             JsonNode root = mapper.readTree(is);
 
             for (JsonNode itemNode : root) {
-                String type = itemNode.path("type").asText();
+                JsonNode normalizedItemNode = normalizeEffects(itemNode);
+                String type = normalizedItemNode.path("type").asText();
                 Item item = switch (type) {
-                    case "CONSUMABLE" -> mapper.treeToValue(itemNode, CosumableItem.class);
-                    case "EQUIPPED" -> mapper.treeToValue(itemNode, EquippedItem.class);
-                    case "CONDITIONAL" -> mapper.treeToValue(itemNode, ConditionalItem.class);
+                    case "CONSUMABLE" -> mapper.treeToValue(normalizedItemNode, CosumableItem.class);
+                    case "EQUIPPED" -> mapper.treeToValue(normalizedItemNode, EquippedItem.class);
+                    case "CONDITIONAL" -> mapper.treeToValue(normalizedItemNode, ConditionalItem.class);
                     default -> throw new IllegalArgumentException("Unknown item type: " + type);
                 };
                 items.add(item);
@@ -40,5 +43,22 @@ public class ItemLoaderService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to load items: " + e.getMessage(), e);
         }
+    }
+
+    private JsonNode normalizeEffects(JsonNode itemNode) {
+        if (!itemNode.isObject()) {
+            return itemNode;
+        }
+
+        ObjectNode normalizedItemNode = ((ObjectNode) itemNode).deepCopy();
+        JsonNode effectsNode = normalizedItemNode.get("effects");
+
+        if (effectsNode == null && normalizedItemNode.has("effect")) {
+            ArrayNode effectsArray = normalizedItemNode.arrayNode();
+            effectsArray.add(normalizedItemNode.get("effect"));
+            normalizedItemNode.set("effects", effectsArray);
+        }
+
+        return normalizedItemNode;
     }
 }

@@ -5,6 +5,9 @@ import seng201.team67.interfaces.Purchasable;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.enums.items.Effect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Item implements Purchasable {
 
@@ -15,18 +18,21 @@ public abstract class Item implements Purchasable {
     private String imagePath;
     private Rarity rarity;
     private Double multiplier;
-    private Effect effect;
+    private ArrayList<Effect> effects;
+
+    private Boolean owned;
 
     protected Item() {
     }
 
-    public Item(String name, String description, int cost, Rarity rarity, Effect effect)
+    public Item(String name, String description, int cost, Rarity rarity, List<Effect> effects)
     {
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.rarity = rarity;
-        this.effect = effect;
+        this.effects = effects == null ? new ArrayList<>() : new ArrayList<>(effects);
+        owned = false;
     }
 
     public Double getMultiplier()
@@ -52,8 +58,8 @@ public abstract class Item implements Purchasable {
         return imagePath;
     }
 
-    public Effect getEffect() {
-        return effect;
+    public ArrayList<Effect> getEffects() {
+        return effects;
     }
 
 
@@ -61,6 +67,11 @@ public abstract class Item implements Purchasable {
     @Override
     public double getCost() {
         return cost;
+    }
+
+    public String getType()
+    {
+        return "error";
     }
 
     public void setImagePath(String imagePath) {
@@ -77,6 +88,21 @@ public abstract class Item implements Purchasable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void purchase()
+    {
+        owned = true;
+    }
+
+    public void dispose()
+    {
+        owned = false;
+    }
+
+    public Boolean getOwned()
+    {
+        return owned;
     }
 
 }

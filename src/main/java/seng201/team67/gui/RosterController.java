@@ -6,11 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
+import seng201.team67.gui.util.ItemDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,13 @@ public class RosterController {
 
     @FXML private HBox lineupPane;
     @FXML private FlowPane allArtistsContainer;
+    @FXML private FlowPane allItemsContainer;
     @FXML private Label lineupWarning;
 
     private final List<AnchorPane> lineupSlots = new ArrayList<>();
-    private final List<ArtistCardController> lineupCards = new ArrayList<>();
-    private final List<ArtistCardController> poolCards = new ArrayList<>();
+    private final List<VBox> lineupCards = new ArrayList<>();
+    private final List<VBox> poolCards = new ArrayList<>();
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
-    private final ViewLoader viewLoader = new ViewLoader();
 
     public RosterController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
@@ -44,6 +46,7 @@ public class RosterController {
         buildLineupSlots();
         populateLineup();
         populateAllArtists();
+        populateAllItems();
     }
 
     private void buildLineupSlots() {
@@ -73,11 +76,11 @@ public class RosterController {
         }
 
         for (int i = 0; i < lineup.size(); i++) {
-            ArtistCardController card = loadCard(lineup.get(i));
+            VBox card = createCard(lineup.get(i));
             int slotIndex = i;
-            card.getCardRoot().setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
-            card.getCardRoot().setStyle("-fx-cursor: hand;");
-            lineupSlots.get(i).getChildren().setAll(card.getCardRoot());
+            card.setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
+            card.setStyle(card.getStyle() + "-fx-cursor: hand;");
+            mountCardInSlot(lineupSlots.get(i), card);
             lineupCards.set(i, card);
         }
     }
@@ -93,28 +96,38 @@ public class RosterController {
                 continue;
             }
 
-            ArtistCardController card = loadCard(artist);
-            card.getCardRoot().setOnMouseClicked(e -> addToLineup(card));
-            card.getCardRoot().setStyle("-fx-cursor: hand;");
-            allArtistsContainer.getChildren().add(card.getCardRoot());
+            VBox card = createCard(artist);
+            card.setOnMouseClicked(e -> addToLineup(card));
+            card.setStyle(card.getStyle() + "-fx-cursor: hand;");
+            allArtistsContainer.getChildren().add(card);
             poolCards.add(card);
         }
     }
 
-    private void addToLineup(ArtistCardController card) {
+    private void populateAllItems()
+    {
+        allItemsContainer.getChildren().clear();
+
+        for (Item item : gameEnvironment.getLabelService().getAllItems()) {
+            VBox itemCard = createItemCard(item);
+            allItemsContainer.getChildren().add(itemCard);
+        }
+    }
+
+    private void addToLineup(VBox card) {
         int emptySlot = findEmptySlot();
         if (emptySlot == -1) {
             lineupWarning.setVisible(true);
             return;
         }
 
-        lineupSlots.get(emptySlot).getChildren().setAll(card.getCardRoot());
+        mountCardInSlot(lineupSlots.get(emptySlot), card);
 
         int slotIndex = emptySlot;
-        card.getCardRoot().setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
+        card.setOnMouseClicked(e -> removeFromLineup(card, slotIndex));
 
         lineupCards.set(emptySlot, card);
-        allArtistsContainer.getChildren().remove(card.getCardRoot());
+        allArtistsContainer.getChildren().remove(card);
         poolCards.remove(card);
         allArtistsContainer.requestLayout();
         lineupWarning.setVisible(false);
@@ -122,12 +135,12 @@ public class RosterController {
         syncLineup();
     }
 
-    private void removeFromLineup(ArtistCardController card, int slotIndex) {
+    private void removeFromLineup(VBox card, int slotIndex) {
         lineupSlots.get(slotIndex).getChildren().clear();
         lineupCards.set(slotIndex, null);
 
-        card.getCardRoot().setOnMouseClicked(e -> addToLineup(card));
-        allArtistsContainer.getChildren().add(card.getCardRoot());
+        card.setOnMouseClicked(e -> addToLineup(card));
+        allArtistsContainer.getChildren().add(card);
         poolCards.add(card);
         allArtistsContainer.requestLayout();
         lineupWarning.setVisible(false);
@@ -137,9 +150,9 @@ public class RosterController {
 
     private void syncLineup() {
         List<Artist> newLineup = new ArrayList<>();
-        for (ArtistCardController card : lineupCards) {
+        for (VBox card : lineupCards) {
             if (card != null) {
-                newLineup.add(card.artist);
+                newLineup.add((Artist) card.getUserData());
             }
         }
         gameEnvironment.getLabelService().setLineUp(newLineup);
@@ -156,7 +169,7 @@ public class RosterController {
 
     private int lineupCount() {
         int count = 0;
-        for (ArtistCardController card : lineupCards) {
+        for (VBox card : lineupCards) {
             if (card != null) {
                 count++;
             }
@@ -164,11 +177,30 @@ public class RosterController {
         return count;
     }
 
-    private ArtistCardController loadCard(Artist artist) {
-        ArtistCardController card = new ArtistCardController(gameEnvironment, this);
-        viewLoader.load("/fxml/ArtistCard.fxml", card);
-        card.setArtist(artist);
-        return card;
+    private VBox createCard(Artist artist) {
+        VBox root = ArtistDetailBoxFiller.createArtistBox(artist);
+        ArtistDetailBoxFiller.addFireButton(root, "Fire", () -> {
+            gameEnvironment.getLabelService().retireArtist(artist);
+            refreshView();
+        });
+        return root;
+    }
+
+    private VBox createItemCard(Item item) {
+        VBox root = new VBox();
+        root.setPrefWidth(315.0);
+        root.setMinWidth(315.0);
+        root.setPrefHeight(190.0);
+        ItemDetailBoxFiller.populateArtistBox(root, item);
+        return root;
+    }
+
+    private void mountCardInSlot(AnchorPane slot, VBox cardRoot) {
+        slot.getChildren().setAll(cardRoot);
+        AnchorPane.setTopAnchor(cardRoot, 0.0);
+        AnchorPane.setRightAnchor(cardRoot, 0.0);
+        AnchorPane.setBottomAnchor(cardRoot, 0.0);
+        AnchorPane.setLeftAnchor(cardRoot, 0.0);
     }
 
     @FXML
@@ -183,5 +215,4 @@ public class RosterController {
 
         screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
-
 }

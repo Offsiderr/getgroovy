@@ -3,6 +3,10 @@ package seng201.team67.models.artists;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
+import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.Item;
+
+import java.util.ArrayList;
 
 //Allows Jason to recognise the sub-class types.
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -25,6 +29,8 @@ public abstract class Artist implements Purchasable {
     private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
     private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
     public boolean owned = false;
+
+    private ArrayList<Item> items = new ArrayList<>();
 
     public Artist(String name, int starPower, int stamina, int health, String description)
     {
@@ -77,6 +83,11 @@ public abstract class Artist implements Purchasable {
         return "/images/Artists/" + this.name + ".png";
     }
 
+    public ArrayList<Item> getItems()
+    {
+        return new ArrayList<>(items);
+    }
+
     //Setters
 
     public void setHealth(int health)
@@ -98,6 +109,27 @@ public abstract class Artist implements Purchasable {
         }
     }
 
+    public ArrayList<Effect> effectsToApply()
+    {
+        ArrayList<Effect> allEffects = new ArrayList<>();
+        for (Item item : items)
+        {
+            for (Effect effect : item.getEffects())
+            {
+                allEffects.add(effect);
+            }
+        }
+        return allEffects;
+    }
 
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
+
+    public void removeItem(Item item)
+    {
+        items.remove(item);
+    }
 
 }

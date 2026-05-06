@@ -41,6 +41,11 @@ public enum Effect {
         this.modifier = modifier;
     }
 
+    public String toString()
+    {
+        return name;
+    }
+
     public String getName() { return name; }
     public String getDescription() { return description; }
     public Rarity getRarity() { return rarity; }

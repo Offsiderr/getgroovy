@@ -13,6 +13,8 @@ public class MusicService {
 
     private final String studioMusicPath = "/sound/Music/MarketThemePlaceholder.wav";
 
+    private Boolean currentlyPlaying = false;
+
     private static final double MAX_VOLUME_PERCENT = 100.0; //TODO: Constants are all capitalised I think? double check
 
     public MusicService(GameEnvironment gameEnvironment)
@@ -22,7 +24,10 @@ public class MusicService {
 
     public void playTheStudioMusic()
     {
-        play(studioMusicPath);
+        if (!currentlyPlaying) {
+            currentlyPlaying = true;
+            play(studioMusicPath);
+        }
     }
 
 

@@ -144,10 +144,10 @@ public class MainMenuController {
         screenNavigator.navigate(event, "/fxml/ArtistRoster.fxml", new RosterController(gameEnvironment));
     }
 
-    @FXML public void startMarket()
+    @FXML public void startMarket(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
-
+        screenNavigator.navigate(event, "/fxml/TheMarket.fxml", new TheMarketController(gameEnvironment));
     }
 
     @FXML public void startStudio(ActionEvent event) throws IOException

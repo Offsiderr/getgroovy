@@ -1,10 +1,13 @@
 package seng201.team67.models.items;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team67.interfaces.Usable;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.enums.items.Effect;
+
+import java.util.List;
 
 public class CosumableItem extends Item implements Usable {
     //Consumable items are not equiped, but used once as a temporary boost.
@@ -21,8 +24,8 @@ public class CosumableItem extends Item implements Usable {
                          @JsonProperty("uses") int uses,
                          @JsonProperty("cost") int cost,
                          @JsonProperty("rarity") Rarity rarity,
-                         @JsonProperty("effect") Effect effect) {
-        super(name, description, cost, rarity, effect);
+                         @JsonProperty("effects") @JsonAlias("effect") List<Effect> effects) {
+        super(name, description, cost, rarity, effects);
         this.concert_uses = uses;
     }
 
@@ -34,5 +37,10 @@ public class CosumableItem extends Item implements Usable {
     @Override
     public int getUseAmount() {
         return 1;
+    }
+
+    public String getType()
+    {
+        return "Consumable";
     }
 }
