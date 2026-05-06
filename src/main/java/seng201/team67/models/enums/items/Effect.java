@@ -10,7 +10,6 @@ public enum Effect {
             "Second Wind",
             "Desperation fuels the performance.",
             Rarity.COMMON,
-            "/images/effects/second_wind.png",
             StatType.STAR_POWER,
             ItemType.CONDITIONAL,
             EffectBehaviours.lowStaminaBoost(3, 30)
@@ -20,7 +19,6 @@ public enum Effect {
             "Star Fuelled",
             "Fame gives you energy.",
             Rarity.RARE,
-            "/images/effects/star_fuelled.png",
             StatType.STAMINA,
             ItemType.CONDITIONAL,
             EffectBehaviours.highStarPowerStaminaBoost(10, 5)
@@ -29,17 +27,15 @@ public enum Effect {
     private final String name;
     private final String description;
     private final Rarity rarity;
-    private final String imagePath;
     private final StatType targetStat;
     private final ItemType itemType;
     private final StatModifier modifier;
 
-    Effect(String name, String description, Rarity rarity, String imagePath,
+    Effect(String name, String description, Rarity rarity,
            StatType targetStat, ItemType itemType, StatModifier modifier) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
-        this.imagePath = imagePath;
         this.targetStat = targetStat;
         this.itemType = itemType;
         this.modifier = modifier;
@@ -48,7 +44,6 @@ public enum Effect {
     public String getName() { return name; }
     public String getDescription() { return description; }
     public Rarity getRarity() { return rarity; }
-    public String getImagePath() { return imagePath; }
     public StatType getTargetStat() { return targetStat; }
     public ItemType getItemType() { return itemType; }
     public StatModifier getModifier() { return modifier; }
