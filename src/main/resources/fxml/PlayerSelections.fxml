@@ -6,54 +6,60 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <RadioButton fx:id="easyButton" layoutX="81.0" layoutY="146.0" mnemonicParsing="false" prefHeight="149.0" prefWidth="278.0" text="EASY" textFill="#00720a">
+      <ImageView fitHeight="738.0" fitWidth="1305.0" layoutX="-10.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Menus/PlayerSelect.png" />
+         </image></ImageView>
+      <RadioButton fx:id="easyButton" layoutX="81.0" layoutY="146.0" mnemonicParsing="false" opacity="0.9" prefHeight="149.0" prefWidth="278.0" style="-fx-effect: dropshadow(gaussian, green, 10, 0.8, 0, 0);;" text="Easy" textFill="WHITE">
          <font>
-            <Font size="45.0" />
+            <Font name="Javanese Text" size="33.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="difficultyGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="yikesButton" layoutX="78.0" layoutY="297.0" mnemonicParsing="false" prefHeight="145.0" prefWidth="331.0" text="A Challenge" textFill="#afb53e" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="yikesButton" layoutX="78.0" layoutY="297.0" mnemonicParsing="false" opacity="0.9" prefHeight="145.0" prefWidth="331.0" style="-fx-effect: dropshadow(gaussian, yellow, 10, 0.8, 0, 0);;" text="A Challenge" textFill="WHITE" toggleGroup="$difficultyGroup">
          <font>
-            <Font size="45.0" />
+            <Font name="Javanese Text" size="33.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="81.0" layoutY="452.0" mnemonicParsing="false" prefHeight="159.0" prefWidth="351.0" text="HEARTLESS" textFill="RED" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="81.0" layoutY="452.0" mnemonicParsing="false" opacity="0.9" prefHeight="159.0" prefWidth="351.0" style="-fx-effect: dropshadow(gaussian, red, 10, 0.8, 0, 0);;" text="HEARTLESS" textFill="WHITE" toggleGroup="$difficultyGroup">
          <font>
-            <Font size="45.0" />
+            <Font name="Javanese Text" size="33.0" />
          </font>
       </RadioButton>
-      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="469.0" layoutY="560.0" mnemonicParsing="false" onAction="#onStartGame" prefHeight="103.0" prefWidth="356.0" text="LET'S GO!" textAlignment="CENTER">
+      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="469.0" layoutY="560.0" mnemonicParsing="false" onAction="#onStartGame" prefHeight="103.0" prefWidth="356.0" style="-fx-background-color: white;" text="LET'S GO!" textAlignment="CENTER">
          <font>
             <Font size="49.0" />
          </font>
       </Button>
-      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="432.0" layoutY="255.0" prefHeight="64.0" prefWidth="393.0" promptText="Label Name">
+      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="432.0" layoutY="255.0" prefHeight="64.0" prefWidth="393.0" promptText="Label Name" style="-fx-background-color: white;">
          <font>
             <Font size="34.0" />
          </font>
       </TextField>
-      <Label layoutX="101.0" layoutY="29.0" text="Difficulty">
+      <Label layoutX="110.0" layoutY="-17.0" style="-fx-effect: dropshadow(gaussian, silver, 10, 0.8, 0, 0);;" text="Difficulty">
          <font>
-            <Font size="61.0" />
+            <Font name="Javanese Text" size="39.0" />
          </font>
       </Label>
-      <Label layoutX="475.0" layoutY="50.0" text="Label Name">
+      <Label layoutX="430.0" layoutY="-18.0" style="-fx-effect: dropshadow(gaussian, silver, 10, 0.8, 0, 0);;" text="What is your label name?">
          <font>
-            <Font size="61.0" />
+            <Font name="Javanese Text" size="39.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="865.0" layoutY="50.0" prefHeight="89.0" prefWidth="402.0" text="Expedition Count">
+      <Label alignment="CENTER" layoutX="885.0" layoutY="-19.0" prefHeight="89.0" prefWidth="402.0" style="-fx-effect: dropshadow(gaussian, silver, 10, 0.8, 0, 0);;" text="Expedition Count">
          <font>
-            <Font size="40.0" />
+            <Font name="Javanese Text" size="39.0" />
          </font>
       </Label>
-      <Spinner fx:id="expeditionCountSpinner" layoutX="865.0" layoutY="255.0" prefHeight="72.0" prefWidth="366.0" />
+      <Spinner fx:id="expeditionCountSpinner" layoutX="890.0" layoutY="255.0" prefHeight="72.0" prefWidth="366.0" style="-fx-background-color: #E00F11;" />
    </children>
 </AnchorPane>
