@@ -32,7 +32,7 @@ public class App extends Application {
         GameEnvironment gameEnvironment = new GameEnvironment();
 
         primaryStage.setTitle("Twisted Fantasy");
-        primaryStage.getIcons().add(new Image("/images/Market/golden_record.png"));
+        primaryStage.getIcons().add(new Image("/images/GameIcon.png"));
 
         primaryStage.setScene(new Scene(viewLoader.load("/fxml/startmenu.fxml", new StartController(gameEnvironment))));
         primaryStage.show();
