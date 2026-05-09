@@ -1,23 +1,21 @@
 package seng201.team67.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.instantiable.ArtistCardController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
-
-import javafx.event.ActionEvent;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.TourType;
 import seng201.team67.services.TourService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static seng201.team67.models.enums.TourType.COUNTRY;
@@ -29,15 +27,12 @@ public class SelectTourController {
 
     private List<Artist> lineup;
 
-    //not needed currently, but here if needed in the future.
-    private final List<ArtistCardController> artistCards = new ArrayList<>();
-
 
     //FXML stuff
     @FXML private SplitPane artistPane;
-    @FXML private AnchorPane artistOne;
-    @FXML private AnchorPane artistTwo;
-    @FXML private AnchorPane artistThree;
+    @FXML private VBox artistOne;
+    @FXML private VBox artistTwo;
+    @FXML private VBox artistThree;
 
     @FXML private Label countryTourText;
     @FXML private Label worldTourText;
@@ -45,7 +40,6 @@ public class SelectTourController {
     @FXML private Pane countryTourPane;
     @FXML private Pane worldTourPane;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
-    private final ViewLoader viewLoader = new ViewLoader();
 
 
     public SelectTourController(GameEnvironment gameEnvironment) {
@@ -57,43 +51,38 @@ public class SelectTourController {
     {
         lineup = gameEnvironment.getLabelService().label.getLineUp();
 
-        List<AnchorPane> slots = List.of(artistOne, artistTwo, artistThree);
+        List<VBox> slots = List.of(artistOne, artistTwo, artistThree);
         configureArtistPane(slots, lineup.size());
 
         for (int i = 0; i < slots.size(); i++) {
-            slots.get(i).getChildren().clear();
-            if (i >= lineup.size()) {
-                continue;
+            VBox slot = slots.get(i);
+            if (i < lineup.size()) {
+                slot.setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(slot, lineup.get(i), null);
+            } else {
+                clearArtistCard(slot);
             }
-            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
-            cardController.setArtist(lineup.get(i));
-            artistCards.add(cardController);
         }
 
         checkTours(countryTourText, countryTourPane, COUNTRY);
         checkTours(worldTourText, worldTourPane, WORLD);
     }
 
-    private void configureArtistPane(List<AnchorPane> slots, int lineupSize) {
-        List<AnchorPane> visibleSlots = new ArrayList<>();
-        int visibleCount = Math.max(1, Math.min(lineupSize, slots.size()));
+    private void configureArtistPane(List<VBox> slots, int lineupSize) {
+        int visibleCount = Math.max(0, Math.min(lineupSize, slots.size()));
+        artistPane.getItems().setAll(slots.subList(0, visibleCount).toArray(Node[]::new));
 
-        for (int i = 0; i < slots.size(); i++) {
-            AnchorPane slot = slots.get(i);
-            if (i < visibleCount) {
-                slot.setVisible(true);
-                slot.setManaged(true);
-                visibleSlots.add(slot);
-            } else {
-                slot.setVisible(false);
-                slot.setManaged(false);
-            }
+        if (visibleCount == 2) {
+            artistPane.setDividerPositions(0.5);
+        } else if (visibleCount >= 3) {
+            artistPane.setDividerPositions(1.0 / 3.0, 2.0 / 3.0);
         }
+    }
 
-        artistPane.getItems().setAll(visibleSlots);
-        artistPane.setPrefWidth(visibleCount == 1 ? 320 : visibleCount == 2 ? 650 : 977);
-        artistPane.setLayoutX((1280 - artistPane.getPrefWidth()) / 2);
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void checkTours(Label label, Pane pane, TourType tour)

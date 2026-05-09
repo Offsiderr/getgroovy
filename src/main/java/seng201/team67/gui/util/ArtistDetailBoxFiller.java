@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -14,8 +16,13 @@ import seng201.team67.models.artists.Artist;
 import seng201.team67.models.items.Item;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ArtistDetailBoxFiller {
+    private static final double CARD_WIDTH = 315.0;
+    private static final double CARD_HEIGHT = 250.0;
+    private static final double IMAGE_SIZE = 84.0;
+    private static final double ITEM_SLOT_SIZE = 48.0;
 
     private static final String BASE_STYLE =
             "-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;";
@@ -29,49 +36,58 @@ public class ArtistDetailBoxFiller {
     private ArtistDetailBoxFiller() {
     }
 
-    public static void populateArtistBox(VBox card, Artist artist) {
+    public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped) {
         card.getChildren().clear();
 
         applyBaseStyle(card);
-        card.setPadding(new Insets(10));
-        card.setSpacing(6);
+        card.setPadding(new Insets(8));
+        card.setSpacing(5);
         card.setAlignment(Pos.CENTER_LEFT);
         card.setFillWidth(true);
 
         HBox container = new HBox(10);
-        container.setAlignment(Pos.CENTER_LEFT);
+        container.setAlignment(Pos.TOP_LEFT);
         container.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(container, Priority.ALWAYS);
 
         ImageView imageView = createArtistImage(artist);
 
-        VBox textBox = new VBox(6);
-        textBox.setAlignment(Pos.CENTER_LEFT);
-        textBox.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(textBox, Priority.ALWAYS);
+        VBox detailsBox = new VBox(4);
+        detailsBox.setAlignment(Pos.TOP_LEFT);
+        detailsBox.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(detailsBox, Priority.ALWAYS);
 
-        textBox.getChildren().addAll(
+        detailsBox.getChildren().addAll(
                 createLabel(artist.getName()),
                 createLabel(artist.getType()),
                 createLabel("Star Power: " + artist.getStarPower()),
                 createLabel("Stamina: " + artist.getStamina()),
                 createLabel("Health: " + artist.getHealth()),
-                createLabel("Hire: $" + (int) artist.getCost()),
-                createItemSlots(artist)
+                createLabel("Hire: $" + (int) artist.getCost())
         );
 
-        container.getChildren().addAll(imageView, textBox);
+        VBox itemSlots = createItemSlots(artist, onItemDropped);
+
+        HBox detailsRow = new HBox(10);
+        detailsRow.setAlignment(Pos.TOP_LEFT);
+        detailsRow.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(detailsRow, Priority.ALWAYS);
+        detailsRow.getChildren().addAll(detailsBox, itemSlots);
+
+        container.getChildren().addAll(imageView, detailsRow);
         card.getChildren().add(container);
         card.setUserData(artist);
     }
 
-    public static VBox createArtistBox(Artist artist) {
+    public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped) {
         VBox card = new VBox(8);
-        card.setPrefWidth(315.0);
-        card.setMinWidth(315.0);
-        card.setPrefHeight(190.0);
+        card.setPrefWidth(CARD_WIDTH);
+        card.setMinWidth(CARD_WIDTH);
+        card.setPrefHeight(CARD_HEIGHT);
+        card.setMinHeight(CARD_HEIGHT);
         card.setAlignment(Pos.TOP_CENTER);
 
-        populateArtistBox(card, artist);
+        populateArtistBox(card, artist, onItemDropped);
         return card;
     }
 
@@ -100,29 +116,62 @@ public class ArtistDetailBoxFiller {
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER_LEFT);
         label.setMaxWidth(Double.MAX_VALUE);
+        label.setWrapText(true);
         return label;
     }
 
-    private static HBox createItemSlots(Artist artist) {
-        HBox itemSlots = new HBox(8);
-        itemSlots.setAlignment(Pos.CENTER);
-        itemSlots.setMaxWidth(Double.MAX_VALUE);
+    private static VBox createItemSlots(Artist artist, Consumer<String> onItemDropped) {
+        VBox itemSlots = new VBox(6);
+        itemSlots.setAlignment(Pos.TOP_CENTER);
+        itemSlots.setMinWidth(ITEM_SLOT_SIZE);
+        itemSlots.setPrefWidth(ITEM_SLOT_SIZE);
 
         List<Item> items = artist.getItems();
         for (int i = 0; i < 3; i++) {
             Item item = i < items.size() ? items.get(i) : null;
-            itemSlots.getChildren().add(createItemSlot(item));
+            itemSlots.getChildren().add(createItemSlot(item, onItemDropped));
         }
 
         return itemSlots;
     }
 
-    private static StackPane createItemSlot(Item item) {
+    private static StackPane createItemSlot(Item item, Consumer<String> onItemDropped) {
         StackPane slot = new StackPane();
-        slot.setMinSize(56, 56);
-        slot.setPrefSize(56, 56);
-        slot.setMaxSize(56, 56);
+        slot.setMinSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
+        slot.setPrefSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
+        slot.setMaxSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
         slot.setStyle(ITEM_SLOT_STYLE);
+
+        slot.setOnDragOver(dragEvent ->
+        {
+            if (dragEvent.getGestureSource() != slot && dragEvent.getDragboard().hasString())
+            {
+                dragEvent.acceptTransferModes(TransferMode.MOVE);
+            }
+            dragEvent.consume();
+        });
+
+        slot.setOnDragExited(dragEvent ->
+        {
+            slot.setStyle(ITEM_SLOT_STYLE);
+            dragEvent.consume();
+        });
+
+        slot.setOnDragDropped(dragEvent ->
+        {
+            Dragboard db = dragEvent.getDragboard();
+            if (db.hasString() && onItemDropped != null)
+            {
+                onItemDropped.accept(db.getString());
+                dragEvent.setDropCompleted(true);
+            }
+            else
+            {
+                dragEvent.setDropCompleted(false);
+            }
+            dragEvent.consume();
+        });
+
 
         if (item == null) {
             Label placeholder = new Label("Item");
@@ -132,8 +181,8 @@ public class ArtistDetailBoxFiller {
         }
 
         ImageView itemImage = createItemImage(item);
-        itemImage.setFitWidth(42);
-        itemImage.setFitHeight(42);
+        itemImage.setFitWidth(36);
+        itemImage.setFitHeight(36);
 
         slot.getChildren().add(itemImage);
         slot.setUserData(item);
@@ -150,8 +199,8 @@ public class ArtistDetailBoxFiller {
         Image image = new Image(stream);
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitWidth(90);
-        imageView.setFitHeight(90);
+        imageView.setFitWidth(IMAGE_SIZE);
+        imageView.setFitHeight(IMAGE_SIZE);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
 

@@ -7,6 +7,10 @@ import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.EquippedItem;
+import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,5 +137,25 @@ public class LabelTest {
         assertFalse(label.getAllArtists().contains(artistOne));
         assertFalse(label.getLineUp().contains(artistOne));
         assertTrue(label.getAllArtists().contains(artistTwo));
+    }
+
+    @Test
+    void equipItemMovesItemFromInventoryToArtist() {
+        Artist artist = new Popstar("Artist One", 1, "Pop");
+        Label label = new Label("Label", List.of(artist), new GameEnvironment());
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+        label.addItemToAll(item);
+
+        boolean equipped = label.equipItem(artist, item);
+
+        assertTrue(equipped);
+        assertTrue(artist.getItems().contains(item));
+        assertFalse(label.getItems().contains(item));
     }
 }

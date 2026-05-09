@@ -2,39 +2,120 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labelName" layoutX="432.0" layoutY="8.0" prefHeight="193.0" prefWidth="424.0" text="Tour Finished" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="32.0" />
-         </font>
+
+      <Label fx:id="labelTourName" layoutX="430.0" layoutY="14.0" prefWidth="500.0" text="World Tour - Finished" wrapText="true">
+         <font><Font size="32.0" /></font>
       </Label>
-      <Label layoutX="548.0" layoutY="203.0" text="Total Income" textAlignment="RIGHT">
-         <font>
-            <Font size="32.0" />
-         </font>
+
+      <VBox layoutX="200.0" layoutY="100.0" prefWidth="880.0" spacing="6.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 20;">
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Base ticket revenue">
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="labelBaseRevenue" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #2a7a2a;" text="+ 1,200">
+               <font><Font size="18.0" /></font>
+            </Label>
+         </HBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Event payouts">
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="labelEventPayouts" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #2a7a2a;" text="+ 320">
+               <font><Font size="18.0" /></font>
+            </Label>
+         </HBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Event penalties">
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="labelEventPenalties" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #b22222;" text="- 80">
+               <font><Font size="18.0" /></font>
+            </Label>
+         </HBox>
+
+         <Separator />
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" text="Tour gross">
+               <font><Font size="20.0" /></font>
+            </Label>
+            <Label fx:id="labelGross" alignment="CENTER_RIGHT" prefWidth="280.0" text="1,440">
+               <font><Font size="20.0" /></font>
+            </Label>
+         </HBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label fx:id="labelPayDescription" prefWidth="560.0" style="-fx-text-fill: #444444;" text="Artist pay (World Tour x1.5)">
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="labelArtistPay" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #b22222;" text="- 450">
+               <font><Font size="18.0" /></font>
+            </Label>
+         </HBox>
+
+         <Separator />
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" text="Net earned">
+               <font><Font size="22.0" /></font>
+            </Label>
+            <Label fx:id="labelNetEarned" alignment="CENTER_RIGHT" prefWidth="280.0" text="990">
+               <font><Font size="22.0" /></font>
+            </Label>
+         </HBox>
+
+         <Separator />
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" style="-fx-text-fill: #888888;" text="Credits before tour">
+               <font><Font size="16.0" /></font>
+            </Label>
+            <Label fx:id="labelCreditsBefore" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #888888;" text="3,200">
+               <font><Font size="16.0" /></font>
+            </Label>
+         </HBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="0.0">
+            <Label prefWidth="560.0" text="Credits after tour">
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="labelCreditsAfter" alignment="CENTER_RIGHT" prefWidth="280.0" text="4,190">
+               <font><Font size="18.0" /></font>
+            </Label>
+         </HBox>
+
+      </VBox>
+
+      <Label layoutX="430.0" layoutY="570.0" prefWidth="200.0" text="Total Income" textAlignment="CENTER">
+         <font><Font size="20.0" /></font>
       </Label>
-      <Label fx:id="payText" layoutX="552.0" layoutY="250.0" text="\$1000" textAlignment="RIGHT">
-         <font>
-            <Font size="68.0" />
-         </font>
+      <Label fx:id="payText" layoutX="390.0" layoutY="600.0" prefWidth="280.0" text="990" textAlignment="CENTER">
+         <font><Font size="56.0" /></font>
       </Label>
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0">
+
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0" visible="false">
          <items>
             <VBox fx:id="artistCardOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
             <VBox fx:id="artistCardTwo" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
             <VBox fx:id="artistCardThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
          </items>
       </SplitPane>
-      <Button layoutX="496.0" layoutY="440.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="67.0" prefWidth="288.0" text="Continue">
-         <font>
-            <Font size="29.0" />
-         </font>
+
+      <Button layoutX="496.0" layoutY="655.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="50.0" prefWidth="288.0" text="Continue">
+         <font><Font size="24.0" /></font>
       </Button>
+
    </children>
 </AnchorPane>

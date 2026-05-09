@@ -69,6 +69,11 @@ public abstract class Artist implements Purchasable {
         return stamina;
     }
 
+    public int getBaseStamina()
+    {
+        return baseStamina;
+    }
+
     public int getStarPower()
     {
         return starPower;
@@ -107,6 +112,11 @@ public abstract class Artist implements Purchasable {
         {
             this.stamina = 0;
         }
+    }
+
+    public void resetStamina()
+    {
+        this.stamina = baseStamina;
     }
 
     public ArrayList<Effect> effectsToApply()

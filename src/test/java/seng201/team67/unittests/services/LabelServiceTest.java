@@ -95,6 +95,19 @@ public class LabelServiceTest {
     }
 
     @Test
+    void lineupTotalPayUsesDifficultyPayMultiplier() {
+        List<Artist> artists = List.of(
+                new Popstar("One", 1, "Pop"),
+                new Rapper("Two", 3, "Rap")
+        );
+        LabelService easyService = createLabelService(createConfiguredEnvironment(0), artists);
+        LabelService hardService = createLabelService(createConfiguredEnvironment(2), artists);
+
+        assertEquals(20.0, easyService.getLineupTotalPay(), 0.0001);
+        assertEquals(30.0, hardService.getLineupTotalPay(), 0.0001);
+    }
+
+    @Test
     void applyStaminaChangeToLineupArtistRoundsAndUpdatesTargetArtist() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
         Artist artist = new Rapper("Target", 2, "Rap");
@@ -117,9 +130,34 @@ public class LabelServiceTest {
         assertFalse(service.getLineup().contains(artist));
     }
 
+    @Test
+    void equipItemMovesOwnedItemOntoArtistAndRemovesItFromInventory() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Popstar("Equipped Artist", 1, "Pop");
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+        service.buyItem(item, 0);
+
+        boolean equipped = service.equipItem(artist, item);
+
+        assertTrue(equipped);
+        assertTrue(artist.getItems().contains(item));
+        assertFalse(service.getAllItems().contains(item));
+    }
+
     private GameEnvironment createConfiguredEnvironment() {
+        return createConfiguredEnvironment(0);
+    }
+
+    private GameEnvironment createConfiguredEnvironment(int difficultyIndex) {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(0);
+        gameEnvironment.setDifficulty(difficultyIndex);
         return gameEnvironment;
     }
 

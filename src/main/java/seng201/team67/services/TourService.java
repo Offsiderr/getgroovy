@@ -1,6 +1,7 @@
 package seng201.team67.services;
 
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Minigame;
@@ -87,9 +88,20 @@ public class TourService {
         tour.addCreditsEarned(earned);
     }
 
+    public void addConcertResult(ConcertResults concertResult)
+    {
+        tour.addConcertResult(concertResult);
+    }
+
+    public List<ConcertResults> getConcertResults()
+    {
+        return tour.getConcertResults();
+    }
+
     public void tourEnded()
     {
         gameEnvironment.getLabelService().giveMoney(tour.getCreditsEarned());
+        gameEnvironment.getLabelService().resetLineupStamina();
 
     }
 

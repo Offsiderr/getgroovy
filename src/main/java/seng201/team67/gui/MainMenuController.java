@@ -102,7 +102,7 @@ public class MainMenuController {
             VBox slot = slots.get(i);
             if (i < lineup.size()) {
                 slot.setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(slot, lineup.get(i));
+                ArtistDetailBoxFiller.populateArtistBox(slot, lineup.get(i), null);
             } else {
                 clearArtistCard(slot);
             }

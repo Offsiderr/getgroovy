@@ -120,6 +120,14 @@ public class Label {
         artist.setStamina(artist.getStamina() + staminaChange);
     }
 
+    public void resetLineupStamina()
+    {
+        for (Artist artist : lineUp)
+        {
+            artist.resetStamina();
+        }
+    }
+
     public void removeArtist(Artist artist)
     {
         allArtists.remove(artist);
@@ -134,5 +142,17 @@ public class Label {
     public void removeItem(Item item)
     {
         items.remove(item);
+    }
+
+    public boolean equipItem(Artist artist, Item item)
+    {
+        //TODO: make constant through game config
+        if(artist.getItems().size() < 3 && items.contains(item))
+        {
+            artist.addItem(item);
+            items.remove(item);
+            return true;
+        }
+        return false;
     }
 }

@@ -74,7 +74,7 @@ public class MainConcertController {
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i));
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
             } else {
                 clearArtistCard(cards[i]);
             }
@@ -181,6 +181,7 @@ public class MainConcertController {
     private void handleConcertEnd() throws IOException
     {
         gameEnvironment.increaseConcertCount();
+        concertService.getTourService().addConcertResult(concertService.createConcertResults());
         concertService.getTourService().setConcertFinished();
         concertService.getTourService().increaseStopIndex();
         if (!concertService.getTourService().isTourComplete()

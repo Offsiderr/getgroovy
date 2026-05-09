@@ -218,6 +218,11 @@ public class LabelService {
         label.applyStaminaToLineupArtist(lineupIndex, (int) Math.round(staminaChange));
     }
 
+    public void resetLineupStamina()
+    {
+        label.resetLineupStamina();
+    }
+
     public void retireArtist(Artist artist)
     {
         label.removeArtist(artist);
@@ -231,5 +236,10 @@ public class LabelService {
     private void removeItemFromArtist(Artist artist, Item item)
     {
         artist.removeItem(item);
+    }
+
+    public Boolean equipItem(Artist artist, Item item)
+    {
+        return label.equipItem(artist, item);
     }
 }

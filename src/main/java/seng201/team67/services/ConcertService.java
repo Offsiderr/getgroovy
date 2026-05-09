@@ -2,6 +2,7 @@ package seng201.team67.services;
 
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
+import seng201.team67.models.ConcertResults;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.questionmodels.Answer;
@@ -181,6 +182,17 @@ public class ConcertService {
         return tourService;
     }
 
+    public ConcertResults createConcertResults()
+    {
+        double ticketSales = calculateTicketRevenue();
+        double bonusMoney = getIncome();
+        double drainedStamina = totalStaminaDrain();
+        int crowdHype = getCrowdEnergyChange();
+        double artistsPay = gameEnvironment.getLabelService().getLineupTotalPay();
+        double total = ticketSales + bonusMoney - artistsPay;
+        return new ConcertResults(ticketSales, bonusMoney, drainedStamina, crowdHype, artistsPay, total);
+    }
+
     public double calculateCrowdGain(double baseGain)
     {
         double maxSp = gameEnvironment.getLabelService().getMaxSP();
@@ -193,10 +205,13 @@ public class ConcertService {
 
     public double calculateTicketRevenue()
     {
-        //concert ticket pay = (crowdMeter / 100) × baseTicketRevenue × (1 + avgSP / maxSP)
+        //concert ticket pay = (crowdMeter / 100) × baseTicketRevenue × tour multiplier × (1 + avgSP / maxSP)
         double maxSp = gameEnvironment.getLabelService().getMaxSP();
         double starPowerMultiplier = maxSp <= 0 ? 1 : 1 + gameEnvironment.getLabelService().getAverageSP() / maxSp;
-        return (concert.getEnergy() / 100.0) * gameEnvironment.getConfig().ticketSalesAmount * starPowerMultiplier;
+        return (concert.getEnergy() / 100.0)
+                * gameEnvironment.getConfig().ticketSalesAmount
+                * tourService.getTourPayMultiplier()
+                * starPowerMultiplier;
     }
 
     public double calculateStaminaDrain()

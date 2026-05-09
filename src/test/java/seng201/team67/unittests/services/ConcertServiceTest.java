@@ -2,6 +2,7 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.artists.Popstar;
@@ -77,6 +78,37 @@ public class ConcertServiceTest {
 
         assertNull(service.getNextQuestion());
         assertTrue(service.isEnded());
+    }
+
+    @Test
+    void createConcertResultsCapturesCurrentConcertSummary() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        service.applyMiniGameResult(new MiniGameResult(20, 150));
+        ConcertResults result = service.createConcertResults();
+
+        assertEquals(service.calculateTicketRevenue(), result.ticketSales, 0.0001);
+        assertEquals(150.0, result.bonusMoney, 0.0001);
+        assertEquals(0.0, result.staminaChange, 0.0001);
+        assertEquals(20, result.crowdHype);
+        assertEquals(gameEnvironment.getLabelService().getLineupTotalPay(), result.artistsPay, 0.0001);
+        assertEquals(result.ticketSales + result.bonusMoney - result.artistsPay, result.total, 0.0001);
+    }
+
+    @Test
+    void ticketRevenueUsesTourPayMultiplier() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        ConcertService localService = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment));
+        ConcertService worldService = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment));
+
+        localService.applyMiniGameResult(new MiniGameResult(20, 0));
+        worldService.applyMiniGameResult(new MiniGameResult(20, 0));
+
+        assertEquals(localService.calculateTicketRevenue() * TourType.WORLD.getPayMultiplier(),
+                worldService.calculateTicketRevenue(),
+                0.0001);
     }
 
     private GameEnvironment createEnvironmentWithLabel() {

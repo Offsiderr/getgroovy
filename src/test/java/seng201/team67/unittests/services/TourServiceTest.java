@@ -2,6 +2,7 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
@@ -47,6 +48,31 @@ public class TourServiceTest {
         service.tourEnded();
 
         assertEquals(startingMoney + 125.5, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void tourEndedResetsLineupStaminaToBaseAmounts() {
+        Artist artistOne = new Popstar("One", 1, "Pop");
+        Artist artistTwo = new Rapper("Two", 2, "Rap");
+        artistOne.setStamina(0);
+        artistTwo.setStamina(1);
+        TourService service = createTourService(TourType.LOCAL, List.of(artistOne, artistTwo));
+
+        service.tourEnded();
+
+        assertEquals(artistOne.getBaseStamina(), artistOne.getStamina());
+        assertEquals(artistTwo.getBaseStamina(), artistTwo.getStamina());
+    }
+
+    @Test
+    void concertResultsCanBeAddedThroughService() {
+        TourService service = createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop")));
+        ConcertResults result = new ConcertResults(100.0, 10.0, 5.0, 75, 30.0, 80.0);
+
+        service.addConcertResult(result);
+
+        assertEquals(1, service.getConcertResults().size());
+        assertEquals(result, service.getConcertResults().getFirst());
     }
 
     @Test

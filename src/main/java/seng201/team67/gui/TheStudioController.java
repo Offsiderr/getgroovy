@@ -54,7 +54,7 @@ public class TheStudioController {
             if (i < pool.size()) {
                 Artist artist = pool.get(i);
                 card.setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(card, artist);
+                ArtistDetailBoxFiller.populateArtistBox(card, artist, null);
                 card.setOnMouseClicked(e -> selectArtist(card, artist));
             } else {
                 clearArtistCard(card);

@@ -91,7 +91,7 @@ public class MainGameController {
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i));
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
             } else {
                 clearArtistCard(cards[i]);
             }

@@ -3,6 +3,10 @@ package seng201.team67.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -58,7 +62,7 @@ public class RosterController {
         for (int i = 0; i < slotCount; i++) {
             AnchorPane slot = new AnchorPane();
             slot.setMinHeight(0.0);
-            slot.setPrefHeight(200.0);
+            slot.setPrefHeight(260.0);
             HBox.setHgrow(slot, javafx.scene.layout.Priority.ALWAYS);
             lineupPane.getChildren().add(slot);
             lineupSlots.add(slot);
@@ -178,7 +182,21 @@ public class RosterController {
     }
 
     private VBox createCard(Artist artist) {
-        VBox root = ArtistDetailBoxFiller.createArtistBox(artist);
+        VBox root = ArtistDetailBoxFiller.createArtistBox(artist, itemName -> {
+            // Find the item by name from the player's inventory
+            Item item = gameEnvironment.getLabelService().getAllItems().stream()
+                    .filter(i -> i.getName().equals(itemName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (item != null) {
+                boolean equipped = gameEnvironment.getLabelService().equipItem(artist, item);
+                if (equipped) {
+                    refreshView(); // rebuild all cards to reflect the change
+                }
+            }
+        });
+
         ArtistDetailBoxFiller.addFireButton(root, "Fire", () -> {
             gameEnvironment.getLabelService().retireArtist(artist);
             refreshView();
@@ -192,6 +210,31 @@ public class RosterController {
         root.setMinWidth(315.0);
         root.setPrefHeight(190.0);
         ItemDetailBoxFiller.populateArtistBox(root, item);
+        root.setUserData(item);
+
+        //Allow it to be dragged
+        root.setOnDragDetected(mouseEvent -> {
+            Dragboard db = root.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(item.getName());
+            db.setContent(content);
+
+            //set the drag cursor to the item's image
+            var stream = getClass().getResourceAsStream(item.getImagePath());
+            if (stream == null) {
+                stream = getClass().getResourceAsStream("/images/Artists/placeholder.png");
+            }
+            if (stream != null) {
+                //TODO: standardize sizes
+                Image dragImage = new Image(stream, 48, 48, true, true);
+                db.setDragView(dragImage, 24, 24);
+            }
+
+            mouseEvent.consume();
+        });
+
+        root.setOnDragDone(dragEvent -> dragEvent.consume());
+
         return root;
     }
 

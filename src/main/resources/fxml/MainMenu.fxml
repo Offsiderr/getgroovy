@@ -31,11 +31,11 @@
             <Font size="53.0" />
          </font>
       </Button>
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0">
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="250.0" prefWidth="1006.0">
         <items>
-          <VBox fx:id="artistOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-          <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+          <VBox fx:id="artistOne" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+          <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
         </items>
       </SplitPane>
       <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" text="label_name">
