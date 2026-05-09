@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
@@ -198,6 +199,8 @@ public class ArtistDetailBoxFiller {
         {
             slot.setOnMouseClicked(mouseEvent -> onItemClicked.accept(item));
         }
+
+        Tooltip.install(slot, new Tooltip(item.getName() + "\n" + item.getDescription()));
         return slot;
     }
 
