@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
 import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.enums.items.StatType;
+import seng201.team67.models.items.ConditionalItem;
+import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
@@ -46,12 +49,12 @@ public abstract class Artist implements Purchasable {
 
     public double getPay()
     {
-        return basePay * starPower;
+        return basePay * getStarPower();
     }
 
     public double getCost()
     {
-        return baseHiringCost * starPower;
+        return baseHiringCost * getStarPower();
     }
 
     public String getName()
@@ -61,12 +64,12 @@ public abstract class Artist implements Purchasable {
 
     public int getHealth()
     {
-        return health;
+        return getModifiedHealth();
     }
 
     public int getStamina()
     {
-        return stamina;
+        return getModifiedStamina();
     }
 
     public int getBaseStamina()
@@ -76,7 +79,7 @@ public abstract class Artist implements Purchasable {
 
     public int getStarPower()
     {
-        return starPower;
+        return getModifiedStarPower();
     }
 
     public String getDescription(){return description;}
@@ -141,5 +144,64 @@ public abstract class Artist implements Purchasable {
     {
         items.remove(item);
     }
+
+    //Returns true if anything actually changed (so therefore true means yes trigger the UI event)
+    public Boolean calculateEffect(Effect effect)
+    {
+        int value = getEffectValue(effect);
+        if (value == 0) return false;
+
+        switch (effect.getTargetStat()) {
+            case STAR_POWER -> starPower += value;
+            case STAMINA    -> setStamina(stamina + value);
+            case HEALTH     -> health += value;
+        }
+        return true;
+    }
+
+    public int getEffectValue(Effect effect)
+    {
+        return effect.getModifier().apply(this);
+    }
+
+    public int getModifiedStarPower()
+    {
+        return starPower + getEquipableEffectValue(StatType.STAR_POWER);
+    }
+
+    public int getModifiedStamina()
+    {
+        return stamina + getEquipableEffectValue(StatType.STAMINA);
+    }
+
+    public int getModifiedHealth()
+    {
+        return health + getEquipableEffectValue(StatType.HEALTH);
+    }
+
+    private int getEquipableEffectValue(StatType statType)
+    {
+        int value = 0;
+
+        for (Item item : items)
+        {
+            if (!(item instanceof EquippedItem) || item instanceof ConditionalItem)
+            {
+                continue;
+            }
+
+            for (Effect effect : item.getEffects())
+            {
+                if (effect.getTargetStat() == statType)
+                {
+                    value += effect.getModifier().apply(this);
+                }
+            }
+        }
+
+        return value;
+    }
+
+
 
 }

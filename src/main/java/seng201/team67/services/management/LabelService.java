@@ -3,8 +3,11 @@ package seng201.team67.services.management;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
+import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LabelService {
@@ -245,5 +248,41 @@ public class LabelService {
     public Boolean equipItem(Artist artist, Item item)
     {
         return gameEnvironment.getLabel().equipItem(artist, item);
+    }
+
+    public String useConsumable(Artist artist, Item item)
+    {
+        if (!(item instanceof CosumableItem consumable) || !artist.getItems().contains(item))
+        {
+            return "";
+        }
+
+        ArrayList<String> effectMessages = new ArrayList<>();
+        for (Effect effect : item.getEffects())
+        {
+            int effectValue = artist.getEffectValue(effect);
+            if (!artist.calculateEffect(effect))
+            {
+                continue;
+            }
+
+            effectMessages.add(effect.getName() + " applied +" + effectValue + " "
+                    + effect.getTargetStat().toString().toLowerCase().replace('_', ' '));
+        }
+
+        consumable.consumeUse();
+        if (consumable.getUses() <= 0)
+        {
+            artist.removeItem(item);
+            item.dispose();
+        }
+
+        if (effectMessages.isEmpty())
+        {
+            return item.getName() + " was used but nothing happened.";
+        }
+
+        return item.getName() + ": " + String.join(", ", effectMessages)
+                + " (" + consumable.getUses() + " use(s) left)";
     }
 }

@@ -6,7 +6,7 @@
     "uses": 2,
     "cost": 150,
     "rarity": "COMMON",
-    "effects": ["SECOND_WIND", "STAR_FUELLED"],
+    "effects": ["STAMINA_BOOST"],
     "imagePath": "/images/Items/Mythic/Alien microphone.png",
     "multiplier": 1.1
   },
@@ -14,9 +14,9 @@
     "type": "EQUIPPED",
     "name": "Lucky Microphone",
     "description": "A stage mic that seems to bring out stronger performances.",
-    "cost": 325,
+    "cost": 125,
     "rarity": "RARE",
-    "effects": ["STAR_FUELLED"],
+    "effects": ["STAMINA_BOOST"],
     "imagePath": "/images/Items/Rare/Lucky broken microphone.png",
     "multiplier": 1.25
   },

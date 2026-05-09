@@ -39,6 +39,11 @@ public class CosumableItem extends Item implements Usable {
         return 1;
     }
 
+    public void consumeUse()
+    {
+        concert_uses = Math.max(0, concert_uses - getUseAmount());
+    }
+
     public String getType()
     {
         return "Consumable";

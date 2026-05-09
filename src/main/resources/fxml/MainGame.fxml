@@ -26,7 +26,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button layoutX="1064.0" layoutY="659.0" mnemonicParsing="false" onAction="#endTourEarly" prefHeight="46.0" prefWidth="193.0" text="End tour early">
+      <Button fx:id="endTourEarlyButton" layoutX="1064.0" layoutY="659.0" mnemonicParsing="false" onAction="#endTourEarly" prefHeight="46.0" prefWidth="193.0" text="End tour early">
          <font>
             <Font size="22.0" />
          </font>
@@ -78,6 +78,11 @@
       <Label layoutX="833.0" layoutY="36.0" text="Stamina Drain:" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="effectText" layoutX="433.0" layoutY="596.0" prefHeight="62.0" prefWidth="259.0" text="this effect applied" wrapText="true">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
       <AnchorPane fx:id="cancelTourPane" layoutX="-9.0" layoutY="-7.0" prefHeight="731.0" prefWidth="1294.0">

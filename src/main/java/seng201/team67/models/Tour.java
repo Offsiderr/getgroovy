@@ -17,6 +17,7 @@ public class Tour {
     public boolean concertFinished = false;
     public boolean endedByExhaustion = false;
     public double exhaustionRefund = 0;
+    public String conditionalEffectText = "";
 
     public Tour(TourType type)
     {
@@ -96,5 +97,15 @@ public class Tour {
     public double getExhaustionRefund()
     {
         return exhaustionRefund;
+    }
+
+    public String getConditionalEffectText()
+    {
+        return conditionalEffectText;
+    }
+
+    public void setConditionalEffectText(String conditionalEffectText)
+    {
+        this.conditionalEffectText = conditionalEffectText;
     }
 }

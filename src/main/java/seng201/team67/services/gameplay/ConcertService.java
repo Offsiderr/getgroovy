@@ -6,6 +6,9 @@ import seng201.team67.models.ConcertResults;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
+import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.ConditionalItem;
+import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
@@ -34,6 +37,7 @@ public class ConcertService {
         this.tourService = tourService;
         concert = new Concert(gameEnvironment);
         concertQuestions = generateConcertQuestions();
+        this.tourService.setConditionalEffectText("");
     }
 
     private int generateQuestionCount()
@@ -157,6 +161,7 @@ public class ConcertService {
 
         //Calculate concert crowd energy gain
         concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
+        applyConditionalItemEffects();
     }
 
     public void applyMiniGameResult(MiniGameResult result)
@@ -263,5 +268,40 @@ public class ConcertService {
         staminaDrain += drainAmount;
         tourService.addStamina(drainAmount);
         tourService.advanceLineupStaminaIndex();
+    }
+
+    private void applyConditionalItemEffects()
+    {
+        ArrayList<String> triggeredEffects = new ArrayList<>();
+
+        for (var artist : gameEnvironment.getLabelService().getLineup())
+        {
+            for (Item item : artist.getItems())
+            {
+                if (!(item instanceof ConditionalItem))
+                {
+                    continue;
+                }
+
+                for (Effect effect : item.getEffects())
+                {
+                    int effectValue = artist.getEffectValue(effect);
+                    if (!artist.calculateEffect(effect))
+                    {
+                        continue;
+                    }
+
+                    triggeredEffects.add(effect.getName() + " applied +" + effectValue
+                            + " " + formatStatName(effect) + " to " + artist.getName());
+                }
+            }
+        }
+
+        tourService.setConditionalEffectText(String.join("\n", triggeredEffects));
+    }
+
+    private String formatStatName(Effect effect)
+    {
+        return effect.getTargetStat().toString().toLowerCase().replace('_', ' ');
     }
 }

@@ -37,6 +37,10 @@ public class ArtistDetailBoxFiller {
     }
 
     public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped) {
+        populateArtistBox(card, artist, onItemDropped, null);
+    }
+
+    public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
         card.getChildren().clear();
 
         applyBaseStyle(card);
@@ -66,7 +70,7 @@ public class ArtistDetailBoxFiller {
                 createLabel("Hire: $" + (int) artist.getCost())
         );
 
-        VBox itemSlots = createItemSlots(artist, onItemDropped);
+        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemClicked);
 
         HBox detailsRow = new HBox(10);
         detailsRow.setAlignment(Pos.TOP_LEFT);
@@ -80,6 +84,10 @@ public class ArtistDetailBoxFiller {
     }
 
     public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped) {
+        return createArtistBox(artist, onItemDropped, null);
+    }
+
+    public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
         VBox card = new VBox(8);
         card.setPrefWidth(CARD_WIDTH);
         card.setMinWidth(CARD_WIDTH);
@@ -87,7 +95,7 @@ public class ArtistDetailBoxFiller {
         card.setMinHeight(CARD_HEIGHT);
         card.setAlignment(Pos.TOP_CENTER);
 
-        populateArtistBox(card, artist, onItemDropped);
+        populateArtistBox(card, artist, onItemDropped, onItemClicked);
         return card;
     }
 
@@ -120,7 +128,7 @@ public class ArtistDetailBoxFiller {
         return label;
     }
 
-    private static VBox createItemSlots(Artist artist, Consumer<String> onItemDropped) {
+    private static VBox createItemSlots(Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
         VBox itemSlots = new VBox(6);
         itemSlots.setAlignment(Pos.TOP_CENTER);
         itemSlots.setMinWidth(ITEM_SLOT_SIZE);
@@ -129,13 +137,13 @@ public class ArtistDetailBoxFiller {
         List<Item> items = artist.getItems();
         for (int i = 0; i < 3; i++) {
             Item item = i < items.size() ? items.get(i) : null;
-            itemSlots.getChildren().add(createItemSlot(item, onItemDropped));
+            itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemClicked));
         }
 
         return itemSlots;
     }
 
-    private static StackPane createItemSlot(Item item, Consumer<String> onItemDropped) {
+    private static StackPane createItemSlot(Item item, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
         StackPane slot = new StackPane();
         slot.setMinSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
         slot.setPrefSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
@@ -186,6 +194,10 @@ public class ArtistDetailBoxFiller {
 
         slot.getChildren().add(itemImage);
         slot.setUserData(item);
+        if (onItemClicked != null)
+        {
+            slot.setOnMouseClicked(mouseEvent -> onItemClicked.accept(item));
+        }
         return slot;
     }
 

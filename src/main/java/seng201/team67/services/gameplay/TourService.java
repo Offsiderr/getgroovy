@@ -174,4 +174,14 @@ public class TourService {
     {
         return tour.getExhaustionRefund();
     }
+
+    public String getConditionalEffectText()
+    {
+        return tour.getConditionalEffectText();
+    }
+
+    public void setConditionalEffectText(String conditionalEffectText)
+    {
+        tour.setConditionalEffectText(conditionalEffectText);
+    }
 }

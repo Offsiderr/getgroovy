@@ -6,8 +6,10 @@ import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
+import seng201.team67.models.artists.Rockstar;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.services.management.LabelService;
@@ -166,6 +168,31 @@ public class LabelServiceTest {
         assertTrue(equipped);
         assertTrue(artist.getItems().contains(item));
         assertFalse(service.getAllItems().contains(item));
+    }
+
+    @Test
+    void useConsumableAppliesEffectsConsumesUseAndRemovesSpentItem() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Rockstar("Consumable Artist", 3, "Rock");
+        artist.setStamina(20);
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        CosumableItem item = new CosumableItem(
+                "Energy Drink",
+                "A quick backstage boost",
+                1,
+                100,
+                Rarity.COMMON,
+                List.of(Effect.SECOND_WIND)
+        );
+        service.buyItem(item, 0);
+        service.equipItem(artist, item);
+
+        String result = service.useConsumable(artist, item);
+
+        assertFalse(result.isBlank());
+        assertEquals(6, artist.getStarPower());
+        assertEquals(0, item.getUses());
+        assertFalse(artist.getItems().contains(item));
     }
 
     private GameEnvironment createConfiguredEnvironment() {

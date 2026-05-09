@@ -14,6 +14,8 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.TourType;
+import seng201.team67.models.items.CosumableItem;
+import seng201.team67.models.items.Item;
 import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.gameplay.TourService;
 
@@ -36,6 +38,7 @@ public class MainGameController {
     @FXML private Label payText;
     @FXML private Label cancelTourLabel;
     @FXML private Label staminaText;
+    @FXML private Label effectText;
 
     @FXML private ProgressBar tourProgressBar;
 
@@ -44,6 +47,7 @@ public class MainGameController {
     @FXML private VBox artistCardThree;
 
     @FXML private Button startConcertButton;
+    @FXML private Button endTourEarlyButton;
 
     @FXML private AnchorPane mapAnchorPane;
     @FXML private AnchorPane cancelTourPane;
@@ -64,6 +68,8 @@ public class MainGameController {
         payText.setText(Double.toString(tourService.getCreditsEarned()));
 
         staminaText.setText(Integer.toString((int) Math.round(tourService.getTotalStamina())));
+        effectText.setText(tourService.getConditionalEffectText());
+        effectText.setVisible(!tourService.getConditionalEffectText().isBlank());
 
         loadLineup();
 
@@ -75,12 +81,16 @@ public class MainGameController {
 
         loadMap(tourService.getTourType());
 
-        if(tourService.isTourComplete())
-        {
-            startConcertButton.setText("Finish Tour");
-        }
+        refreshTourActionButtons();
 
         tourProgressBar.setProgress((double) tourService.getStopIndex() / tourService.getTourType().getStops());
+    }
+
+    private void refreshTourActionButtons()
+    {
+        boolean isTourComplete = tourService.isTourComplete();
+        startConcertButton.setText(isTourComplete ? "Finish Tour" : "Start Concert");
+        endTourEarlyButton.setDisable(isTourComplete);
     }
 
     private void loadLineup()
@@ -91,11 +101,30 @@ public class MainGameController {
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
+                Artist artist = pool.get(i);
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], artist, null, item -> handleItemUse(artist, item));
             } else {
                 clearArtistCard(cards[i]);
             }
         }
+    }
+
+    private void handleItemUse(Artist artist, Item item)
+    {
+        if (!(item instanceof CosumableItem))
+        {
+            return;
+        }
+
+        String result = gameEnvironment.getLabelService().useConsumable(artist, item);
+        if (result.isBlank())
+        {
+            return;
+        }
+
+        effectText.setText(result);
+        effectText.setVisible(true);
+        loadLineup();
     }
 
     private void clearArtistCard(VBox card) {
@@ -171,6 +200,10 @@ public class MainGameController {
 
     @FXML private void endTourEarly(ActionEvent event) throws IOException
     {
+        if (tourService.isTourComplete()) {
+            return;
+        }
+
         cancelTourPane.setVisible(true);
         cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $" + gameEnvironment.getConfig().cancelTourPenalty + " of tickets");
     }

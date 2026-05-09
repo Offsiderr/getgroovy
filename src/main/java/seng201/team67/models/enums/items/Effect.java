@@ -1,18 +1,20 @@
 package seng201.team67.models.enums.items;
 
-import seng201.team67.behaviours.EffectBehaviours;
+import seng201.team67.behaviours.EffectBehavioursConditional;
+import seng201.team67.behaviours.EffectBehavioursEquipped;
 import seng201.team67.interfaces.StatModifier;
 import seng201.team67.models.enums.Rarity;
 
 public enum Effect {
 
+    //Conditional
     SECOND_WIND(
             "Second Wind",
             "Desperation fuels the performance.",
             Rarity.COMMON,
             StatType.STAR_POWER,
             ItemType.CONDITIONAL,
-            EffectBehaviours.lowStaminaBoost(3, 30)
+            EffectBehavioursConditional.lowStaminaBoost(3, 30)
     ),
 
     STAR_FUELLED(
@@ -21,7 +23,15 @@ public enum Effect {
             Rarity.RARE,
             StatType.STAMINA,
             ItemType.CONDITIONAL,
-            EffectBehaviours.highStarPowerStaminaBoost(10, 5)
+            EffectBehavioursConditional.highStarPowerStaminaBoost(10, 5)
+    ),
+
+    STAMINA_BOOST("Stamina Boost",
+                    "A constant burst of energy",
+                  Rarity.COMMON,
+                  StatType.STAMINA,
+                  ItemType.EQUIPPED,
+                  EffectBehavioursEquipped.flatBoost(20)
     );
 
     private final String name;

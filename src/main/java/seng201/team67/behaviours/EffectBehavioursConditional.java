@@ -2,7 +2,7 @@ package seng201.team67.behaviours;
 
 import seng201.team67.interfaces.StatModifier;
 
-public class EffectBehaviours {
+public class EffectBehavioursConditional {
 
     //How to create a new conditional effect!:
     //Create a new function that returns a StatModifier,
@@ -32,4 +32,17 @@ public class EffectBehaviours {
         //Boost stamina if star power is higher than threshold
         return artist -> artist.getStarPower() > threshold ? boost : 0;
     }
+
+    public static StatModifier lowHealthBoost(int bonus, int threshold)
+    {
+        //Boosts a stat if the artist's health drops below the threshold
+        return artist -> artist.getHealth() < threshold ? bonus : 0;
+    }
+
+    public static StatModifier highStaminaBoost(int bonus, int threshold)
+    {
+        //Boosts a stat if the artist still has plenty of stamina left
+        return artist -> artist.getStamina() > threshold ? bonus : 0;
+    }
+
 }
