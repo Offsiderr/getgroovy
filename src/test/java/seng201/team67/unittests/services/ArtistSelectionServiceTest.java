@@ -2,11 +2,12 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.Artist;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
-import seng201.team67.models.Rockstar;
-import seng201.team67.services.ArtistSelectionService;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
+import seng201.team67.models.artists.Rockstar;
+import seng201.team67.services.setup.ArtistSelectionService;
+import seng201.team67.services.setup.DifficultyService;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ArtistSelectionServiceTest {
 
     private GameEnvironment createConfiguredEnvironment() {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(0);
+        new DifficultyService().applyDifficulty(gameEnvironment, 0);
         return gameEnvironment;
     }
 }

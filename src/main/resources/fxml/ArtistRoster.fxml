@@ -25,7 +25,7 @@
          <font><Font name="Javanese Text" size="25.0" /></font>
       </Label>
 
-      <ScrollPane fitToWidth="true" layoutX="152.0" layoutY="405.0" prefHeight="240.0" prefWidth="977.0">
+      <ScrollPane fitToWidth="true" layoutX="152.0" layoutY="405.0" prefHeight="240.0" prefWidth="491.0">
          <content>
             <FlowPane fx:id="allArtistsContainer" hgap="8" style="-fx-padding: 8;" vgap="8" />
          </content>
@@ -34,9 +34,16 @@
       <Button layoutX="980.0" layoutY="662.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="46.0" prefWidth="286.0" text="Return &amp; Save Lineup">
          <font><Font size="22.0" /></font>
       </Button>
-      <Label fx:id="lineupWarning" layoutX="154.0" layoutY="318.0" text="You must have a valid lineup." textFill="#da0707">
+      <Label fx:id="lineupWarning" layoutX="152.0" layoutY="324.0" text="You must have a valid lineup." textFill="#da0707" />
+      <ScrollPane fitToWidth="true" layoutX="654.0" layoutY="405.0" prefHeight="240.0" prefWidth="491.0">
+         <content>
+            <FlowPane fx:id="allItemsContainer" hgap="8" style="-fx-padding: 8;" vgap="8" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="654.0" layoutY="341.0" text="All Items">
          <font>
-            <Font name="Javanese Text" size="22.0" />
-         </font></Label>
+            <Font size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

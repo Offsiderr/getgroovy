@@ -2,24 +2,20 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.tourmaps.TourMapController;
-import seng201.team67.models.Artist;
+import seng201.team67.gui.instantiable.tourmaps.TourMapController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.services.SoundEffectsService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,10 +47,8 @@ public class MainGameController {
 
     @FXML private AnchorPane mapAnchorPane;
     @FXML private AnchorPane cancelTourPane;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
 
     public MainGameController(GameEnvironment gameEnvironment, TourService tourService)
@@ -95,33 +89,19 @@ public class MainGameController {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
-            cards[i].getChildren().clear();
             if (i < pool.size()) {
-                cards[i].setManaged(true);
-                cards[i].setVisible(true);
-                cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
-                Artist artist = pool.get(i);
-                populateCard(cards[i], artist);
+                cards[i].setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
             } else {
-                cards[i].setManaged(false);
-                cards[i].setVisible(false);
+                clearArtistCard(cards[i]);
             }
         }
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
-
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
-
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void loadMap(TourType type) throws IOException {
@@ -140,15 +120,10 @@ public class MainGameController {
                 path = "/fxml/worldMap.fxml";
         }
 
-        FXMLLoader mapLoader = new FXMLLoader(getClass().getResource(path));
         TourMapController worldMapController = new TourMapController();
-        mapLoader.setController(worldMapController);
-        Parent mapView = mapLoader.load();
+        viewLoader.loadInto(mapAnchorPane, path, worldMapController);
 
-        mapAnchorPane.getChildren().add(mapView);
-
-
-        TourMapController mapController = mapLoader.getController();
+        TourMapController mapController = worldMapController;
 
         if (tourService.hasStopOrder()) {
             mapController.applyStopOrder(tourService.getStopOrder());
@@ -180,14 +155,7 @@ public class MainGameController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainConcert.fxml"));
-        loader.setController(new MainConcertController(gameEnvironment, tourService));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainConcert.fxml", new MainConcertController(gameEnvironment, tourService));
     }
 
     private boolean concertFinished()
@@ -198,14 +166,7 @@ public class MainGameController {
 
     private void returnToMainMenu(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
-        loader.setController(new MainMenuController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
     @FXML private void endTourEarly(ActionEvent event) throws IOException
@@ -225,22 +186,17 @@ public class MainGameController {
          }
 
          tourService.tourEnded();
-         gameEnvironment.setPoolGenerated(false);
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
+         gameEnvironment.setArtistPoolGenerated(false);
          if (tourService.isEndedByExhaustion())
          {
-             loader.setController(new TourResultsController(gameEnvironment, tourService, true));
+             screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                     new TourResultsController(gameEnvironment, tourService, true));
          }
          else
          {
-             loader.setController(new TourResultsController(gameEnvironment, tourService, false));
+             screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                     new TourResultsController(gameEnvironment, tourService, false));
          }
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML private void closePane(ActionEvent event) throws IOException

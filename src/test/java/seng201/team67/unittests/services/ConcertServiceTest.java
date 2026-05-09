@@ -2,18 +2,22 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.Artist;
-import seng201.team67.models.MiniGameResult;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
+import seng201.team67.models.ConcertResults;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.minigames.MiniGameResult;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.enums.TourType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
-import seng201.team67.services.ConcertService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.ConcertService;
+import seng201.team67.services.gameplay.PayoutService;
+import seng201.team67.services.gameplay.TourService;
+import seng201.team67.services.setup.DifficultyService;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +42,6 @@ public class ConcertServiceTest {
         GameEnvironment gameEnvironment = createEnvironmentWithLabel();
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
         ConcertService service = new ConcertService(gameEnvironment, tourService);
-        double startingMoney = gameEnvironment.getLabelService().getMoney();
         Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
 
         Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.GREAT_PAYOUT, -5, 10, false);
@@ -46,7 +49,7 @@ public class ConcertServiceTest {
 
         service.handleAnswer(answer);
 
-        assertEquals(startingMoney + gameEnvironment.getPayoutAmount(PayoutType.GREAT_PAYOUT), gameEnvironment.getLabelService().getMoney(), 0.0001);
+        assertEquals(new PayoutService().getPayoutAmount(gameEnvironment, PayoutType.GREAT_PAYOUT), service.getIncome(), 0.0001);
         assertEquals(95, firstLineupArtist.getStamina());
         assertEquals(1, tourService.getCurrentLineupStaminaIndex());
         assertEquals(11, service.getCrowdEnergyChange());
@@ -65,6 +68,18 @@ public class ConcertServiceTest {
     }
 
     @Test
+    void concertOnlyOffersOneMinigameCheck() throws Exception {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+        setMiniGameTriggerChance(1.0);
+        service.applyMiniGameResult(new MiniGameResult(50, 0));
+
+        assertEquals(seng201.team67.models.enums.Minigame.SOUNDENGINEER, service.getConcertMinigame());
+        assertNull(service.getConcertMinigame());
+    }
+
+    @Test
     void getNextQuestionReturnsNullAfterConcertEnds() {
         GameEnvironment gameEnvironment = createEnvironmentWithLabel();
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
@@ -79,14 +94,51 @@ public class ConcertServiceTest {
         assertTrue(service.isEnded());
     }
 
+    @Test
+    void createConcertResultsCapturesCurrentConcertSummary() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        service.applyMiniGameResult(new MiniGameResult(20, 150));
+        ConcertResults result = service.createConcertResults();
+
+        assertEquals(service.calculateTicketRevenue(), result.ticketSales, 0.0001);
+        assertEquals(150.0, result.bonusMoney, 0.0001);
+        assertEquals(0.0, result.staminaChange, 0.0001);
+        assertEquals(20, result.crowdHype);
+        assertEquals(gameEnvironment.getLabelService().getLineupTotalPay(), result.artistsPay, 0.0001);
+        assertEquals(result.ticketSales + result.bonusMoney - result.artistsPay, result.total, 0.0001);
+    }
+
+    @Test
+    void ticketRevenueUsesTourPayMultiplier() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        ConcertService localService = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment));
+        ConcertService worldService = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment));
+
+        localService.applyMiniGameResult(new MiniGameResult(20, 0));
+        worldService.applyMiniGameResult(new MiniGameResult(20, 0));
+
+        assertEquals(localService.calculateTicketRevenue() * TourType.WORLD.getPayMultiplier(),
+                worldService.calculateTicketRevenue(),
+                0.0001);
+    }
+
     private GameEnvironment createEnvironmentWithLabel() {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(0);
+        new DifficultyService().applyDifficulty(gameEnvironment, 0);
         gameEnvironment.setLabelName("Test Label");
-        gameEnvironment.createLabel(List.of(
+        gameEnvironment.setLabel(new seng201.team67.models.Label("Test Label", List.of(
                 new Popstar("Lead Pop", 1, "Pop"),
                 new Rapper("Lead Rap", 3, "Rap")
-        ));
+        ), gameEnvironment));
         return gameEnvironment;
+    }
+
+    private void setMiniGameTriggerChance(double value) throws Exception {
+        Field field = TourService.class.getDeclaredField("miniGameTriggerChance");
+        field.setAccessible(true);
+        field.set(null, value);
     }
 }

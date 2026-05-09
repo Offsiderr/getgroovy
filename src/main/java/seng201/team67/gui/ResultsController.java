@@ -1,35 +1,29 @@
 package seng201.team67.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.ArtistCardController;
-import seng201.team67.models.Artist;
-import seng201.team67.services.ConcertService;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.models.ConcertResults;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.services.gameplay.ConcertService;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ResultsController {
 
     private GameEnvironment gameEnvironment;
     private ConcertService concertService;
-
-    private List<Artist> lineup;
-
-    //not needed currently, but here if needed in the future.
-    private final List<ArtistCardController> artistCards = new ArrayList<>();
 
     //FXML stuff
     @FXML
@@ -41,13 +35,13 @@ public class ResultsController {
     @FXML private Label ticketSales;
     @FXML private Label payText; //bonus money
     @FXML private Label crowdHype;
-    @FXML private Label staminaChange;
     @FXML private Label artistPay;
     @FXML private Label totalMoney;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    @FXML private Label difficultyType;
+    @FXML private Label concertType;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.##");
+    private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
     public ResultsController(GameEnvironment gameEnvironment, ConcertService concertService)
     {
@@ -58,12 +52,52 @@ public class ResultsController {
     @FXML private void initialize()
     {
         loadLineup();
-        payText.setText("$" + Double.toString(concertService.getIncome()));
-        ticketSales.setText("$" + Double.toString(gameEnvironment.getConfig().ticketSalesAmount));
-        crowdHype.setText(Integer.toString(concertService.getCrowdEnergyChange()));
-        staminaChange.setText("-" + Double.toString(concertService.totalStaminaDrain()));
-        artistPay.setText("-$" + Double.toString(gameEnvironment.getLabelService().getLineupTotalPay()));
-        totalMoney.setText("$" + Double.toString(gameEnvironment.getConfig().ticketSalesAmount + concertService.getIncome() - gameEnvironment.getLabelService().getLineupTotalPay()));
+        ConcertResults results = concertService.createConcertResults();
+
+        payText.setText(formatMoney(results.bonusMoney));
+        ticketSales.setText(formatMoney(results.ticketSales));
+        crowdHype.setText(Integer.toString(results.crowdHype));
+        artistPay.setText("-" + formatMoney(results.artistsPay));
+        configureDifficultyMultiplier();
+        configureTourMultiplier();
+
+        int totalAmount = (int) Math.round(results.total);
+        totalMoney.setText("$0");
+        animateCount(totalMoney, totalAmount, 1.0);
+    }
+
+    private void configureDifficultyMultiplier()
+    {
+        double payMultiplier = gameEnvironment.getDifficulty().getPayMultiplier();
+        boolean showMultiplier = payMultiplier != 1.0;
+        difficultyType.setVisible(showMultiplier);
+        difficultyType.setManaged(showMultiplier);
+
+        if (showMultiplier)
+        {
+            difficultyType.setText("x" + MULTIPLIER_FORMAT.format(payMultiplier)
+                    + " - " + gameEnvironment.getDifficulty().getDisplayName() + " Difficulty");
+        }
+    }
+
+    private void configureTourMultiplier()
+    {
+        double payMultiplier = concertService.getTourService().getTourPayMultiplier();
+        boolean showMultiplier = payMultiplier != 1.0;
+        concertType.setVisible(showMultiplier);
+        concertType.setManaged(showMultiplier);
+
+        if (showMultiplier)
+        {
+            String tourName = concertService.getTourService().getTourType().toString();
+            concertType.setText("x" + MULTIPLIER_FORMAT.format(payMultiplier)
+                    + " - " + Character.toUpperCase(tourName.charAt(0)) + tourName.substring(1) + " Tour");
+        }
+    }
+
+    private String formatMoney(double amount)
+    {
+        return "$" + MONEY_FORMAT.format(amount);
     }
 
     private void loadLineup()
@@ -74,80 +108,73 @@ public class ResultsController {
 
         for (int i = 0; i < cards.size(); i++) {
             VBox card = cards.get(i);
-            card.getChildren().clear();
             if (i < pool.size()) {
-                Artist artist = pool.get(i);
-                card.setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
-                populateCard(card, artist);
-            }
-        }
-    }
-
-    private void configureArtistPane(List<VBox> cards, int lineupSize) {
-        List<VBox> visibleCards = new ArrayList<>();
-        int visibleCount = Math.max(1, Math.min(lineupSize, cards.size()));
-
-        for (int i = 0; i < cards.size(); i++) {
-            VBox card = cards.get(i);
-            if (i < visibleCount) {
-                card.setVisible(true);
-                card.setManaged(true);
-                visibleCards.add(card);
+                card.setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(card, pool.get(i), null);
             } else {
-                card.setVisible(false);
-                card.setManaged(false);
+                clearArtistCard(card);
             }
         }
-
-        artistPane.getItems().setAll(visibleCards);
-        artistPane.setPrefWidth(visibleCount == 1 ? 320 : visibleCount == 2 ? 650 : 977);
-        artistPane.setLayoutX((1280 - artistPane.getPrefWidth()) / 2);
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
+    private void configureArtistPane(List<VBox> cards, int artistCount) {
+        int visibleCount = Math.max(0, Math.min(artistCount, cards.size()));
+        artistPane.getItems().setAll(cards.subList(0, visibleCount).toArray(Node[]::new));
 
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
+        if (visibleCount == 2) {
+            artistPane.setDividerPositions(0.5);
+        } else if (visibleCount >= 3) {
+            artistPane.setDividerPositions(1.0 / 3.0, 2.0 / 3.0);
+        }
+    }
+
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     @FXML private void continueGame(ActionEvent event) throws IOException {
         if (concertService.getTourService().isEndedByExhaustion()) {
             concertService.getTourService().tourEnded();
-            gameEnvironment.setPoolGenerated(false);
+            gameEnvironment.setArtistPoolGenerated(false);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TourResults.fxml"));
             if(concertService.getTourService().isEndedByExhaustion())
             {
-                loader.setController(new TourResultsController(gameEnvironment, concertService.getTourService(), true));
+                screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                        new TourResultsController(gameEnvironment, concertService.getTourService(), true));
             }
             else
             {
-                loader.setController(new TourResultsController(gameEnvironment, concertService.getTourService(), false));
+                screenNavigator.navigate(event, "/fxml/TourResults.fxml",
+                        new TourResultsController(gameEnvironment, concertService.getTourService(), false));
             }
-
-            Parent root = loader.load();
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainGame.fxml"));
-        loader.setController(new MainGameController(gameEnvironment, concertService.getTourService()));
+        screenNavigator.navigate(event, "/fxml/MainGame.fxml",
+                new MainGameController(gameEnvironment, concertService.getTourService()));
+    }
 
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    private void animateCount(Label label, int target, double seconds) {
+        long durationMs = (long) (seconds * 1000);
+        long startTime = System.currentTimeMillis();
+
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.millis(16), e -> {  // ~60fps
+                    long elapsed = System.currentTimeMillis() - startTime;
+                    double progress = Math.min(1.0, (double) elapsed / durationMs);
+
+                    // ease-out curve: feels snappier at start, settles at end
+                    double eased = 1 - Math.pow(1 - progress, 3);
+
+                    int current = (int) Math.round(eased * target);
+                    label.setText("$" + current);
+                })
+        );
+        timeline.setCycleCount((int) (durationMs / 16) + 1);
+        timeline.setOnFinished(e -> label.setText("$" + target));
+        timeline.play();
     }
 }

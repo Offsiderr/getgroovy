@@ -1,6 +1,7 @@
 package seng201.team67.unittests.models;
 
 import org.junit.jupiter.api.Test;
+import seng201.team67.models.ConcertResults;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.TourType;
 
@@ -60,6 +61,17 @@ public class TourTest {
         tour.addCreditsEarned(79.5);
 
         assertEquals(200.0, tour.getCreditsEarned());
+    }
+
+    @Test
+    void concertResultsCanBeStoredOnTour() {
+        Tour tour = new Tour(TourType.LOCAL);
+        ConcertResults result = new ConcertResults(100.0, 25.0, 10.0, 80, 30.0, 95.0);
+
+        tour.addConcertResult(result);
+
+        assertEquals(1, tour.getConcertResults().size());
+        assertEquals(result, tour.getConcertResults().getFirst());
     }
 
     @Test

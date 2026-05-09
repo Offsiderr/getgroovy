@@ -2,21 +2,17 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.ArtistCardController;
-import seng201.team67.gui.controllers.instantiable.GachaController;
-import seng201.team67.models.Artist;
+import seng201.team67.gui.instantiable.ArtistCardController;
+import seng201.team67.gui.instantiable.GachaController;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.services.GachaService;
+import seng201.team67.services.setup.GachaService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,10 +40,8 @@ public class GachaSelectionController extends ArtistSelectionController {
 
     //this needs to be implemented in the super class later... hard coded for now.
     private int selectionSize;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
     private final List<ArtistCardController> artistCards = new ArrayList<>();
 
@@ -64,14 +58,9 @@ public class GachaSelectionController extends ArtistSelectionController {
     public void initialize() throws IOException {
         selectArtists.setDisable(true);
 
-        FXMLLoader gachaLoader = new FXMLLoader(getClass().getResource("/fxml/Gatcha.fxml"));
         GachaController gachaController = new GachaController(gameEnvironment);
-        gachaLoader.setController(gachaController);
-
         gachaController.setOnGachaComplete(() -> {if(artists){showArtistCards();}else{showItemCards();}});
-
-        VBox gacha = gachaLoader.load();
-        gachaContainer.getChildren().add(gacha);
+        viewLoader.loadInto(gachaContainer, "/fxml/Gatcha.fxml", gachaController);
     }
 
     private void showArtistCards() {
@@ -83,17 +72,11 @@ public class GachaSelectionController extends ArtistSelectionController {
 
 
         for (int i = 0; i < slots.size(); i++) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-                loader.setController(cardController);
-                slots.get(i).getChildren().add(loader.load());
-                cardController.setArtist(picked.get(i));
-                cardController.setSelectionController(this);
-                artistCards.add(cardController);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to load ArtistCard.fxml", e);
-            }
+            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
+            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
+            cardController.setArtist(picked.get(i));
+            cardController.setSelectionController(this);
+            artistCards.add(cardController);
         }
     }
 
@@ -120,17 +103,11 @@ public class GachaSelectionController extends ArtistSelectionController {
 
 
         for (int i = 0; i < slots.size(); i++) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ArtistCard.fxml"));
-                ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
-                loader.setController(cardController);
-                slots.get(i).getChildren().add(loader.load());
-                cardController.setArtist(picked.get(i));
-                cardController.setSelectionController(this);
-                artistCards.add(cardController);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to load ArtistCard.fxml", e);
-            }
+            ArtistCardController cardController = new ArtistCardController(gameEnvironment, null);
+            viewLoader.loadInto(slots.get(i), "/fxml/ArtistCard.fxml", cardController);
+            cardController.setArtist(picked.get(i));
+            cardController.setSelectionController(this);
+            artistCards.add(cardController);
         }
     }
 
@@ -157,14 +134,6 @@ public class GachaSelectionController extends ArtistSelectionController {
     @FXML
     private void moveScene(ActionEvent event) throws IOException
     {
-        //Now let's load the artist selection scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TheStudio.fxml"));
-        loader.setController(new TheStudioController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/TheStudio.fxml", new TheStudioController(gameEnvironment));
     }
 }

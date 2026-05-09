@@ -2,11 +2,6 @@ package seng201.team67.models.questionmodels;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
-import seng201.team67.models.Rockstar;
 
 import java.util.List;
 

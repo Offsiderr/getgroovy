@@ -2,12 +2,14 @@ package seng201.team67.models;
 
 import seng201.team67.models.enums.TourType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tour {
 
     public final TourType type;
     private List<Integer> stopOrder;
+    private List<ConcertResults> concertResults;
     public int currentStopIndex;
     public int currentLineupStaminaIndex;
     public double creditsEarned;
@@ -19,7 +21,7 @@ public class Tour {
     public Tour(TourType type)
     {
         this.type = type;
-       //this.concerts = concerts; I have questions about doing it this way
+        this.concertResults = new ArrayList<>();
     }
 
     public void addStamina(double stamina)
@@ -64,6 +66,16 @@ public class Tour {
     public double getPayMultiplier()
     {
         return type.getPayMultiplier();
+    }
+
+    public void addConcertResult(ConcertResults concertResult)
+    {
+        concertResults.add(concertResult);
+    }
+
+    public List<ConcertResults> getConcertResults()
+    {
+        return concertResults;
     }
 
     public void setEndedByExhaustion(boolean endedByExhaustion)

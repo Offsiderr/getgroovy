@@ -1,30 +1,26 @@
 package seng201.team67.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.controllers.instantiable.OutcomeController;
-import seng201.team67.gui.controllers.instantiable.QuestionController;
-import seng201.team67.gui.controllers.instantiable.SoundEngineerStandoffController;
-import seng201.team67.models.Artist;
-import seng201.team67.models.Concert;
-import seng201.team67.models.MiniGameResult;
+import seng201.team67.gui.instantiable.questions.OutcomeController;
+import seng201.team67.gui.instantiable.questions.QuestionController;
+import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.gui.util.ViewLoader;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
-import seng201.team67.services.ConcertService;
-import seng201.team67.services.MinigamesService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.ConcertService;
+import seng201.team67.services.gameplay.MinigamesService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,10 +28,10 @@ import java.util.List;
 public class MainConcertController {
 
     private GameEnvironment gameEnvironment;
-    private Concert concert;
     private TourService tourService;
     private ConcertService concertService;
-    private MinigamesService minigamesService;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final ViewLoader viewLoader = new ViewLoader();
 
     @FXML
     private Label labelName;
@@ -51,10 +47,6 @@ public class MainConcertController {
     @FXML private VBox artistCardThree;
 
     @FXML private AnchorPane eventBox;//we load the questions in here
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
 
     public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
@@ -80,33 +72,19 @@ public class MainConcertController {
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
 
         for (int i = 0; i < cards.length; i++) {
-            cards[i].getChildren().clear();
             if (i < pool.size()) {
-                cards[i].setManaged(true);
-                cards[i].setVisible(true);
-                cards[i].setStyle("-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;");
-                Artist artist = pool.get(i);
-                populateCard(cards[i], artist);
+                cards[i].setDisable(false);
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
             } else {
-                cards[i].setManaged(false);
-                cards[i].setVisible(false);
+                clearArtistCard(cards[i]);
             }
         }
     }
 
-    private void populateCard(VBox card, Artist artist)
-    {
-        Label nameLabel = new Label(artist.getName());
-        Label typeLabel = new Label(artist.getType());
-        Label starPowerLabel = new Label("Star Power: " + artist.getStarPower());
-        Label staminaLabel = new Label("Stamina: " + artist.getStamina());
-        Label healthLabel = new Label("Health: " + artist.getHealth());
-        Label costLabel = new Label("Hire: $" + (int) artist.getCost());
-
-        card.getChildren().addAll(nameLabel, typeLabel, starPowerLabel, staminaLabel, healthLabel, costLabel);
-        card.setPadding(new Insets(8));
-        card.setAlignment(Pos.CENTER);
-
+    private void clearArtistCard(VBox card) {
+        card.getChildren().clear();
+        card.setDisable(true);
+        ArtistDetailBoxFiller.applyBaseStyle(card);
     }
 
     private void populateQuestion() throws IOException {
@@ -118,14 +96,12 @@ public class MainConcertController {
             return;
         }
 
-        Minigame miniGame = tourService.rollMiniGameTrigger((int) crowdMeter.getValue());
+        Minigame miniGame = concertService.getConcertMinigame();
         if(miniGame != null)
         {
             startMinigame(miniGame);
             return;
         }
-
-        FXMLLoader questionLoader = new FXMLLoader(getClass().getResource("/fxml/QuestionEvent.fxml"));
 
         Question question = concertService.getNextQuestion();
         if(question == null)
@@ -135,26 +111,21 @@ public class MainConcertController {
         }
 
         QuestionController questionController = new QuestionController(question, this::handleAnswer);
-        questionLoader.setController(questionController);
-        Parent mapView = questionLoader.load();
-
-        eventBox.getChildren().add(mapView);
+        viewLoader.loadInto(eventBox, "/fxml/QuestionEvent.fxml", questionController);
     }
 
     private void startMinigame(Minigame minigame) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(minigame.path()));
+        Object controller;
 
         switch (minigame)
         {
             case SOUNDENGINEER -> {
-                SoundEngineerStandoffController miniGameController = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
-                loader.setController(miniGameController);
+                controller = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
             }
+            default -> throw new IllegalStateException("Unexpected minigame: " + minigame);
 
         }
-        Parent view = loader.load();
-
-        eventBox.getChildren().add(view);
+        viewLoader.loadInto(eventBox, minigame.path(), controller);
     }
 
     private void refreshView()
@@ -183,10 +154,7 @@ public class MainConcertController {
 
     private void loadOutcome(Outcome outcome) throws IOException {
         eventBox.getChildren().clear();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OutcomeEvent.fxml"));
-        loader.setController(new OutcomeController(outcome, this::onOutcomeContinue));
-        eventBox.getChildren().add(loader.load());
+        viewLoader.loadInto(eventBox, "/fxml/OutcomeEvent.fxml", new OutcomeController(outcome, this::onOutcomeContinue));
     }
 
     private void onOutcomeContinue() {
@@ -213,6 +181,7 @@ public class MainConcertController {
     private void handleConcertEnd() throws IOException
     {
         gameEnvironment.increaseConcertCount();
+        concertService.getTourService().addConcertResult(concertService.createConcertResults());
         concertService.getTourService().setConcertFinished();
         concertService.getTourService().increaseStopIndex();
         if (!concertService.getTourService().isTourComplete()
@@ -221,14 +190,7 @@ public class MainConcertController {
             concertService.getTourService().endTourDueToExhaustion();
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConcertResults.fxml"));
-        loader.setController(new ResultsController(gameEnvironment, concertService));
-
-        Parent root = loader.load();
-        stage = (Stage)  eventBox.getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(eventBox, "/fxml/ConcertResults.fxml", new ResultsController(gameEnvironment, concertService));
     }
 
 }

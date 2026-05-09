@@ -3,7 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
@@ -28,11 +31,11 @@
             <Font size="53.0" />
          </font>
       </Button>
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="145.0" layoutY="532.0" prefHeight="133.0" prefWidth="977.0">
+      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="250.0" prefWidth="1006.0">
         <items>
-          <AnchorPane fx:id="artistOne" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-          <AnchorPane fx:id="artistTwo" minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="316.0" />
-            <AnchorPane fx:id="artistThree" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="128.0" prefWidth="301.0" />
+          <VBox fx:id="artistOne" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+          <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
         </items>
       </SplitPane>
       <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" text="label_name">
@@ -58,6 +61,35 @@
       <Label fx:id="gameTours" layoutX="131.0" layoutY="62.0" text="1outof3tours">
          <font>
             <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreLabel" layoutX="500.0" layoutY="20.0" text="000000000000" textAlignment="CENTER">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Button layoutX="1150.0" layoutY="665.0" mnemonicParsing="false" onAction="#openHelp" prefHeight="11.0" prefWidth="36.0">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../images/Icons/question-line.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1217.0" layoutY="665.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="11.0" prefWidth="36.0">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../images/Icons/equalizer-line.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <AnchorPane fx:id="settingsHolder" disable="true" layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" />
+      <Label fx:id="labelName11" layoutX="585.0" layoutY="7.0" text="Score:">
+         <font>
+            <Font size="21.0" />
          </font>
       </Label>
    </children>

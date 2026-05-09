@@ -110,6 +110,12 @@ public class GameConfig {
 
     public final double ticketSalesAmount;
 
+    // - 6. Game Config (sound etc) ─────────────────────────────────────────────
+
+    public double mainVolume;
+    public double musicVolume;
+    public double soundEffectsVolume;
+
 
     public GameConfig(
             // Economy
@@ -147,7 +153,11 @@ public class GameConfig {
             int labelNameMinLength,
             int labelNameMaxLength,
             int cancelTourPenalty,
-            double ticketSalesAmount
+            double ticketSalesAmount,
+            //Game settings
+            double mainVolume,
+            double musicVolume,
+            double soundEffectsVolume
     ) {
         //this.artistBasePay                    = artistBasePay;
         //this.artistBaseHiringCost             = artistBaseHiringCost;
@@ -182,6 +192,9 @@ public class GameConfig {
         this.labelNameMaxLength               = labelNameMaxLength;
         this.cancelTourPenalty                = cancelTourPenalty;
         this.ticketSalesAmount                = ticketSalesAmount;
+        this.mainVolume                       = mainVolume;
+        this.musicVolume                      = musicVolume;
+        this.soundEffectsVolume               = soundEffectsVolume;
     }
 
     // ── Difficulty presets ────────────────────────────────────────────────────
@@ -202,7 +215,9 @@ public class GameConfig {
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15, 100, 250
+                3, 15, 100, 250,
+                //Game config
+                100.0, 100.0, 100.0
         );
     }
 
@@ -220,9 +235,11 @@ public class GameConfig {
                 5, 3, 1, 3, 1,
                 7,          // concertQuestionsCount (A_CHALLENGE)
                 7, 10, 4,
-                20.0, 60.0, 1.0, 15.0, 50.0,
+                20.0, 60.0, 1.0, 10.0, 50.0,
                 // UI
-                3, 15, 300, 250
+                3, 15, 300, 250,
+                //Game config
+                100.0, 100.0, 100.0
         );
     }
 
@@ -240,9 +257,11 @@ public class GameConfig {
                 5, 3, 1, 3, 1,
                 9,          // concertQuestionsCount (HEARTLESS)
                 7, 10, 4,
-                20.0, 60.0, 1.0, 15.0, 50.0,
+                20.0, 60.0, 1.0, 7.0, 50.0,
                 // UI
-                3, 15, 500, 250
+                3, 15, 500, 250,
+                //Game config
+                100.0, 100.0, 100.0
         );
     }
 }

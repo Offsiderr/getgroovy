@@ -1,6 +1,6 @@
 package seng201.team67.models.enums;
 
-import seng201.team67.models.MiniGameResult;
+import seng201.team67.models.minigames.MiniGameResult;
 
 public enum Minigame {
 

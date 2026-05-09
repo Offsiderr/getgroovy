@@ -2,18 +2,15 @@ package seng201.team67.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import seng201.team67.GameEnvironment;
-import seng201.team67.services.SetupService;
-import seng201.team67.services.SoundEffectsService;
+import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.setup.DifficultyService;
+import seng201.team67.services.setup.SetupService;
 
 import java.io.IOException;
 
@@ -27,16 +24,16 @@ public class SetupController {
 
     public final GameEnvironment gameEnvironment;
     private final SetupService setupService;
-    private SoundEffectsService soundEffectsService  = new SoundEffectsService();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final DifficultyService difficultyService;
+    private SoundEffectsService soundEffectsService;
+    private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     public SetupController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
         setupService = new SetupService(gameEnvironment);
+        difficultyService = new DifficultyService();
+        soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     public void handleNext(ActionEvent event) throws IOException {
@@ -77,17 +74,9 @@ public class SetupController {
 
         //setting up the game enviroment
         gameEnvironment.setLabelName(labelNameField.getText());
-        gameEnvironment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
+        difficultyService.applyDifficulty(gameEnvironment, difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
         gameEnvironment.setSelectedNumTours(expeditionCountSpinner.getValue());
 
-        //Now let's load the artist selection scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartingArtistSelection.fxml"));
-        loader.setController(new ArtistSelectionController(gameEnvironment));
-
-        Parent root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        screenNavigator.navigate(event, "/fxml/StartingArtistSelection.fxml", new ArtistSelectionController(gameEnvironment));
     }
 }

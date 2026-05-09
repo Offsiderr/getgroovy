@@ -1,6 +1,8 @@
 package seng201.team67.models;
 
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,11 @@ public class Label {
 
     public double getMoney(){return money;}
 
+    public ArrayList<Item> getItems()
+    {
+        return new ArrayList<>(items);
+    }
+
     //Setters
     public boolean addArtistToAll(Artist artist)
     {
@@ -76,6 +83,12 @@ public class Label {
         {
             return false;
         }
+    }
+
+    public void addItemToAll(Item item)
+    {
+        //add max items later
+        items.add(item);
     }
 
     public void setLineUp(List<Artist> line_up)
@@ -107,9 +120,45 @@ public class Label {
         artist.setStamina(artist.getStamina() + staminaChange);
     }
 
-    public void removeArtist(Artist artist)
+    public void resetLineupStamina()
     {
+        for (Artist artist : lineUp)
+        {
+            artist.resetStamina();
+        }
+    }
+
+    public boolean removeArtist(Artist artist)
+    {
+        if (allArtists.size() <= 1 || !allArtists.contains(artist))
+        {
+            return false;
+        }
+
         allArtists.remove(artist);
         lineUp.remove(artist);
+        return true;
+    }
+
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
+
+    public void removeItem(Item item)
+    {
+        items.remove(item);
+    }
+
+    public boolean equipItem(Artist artist, Item item)
+    {
+        //TODO: make constant through game config
+        if(artist.getItems().size() < 3 && items.contains(item))
+        {
+            artist.addItem(item);
+            items.remove(item);
+            return true;
+        }
+        return false;
     }
 }

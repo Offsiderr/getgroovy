@@ -1,9 +1,9 @@
 package seng201.team67.unittests.models;
 
 import org.junit.jupiter.api.Test;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
-import seng201.team67.models.Rockstar;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
+import seng201.team67.models.artists.Rockstar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

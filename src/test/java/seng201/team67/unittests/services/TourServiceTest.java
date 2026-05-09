@@ -2,15 +2,17 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.Artist;
+import seng201.team67.models.ConcertResults;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
-import seng201.team67.models.Popstar;
-import seng201.team67.models.Rapper;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.services.LabelService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.TourService;
+import seng201.team67.services.management.LabelService;
+import seng201.team67.services.setup.DifficultyService;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -47,6 +49,31 @@ public class TourServiceTest {
         service.tourEnded();
 
         assertEquals(startingMoney + 125.5, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void tourEndedResetsLineupStaminaToBaseAmounts() {
+        Artist artistOne = new Popstar("One", 1, "Pop");
+        Artist artistTwo = new Rapper("Two", 2, "Rap");
+        artistOne.setStamina(0);
+        artistTwo.setStamina(1);
+        TourService service = createTourService(TourType.LOCAL, List.of(artistOne, artistTwo));
+
+        service.tourEnded();
+
+        assertEquals(artistOne.getBaseStamina(), artistOne.getStamina());
+        assertEquals(artistTwo.getBaseStamina(), artistTwo.getStamina());
+    }
+
+    @Test
+    void concertResultsCanBeAddedThroughService() {
+        TourService service = createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop")));
+        ConcertResults result = new ConcertResults(100.0, 10.0, 5.0, 75, 30.0, 80.0);
+
+        service.addConcertResult(result);
+
+        assertEquals(1, service.getConcertResults().size());
+        assertEquals(result, service.getConcertResults().getFirst());
     }
 
     @Test
@@ -94,17 +121,8 @@ public class TourServiceTest {
 
     private TourService createTourService(TourType tourType, List<Artist> artists) {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(0);
-        LabelService labelService = new LabelService(gameEnvironment);
-        labelService.setLabel(new Label("Test Label", artists, gameEnvironment));
-
-        try {
-            Field field = GameEnvironment.class.getDeclaredField("labelService");
-            field.setAccessible(true);
-            field.set(gameEnvironment, labelService);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
+        new DifficultyService().applyDifficulty(gameEnvironment, 0);
+        gameEnvironment.setLabel(new Label("Test Label", artists, gameEnvironment));
 
         return new TourService(new Tour(tourType), gameEnvironment);
     }
