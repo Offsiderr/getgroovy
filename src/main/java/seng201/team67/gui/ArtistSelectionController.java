@@ -11,7 +11,8 @@ import seng201.team67.gui.instantiable.GachaController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.services.ArtistSelectionService;
+import seng201.team67.services.setup.ArtistSelectionService;
+import seng201.team67.services.setup.GameSetupService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ArtistSelectionController {
 
     public final GameEnvironment gameEnvironment;
     private final ArtistSelectionService artistSelectionService;
+    private final GameSetupService gameSetupService;
 
     @FXML private HBox artistOne;
     @FXML private HBox artistTwo;
@@ -41,6 +43,7 @@ public class ArtistSelectionController {
     public ArtistSelectionController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
         this.artistSelectionService = new ArtistSelectionService(gameEnvironment);
+        this.gameSetupService = new GameSetupService();
     }
 
     @FXML
@@ -85,7 +88,7 @@ public class ArtistSelectionController {
     @FXML
     public void artistsSelected(ActionEvent event) throws IOException
     {
-        gameEnvironment.createLabel(getSelectedArtists());
+        gameSetupService.createLabel(gameEnvironment, getSelectedArtists());
         gameEnvironment.getLabelService().getAllArtists().forEach(artist -> {
             artist.owned = true;
         });

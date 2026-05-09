@@ -2,7 +2,7 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.models.enums.Minigame;
-import seng201.team67.services.MinigamesService;
+import seng201.team67.services.gameplay.MinigamesService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

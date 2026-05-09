@@ -1,42 +1,38 @@
-package seng201.team67.services;
+package seng201.team67.services.setup;
 
-import javafx.scene.layout.HBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.models.enums.Rarity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GachaService {
+public class ArtistSelectionService {
 
     private GameEnvironment gameEnvironment;
 
-    public GachaService(GameEnvironment gameEnvironment)
+    public ArtistSelectionService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
-    public List<Artist> getPickedArtists(List<HBox> slots, Rarity rarity)
+    public List<Artist> pickArtists()
     {
         List<Artist> pool = gameEnvironment.getArtistPool();
         Collections.shuffle(pool);
 
-
         List<Artist> picked = new ArrayList<>();
-        for (int i = 0; i < slots.size(); i++)
+        //pick artists
+        for(int i = 0; i < gameEnvironment.getConfig().startingArtistPoolSize; i++)
         {
-            int selectedStarpower = rarity.get_starpower();
             int z = i;
-            while (pool.get(z).owned && pool.get(z).getStarPower() != selectedStarpower)
+            while (pool.get(z).getStarPower() > gameEnvironment.getConfig().maxSPInStartingSelection || picked.contains(pool.get(z)))
             {
                 z += 1;
             }
             picked.add(pool.get(z));
         }
-
         return picked;
     }
 
@@ -46,11 +42,14 @@ public class GachaService {
                 .filter(ArtistCardController::isSelected)
                 .count();
 
+
+
         artistCards.forEach(c -> {
             if (!c.isSelected()) {
-                c.setSelectable(selectedCount < 1);
+                c.setSelectable(selectedCount < gameEnvironment.getConfig().maxStartingArtists);
             }
         });
+
         return selectedCount;
     }
 }

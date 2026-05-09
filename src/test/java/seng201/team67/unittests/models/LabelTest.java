@@ -132,11 +132,24 @@ public class LabelTest {
         Artist artistTwo = new Rapper("Artist Two", 2, "Rap");
         Label label = new Label("Label", List.of(artistOne, artistTwo), new GameEnvironment());
 
-        label.removeArtist(artistOne);
+        boolean removed = label.removeArtist(artistOne);
 
+        assertTrue(removed);
         assertFalse(label.getAllArtists().contains(artistOne));
         assertFalse(label.getLineUp().contains(artistOne));
         assertTrue(label.getAllArtists().contains(artistTwo));
+    }
+
+    @Test
+    void removeArtistReturnsFalseWhenArtistIsLastRemainingRosterMember() {
+        Artist artist = new Popstar("Solo Artist", 1, "Pop");
+        Label label = new Label("Label", List.of(artist), new GameEnvironment());
+
+        boolean removed = label.removeArtist(artist);
+
+        assertFalse(removed);
+        assertTrue(label.getAllArtists().contains(artist));
+        assertTrue(label.getLineUp().contains(artist));
     }
 
     @Test

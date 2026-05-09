@@ -12,7 +12,7 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.services.GachaService;
+import seng201.team67.services.setup.GachaService;
 
 import java.io.IOException;
 import java.util.ArrayList;

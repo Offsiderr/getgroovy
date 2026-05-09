@@ -2,7 +2,7 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.models.questionmodels.Question;
-import seng201.team67.services.QuestionLoaderService;
+import seng201.team67.services.data.QuestionLoaderService;
 
 import java.util.ArrayList;
 

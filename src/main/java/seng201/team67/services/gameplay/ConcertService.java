@@ -1,14 +1,14 @@
-package seng201.team67.services;
+package seng201.team67.services.gameplay;
 
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
 import seng201.team67.models.ConcertResults;
+import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +24,9 @@ public class ConcertService {
     private Double income = 0.0; //pay for the concert
     private double staminaDrain;
     private boolean isEnded = false;
+    private boolean minigameCheckResolved = false;
+    private final QuestionService questionService = new QuestionService();
+    private final PayoutService payoutService = new PayoutService();
 
     public ConcertService(GameEnvironment gameEnvironment, TourService tourService)
     {
@@ -56,7 +59,7 @@ public class ConcertService {
             {
                 type = tourService.getTourType().toString();
             }
-            concertQuestions.add(gameEnvironment.getQuestion(type));
+            concertQuestions.add(questionService.getQuestion(gameEnvironment, type));
         }
         return concertQuestions;
     }
@@ -67,6 +70,8 @@ public class ConcertService {
         isEnded = true;
         //add ticket revenue
         tourService.addCreditsEarned(calculateTicketRevenue());
+        //apply all event and minigame payouts/penalties through tour earnings
+        tourService.addCreditsEarned(income);
         //take away lineup's pay
         tourService.addCreditsEarned(-gameEnvironment.getLabelService().getLineupTotalPay());
         //apply the stamina changes
@@ -134,10 +139,9 @@ public class ConcertService {
             //we don't break as the other effects still apply apart from the crowd energy change
         }
 
-        //if statement not needed. fix later
         if(outcome.getPayoutType() != PayoutType.NONE)
         {
-            gameEnvironment.getLabelService().giveMoney(gameEnvironment.getPayoutAmount(outcome.getPayoutType()));
+            income += payoutService.getPayoutAmount(gameEnvironment, outcome.getPayoutType());
         }
 
         //stamina change goes here
@@ -159,6 +163,17 @@ public class ConcertService {
     {
         concert.addEnergy(result.getCrowdMeterResult());
         income += result.getCreditResult();
+    }
+
+    public Minigame getConcertMinigame()
+    {
+        if (minigameCheckResolved)
+        {
+            return null;
+        }
+
+        minigameCheckResolved = true;
+        return tourService.rollMiniGameTrigger(concert.getEnergy());
     }
 
     public boolean isEnded()

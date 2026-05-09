@@ -18,9 +18,9 @@ import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
-import seng201.team67.services.ConcertService;
-import seng201.team67.services.MinigamesService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.ConcertService;
+import seng201.team67.services.gameplay.MinigamesService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.util.List;
@@ -96,7 +96,7 @@ public class MainConcertController {
             return;
         }
 
-        Minigame miniGame = tourService.rollMiniGameTrigger((int) crowdMeter.getValue());
+        Minigame miniGame = concertService.getConcertMinigame();
         if(miniGame != null)
         {
             startMinigame(miniGame);

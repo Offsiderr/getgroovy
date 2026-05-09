@@ -1,4 +1,4 @@
-package seng201.team67.services;
+package seng201.team67.services.gameplay;
 
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.SoundEngineerStandoff;

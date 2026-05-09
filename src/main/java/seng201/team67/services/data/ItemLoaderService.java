@@ -1,4 +1,4 @@
-package seng201.team67.services;
+package seng201.team67.services.data;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

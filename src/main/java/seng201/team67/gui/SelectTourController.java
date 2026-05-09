@@ -13,7 +13,7 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.util.List;
@@ -49,7 +49,7 @@ public class SelectTourController {
     @FXML
     public void initialize() throws IOException
     {
-        lineup = gameEnvironment.getLabelService().label.getLineUp();
+        lineup = gameEnvironment.getLabelService().getLineup();
 
         List<VBox> slots = List.of(artistOne, artistTwo, artistThree);
         configureArtistPane(slots, lineup.size());

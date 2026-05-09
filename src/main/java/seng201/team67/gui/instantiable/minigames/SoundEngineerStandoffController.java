@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.minigames.MiniGameResult;
-import seng201.team67.services.MinigamesService;
+import seng201.team67.services.gameplay.MinigamesService;
 
 import java.io.IOException;
 import java.util.List;

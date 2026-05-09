@@ -1,46 +1,34 @@
 package seng201.team67;
 
-import seng201.team67.models.artists.Artist;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
+import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.PayoutTier;
-import seng201.team67.models.enums.PayoutType;
-import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Question;
-import seng201.team67.services.ArtistLoaderService;
-import seng201.team67.services.ItemLoaderService;
-import seng201.team67.services.LabelService;
-import seng201.team67.services.MusicService;
-import seng201.team67.services.QuestionLoaderService;
+import seng201.team67.services.audio.MusicService;
+import seng201.team67.services.management.LabelService;
+import seng201.team67.services.setup.GameInitialisationService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameEnvironment {
 
-    //This is the main hub, this class wires everything together.
-
-    //UI variables
-
-    //Game variables
     private Label label;
     private String tempName;
 
     private int currentTour;
-    private int selectedNumTours; //Selected amount of tours
-    private int tourCount = 0; //tours so far
+    private int selectedNumTours;
+    private int tourCount = 0;
     private int concertCount = 0;
     private Difficulty difficulty;
-
     private int gameScore = 0;
 
-    private LabelService labelService;
     private final MusicService musicService;
 
-    //All artists loaded into the game. Not artists in the label.
-    private ArrayList<Artist> artistPool;
-    //the studio and the market use these arrays
+    private ArrayList<Artist> artistPool = new ArrayList<>();
     private ArrayList<Artist> artistPurchasePool = new ArrayList<>();
     private boolean artistPoolGenerated = false;
 
@@ -48,107 +36,49 @@ public class GameEnvironment {
     private boolean itemPoolGenerated = false;
 
     private GameConfig gameConfig;
-
     private PayoutTier payoutTier;
 
-    //question pools
-    private ArrayList<Question> commonQuestionPool;
-    private ArrayList<Question> localQuestionPool;
-    private ArrayList<Question> countryQuestionPool;
-    private ArrayList<Question> worldQuestionPool;
+    private ArrayList<Question> commonQuestionPool = new ArrayList<>();
+    private ArrayList<Question> localQuestionPool = new ArrayList<>();
+    private ArrayList<Question> countryQuestionPool = new ArrayList<>();
+    private ArrayList<Question> worldQuestionPool = new ArrayList<>();
 
-    private ArrayList<Item> allItems;
+    private ArrayList<Item> allItems = new ArrayList<>();
 
     public GameEnvironment()
     {
         this.musicService = new MusicService(this);
-
-        //Load our artists
-        List<Artist> allArtists = new ArtistLoaderService().loadAll();
-        this.artistPool = new ArrayList<>(allArtists);
-        Collections.shuffle(this.artistPool);
-
-        //Load our items
-        this.allItems = new ArrayList<>(new ItemLoaderService().loadAll());
-
-        //just testing for now
-        for (Artist artist : this.getArtistPool()) {
-            System.out.println(artist.getName() + " | " + artist.getClass().getSimpleName() + " | SP: " + artist.getStarPower());
-        }
-
-        for (Item item : this.allItems)
-        {
-            System.out.println(item.getName() + " | " + item.getDescription() + " | Cost: " + Double.toString(item.getCost()));
-        }
-
-        //load our questions
-        this.commonQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("common"));
-        this.localQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("local"));
-        this.countryQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("country"));
-        this.worldQuestionPool = new ArrayList<>(new QuestionLoaderService().loadEventPool("world"));
-
-
-        for (Question question : commonQuestionPool)
-        {
-            System.out.println(question.getPrompt() +  " " + question.getAnswers().get(0).getLabel());
-        }
-
-
+        new GameInitialisationService().initialise(this);
     }
-
-
-    //These are setters called in the set up UI.
 
     public void setLabelName(String name)
     {
         tempName = name;
     }
 
-    public void setDifficulty(int difType)
+    public String getTempName()
     {
-        //Gets the difficulty as well as sets the starting money.
-        if(difType == 0)
-        {
-            difficulty = Difficulty.EASY;
-            this.gameConfig = GameConfig.easy();
+        return tempName;
+    }
 
-        }
-        if(difType == 1)
-        {
-            difficulty = Difficulty.ACHALLENGE;
-            this.gameConfig = GameConfig.aChallenge();
+    public void setDifficulty(Difficulty difficulty)
+    {
+        this.difficulty = difficulty;
+    }
 
-        }
-        if(difType == 2)
-        {
-            difficulty = Difficulty.HEARTLESS;
-            this.gameConfig = GameConfig.hard();
-
-        }
-
-
-
-        System.out.println(difficulty);
-
-        switch (difficulty)
-        {
-            case EASY:
-                payoutTier = PayoutTier.EASY;
-                break;
-            case ACHALLENGE:
-                payoutTier = PayoutTier.MEDIUM;
-                break;
-            case HEARTLESS:
-                payoutTier = PayoutTier.HARD;
-                break;
-        }
-
+    public Difficulty getDifficulty()
+    {
+        return difficulty;
     }
 
     public void setSelectedNumTours(int selectedNumTours)
     {
         this.selectedNumTours = selectedNumTours;
-        System.out.println(selectedNumTours);
+    }
+
+    public int getSelectedNumTours()
+    {
+        return selectedNumTours;
     }
 
     public void setArtistPool(List<Artist> artistList)
@@ -157,93 +87,24 @@ public class GameEnvironment {
         artistPool.addAll(artistList);
     }
 
-    public void createLabel(List<Artist> selectedArtists)
+    public ArrayList<Artist> getArtistPool()
     {
-        labelService = new LabelService(this);
-        labelService.setLabel(new Label(tempName, selectedArtists, this));
+        return artistPool;
     }
 
-    public ArrayList<Artist> resetArtistPurchasePool()
+    public Label getLabel()
     {
-        //return the existing pool if it has been generated already.
-        if (artistPoolGenerated)
-        {
-            return artistPurchasePool;
-        }
-
-        artistPurchasePool.clear();
-
-        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
-        Collections.shuffle(rarities);
-
-        for (Rarity rarity : rarities)
-        {
-            ArrayList<Artist> candidates = new ArrayList<>();
-            for (Artist artist : artistPool)
-            {
-                if (!artist.owned && artist.getStarPower() == rarity.get_starpower())
-                {
-                    candidates.add(artist);
-                }
-            }
-
-            if (!candidates.isEmpty())
-            {
-                artistPurchasePool.add(candidates.get(new Random().nextInt(candidates.size())));
-            }
-        }
-
-        artistPoolGenerated = true;
-        return artistPurchasePool;
+        return label;
     }
 
-    public ArrayList<Item> resetItemPurchasePool()
+    public void setLabel(Label label)
     {
-        //return the existing pool if it has been generated already.
-        if (itemPoolGenerated)
-        {
-            return itemPurchasePool;
-        }
-
-        itemPurchasePool.clear();
-
-        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
-        Collections.shuffle(rarities);
-
-        for (Rarity rarity : rarities)
-        {
-            ArrayList<Item> candidates = new ArrayList<>();
-            for (Item item : allItems)
-            {
-                if (!item.getOwned() && item.getRarity() == rarity)
-                {
-                    candidates.add(item);
-                }
-            }
-
-            if (!candidates.isEmpty())
-            {
-                itemPurchasePool.add(candidates.get(new Random().nextInt(candidates.size())));
-            }
-        }
-
-        itemPoolGenerated = true;
-        return itemPurchasePool;
-    }
-
-    //getters
-
-    public ArrayList<Artist> getArtistPool(){return artistPool;}
-
-
-    public Difficulty getDifficulty()
-    {
-        return difficulty;
+        this.label = label;
     }
 
     public LabelService getLabelService()
     {
-        return labelService;
+        return new LabelService(this);
     }
 
     public MusicService getMusicService()
@@ -256,31 +117,9 @@ public class GameEnvironment {
         return tourCount;
     }
 
-    public int getSelectedNumTours()
+    public void increaseTours()
     {
-        return selectedNumTours;
-    }
-
-    public ArrayList<Artist> getArtistPurchasePool(){return artistPurchasePool;}
-
-    public void removeArtistFromPurchasePool(Artist artist)
-    {
-        artistPurchasePool.remove(artist);
-    }
-
-    public void setArtistPoolGenerated(Boolean artistPoolGenerated)
-    {
-        this.artistPoolGenerated = artistPoolGenerated;
-    }
-
-    public GameConfig getConfig()
-    {
-        if(gameConfig == null)
-        {
-            //fallback
-            return GameConfig.easy();
-        }
-        return gameConfig;
+        tourCount += 1;
     }
 
     public int getConcertCount()
@@ -293,63 +132,125 @@ public class GameEnvironment {
         concertCount += 1;
     }
 
-    public boolean checkGameStatus()
+    public ArrayList<Artist> getArtistPurchasePool()
     {
-        boolean noArtists = labelService.getAllArtists().isEmpty();
-        if (!noArtists)
+        return artistPurchasePool;
+    }
+
+    public void setArtistPurchasePool(List<Artist> artistPurchasePool)
+    {
+        this.artistPurchasePool.clear();
+        this.artistPurchasePool.addAll(artistPurchasePool);
+    }
+
+    public void removeArtistFromPurchasePool(Artist artist)
+    {
+        artistPurchasePool.remove(artist);
+    }
+
+    public boolean isArtistPoolGenerated()
+    {
+        return artistPoolGenerated;
+    }
+
+    public void setArtistPoolGenerated(boolean artistPoolGenerated)
+    {
+        this.artistPoolGenerated = artistPoolGenerated;
+    }
+
+    public ArrayList<Item> getItemPurchasePool()
+    {
+        return itemPurchasePool;
+    }
+
+    public void setItemPurchasePool(List<Item> itemPurchasePool)
+    {
+        this.itemPurchasePool.clear();
+        this.itemPurchasePool.addAll(itemPurchasePool);
+    }
+
+    public boolean isItemPoolGenerated()
+    {
+        return itemPoolGenerated;
+    }
+
+    public void setItemPoolGenerated(boolean itemPoolGenerated)
+    {
+        this.itemPoolGenerated = itemPoolGenerated;
+    }
+
+    public GameConfig getConfig()
+    {
+        if(gameConfig == null)
         {
-            return false;
+            return GameConfig.easy();
         }
-
-        return !canAffordArtistRecovery();
+        return gameConfig;
     }
 
-    private boolean canAffordArtistRecovery()
+    public void setGameConfig(GameConfig gameConfig)
     {
-        double money = labelService.getMoney();
-        boolean hasAvailableArtist = artistPool.stream().anyMatch(artist -> !artist.owned);
-
-        if (!hasAvailableArtist)
-        {
-            return false;
-        }
-
-        boolean canAffordHire = artistPool.stream()
-                .filter(artist -> !artist.owned)
-                .anyMatch(artist -> artist.getCost() <= money);
-
-        boolean canAffordGacha = money >= getConfig().gachaStandardCost
-                || money >= getConfig().gachaGoldenCost
-                || money >= getConfig().gachaPlatinumCost;
-
-        return canAffordHire || canAffordGacha;
+        this.gameConfig = gameConfig;
     }
 
-    public Question getQuestion(String type)
-    { //TODO: potential bug here:
-        switch (type)
-            {
-                case "common":
-                    return commonQuestionPool.get((int) (Math.random() * (commonQuestionPool.size())));
-                case "local":
-                    return localQuestionPool.get((int) (Math.random() * (localQuestionPool.size())));
-                case "country":
-                    return countryQuestionPool.get((int) (Math.random() * (countryQuestionPool.size())));
-                case "world":
-                    return worldQuestionPool.get((int) (Math.random() * (worldQuestionPool.size())));
-            }
-
-        return null; //TODO: add exception handling for this
-    }
-
-    public void increaseTours()
+    public PayoutTier getPayoutTier()
     {
-        tourCount += 1;
+        return payoutTier;
     }
 
-    public Double getPayoutAmount(PayoutType payoutType)
+    public void setPayoutTier(PayoutTier payoutTier)
     {
-        return payoutTier.resolve(payoutType);
+        this.payoutTier = payoutTier;
+    }
+
+    public ArrayList<Question> getCommonQuestionPool()
+    {
+        return commonQuestionPool;
+    }
+
+    public void setCommonQuestionPool(List<Question> commonQuestionPool)
+    {
+        this.commonQuestionPool = new ArrayList<>(commonQuestionPool);
+    }
+
+    public ArrayList<Question> getLocalQuestionPool()
+    {
+        return localQuestionPool;
+    }
+
+    public void setLocalQuestionPool(List<Question> localQuestionPool)
+    {
+        this.localQuestionPool = new ArrayList<>(localQuestionPool);
+    }
+
+    public ArrayList<Question> getCountryQuestionPool()
+    {
+        return countryQuestionPool;
+    }
+
+    public void setCountryQuestionPool(List<Question> countryQuestionPool)
+    {
+        this.countryQuestionPool = new ArrayList<>(countryQuestionPool);
+    }
+
+    public ArrayList<Question> getWorldQuestionPool()
+    {
+        return worldQuestionPool;
+    }
+
+    public void setWorldQuestionPool(List<Question> worldQuestionPool)
+    {
+        this.worldQuestionPool = new ArrayList<>(worldQuestionPool);
+    }
+
+    public ArrayList<Item> getAllItems()
+    {
+        return allItems;
+    }
+
+    public void setAllItems(List<Item> allItems)
+    {
+        this.allItems = new ArrayList<>(allItems);
     }
 
     public int getGameScore()

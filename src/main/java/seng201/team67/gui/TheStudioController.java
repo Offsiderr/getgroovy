@@ -9,6 +9,7 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.services.management.StudioService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class TheStudioController {
 
     private final GameEnvironment gameEnvironment;
     private Artist selectedArtist;
+    private final StudioService studioService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     @FXML public javafx.scene.control.Label labelName;
@@ -32,6 +34,7 @@ public class TheStudioController {
     public TheStudioController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
+        this.studioService = new StudioService(gameEnvironment);
     }
 
     @FXML public void initialize() throws IOException
@@ -128,7 +131,7 @@ public class TheStudioController {
 
     private ArrayList<Artist> getArtistPool()
     {
-        return gameEnvironment.resetArtistPurchasePool();
+        return studioService.getArtistPurchasePool();
     }
 
     @FXML public void rerollArtists()

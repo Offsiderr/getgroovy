@@ -198,8 +198,16 @@ public class RosterController {
         });
 
         ArtistDetailBoxFiller.addFireButton(root, "Fire", () -> {
-            gameEnvironment.getLabelService().retireArtist(artist);
-            refreshView();
+            boolean retired = gameEnvironment.getLabelService().retireArtist(artist);
+            if (retired) {
+                lineupWarning.setText("You must have between 1 and " + gameEnvironment.getLabelService().getLineupLimit() + " artist(s) in your lineup.");
+                lineupWarning.setVisible(false);
+                refreshView();
+                return;
+            }
+
+            lineupWarning.setText("You can't fire your last remaining artist.");
+            lineupWarning.setVisible(true);
         });
         return root;
     }

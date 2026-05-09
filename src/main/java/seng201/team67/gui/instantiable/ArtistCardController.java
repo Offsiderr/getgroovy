@@ -125,8 +125,10 @@ public class ArtistCardController {
 
     @FXML public void retireButton() throws IOException
     {
-        gameEnvironment.getLabelService().retireArtist(artist);
-        rosterController.refreshView();
+        boolean retired = gameEnvironment.getLabelService().retireArtist(artist);
+        if (retired) {
+            rosterController.refreshView();
+        }
 
     }
 }

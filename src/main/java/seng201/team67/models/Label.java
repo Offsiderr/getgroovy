@@ -128,10 +128,16 @@ public class Label {
         }
     }
 
-    public void removeArtist(Artist artist)
+    public boolean removeArtist(Artist artist)
     {
+        if (allArtists.size() <= 1 || !allArtists.contains(artist))
+        {
+            return false;
+        }
+
         allArtists.remove(artist);
         lineUp.remove(artist);
+        return true;
     }
 
     public void addItem(Item item)

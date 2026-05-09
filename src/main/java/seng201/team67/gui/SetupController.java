@@ -8,8 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.services.SetupService;
-import seng201.team67.services.SoundEffectsService;
+import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.setup.DifficultyService;
+import seng201.team67.services.setup.SetupService;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class SetupController {
 
     public final GameEnvironment gameEnvironment;
     private final SetupService setupService;
+    private final DifficultyService difficultyService;
     private SoundEffectsService soundEffectsService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
@@ -30,6 +32,7 @@ public class SetupController {
     {
         this.gameEnvironment = gameEnvironment;
         setupService = new SetupService(gameEnvironment);
+        difficultyService = new DifficultyService();
         soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
@@ -71,7 +74,7 @@ public class SetupController {
 
         //setting up the game enviroment
         gameEnvironment.setLabelName(labelNameField.getText());
-        gameEnvironment.setDifficulty(difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
+        difficultyService.applyDifficulty(gameEnvironment, difficultyGroup.getToggles().indexOf(difficultyGroup.getSelectedToggle()));
         gameEnvironment.setSelectedNumTours(expeditionCountSpinner.getValue());
 
         screenNavigator.navigate(event, "/fxml/StartingArtistSelection.fxml", new ArtistSelectionController(gameEnvironment));

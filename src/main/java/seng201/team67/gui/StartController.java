@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.services.SoundEffectsService;
+import seng201.team67.services.audio.SoundEffectsService;
 
 import java.io.IOException;
 

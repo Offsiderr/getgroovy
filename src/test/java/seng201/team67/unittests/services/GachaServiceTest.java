@@ -8,7 +8,7 @@ import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.services.GachaService;
+import seng201.team67.services.setup.GachaService;
 
 import java.util.List;
 

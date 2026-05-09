@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.util.Duration;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.util.ArrayList;
 import java.util.Collections;

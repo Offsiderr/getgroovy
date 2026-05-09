@@ -6,6 +6,7 @@ import seng201.team67.models.artists.Artist;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+import seng201.team67.services.management.StudioService;
 
 import java.util.List;
 
@@ -27,16 +28,23 @@ public class GameEnvironmentTest {
                 new Rockstar("VeryRareTwo", 3, "Rock")
         ));
 
-        List<Artist> purchasePool = gameEnvironment.resetArtistPurchasePool();
+        StudioService studioService = new StudioService(gameEnvironment);
+        List<Artist> purchasePool = studioService.getArtistPurchasePool();
         int originalSize = purchasePool.size();
         Artist removedArtist = purchasePool.getFirst();
+        long originalOccurrences = purchasePool.stream()
+                .filter(artist -> artist.equals(removedArtist))
+                .count();
 
         gameEnvironment.removeArtistFromPurchasePool(removedArtist);
 
-        List<Artist> updatedPool = gameEnvironment.resetArtistPurchasePool();
+        List<Artist> updatedPool = studioService.getArtistPurchasePool();
+        long updatedOccurrences = updatedPool.stream()
+                .filter(artist -> artist.equals(removedArtist))
+                .count();
 
         assertEquals(originalSize - 1, updatedPool.size());
-        assertFalse(updatedPool.contains(removedArtist));
-        assertTrue(updatedPool.stream().allMatch(artist -> !artist.equals(removedArtist)));
+        assertEquals(originalOccurrences - 1, updatedOccurrences);
+        assertFalse(updatedPool.isEmpty());
     }
 }

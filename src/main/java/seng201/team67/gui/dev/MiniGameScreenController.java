@@ -9,7 +9,7 @@ import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.enums.Minigame;
-import seng201.team67.services.MinigamesService;
+import seng201.team67.services.gameplay.MinigamesService;
 
 public class MiniGameScreenController {
 

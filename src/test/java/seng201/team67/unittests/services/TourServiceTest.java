@@ -10,8 +10,9 @@ import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.services.LabelService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.TourService;
+import seng201.team67.services.management.LabelService;
+import seng201.team67.services.setup.DifficultyService;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -120,17 +121,8 @@ public class TourServiceTest {
 
     private TourService createTourService(TourType tourType, List<Artist> artists) {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(0);
-        LabelService labelService = new LabelService(gameEnvironment);
-        labelService.setLabel(new Label("Test Label", artists, gameEnvironment));
-
-        try {
-            Field field = GameEnvironment.class.getDeclaredField("labelService");
-            field.setAccessible(true);
-            field.set(gameEnvironment, labelService);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
+        new DifficultyService().applyDifficulty(gameEnvironment, 0);
+        gameEnvironment.setLabel(new Label("Test Label", artists, gameEnvironment));
 
         return new TourService(new Tour(tourType), gameEnvironment);
     }

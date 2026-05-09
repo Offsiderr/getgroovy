@@ -14,8 +14,8 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.services.SoundEffectsService;
-import seng201.team67.services.TourService;
+import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.util.List;

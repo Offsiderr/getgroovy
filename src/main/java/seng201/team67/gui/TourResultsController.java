@@ -14,7 +14,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.services.TourService;
+import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -187,6 +187,16 @@ public class TourResultsController {
 
     @FXML private void continueGame(ActionEvent event) throws IOException {
         gameEnvironment.increaseTours();
+
+        boolean finishedSelectedExpeditions = gameEnvironment.getTourCount() >= gameEnvironment.getSelectedNumTours();
+        boolean completedSuccessfully = tourService.isTourComplete() && !staminaLoss;
+
+        if (finishedSelectedExpeditions && completedSuccessfully)
+        {
+            screenNavigator.navigate(event, "/fxml/WinScreen.fxml", new WinScreenController(gameEnvironment));
+            return;
+        }
+
         screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }

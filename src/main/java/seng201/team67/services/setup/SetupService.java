@@ -1,4 +1,4 @@
-package seng201.team67.services;
+package seng201.team67.services.setup;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;

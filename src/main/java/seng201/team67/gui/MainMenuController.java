@@ -18,7 +18,8 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.services.SoundEffectsService;
+import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.gameplay.GameStatusService;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +28,7 @@ public class MainMenuController {
 
     private final GameEnvironment gameEnvironment;
     private final SoundEffectsService soundEffectsService;
+    private final GameStatusService gameStatusService;
 
     private List<Artist> lineup;
 
@@ -48,6 +50,7 @@ public class MainMenuController {
     public MainMenuController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
         this.soundEffectsService = new SoundEffectsService(gameEnvironment);
+        this.gameStatusService = new GameStatusService();
     }
 
     @FXML
@@ -57,7 +60,7 @@ public class MainMenuController {
         settingsHolder.setManaged(false);
         settingsHolder.setDisable(true);
 
-        if (gameEnvironment.checkGameStatus())
+        if (gameStatusService.isGameLost(gameEnvironment))
         {
             Platform.runLater(() -> //we have to run it later so that we don't need an action event to init the scene
             {
@@ -93,7 +96,7 @@ public class MainMenuController {
             }
         });
 
-        lineup = gameEnvironment.getLabelService().label.getLineUp();
+        lineup = gameEnvironment.getLabelService().getLineup();
 
         List<VBox> slots = List.of(artistOne, artistTwo, artistThree);
         configureArtistPane(slots, lineup.size());

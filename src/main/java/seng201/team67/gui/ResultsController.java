@@ -14,7 +14,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.services.ConcertService;
+import seng201.team67.services.gameplay.ConcertService;
 
 import java.io.IOException;
 import java.text.DecimalFormat;

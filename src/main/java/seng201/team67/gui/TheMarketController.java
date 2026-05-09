@@ -10,6 +10,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ItemDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.items.Item;
+import seng201.team67.services.management.MarketService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class TheMarketController {
 
     private final GameEnvironment gameEnvironment;
     private Item selectedItem;
+    private final MarketService marketService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
     @FXML
@@ -34,6 +36,7 @@ public class TheMarketController {
     public TheMarketController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
+        this.marketService = new MarketService(gameEnvironment);
     }
 
     @FXML public void initialize() throws IOException
@@ -129,13 +132,13 @@ public class TheMarketController {
 
     private ArrayList<Item> getItemPool()
     {
-        return gameEnvironment.resetItemPurchasePool();
+        return marketService.getItemPurchasePool();
     }
 
     @FXML public void rerollItems()
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {
-            gameEnvironment.setArtistPoolGenerated(false);
+            gameEnvironment.setItemPoolGenerated(false);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadItemPool();
         }

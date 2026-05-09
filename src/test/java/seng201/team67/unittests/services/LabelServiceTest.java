@@ -10,7 +10,8 @@ import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
-import seng201.team67.services.LabelService;
+import seng201.team67.services.management.LabelService;
+import seng201.team67.services.setup.DifficultyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,12 +123,28 @@ public class LabelServiceTest {
     void retireArtistRemovesArtistFromLabel() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
         Artist artist = new Popstar("Retire Me", 1, "Pop");
-        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        Artist artistTwo = new Rapper("Keep Me", 2, "Rap");
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist, artistTwo)));
 
-        service.retireArtist(artist);
+        boolean retired = service.retireArtist(artist);
 
+        assertTrue(retired);
         assertFalse(service.getAllArtists().contains(artist));
         assertFalse(service.getLineup().contains(artist));
+        assertTrue(service.getAllArtists().contains(artistTwo));
+    }
+
+    @Test
+    void retireArtistReturnsFalseWhenArtistIsLastRemainingRosterMember() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Popstar("Last One", 1, "Pop");
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+
+        boolean retired = service.retireArtist(artist);
+
+        assertFalse(retired);
+        assertTrue(service.getAllArtists().contains(artist));
+        assertTrue(service.getLineup().contains(artist));
     }
 
     @Test
@@ -157,13 +174,13 @@ public class LabelServiceTest {
 
     private GameEnvironment createConfiguredEnvironment(int difficultyIndex) {
         GameEnvironment gameEnvironment = new GameEnvironment();
-        gameEnvironment.setDifficulty(difficultyIndex);
+        new DifficultyService().applyDifficulty(gameEnvironment, difficultyIndex);
         return gameEnvironment;
     }
 
     private LabelService createLabelService(GameEnvironment gameEnvironment, List<Artist> artists) {
         LabelService service = new LabelService(gameEnvironment);
-        service.setLabel(new Label("Test Label", artists, gameEnvironment));
+        gameEnvironment.setLabel(new Label("Test Label", artists, gameEnvironment));
         return service;
     }
 }

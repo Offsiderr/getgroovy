@@ -5,7 +5,7 @@ import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
-import seng201.team67.services.ItemLoaderService;
+import seng201.team67.services.data.ItemLoaderService;
 
 import java.util.List;
 
