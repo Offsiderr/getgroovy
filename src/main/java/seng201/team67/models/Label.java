@@ -161,4 +161,16 @@ public class Label {
         }
         return false;
     }
+
+    public boolean unequipItem(Artist artist, Item item)
+    {
+        if (!artist.getItems().contains(item))
+        {
+            return false;
+        }
+
+        artist.removeItem(item);
+        items.add(item);
+        return true;
+    }
 }

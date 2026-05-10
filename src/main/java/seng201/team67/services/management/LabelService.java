@@ -140,6 +140,34 @@ public class LabelService {
         return gameEnvironment.getLabel().getMoney();
     }
 
+    public int getItemSellPrice(Item item)
+    {
+        double sellbackRate = gameEnvironment.getConfig().itemSellbackRate;
+        double remainingUseFraction = 1.0;
+
+        if (item instanceof CosumableItem consumable)
+        {
+            int initialUses = Math.max(1, consumable.getInitialUses());
+            remainingUseFraction = Math.max(0.0, (double) consumable.getUses() / initialUses);
+        }
+
+        return Math.max(0, (int) Math.round(item.getCost() * sellbackRate * remainingUseFraction));
+    }
+
+    public boolean sellItem(Item item)
+    {
+        Label label = gameEnvironment.getLabel();
+        if (!label.getItems().contains(item))
+        {
+            return false;
+        }
+
+        label.money = label.money + getItemSellPrice(item);
+        label.removeItem(item);
+        item.dispose();
+        return true;
+    }
+
     public void takeMoney(double money)
     {
         Label label = gameEnvironment.getLabel();
@@ -248,6 +276,11 @@ public class LabelService {
     public Boolean equipItem(Artist artist, Item item)
     {
         return gameEnvironment.getLabel().equipItem(artist, item);
+    }
+
+    public Boolean unequipItem(Artist artist, Item item)
+    {
+        return gameEnvironment.getLabel().unequipItem(artist, item);
     }
 
     public String useConsumable(Artist artist, Item item)

@@ -12,6 +12,7 @@
       <Label fx:id="name" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 15px;" text="Item Name" textAlignment="CENTER" wrapText="true" />
       <ImageView fx:id="itemImage" fitHeight="110.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" smooth="true" />
       <Label fx:id="type" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #4ecdc4; -fx-font-size: 11px; -fx-font-style: italic;" text="Type" textAlignment="CENTER" />
+      <Label fx:id="uses" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #ffd166; -fx-font-size: 11px;" text="Remaining uses" textAlignment="CENTER" wrapText="true" />
       <Label fx:id="rarity" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #f7d794; -fx-font-size: 11px;" text="Rarity" textAlignment="CENTER" />
       <Label fx:id="description" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #cccccc; -fx-font-size: 11px;" text="Description" textAlignment="CENTER" wrapText="true" />
       <Label fx:id="effects" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #c7f464; -fx-font-size: 11px;" text="Effects" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />

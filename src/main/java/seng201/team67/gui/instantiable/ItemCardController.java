@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.mainmenu.RosterController;
+import seng201.team67.gui.util.ItemDisplayFormatter;
 import seng201.team67.models.items.Item;
 
 import java.net.URL;
@@ -28,6 +29,7 @@ public class ItemCardController {
     @FXML private Label itemCost;
     @FXML private Label rarity;
     @FXML private Label type;
+    @FXML private Label uses;
     @FXML private Label effects;
     @FXML private ImageView itemImage;
     @FXML private Button actionButton;
@@ -58,6 +60,9 @@ public class ItemCardController {
         this.itemCost.setText(String.valueOf(item.getCost()));
         this.rarity.setText(item.getRarity().toString());
         this.type.setText(item.getType());
+        this.uses.setText(ItemDisplayFormatter.getRemainingUsesText(item));
+        this.uses.setVisible(!this.uses.getText().isBlank());
+        this.uses.setManaged(!this.uses.getText().isBlank());
         this.effects.setText(formatEffects(item));
         this.itemImage.setImage(loadItemImage(item));
 

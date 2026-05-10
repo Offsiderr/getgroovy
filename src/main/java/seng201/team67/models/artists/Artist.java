@@ -3,6 +3,7 @@ package seng201.team67.models.artists;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
+import seng201.team67.models.Skill;
 import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.enums.items.StatType;
 import seng201.team67.models.items.ConditionalItem;
@@ -10,6 +11,7 @@ import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
+
 
 //Allows Jason to recognise the sub-class types.
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -29,11 +31,13 @@ public abstract class Artist implements Purchasable {
     private int baseStamina;
     private int stamina;
     private int starPower;
+    private int skillLevel = 1;
     private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
     private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
     public boolean owned = false;
 
     private ArrayList<Item> items = new ArrayList<>();
+    private Skill skill;
 
     public Artist(String name, int starPower, int stamina, int health, String description)
     {
@@ -96,7 +100,30 @@ public abstract class Artist implements Purchasable {
         return new ArrayList<>(items);
     }
 
+
+    public Skill getSkill()
+    {
+        return skill;
+    }
+
+
+    public boolean hasSkill()
+    {
+        return skill != null;
+    }
+
     //Setters
+
+
+    public void setSkill(Skill skill)
+    {
+        this.skill = skill;
+    }
+
+    public void increaseSkillLevel()
+    {
+        skillLevel += 1;
+    }
 
     public void setHealth(int health)
     {
@@ -201,7 +228,4 @@ public abstract class Artist implements Purchasable {
 
         return value;
     }
-
-
-
 }

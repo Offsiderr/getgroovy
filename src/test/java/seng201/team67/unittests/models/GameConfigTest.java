@@ -14,6 +14,7 @@ public class GameConfigTest {
 
         assertAll(
                 () -> assertEquals(500, config.startingCredits),
+                () -> assertEquals(0.7, config.itemSellbackRate),
                 () -> assertEquals(3, config.maxSPInStartingSelection),
                 () -> assertEquals(5, config.concertQuestionsCount),
                 () -> assertEquals(100, config.cancelTourPenalty),
@@ -38,6 +39,8 @@ public class GameConfigTest {
         assertAll(
                 () -> assertEquals(300, challenge.startingCredits),
                 () -> assertEquals(150, hard.startingCredits),
+                () -> assertEquals(0.7, challenge.itemSellbackRate),
+                () -> assertEquals(0.7, hard.itemSellbackRate),
                 () -> assertEquals(7, challenge.concertQuestionsCount),
                 () -> assertEquals(9, hard.concertQuestionsCount),
                 () -> assertEquals(30, challenge.concertCompletionScore),

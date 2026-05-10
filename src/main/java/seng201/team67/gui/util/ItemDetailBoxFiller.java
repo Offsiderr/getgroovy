@@ -35,6 +35,8 @@ public class ItemDetailBoxFiller {
         container.setAlignment(Pos.CENTER_LEFT);
         container.setMaxWidth(Double.MAX_VALUE);
 
+        //container.setMouseTransparent(true);
+
         ImageView imageView = createItemImage(item);
 
         VBox textBox = new VBox(6);
@@ -47,10 +49,12 @@ public class ItemDetailBoxFiller {
                 createLabel(item.getDescription()),
                 createLabel(item.getRarity().toString()),
                 createLabel(item.getType()),
+                createOptionalLabel(ItemDisplayFormatter.getRemainingUsesText(item)),
                 createLabel("Effect(s): " + item.getEffects())
         );
 
         container.getChildren().addAll(imageView, textBox);
+        container.setMouseTransparent(true);
         card.getChildren().add(container);
 
     }
@@ -67,6 +71,14 @@ public class ItemDetailBoxFiller {
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER_LEFT);
         label.setMaxWidth(Double.MAX_VALUE);
+        return label;
+    }
+
+    private static Label createOptionalLabel(String text) {
+        Label label = createLabel(text);
+        boolean hasText = text != null && !text.isBlank();
+        label.setVisible(hasText);
+        label.setManaged(hasText);
         return label;
     }
 

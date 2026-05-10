@@ -2,6 +2,7 @@ package seng201.team67.gui.mainmenu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -231,6 +232,7 @@ public class RosterController {
         root.setMinWidth(315.0);
         root.setPrefHeight(190.0);
         ItemDetailBoxFiller.populateArtistBox(root, item);
+        addSellButton(root, item);
         root.setUserData(item);
 
         //Allow it to be dragged
@@ -257,6 +259,22 @@ public class RosterController {
         root.setOnDragDone(dragEvent -> dragEvent.consume());
 
         return root;
+    }
+
+    private void addSellButton(VBox root, Item item) {
+        int sellPrice = gameEnvironment.getLabelService().getItemSellPrice(item);
+
+        Button sellButton = new Button("Sell ($" + sellPrice + ")");
+        sellButton.setMaxWidth(Double.MAX_VALUE);
+        sellButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+        sellButton.setOnAction(event -> {
+            event.consume();
+            if (gameEnvironment.getLabelService().sellItem(item)) {
+                refreshView();
+            }
+        });
+
+        root.getChildren().add(sellButton);
     }
 
     private void mountCardInSlot(AnchorPane slot, VBox cardRoot) {

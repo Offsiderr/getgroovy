@@ -13,6 +13,7 @@ public class CosumableItem extends Item implements Usable {
     //Consumable items are not equiped, but used once as a temporary boost.
 
     private int concert_uses; //How many concerts this item will last for.
+    private int initialUses;
 
     public CosumableItem() {
         super();
@@ -27,6 +28,7 @@ public class CosumableItem extends Item implements Usable {
                          @JsonProperty("effects") @JsonAlias("effect") List<Effect> effects) {
         super(name, description, cost, rarity, effects);
         this.concert_uses = uses;
+        this.initialUses = uses;
     }
 
     @Override
@@ -37,6 +39,10 @@ public class CosumableItem extends Item implements Usable {
     @Override
     public int getUseAmount() {
         return 1;
+    }
+
+    public int getInitialUses() {
+        return initialUses;
     }
 
     public void consumeUse()

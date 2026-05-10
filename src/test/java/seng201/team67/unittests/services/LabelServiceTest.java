@@ -171,6 +171,28 @@ public class LabelServiceTest {
     }
 
     @Test
+    void unequipItemMovesEquippedItemBackToInventory() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Popstar("Equipped Artist", 1, "Pop");
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+        service.buyItem(item, 0);
+        service.equipItem(artist, item);
+
+        boolean unequipped = service.unequipItem(artist, item);
+
+        assertTrue(unequipped);
+        assertFalse(artist.getItems().contains(item));
+        assertTrue(service.getAllItems().contains(item));
+    }
+
+    @Test
     void useConsumableAppliesEffectsConsumesUseAndRemovesSpentItem() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
         Artist artist = new Rockstar("Consumable Artist", 3, "Rock");
@@ -193,6 +215,60 @@ public class LabelServiceTest {
         assertEquals(6, artist.getStarPower());
         assertEquals(0, item.getUses());
         assertFalse(artist.getItems().contains(item));
+    }
+
+    @Test
+    void getItemSellPriceReturnsConfiguredRateForUnusedItem() {
+        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+
+        assertEquals(70, service.getItemSellPrice(item));
+    }
+
+    @Test
+    void getItemSellPriceScalesWithRemainingConsumableUses() {
+        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        CosumableItem item = new CosumableItem(
+                "Energy Drink",
+                "A quick backstage boost",
+                3,
+                300,
+                Rarity.COMMON,
+                List.of(Effect.SECOND_WIND)
+        );
+
+        item.consumeUse();
+        assertEquals(140, service.getItemSellPrice(item));
+
+        item.consumeUse();
+        assertEquals(70, service.getItemSellPrice(item));
+    }
+
+    @Test
+    void sellItemAddsCreditsAndRemovesItemFromInventory() {
+        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        Item item = new EquippedItem(
+                "Lucky Microphone",
+                "Boosts confidence on stage",
+                100,
+                Rarity.RARE,
+                List.of(Effect.STAR_FUELLED)
+        );
+        service.buyItem(item, 0);
+        double startingMoney = service.getMoney();
+
+        boolean sold = service.sellItem(item);
+
+        assertTrue(sold);
+        assertEquals(startingMoney + 70, service.getMoney(), 0.0001);
+        assertFalse(service.getAllItems().contains(item));
+        assertFalse(item.getOwned());
     }
 
     private GameEnvironment createConfiguredEnvironment() {

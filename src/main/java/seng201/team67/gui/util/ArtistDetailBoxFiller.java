@@ -3,6 +3,7 @@ package seng201.team67.gui.util;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -38,10 +39,19 @@ public class ArtistDetailBoxFiller {
     }
 
     public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped) {
-        populateArtistBox(card, artist, onItemDropped, null);
+        populateArtistBox(card, artist, onItemDropped, null, null, null);
     }
 
     public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
+        populateArtistBox(card, artist, onItemDropped, null, null, onItemClicked);
+    }
+
+    public static void populateArtistBox(VBox card,
+                                         Artist artist,
+                                         Consumer<String> onItemDropped,
+                                         Consumer<Item> onItemDragged,
+                                         Consumer<Item> onItemDragReleasedOutside,
+                                         Consumer<Item> onItemClicked) {
         card.getChildren().clear();
 
         applyBaseStyle(card);
@@ -71,7 +81,7 @@ public class ArtistDetailBoxFiller {
                 createLabel("Hire: $" + (int) artist.getCost())
         );
 
-        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemClicked);
+        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
 
         HBox detailsRow = new HBox(10);
         detailsRow.setAlignment(Pos.TOP_LEFT);
@@ -85,10 +95,18 @@ public class ArtistDetailBoxFiller {
     }
 
     public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped) {
-        return createArtistBox(artist, onItemDropped, null);
+        return createArtistBox(artist, onItemDropped, null, null, null);
     }
 
     public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
+        return createArtistBox(artist, onItemDropped, null, null, onItemClicked);
+    }
+
+    public static VBox createArtistBox(Artist artist,
+                                       Consumer<String> onItemDropped,
+                                       Consumer<Item> onItemDragged,
+                                       Consumer<Item> onItemDragReleasedOutside,
+                                       Consumer<Item> onItemClicked) {
         VBox card = new VBox(8);
         card.setPrefWidth(CARD_WIDTH);
         card.setMinWidth(CARD_WIDTH);
@@ -96,7 +114,7 @@ public class ArtistDetailBoxFiller {
         card.setMinHeight(CARD_HEIGHT);
         card.setAlignment(Pos.TOP_CENTER);
 
-        populateArtistBox(card, artist, onItemDropped, onItemClicked);
+        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
         return card;
     }
 
@@ -104,6 +122,21 @@ public class ArtistDetailBoxFiller {
         Button actionButton = new Button(buttonText);
         actionButton.setMaxWidth(Double.MAX_VALUE);
         actionButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+        actionButton.setOnAction(event -> {
+            event.consume();
+            action.run();
+        });
+
+        VBox.setVgrow(actionButton, Priority.NEVER);
+        card.getChildren().add(actionButton);
+    }
+
+    public static void addActionButton(VBox card, String buttonText, Runnable action) {
+        card.getChildren().removeIf(node -> node instanceof Button button && Boolean.TRUE.equals(button.getUserData()));
+
+        Button actionButton = new Button(buttonText);
+        actionButton.setUserData(true);
+        actionButton.setMaxWidth(Double.MAX_VALUE);
         actionButton.setOnAction(event -> {
             event.consume();
             action.run();
@@ -129,7 +162,11 @@ public class ArtistDetailBoxFiller {
         return label;
     }
 
-    private static VBox createItemSlots(Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
+    private static VBox createItemSlots(Artist artist,
+                                        Consumer<String> onItemDropped,
+                                        Consumer<Item> onItemDragged,
+                                        Consumer<Item> onItemDragReleasedOutside,
+                                        Consumer<Item> onItemClicked) {
         VBox itemSlots = new VBox(6);
         itemSlots.setAlignment(Pos.TOP_CENTER);
         itemSlots.setMinWidth(ITEM_SLOT_SIZE);
@@ -138,13 +175,17 @@ public class ArtistDetailBoxFiller {
         List<Item> items = artist.getItems();
         for (int i = 0; i < 3; i++) {
             Item item = i < items.size() ? items.get(i) : null;
-            itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemClicked));
+            itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked));
         }
 
         return itemSlots;
     }
 
-    private static StackPane createItemSlot(Item item, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
+    private static StackPane createItemSlot(Item item,
+                                            Consumer<String> onItemDropped,
+                                            Consumer<Item> onItemDragged,
+                                            Consumer<Item> onItemDragReleasedOutside,
+                                            Consumer<Item> onItemClicked) {
         StackPane slot = new StackPane();
         slot.setMinSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
         slot.setPrefSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);
@@ -195,12 +236,40 @@ public class ArtistDetailBoxFiller {
 
         slot.getChildren().add(itemImage);
         slot.setUserData(item);
+        if (onItemDragged != null || onItemDragReleasedOutside != null)
+        {
+            slot.setOnDragDetected(mouseEvent -> {
+                Dragboard dragboard = slot.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();
+                content.putString("equipped:" + item.getName());
+                dragboard.setContent(content);
+                dragboard.setDragView(itemImage.snapshot(null, null), 18, 18);
+                if (onItemDragged != null) {
+                    onItemDragged.accept(item);
+                }
+                mouseEvent.consume();
+            });
+        }
+        if (onItemDragReleasedOutside != null)
+        {
+            slot.setOnDragDone(dragEvent -> {
+                if (!dragEvent.isDropCompleted()) {
+                    onItemDragReleasedOutside.accept(item);
+                }
+                dragEvent.consume();
+            });
+        }
         if (onItemClicked != null)
         {
             slot.setOnMouseClicked(mouseEvent -> onItemClicked.accept(item));
         }
 
-        Tooltip.install(slot, new Tooltip(item.getName() + "\n" + item.getDescription()));
+        String remainingUsesText = ItemDisplayFormatter.getRemainingUsesText(item);
+        String tooltipText = item.getName() + "\n" + item.getDescription();
+        if (!remainingUsesText.isBlank()) {
+            tooltipText += "\n" + remainingUsesText;
+        }
+        Tooltip.install(slot, new Tooltip(tooltipText));
         return slot;
     }
 

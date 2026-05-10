@@ -33,6 +33,9 @@ public class GameConfig {
     //Cost to reroll the studio artist pool
     public final int artistRerollCost;
 
+    //Fraction of an item's original price returned when sold unused
+    public final double itemSellbackRate;
+
     // ── 2. Probabilities & RNG ────────────────────────────────────────────────
 
     //Probability that a minigame triggers at each concert stop
@@ -138,6 +141,7 @@ public class GameConfig {
             int    gachaGoldenCost,
             int    gachaPlatinumCost,
             int    artistRerollCost,
+            double itemSellbackRate,
             double miniGameTriggerChance,
             double questionCommonChance,
             int maxSPInStartingSelection,
@@ -186,6 +190,7 @@ public class GameConfig {
         this.gachaGoldenCost                  = gachaGoldenCost;
         this.gachaPlatinumCost                = gachaPlatinumCost;
         this.artistRerollCost                 = artistRerollCost;
+        this.itemSellbackRate                 = itemSellbackRate;
         this.miniGameTriggerChance            = miniGameTriggerChance;
         this.questionCommonChance             = questionCommonChance;
         this.maxSPInStartingSelection         = maxSPInStartingSelection;
@@ -232,6 +237,7 @@ public class GameConfig {
                 500,  // startingCredits
                 12, 3,
                 100, 500, 1000, 100,
+                0.7,
                 // Probabilities
                 0.15, 0.5, 3,
                 // Expedition
@@ -256,6 +262,7 @@ public class GameConfig {
                 300,  // startingCredits
                 12, 3,
                 100, 500, 1000, 100,
+                0.7,
                 // Probabilities
                 0.15, 0.5, 2,
                 // Expedition
@@ -280,6 +287,7 @@ public class GameConfig {
                 150,  // startingCredits
                 12, 3,
                 100, 500, 1000, 100,
+                0.7,
                 // Probabilities
                 0.15, 0.5, 1,
                 // Expedition
