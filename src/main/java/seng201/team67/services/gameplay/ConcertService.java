@@ -202,6 +202,11 @@ public class ConcertService {
         return tourService;
     }
 
+    public int getAnsweredQuestionCount()
+    {
+        return count;
+    }
+
     public ConcertResults createConcertResults()
     {
         double ticketSales = calculateTicketRevenue();

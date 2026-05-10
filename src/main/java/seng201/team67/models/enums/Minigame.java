@@ -11,7 +11,7 @@ public enum Minigame {
             );
 
     //Paths
-    private final String soundEngineerPath = "/fxml/soundMixer.fxml";
+    private final String soundEngineerPath = "/fxml/minigames/SoundMixer.fxml";
 
 
     private final int minCrowdmeterPercentage;

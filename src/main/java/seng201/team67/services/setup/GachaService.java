@@ -1,10 +1,9 @@
 package seng201.team67.services.setup;
 
-import javafx.scene.layout.HBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,45 +11,57 @@ import java.util.List;
 
 public class GachaService {
 
-    private GameEnvironment gameEnvironment;
+    private final GameEnvironment gameEnvironment;
 
     public GachaService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
-    public List<Artist> getPickedArtists(List<HBox> slots, Rarity rarity)
+    public List<Artist> getPickedArtists(int slotCount, Rarity rarity)
     {
         List<Artist> pool = gameEnvironment.getArtistPool();
         Collections.shuffle(pool);
 
-
         List<Artist> picked = new ArrayList<>();
-        for (int i = 0; i < slots.size(); i++)
+        for (int i = 0; i < slotCount; i++)
         {
             int selectedStarpower = rarity.get_starpower();
             int z = i;
-            while (pool.get(z).owned && pool.get(z).getStarPower() != selectedStarpower)
+            while (z < pool.size() && (pool.get(z).owned || pool.get(z).getStarPower() != selectedStarpower))
             {
                 z += 1;
             }
-            picked.add(pool.get(z));
+
+            if (z < pool.size())
+            {
+                picked.add(pool.get(z));
+            }
         }
 
         return picked;
     }
 
-    public long onSelectionChanged(List<ArtistCardController> artistCards)
+    public List<Item> getPickedItems(int slotCount, Rarity rarity)
     {
-        long selectedCount = artistCards.stream()
-                .filter(ArtistCardController::isSelected)
-                .count();
+        List<Item> pool = new ArrayList<>(gameEnvironment.getAllItems());
+        Collections.shuffle(pool);
 
-        artistCards.forEach(c -> {
-            if (!c.isSelected()) {
-                c.setSelectable(selectedCount < 1);
+        List<Item> picked = new ArrayList<>();
+        for (int i = 0; i < slotCount; i++)
+        {
+            int z = i;
+            while (z < pool.size() && (pool.get(z).getOwned() || pool.get(z).getRarity() != rarity))
+            {
+                z += 1;
             }
-        });
-        return selectedCount;
+
+            if (z < pool.size())
+            {
+                picked.add(pool.get(z));
+            }
+        }
+
+        return picked;
     }
 }

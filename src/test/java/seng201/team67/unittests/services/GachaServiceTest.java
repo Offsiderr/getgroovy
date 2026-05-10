@@ -1,6 +1,5 @@
 package seng201.team67.unittests.services;
 
-import javafx.scene.layout.HBox;
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.artists.Artist;
@@ -29,7 +28,7 @@ public class GachaServiceTest {
         gameEnvironment.setArtistPool(pool);
 
         List<Artist> picked = new GachaService(gameEnvironment).getPickedArtists(
-                List.of(new HBox(), new HBox(), new HBox()),
+                3,
                 Rarity.COMMON
         );
 

@@ -17,6 +17,12 @@ public class GameConfigTest {
                 () -> assertEquals(3, config.maxSPInStartingSelection),
                 () -> assertEquals(5, config.concertQuestionsCount),
                 () -> assertEquals(100, config.cancelTourPenalty),
+                () -> assertEquals(25, config.concertCompletionScore),
+                () -> assertEquals(5, config.questionAnsweredScore),
+                () -> assertEquals(0.5, config.crowdHypeScoreMultiplier),
+                () -> assertEquals(20.0, config.netEarningsScoreDivisor),
+                () -> assertEquals(150, config.worldTourCompletionScore),
+                () -> assertEquals(50, config.exhaustionScorePenalty),
                 () -> assertEquals(15.0, config.soundEngineerMatchTolerance),
                 () -> assertEquals(100.0, config.mainVolume),
                 () -> assertEquals(100.0, config.musicVolume),
@@ -34,10 +40,16 @@ public class GameConfigTest {
                 () -> assertEquals(150, hard.startingCredits),
                 () -> assertEquals(7, challenge.concertQuestionsCount),
                 () -> assertEquals(9, hard.concertQuestionsCount),
+                () -> assertEquals(30, challenge.concertCompletionScore),
+                () -> assertEquals(35, hard.concertCompletionScore),
+                () -> assertEquals(180, challenge.worldTourCompletionScore),
+                () -> assertEquals(220, hard.worldTourCompletionScore),
                 () -> assertEquals(10.0, challenge.soundEngineerMatchTolerance),
                 () -> assertEquals(7.0, hard.soundEngineerMatchTolerance),
                 () -> assertEquals(300, challenge.cancelTourPenalty),
-                () -> assertEquals(500, hard.cancelTourPenalty)
+                () -> assertEquals(500, hard.cancelTourPenalty),
+                () -> assertEquals(75, challenge.exhaustionScorePenalty),
+                () -> assertEquals(100, hard.exhaustionScorePenalty)
         );
     }
 }

@@ -10,6 +10,7 @@ import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.audio.MusicService;
 import seng201.team67.services.management.LabelService;
 import seng201.team67.services.setup.GameInitialisationService;
+import seng201.team67.services.setup.SetupService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class GameEnvironment {
 
     public void setLabelName(String name)
     {
-        tempName = name;
+        tempName = new SetupService(this).requireValidLabelName(name);
     }
 
     public String getTempName()
@@ -167,6 +168,11 @@ public class GameEnvironment {
     {
         this.itemPurchasePool.clear();
         this.itemPurchasePool.addAll(itemPurchasePool);
+    }
+
+    public void removeItemFromPurchasePool(Item item)
+    {
+        itemPurchasePool.remove(item);
     }
 
     public boolean isItemPoolGenerated()

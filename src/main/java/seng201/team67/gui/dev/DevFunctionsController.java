@@ -2,7 +2,7 @@ package seng201.team67.gui.dev;
 
 import javafx.fxml.FXML;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.MainMenuController;
+import seng201.team67.gui.mainmenu.MainMenuController;
 import seng201.team67.gui.util.ScreenNavigator;
 
 import javafx.event.ActionEvent;
@@ -30,6 +30,6 @@ public class DevFunctionsController {
 
     @FXML public void goBack(ActionEvent event) throws IOException
     {
-        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
+        screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }

@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.ArtistSelectionController;
-import seng201.team67.gui.RosterController;
+import seng201.team67.gui.mainmenu.RosterController;
+import seng201.team67.gui.selection.ArtistSelectionController;
 import seng201.team67.models.artists.Artist;
 
 import java.io.IOException;

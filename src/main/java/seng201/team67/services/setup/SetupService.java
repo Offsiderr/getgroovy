@@ -1,29 +1,46 @@
 package seng201.team67.services.setup;
 
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import seng201.team67.GameEnvironment;
-
-import java.awt.*;
 
 public class SetupService {
 
-    private GameEnvironment gameEnvironment;
+    private final GameEnvironment gameEnvironment;
 
-    public SetupService(GameEnvironment gameEnviroment)
+    public SetupService(GameEnvironment gameEnvironment)
     {
-        this.gameEnvironment = gameEnviroment;
+        this.gameEnvironment = gameEnvironment;
     }
 
-    public boolean isFormValid(TextField labelNameField, ToggleGroup difficultyGroup) {
-        String name = labelNameField.getText();
-        boolean nameValid = name != null
-                && name.length() >= gameEnvironment.getConfig().labelNameMinLength
-                && name.length() <= gameEnvironment.getConfig().labelNameMaxLength
-                && name.matches("[a-zA-Z0-9 ]+");
+    public boolean isFormValid(String labelName, boolean difficultySelected)
+    {
+        return isLabelNameValid(labelName) && difficultySelected;
+    }
 
-        boolean difficultyValid = difficultyGroup.getSelectedToggle() != null;
+    public boolean isLabelNameValid(String labelName)
+    {
+        String normalizedName = normalizeLabelName(labelName);
+        return normalizedName != null
+                && normalizedName.length() >= gameEnvironment.getConfig().labelNameMinLength
+                && normalizedName.length() <= gameEnvironment.getConfig().labelNameMaxLength
+                && normalizedName.matches("[a-zA-Z0-9 ]+");
+    }
 
-        return nameValid && difficultyValid;
+    public String requireValidLabelName(String labelName)
+    {
+        String normalizedName = normalizeLabelName(labelName);
+        if (!isLabelNameValid(normalizedName))
+        {
+            throw new IllegalArgumentException("Label name must be 3-15 alphanumeric characters and spaces only.");
+        }
+        return normalizedName;
+    }
+
+    private String normalizeLabelName(String labelName)
+    {
+        if (labelName == null)
+        {
+            return null;
+        }
+        return labelName.trim();
     }
 }

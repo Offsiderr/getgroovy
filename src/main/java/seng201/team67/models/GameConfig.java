@@ -110,6 +110,16 @@ public class GameConfig {
 
     public final double ticketSalesAmount;
 
+    //Score tuning
+    public final int concertCompletionScore;
+    public final int questionAnsweredScore;
+    public final double crowdHypeScoreMultiplier;
+    public final double netEarningsScoreDivisor;
+    public final int localTourCompletionScore;
+    public final int countryTourCompletionScore;
+    public final int worldTourCompletionScore;
+    public final int exhaustionScorePenalty;
+
     // - 6. Game Config (sound etc) ─────────────────────────────────────────────
 
     public double mainVolume;
@@ -154,6 +164,14 @@ public class GameConfig {
             int labelNameMaxLength,
             int cancelTourPenalty,
             double ticketSalesAmount,
+            int concertCompletionScore,
+            int questionAnsweredScore,
+            double crowdHypeScoreMultiplier,
+            double netEarningsScoreDivisor,
+            int localTourCompletionScore,
+            int countryTourCompletionScore,
+            int worldTourCompletionScore,
+            int exhaustionScorePenalty,
             //Game settings
             double mainVolume,
             double musicVolume,
@@ -192,6 +210,14 @@ public class GameConfig {
         this.labelNameMaxLength               = labelNameMaxLength;
         this.cancelTourPenalty                = cancelTourPenalty;
         this.ticketSalesAmount                = ticketSalesAmount;
+        this.concertCompletionScore           = concertCompletionScore;
+        this.questionAnsweredScore            = questionAnsweredScore;
+        this.crowdHypeScoreMultiplier         = crowdHypeScoreMultiplier;
+        this.netEarningsScoreDivisor          = netEarningsScoreDivisor;
+        this.localTourCompletionScore         = localTourCompletionScore;
+        this.countryTourCompletionScore       = countryTourCompletionScore;
+        this.worldTourCompletionScore         = worldTourCompletionScore;
+        this.exhaustionScorePenalty           = exhaustionScorePenalty;
         this.mainVolume                       = mainVolume;
         this.musicVolume                      = musicVolume;
         this.soundEffectsVolume               = soundEffectsVolume;
@@ -216,6 +242,8 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
                 3, 15, 100, 250,
+                // Score tuning
+                25, 5, 0.5, 20.0, 40, 90, 150, 50,
                 //Game config
                 100.0, 100.0, 100.0
         );
@@ -238,6 +266,8 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 10.0, 50.0,
                 // UI
                 3, 15, 300, 250,
+                // Score tuning
+                30, 5, 0.6, 18.0, 50, 110, 180, 75,
                 //Game config
                 100.0, 100.0, 100.0
         );
@@ -260,6 +290,8 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 7.0, 50.0,
                 // UI
                 3, 15, 500, 250,
+                // Score tuning
+                35, 6, 0.75, 15.0, 60, 130, 220, 100,
                 //Game config
                 100.0, 100.0, 100.0
         );

@@ -3,7 +3,7 @@ package seng201.team67.gui.dev;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.MainMenuController;
+import seng201.team67.gui.mainmenu.MainMenuController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.enums.Minigame;
 
@@ -27,6 +27,6 @@ public class MiniGamesController {
 
     @FXML public void goBack(ActionEvent event)
     {
-        screenNavigator.navigate(event, "/fxml/MainMenu.fxml", new MainMenuController(gameEnvironment));
+        screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }
