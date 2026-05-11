@@ -20,8 +20,8 @@ public class GameInitialisationService {
         Collections.shuffle(artistPool);
         gameEnvironment.setArtistPool(artistPool);
 
-        List<Item> allItems = new ItemLoaderService().loadAll();
-        gameEnvironment.setAllItems(allItems);
+        //List<Item> allItems = new ItemLoaderService().loadAll();
+        //gameEnvironment.setAllItems(allItems);
 
         QuestionLoaderService questionLoaderService = new QuestionLoaderService();
         gameEnvironment.setCommonQuestionPool(questionLoaderService.loadEventPool("common"));
