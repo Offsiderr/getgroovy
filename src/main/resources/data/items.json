@@ -71,7 +71,7 @@
     "description": "A serum only given to the greatest.",
     "uses": 1,
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["STAMINA_BOOST", "STAR_POWER_BOOST"],
     "imagePath": "/images/Items/Epic/overdrive_serum.png",
     "multiplier": 20
@@ -82,7 +82,7 @@
     "description": "The aroma fills the entire stage, removing all unpleasant smells from the area.",
     "uses": 2,
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["CROWD_METER_BOOST"],
     "imagePath": "/images/Items/Epic/holy_aftershave.png",
     "multiplier": 30
@@ -93,7 +93,7 @@
     "description": "A quick call brings in backup energy, getting the crowd fired up in seconds.",
     "uses": 1,
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["STAMINA_BOOST"],
     "imagePath": "/images/Items/Epic/hype_crew_call.png",
     "multiplier": 35
@@ -104,7 +104,7 @@
     "description": "A drink coming from a meteor years ago.",
     "uses": 1,
     "cost": 600,
-    "rarity": "MYTHIC",
+    "rarity": "ULTRA",
     "effects": ["STAMINA_BOOST", "STAR_POWER_BOOST"],
     "imagePath": "/images/Items/Mythic/mysterious_beverage.png",
     "multiplier": 40
@@ -185,7 +185,7 @@
     "name": "Designer Clothes",
     "description": "The real deal!",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["STAR_POWER_MULTIPLIER"],
     "imagePath": "/images/Items/Epic/designer_clothes.png",
     "multiplier": 1.2
@@ -195,7 +195,7 @@
     "name": "Jimi Hendrix Guitar",
     "description": "Even if you don't play, the presence of it being there fills you with determination.",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["CROWD_METER_MULTIPLIER"],
     "imagePath": "/images/Items/Epic/jimi_hendrix_guitar.png",
     "multiplier": 1.2
@@ -205,7 +205,7 @@
     "name": "Diamond Chains",
     "description": "Who doesn't look cool with diamond chains!",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["STAR_POWER_MULTIPLIER"],
     "imagePath": "/images/Items/Epic/diamond_chains.png",
     "multiplier": 1.25
@@ -215,7 +215,7 @@
     "name": "Alien Microphone",
     "description": "Came from a meteor 1000's of years ago, use it, with caution.",
     "cost": 600,
-    "rarity": "MYTHIC",
+    "rarity": "ULTRA",
     "effects": ["STAR_POWER_MULTIPLIER", "CROWD_METER_MULTIPLIER"],
     "imagePath": "/images/Items/Mythic/Alien microphone.png",
     "multiplier": 1.35
@@ -295,7 +295,7 @@
     "name": "Im Still Standing",
     "description": "Even the weakest link refuses to quit.",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["STAMINA_RECOVERY_ALL_IF_LOWEST_BELOW_35"],
     "imagePath": "/images/Items/Epic/im_still_standing.png",
     "multiplier": 25
@@ -305,7 +305,7 @@
     "name": "High Standards",
     "description": "High risk, High reward.",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["TICKET_SALES_MULTIPLIER_IF_CROWD_ABOVE_70_BEFORE_FINAL"],
     "imagePath": "/images/Items/Epic/high_standards.png",
     "multiplier": 2.0
@@ -315,7 +315,7 @@
     "name": "Final Song Spike",
     "description": "The final song! Let's go out with a bang.",
     "cost": 500,
-    "rarity": "EPIC",
+    "rarity": "VERY_RARE",
     "effects": ["CROWD_METER_BOOST_ON_FINAL_EVENT"],
     "imagePath": "/images/Items/Epic/final_song_spike.png",
     "multiplier": 50
@@ -325,7 +325,7 @@
     "name": "The Greatest To Ever Do It",
     "description": "What's this?",
     "cost": 600,
-    "rarity": "MYTHIC",
+    "rarity": "ULTRA",
     "effects": ["INCOME_MULTIPLIER_IF_ALL_ARTISTS_HAVE_3_ITEMS"],
     "imagePath": "/images/Items/Mythic/the_greatest.png",
     "multiplier": 2.0

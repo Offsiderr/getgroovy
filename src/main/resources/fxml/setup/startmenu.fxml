@@ -12,11 +12,15 @@
             <Image url="@../../images/MenuImage.png" />
          </image>
       </ImageView>
-      <Button layoutX="-24.0" layoutY="-23.0" mnemonicParsing="false" onAction="#onStartGame" opacity="0.0" prefHeight="1115.0" prefWidth="1964.0" />
-      <ImageView fitHeight="383.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="54.0" layoutY="-13.0" mnemonicParsing="false" onAction="#onStartGame" opacity="0.0" prefHeight="1115.0" prefWidth="1964.0" />
+      <ImageView fitHeight="491.0" fitWidth="503.0" layoutX="28.0" layoutY="-99.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/Menus/Rundeck.gif" />
          </image>
       </ImageView>
+      <ImageView fitHeight="545.0" fitWidth="593.0" layoutX="669.0" layoutY="299.0" opacity="0.43" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Click%20anywhere%20to%20start.gif" />
+         </image></ImageView>
    </children>
 </Pane>
