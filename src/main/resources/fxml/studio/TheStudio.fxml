@@ -32,14 +32,7 @@
       <Label layoutX="255.0" layoutY="71.0" text="Try your luck by buying a record company:" textAlignment="CENTER">
          <font><Font name="Javanese Text" size="23.0" /></font>
       </Label>
-      <Button layoutX="254.0" layoutY="119.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="185.0" prefWidth="171.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="188.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
-               <image>
-                  <Image url="@../../images/Market/record.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
+      <Button layoutX="254.0" layoutY="119.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="185.0" prefWidth="171.0" style="-fx-background-color: transparent;" />
       <Button layoutX="539.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyGolden" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
       <Button layoutX="817.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyPlatinum" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
       <Label layoutX="270.0" layoutY="300.0" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);" text="Standard Record" textAlignment="CENTER" textFill="#6f6f6f">
@@ -91,6 +84,11 @@
       <ImageView fitHeight="188.0" fitWidth="185.0" layoutX="817.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);;">
          <image>
             <Image url="@../../images/Market/platinum_record.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="227.0" fitWidth="337.0" layoutX="187.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
+         <image>
+            <Image url="@../../images/Market/record.png" />
          </image>
       </ImageView>
    </children>
