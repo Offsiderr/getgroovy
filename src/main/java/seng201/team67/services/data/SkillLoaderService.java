@@ -61,6 +61,7 @@ public class SkillLoaderService {
             for (JsonNode skillNode : root)
             {
                 skills.add(buildSkill(skillNode));
+                System.out.println(buildSkill(skillNode));
             }
 
             return skills;
