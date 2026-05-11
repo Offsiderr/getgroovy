@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Label prefHeight="38.0" prefWidth="255.0" style="-fx-background-color: trans;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Click to open!" />
       <ImageView fx:id="recordImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" smooth="false">
          <image>
             <Image url="@../../images/Gatcha/Stage1.png" />

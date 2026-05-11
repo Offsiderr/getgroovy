@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -12,15 +13,23 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <Label fx:id="labelTourName" layoutX="430.0" layoutY="14.0" prefWidth="500.0" text="World Tour - Finished" wrapText="true">
+      <Label fx:id="labelTourName" layoutX="341.0" layoutY="-35.0" prefHeight="148.0" prefWidth="658.0" stylesheets="@../../Styles/Style.css" text="World Tour - Finished" wrapText="true">
          <font><Font size="32.0" /></font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="big-label" />
+         </styleClass>
       </Label>
 
-      <VBox layoutX="200.0" layoutY="100.0" prefWidth="880.0" spacing="6.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 20;">
+      <VBox layoutX="200.0" layoutY="75.0" prefWidth="880.0" spacing="6.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 20;">
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Base ticket revenue">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" stylesheets="@../../Styles/Style.css" text="Base ticket revenue">
                <font><Font size="18.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelBaseRevenue" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #2a7a2a;" text="+ 1,200">
                <font><Font size="18.0" /></font>
@@ -28,8 +37,12 @@
          </HBox>
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Event payouts">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" stylesheets="@../../Styles/Style.css" text="Event payouts">
                <font><Font size="18.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelEventPayouts" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #2a7a2a;" text="+ 320">
                <font><Font size="18.0" /></font>
@@ -37,8 +50,12 @@
          </HBox>
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" text="Event penalties">
+            <Label prefWidth="560.0" style="-fx-text-fill: #444444;" stylesheets="@../../Styles/Style.css" text="Event penalties">
                <font><Font size="18.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelEventPenalties" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #b22222;" text="- 80">
                <font><Font size="18.0" /></font>
@@ -48,8 +65,12 @@
          <Separator />
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" text="Tour gross">
+            <Label prefWidth="560.0" stylesheets="@../../Styles/Style.css" text="Tour gross">
                <font><Font size="20.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelGross" alignment="CENTER_RIGHT" prefWidth="280.0" text="1,440">
                <font><Font size="20.0" /></font>
@@ -57,8 +78,12 @@
          </HBox>
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label fx:id="labelPayDescription" prefWidth="560.0" style="-fx-text-fill: #444444;" text="Artist pay (World Tour x1.5)">
+            <Label fx:id="labelPayDescription" prefWidth="560.0" style="-fx-text-fill: #444444;" stylesheets="@../../Styles/Style.css" text="Artist pay (World Tour x1.5)">
                <font><Font size="18.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelArtistPay" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #b22222;" text="- 450">
                <font><Font size="18.0" /></font>
@@ -68,8 +93,12 @@
          <Separator />
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" text="Net earned">
+            <Label prefWidth="560.0" stylesheets="@../../Styles/Style.css" text="Net earned">
                <font><Font size="22.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelNetEarned" alignment="CENTER_RIGHT" prefWidth="280.0" text="990">
                <font><Font size="22.0" /></font>
@@ -79,8 +108,12 @@
          <Separator />
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" style="-fx-text-fill: #888888;" text="Credits before tour">
+            <Label prefWidth="560.0" style="-fx-text-fill: #888888;" stylesheets="@../../Styles/Style.css" text="Credits before tour">
                <font><Font size="16.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tiny-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelCreditsBefore" alignment="CENTER_RIGHT" prefWidth="280.0" style="-fx-text-fill: #888888;" text="3,200">
                <font><Font size="16.0" /></font>
@@ -88,8 +121,12 @@
          </HBox>
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
-            <Label prefWidth="560.0" text="Credits after tour">
+            <Label prefWidth="560.0" stylesheets="@../../Styles/Style.css" text="Credits after tour">
                <font><Font size="18.0" /></font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="small-label" />
+               </styleClass>
             </Label>
             <Label fx:id="labelCreditsAfter" alignment="CENTER_RIGHT" prefWidth="280.0" text="4,190">
                <font><Font size="18.0" /></font>
@@ -98,24 +135,29 @@
 
       </VBox>
 
-      <Label layoutX="430.0" layoutY="570.0" prefWidth="200.0" text="Total Income" textAlignment="CENTER">
-         <font><Font size="20.0" /></font>
+                              <Label layoutX="459.0" layoutY="585.0" prefWidth="200.0" stylesheets="@../../Styles/Style.css" text="Total Income" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Label>
-      <Label fx:id="payText" layoutX="390.0" layoutY="600.0" prefWidth="280.0" text="990" textAlignment="CENTER">
-         <font><Font size="56.0" /></font>
+      <Label fx:id="payText" layoutX="606.0" layoutY="559.0" prefWidth="280.0" style="-fx-effect: dropshadow(gaussian, #00ff00, 15, 0.8, 0, 0);;" text="\$990" textAlignment="CENTER">
+         <font>
+            <Font size="56.0" />
+         </font>
       </Label>
 
-      <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0" visible="false">
-         <items>
-            <VBox fx:id="artistCardOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistCardTwo" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistCardThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-         </items>
-      </SplitPane>
+      <SplitPane fx:id="artistPane" layoutX="135.0" layoutY="504.0" prefHeight="176.0" prefWidth="1006.0" visible="false" />
 
-      <Button layoutX="496.0" layoutY="655.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="50.0" prefWidth="288.0" text="Continue">
+      <Button layoutX="508.0" layoutY="644.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="56.0" prefWidth="260.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Continue">
          <font><Font size="24.0" /></font>
       </Button>
+      <VBox fx:id="artistCardOne" alignment="CENTER" prefHeight="128.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+      <VBox fx:id="artistCardTwo" alignment="CENTER" layoutY="128.0" prefHeight="128.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+      <VBox fx:id="artistCardThree" alignment="CENTER" layoutY="256.0" prefHeight="128.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
 
    </children>
 </AnchorPane>

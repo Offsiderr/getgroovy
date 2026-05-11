@@ -103,7 +103,7 @@ public class ArtistCardController {
 
     private void updateStyle() {
         if (selected) {
-            CardRoot.setStyle("-fx-border-color: #00cc66; -fx-border-width: 3; -fx-border-radius: 6; -fx-background-color: #e6fff2; -fx-cursor: hand;");
+            CardRoot.setStyle("-fx-border-color: #00cc66; -fx-border-width: 3; -fx-border-radius: 6; -fx-background-color: #1a472a; -fx-cursor: hand;");
         } else {
             CardRoot.setStyle("-fx-border-color: transparent; -fx-background-color: transparent; -fx-cursor: hand;");
         }

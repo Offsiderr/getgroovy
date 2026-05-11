@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,14 +19,21 @@
          </image>
       </ImageView>
 
-      <Label layoutX="539.0" layoutY="14.0" text="Current Lineup">
+      <Label layoutX="448.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Current Lineup">
          <font><Font size="31.0" /></font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="big-label" />
+         </styleClass>
       </Label>
 
-      <HBox fx:id="lineupPane" layoutX="152.0" layoutY="60.0" prefHeight="183.0" prefWidth="977.0" spacing="8">
-      </HBox>
+      <HBox fx:id="lineupPane" layoutX="151.0" layoutY="76.0" prefHeight="240.0" prefWidth="977.0" spacing="8" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css">
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="tiny-label" />
+         </styleClass></HBox>
 
-      <Label layoutX="152.0" layoutY="341.0" text="All Artists">
+      <Label layoutX="152.0" layoutY="341.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="All Artists">
          <font><Font size="37.0" /></font>
       </Label>
 
@@ -35,16 +43,24 @@
          </content>
       </ScrollPane>
 
-      <Button layoutX="980.0" layoutY="662.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="46.0" prefWidth="286.0" text="Return &amp; Save Lineup">
+      <Button layoutX="980.0" layoutY="662.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="46.0" prefWidth="286.0" stylesheets="@../../Styles/Style.css" text="Return &amp; Save Lineup">
          <font><Font size="22.0" /></font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Button>
-      <Label fx:id="lineupWarning" layoutX="152.0" layoutY="324.0" text="You must have a valid lineup." textFill="#da0707" />
+      <Label fx:id="lineupWarning" layoutX="152.0" layoutY="316.0" style="-fx-background-color: trans; -fx-effect: dropshadow(gaussian, red, 30, 0.7, 0, 0);" stylesheets="@../../Styles/Style.css" text="You must have a valid lineup.">
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass></Label>
       <ScrollPane fitToWidth="true" layoutX="654.0" layoutY="405.0" prefHeight="240.0" prefWidth="491.0">
          <content>
             <FlowPane fx:id="allItemsContainer" hgap="8" style="-fx-padding: 8;" vgap="8" />
          </content>
       </ScrollPane>
-      <Label layoutX="654.0" layoutY="341.0" text="All Items">
+      <Label layoutX="654.0" layoutY="341.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="All Items">
          <font>
             <Font size="37.0" />
          </font>

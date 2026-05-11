@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -20,20 +21,32 @@
       <Slider fx:id="sliderTwo" layoutX="281.0" layoutY="293.0" prefHeight="14.0" prefWidth="208.0" />
       <Slider fx:id="sliderThree" layoutX="274.0" layoutY="359.0" prefHeight="14.0" prefWidth="237.0" />
       <Slider fx:id="sliderFour" layoutX="510.0" layoutY="226.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="27.0" rotate="-7.6" />
-      <Button fx:id="buttonOne" layoutX="327.0" layoutY="432.0" mnemonicParsing="false" onAction="#confirmButton" prefHeight="39.0" prefWidth="150.0" text="Confirm">
+      <Button fx:id="buttonOne" layoutX="327.0" layoutY="432.0" mnemonicParsing="false" onAction="#confirmButton" prefHeight="39.0" prefWidth="150.0" stylesheets="@../../Styles/Style.css" text="Confirm">
          <font>
             <Font size="18.0" />
          </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Button>
-      <Label layoutX="194.0" layoutY="29.0" text="Fix the sound engineer's poor mixing!" textFill="WHITE">
+      <Label layoutX="194.0" layoutY="29.0" style="-fx-background-color: dropshadow(gaussian, #00ffff, 40, 0.7, 0, 0);};" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Label>
-      <Label layoutX="204.0" layoutY="65.0" text="Match the sliders to what's shown on screen!" textFill="WHITE">
+      <Label layoutX="193.0" layoutY="66.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Match the sliders to what's shown on screen!" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Label>
       <Pane fx:id="resultsPane" layoutX="191.0" layoutY="143.0" prefHeight="191.0" prefWidth="433.0">
          <children>
@@ -42,10 +55,14 @@
                   <Image url="@../../images/Color-white.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="resultsText" layoutX="59.0" layoutY="82.0" text="Fix the sound engineer's poor mixing!" wrapText="true">
+            <Label fx:id="resultsText" layoutX="48.0" layoutY="83.0" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" wrapText="true">
                <font>
                   <Font size="19.0" />
                </font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="small-label" />
+               </styleClass>
             </Label>
          </children>
       </Pane>

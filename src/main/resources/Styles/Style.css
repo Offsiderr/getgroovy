@@ -1,0 +1,25 @@
+@font-face {
+    font-family: "Game Paused DEMO";
+    src: url("../fonts/Game_Paused.ttf");
+}
+
+.root {
+    -fx-font-family: "Game Paused DEMO";
+    -fx-font-size: 40px;
+}
+
+.big-label {
+    -fx-font-size: 60px;
+}
+
+.small-label {
+    -fx-font-size: 20px;
+}
+
+.italic-label {
+    -fx-font-style: italic;
+}
+
+.tiny-label {
+    -fx-font-size: 14px;
+}
