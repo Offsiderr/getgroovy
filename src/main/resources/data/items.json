@@ -1,33 +1,343 @@
 [
   {
     "type": "CONSUMABLE",
-    "name": "Energy Drink",
-    "description": "A quick backstage boost that helps an artist push through another show.",
+    "name": "Cheap Energy Drink",
+    "description": "A cheap backstage boost that helps an artist push through another show.",
     "uses": 2,
     "cost": 150,
     "rarity": "COMMON",
     "effects": ["STAMINA_BOOST"],
-    "imagePath": "/images/Items/Mythic/Alien microphone.png",
-    "multiplier": 1.1
+    "imagePath": "/images/Items/Common/cheap_energy_drink.png",
+    "multiplier": 20
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Small Beef Turkey",
+    "description": "Its not much...",
+    "uses": 1,
+    "cost": 25,
+    "rarity": "COMMON",
+    "effects": ["STAMINA_BOOST"],
+    "imagePath": "/images/Items/Common/small_beef_turkey.png",
+    "multiplier": 10
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Bundy Aftershave",
+    "description": "Gives the Audience a (somewhat) nice scent while performing.",
+    "uses": 3,
+    "cost": 100,
+    "rarity": "COMMON",
+    "effects": ["CROWD_METER_BOOST"],
+    "imagePath": "/images/Items/Common/bundy_aftershave.png",
+    "multiplier": 10
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Vocal Spray",
+    "description": "Ensure vocals are maintained while performing.",
+    "uses": 1,
+    "cost": 200,
+    "rarity": "RARE",
+    "effects": ["CROWD_METER_BOOST"],
+    "imagePath": "/images/Items/Rare/vocal_spray.png",
+    "multiplier": 15
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Setlist Changes",
+    "description": "You have the opportunity to change your setlist twice!",
+    "uses": 2,
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["CROWD_METER_BOOST"],
+    "imagePath": "/images/Items/Rare/setlist_changes.png",
+    "multiplier": 20
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "100g Protein Bar",
+    "description": "No time for meals, this will do the trick!",
+    "uses": 1,
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["STAMINA_BOOST"],
+    "imagePath": "/images/Items/Rare/protein_bar.png",
+    "multiplier": 30
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Overdrive Serum",
+    "description": "A serum only given to the greatest.",
+    "uses": 1,
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["STAMINA_BOOST", "STAR_POWER_BOOST"],
+    "imagePath": "/images/Items/Epic/overdrive_serum.png",
+    "multiplier": 20
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Holy Aftershave",
+    "description": "The aroma fills the entire stage, removing all unpleasant smells from the area.",
+    "uses": 2,
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["CROWD_METER_BOOST"],
+    "imagePath": "/images/Items/Epic/holy_aftershave.png",
+    "multiplier": 30
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Hype Crew Call",
+    "description": "A quick call brings in backup energy, getting the crowd fired up in seconds.",
+    "uses": 1,
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["STAMINA_BOOST"],
+    "imagePath": "/images/Items/Epic/hype_crew_call.png",
+    "multiplier": 35
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "The Mysterious Beverage",
+    "description": "A drink coming from a meteor years ago.",
+    "uses": 1,
+    "cost": 600,
+    "rarity": "MYTHIC",
+    "effects": ["STAMINA_BOOST", "STAR_POWER_BOOST"],
+    "imagePath": "/images/Items/Mythic/mysterious_beverage.png",
+    "multiplier": 40
+  },
+  {
+    "type": "CONSUMABLE",
+    "name": "Divine Intervention",
+    "description": "A mysterious force from above makes you the greatest.",
+    "uses": 1,
+    "cost": 1000,
+    "rarity": "MYTHIC",
+    "effects": ["STAMINA_BOOST", "STAR_POWER_BOOST"],
+    "imagePath": "/images/Items/Mythic/divine_intervention.png",
+    "multiplier": 99
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Off-Brand Designer",
+    "description": "No one can tell... maybe...",
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["STAR_POWER_MULTIPLIER"],
+    "imagePath": "/images/Items/Common/off_brand_designer.png",
+    "multiplier": 1.05
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "The Triangle",
+    "description": "Not the most useful at a concert, but it's something!",
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["CROWD_METER_MULTIPLIER"],
+    "imagePath": "/images/Items/Common/the_triangle.png",
+    "multiplier": 1.05
   },
   {
     "type": "EQUIPPED",
     "name": "Lucky Microphone",
     "description": "A stage mic that seems to bring out stronger performances.",
-    "cost": 125,
-    "rarity": "RARE",
-    "effects": ["STAMINA_BOOST"],
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["STAR_POWER_MULTIPLIER"],
     "imagePath": "/images/Items/Rare/Lucky broken microphone.png",
     "multiplier": 1.25
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Autotune",
+    "description": "Some like it, Some don't.",
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["STAR_POWER_MULTIPLIER"],
+    "imagePath": "/images/Items/Rare/autotune.png",
+    "multiplier": 1.1
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Backwards Cap",
+    "description": "Not meant for everyone...",
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["CROWD_METER_MULTIPLIER"],
+    "imagePath": "/images/Items/Rare/backwards_cap.png",
+    "multiplier": 1.1
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Mixing EQ",
+    "description": "Change levels to desired output!",
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["STAMINA_MULTIPLIER"],
+    "imagePath": "/images/Items/Rare/mixing_eq.png",
+    "multiplier": 1.15
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Designer Clothes",
+    "description": "The real deal!",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["STAR_POWER_MULTIPLIER"],
+    "imagePath": "/images/Items/Epic/designer_clothes.png",
+    "multiplier": 1.2
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Jimi Hendrix Guitar",
+    "description": "Even if you don't play, the presence of it being there fills you with determination.",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["CROWD_METER_MULTIPLIER"],
+    "imagePath": "/images/Items/Epic/jimi_hendrix_guitar.png",
+    "multiplier": 1.2
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Diamond Chains",
+    "description": "Who doesn't look cool with diamond chains!",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["STAR_POWER_MULTIPLIER"],
+    "imagePath": "/images/Items/Epic/diamond_chains.png",
+    "multiplier": 1.25
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Alien Microphone",
+    "description": "Came from a meteor 1000's of years ago, use it, with caution.",
+    "cost": 600,
+    "rarity": "MYTHIC",
+    "effects": ["STAR_POWER_MULTIPLIER", "CROWD_METER_MULTIPLIER"],
+    "imagePath": "/images/Items/Mythic/Alien microphone.png",
+    "multiplier": 1.35
+  },
+  {
+    "type": "EQUIPPED",
+    "name": "Michael's Glove",
+    "description": "Something about wearing it gives you unprecedented confidence.",
+    "cost": 600,
+    "rarity": "MYTHIC",
+    "effects": ["STAR_POWER_MULTIPLIER"],
+    "imagePath": "/images/Items/Mythic/michaels_glove.png",
+    "multiplier": 1.5
   },
   {
     "type": "CONDITIONAL",
     "name": "Encore Pass",
     "description": "Unlocks extra momentum when the lineup digs deep late in the concert.",
-    "cost": 500,
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["CROWD_METER_BOOST_IF_STAMINA_BELOW_20_AFTER_EVENT_4"],
+    "imagePath": "/images/Items/Common/encore_pass.png",
+    "multiplier": 15
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Stronger Together",
+    "description": "A full lineup brings out the best in everyone.",
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["CROWD_METER_BOOST_PER_EVENT_IF_LINEUP_MAX"],
+    "imagePath": "/images/Items/Common/stronger_together.png",
+    "multiplier": 5
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Good Start",
+    "description": "A strong opening sets the tone for the whole night.",
+    "cost": 150,
+    "rarity": "COMMON",
+    "effects": ["CROWD_METER_AND_STAMINA_BOOST_IF_FIRST_EVENT_POSITIVE"],
+    "imagePath": "/images/Items/Common/good_start.png",
+    "multiplier": 25
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Solid Intuition",
+    "description": "Made three right choices? Double your crowd meter.",
+    "cost": 300,
     "rarity": "RARE",
-    "effects": ["SECOND_WIND"],
-    "imagePath": "/images/Items/Rare/off-brand designer.png",
-    "multiplier": 1.4
+    "effects": ["CROWD_METER_MULTIPLIER_IF_THREE_CORRECT_IN_A_ROW"],
+    "imagePath": "/images/Items/Rare/solid_intuition.png",
+    "multiplier": 2.0
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Keep My Spirit Alive",
+    "description": "No artist goes down without a fight.",
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["STAMINA_RECOVERY_IF_ARTIST_BELOW_25"],
+    "imagePath": "/images/Items/Rare/keep_my_spirit_alive.png",
+    "multiplier": 30
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "I Need A Hero!",
+    "description": "When all hope is lost, something steps in.",
+    "cost": 300,
+    "rarity": "RARE",
+    "effects": ["AUTO_BEST_OUTCOME_IF_CROWD_BELOW_20_AFTER_EVENT_3"],
+    "imagePath": "/images/Items/Rare/i_need_a_hero.png",
+    "multiplier": 1.0
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Im Still Standing",
+    "description": "Even the weakest link refuses to quit.",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["STAMINA_RECOVERY_ALL_IF_LOWEST_BELOW_35"],
+    "imagePath": "/images/Items/Epic/im_still_standing.png",
+    "multiplier": 25
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "High Standards",
+    "description": "High risk, High reward.",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["TICKET_SALES_MULTIPLIER_IF_CROWD_ABOVE_70_BEFORE_FINAL"],
+    "imagePath": "/images/Items/Epic/high_standards.png",
+    "multiplier": 2.0
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Final Song Spike",
+    "description": "The final song! Let's go out with a bang.",
+    "cost": 500,
+    "rarity": "EPIC",
+    "effects": ["CROWD_METER_BOOST_ON_FINAL_EVENT"],
+    "imagePath": "/images/Items/Epic/final_song_spike.png",
+    "multiplier": 50
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "The Greatest To Ever Do It",
+    "description": "What's this?",
+    "cost": 600,
+    "rarity": "MYTHIC",
+    "effects": ["INCOME_MULTIPLIER_IF_ALL_ARTISTS_HAVE_3_ITEMS"],
+    "imagePath": "/images/Items/Mythic/the_greatest.png",
+    "multiplier": 2.0
+  },
+  {
+    "type": "CONDITIONAL",
+    "name": "Diamonds From Sierra Leone",
+    "description": "High crowd meter = Double Income at the end!!",
+    "cost": 600,
+    "rarity": "MYTHIC",
+    "effects": ["INCOME_MULTIPLIER_IF_CORRECT_ON_FINAL_EVENT"],
+    "imagePath": "/images/Items/Mythic/diamonds_from_sierra_leone.png",
+    "multiplier": 2.0
   }
 ]
