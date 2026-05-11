@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,22 +10,38 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <Label fx:id="outcomeDescription" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefWidth="757.0" text="" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <Label fx:id="outcomeDescription" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefWidth="757.0" stylesheets="@../../Styles/Style.css" text="" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <font><Font size="15.0" /></font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Label>
 
       <HBox fx:id="statChangeBox" alignment="CENTER" layoutX="14.0" layoutY="90.0" prefHeight="36.0" prefWidth="757.0" spacing="48.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0">
 
-         <Label fx:id="creditsChangeLabel" textAlignment="CENTER">
+         <Label fx:id="creditsChangeLabel" stylesheets="@../../Styles/Style.css" textAlignment="CENTER">
             <font><Font size="14.0" /></font>
+            <styleClass>
+               <String fx:value="root" />
+               <String fx:value="tiny-label" />
+            </styleClass>
          </Label>
 
-         <Label fx:id="staminaChangeLabel" textAlignment="CENTER">
+         <Label fx:id="staminaChangeLabel" stylesheets="@../../Styles/Style.css" textAlignment="CENTER">
             <font><Font size="14.0" /></font>
+            <styleClass>
+               <String fx:value="root" />
+               <String fx:value="tiny-label" />
+            </styleClass>
          </Label>
 
-         <Label fx:id="crowdEnergyChangeLabel" textAlignment="CENTER">
+         <Label fx:id="crowdEnergyChangeLabel" stylesheets="@../../Styles/Style.css" textAlignment="CENTER">
             <font><Font size="14.0" /></font>
+            <styleClass>
+               <String fx:value="root" />
+               <String fx:value="tiny-label" />
+            </styleClass>
          </Label>
 
       </HBox>
