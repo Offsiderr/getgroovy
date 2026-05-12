@@ -21,28 +21,28 @@ public class EffectBehavioursConditional {
     //ask me if you have any questions - Louie
 
 
-    public static StatModifier lowStaminaBoost(int bonus, int threshold)
+    public static StatModifier lowStaminaBoost(int threshold)
     {
         //Boost stamina if it drops below the threshold
-        return artist -> artist.getStamina() < threshold ? bonus : 0;
+        return (artist, value) -> artist.getStamina() < threshold ? (int) Math.round(value) : 0;
     }
 
-    public static StatModifier highStarPowerStaminaBoost(int boost, int threshold)
+    public static StatModifier highStarPowerStaminaBoost(int threshold)
     {
         //Boost stamina if star power is higher than threshold
-        return artist -> artist.getStarPower() > threshold ? boost : 0;
+        return (artist, value) -> artist.getStarPower() > threshold ? (int) Math.round(value) : 0;
     }
 
-    public static StatModifier lowHealthBoost(int bonus, int threshold)
+    public static StatModifier lowHealthBoost(int threshold)
     {
         //Boosts a stat if the artist's health drops below the threshold
-        return artist -> artist.getHealth() < threshold ? bonus : 0;
+        return (artist, value) -> artist.getHealth() < threshold ? (int) Math.round(value) : 0;
     }
 
-    public static StatModifier highStaminaBoost(int bonus, int threshold)
+    public static StatModifier highStaminaBoost(int threshold)
     {
         //Boosts a stat if the artist still has plenty of stamina left
-        return artist -> artist.getStamina() > threshold ? bonus : 0;
+        return (artist, value) -> artist.getStamina() > threshold ? (int) Math.round(value) : 0;
     }
 
 }

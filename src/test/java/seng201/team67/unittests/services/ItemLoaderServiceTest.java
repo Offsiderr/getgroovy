@@ -21,7 +21,7 @@ public class ItemLoaderServiceTest {
         List<Item> items = new ItemLoaderService().loadAll();
 
         assertFalse(items.isEmpty());
-        assertEquals(3, items.size());
+        assertEquals(33, items.size());
         assertTrue(items.stream().anyMatch(CosumableItem.class::isInstance));
         assertTrue(items.stream().anyMatch(EquippedItem.class::isInstance));
         assertTrue(items.stream().anyMatch(ConditionalItem.class::isInstance));
@@ -34,15 +34,16 @@ public class ItemLoaderServiceTest {
         assertTrue(items.stream().allMatch(item -> item.getMultiplier() != null));
 
         CosumableItem consumableItem = (CosumableItem) items.stream()
+                .filter(item -> "Small Beef Turkey".equals(item.getName()))
                 .filter(CosumableItem.class::isInstance)
                 .findFirst()
                 .orElseThrow();
 
-        assertEquals(2, consumableItem.getUses());
+        assertEquals(1, consumableItem.getUses());
         assertEquals(1, consumableItem.getUseAmount());
-        assertEquals("Energy Drink", consumableItem.getName());
-        assertTrue(consumableItem.getDescription().contains("backstage boost"));
-        assertEquals(2, consumableItem.getEffects().size());
+        assertEquals("Small Beef Turkey", consumableItem.getName());
+        assertTrue(consumableItem.getDescription().contains("Restores 10 stamina"));
+        assertEquals(1, consumableItem.getEffects().size());
         assertNotNull(consumableItem);
     }
 }

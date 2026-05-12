@@ -4,5 +4,5 @@ import seng201.team67.models.artists.Artist;
 
 @FunctionalInterface
 public interface StatModifier {
-    int apply(Artist artist);
+    int apply(Artist artist, double value);
 }

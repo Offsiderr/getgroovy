@@ -1,6 +1,7 @@
 package seng201.team67.models.enums.items;
 
 import seng201.team67.behaviours.EffectBehavioursConditional;
+import seng201.team67.behaviours.EffectBehavioursConsumable;
 import seng201.team67.behaviours.EffectBehavioursEquipped;
 import seng201.team67.interfaces.StatModifier;
 import seng201.team67.models.enums.Rarity;
@@ -14,7 +15,8 @@ public enum Effect {
             Rarity.COMMON,
             StatType.STAR_POWER,
             ItemType.CONDITIONAL,
-            EffectBehavioursConditional.lowStaminaBoost(3, 30)
+            3.0,
+            EffectBehavioursConditional.lowStaminaBoost(30)
     ),
 
     STAR_FUELLED(
@@ -23,15 +25,177 @@ public enum Effect {
             Rarity.RARE,
             StatType.STAMINA,
             ItemType.CONDITIONAL,
-            EffectBehavioursConditional.highStarPowerStaminaBoost(10, 5)
+            10.0,
+            EffectBehavioursConditional.highStarPowerStaminaBoost(5)
     ),
 
     STAMINA_BOOST("Stamina Boost",
-                    "A constant burst of energy",
-                  Rarity.COMMON,
-                  StatType.STAMINA,
-                  ItemType.EQUIPPED,
-                  EffectBehavioursEquipped.flatBoost(20)
+            "A small  burst of energy",
+            Rarity.COMMON,
+            StatType.STAMINA,
+            ItemType.CONSUMABLE,
+            10.0,
+            EffectBehavioursConsumable.restoreUpToBase()
+    ),
+
+    STAR_POWER_BOOST(
+            "Star Power Boost",
+            "A short-lived boost in confidence.",
+            Rarity.RARE,
+            StatType.STAR_POWER,
+            ItemType.CONSUMABLE,
+            1.0,
+            EffectBehavioursConsumable.instantBoost()
+    ),
+
+    STAR_POWER_MULTIPLIER(
+            "Star Power Multiplier",
+            "Improves star power while equipped.",
+            Rarity.COMMON,
+            StatType.STAR_POWER,
+            ItemType.EQUIPPED,
+            1.05,
+            EffectBehavioursEquipped.starPowerMultiplier()
+    ),
+
+    STAMINA_MULTIPLIER(
+            "Stamina Multiplier",
+            "Improves stamina while equipped.",
+            Rarity.RARE,
+            StatType.STAMINA,
+            ItemType.EQUIPPED,
+            1.1,
+            EffectBehavioursEquipped.staminaMultiplier()
+    ),
+
+    CROWD_BOOST(
+            "Crowd Boost",
+            "Boosts crowd energy.",
+            Rarity.COMMON,
+            null,
+            ItemType.CONSUMABLE,
+            10.0,
+            (artist, value) -> 0
+    ),
+
+    CROWD_MULTIPLIER(
+            "Crowd Multiplier",
+            "Improves crowd energy gain.",
+            Rarity.COMMON,
+            null,
+            ItemType.EQUIPPED,
+            1.05,
+            (artist, value) -> 0
+    ),
+
+    CROWD_BOOST_IF_STAMINA_BELOW_20_AFTER_EVENT_4(
+            "Crowd Boost If Stamina Below 20 After Event 4",
+            "Conditional crowd boost.",
+            Rarity.COMMON,
+            null,
+            ItemType.CONDITIONAL,
+            15.0,
+            (artist, value) -> 0
+    ),
+
+    CROWD_BOOST_PER_EVENT_IF_LINEUP_FULL(
+            "Crowd Boost Per Event If Lineup Full",
+            "Conditional crowd boost when the lineup is full.",
+            Rarity.COMMON,
+            null,
+            ItemType.CONDITIONAL,
+            5.0,
+            (artist, value) -> 0
+    ),
+
+    CROWD_AND_STAMINA_BOOST_IF_FIRST_EVENT_WIN(
+            "Crowd And Stamina Boost If First Event Win",
+            "Conditional crowd and stamina boost.",
+            Rarity.COMMON,
+            null,
+            ItemType.CONDITIONAL,
+            25.0,
+            (artist, value) -> 0
+    ),
+
+    CROWD_2X_IF_THREE_WIN_STREAK(
+            "Crowd 2x If Three Win Streak",
+            "Conditional crowd multiplier.",
+            Rarity.RARE,
+            null,
+            ItemType.CONDITIONAL,
+            2.0,
+            (artist, value) -> 0
+    ),
+
+    STAMINA_RECOVER_IF_BELOW_25(
+            "Stamina Recover If Below 25",
+            "Recovers stamina when it drops too low.",
+            Rarity.RARE,
+            StatType.STAMINA,
+            ItemType.CONDITIONAL,
+            30.0,
+            EffectBehavioursConditional.lowStaminaBoost(25)
+    ),
+
+    AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3(
+            "Auto Win If Crowd Below 20 After Event 3",
+            "Auto-wins the next event if the crowd is struggling.",
+            Rarity.RARE,
+            null,
+            ItemType.CONDITIONAL,
+            1.0,
+            (artist, value) -> 0
+    ),
+
+    STAMINA_RECOVER_ALL_IF_LOWEST_BELOW_35(
+            "Stamina Recover All If Lowest Below 35",
+            "Restores stamina to the full lineup when one artist is struggling.",
+            Rarity.VERY_RARE,
+            null,
+            ItemType.CONDITIONAL,
+            25.0,
+            (artist, value) -> 0
+    ),
+
+    TICKET_SALES_2X_IF_CROWD_ABOVE_70_BEFORE_FINAL(
+            "Ticket Sales 2x If Crowd Above 70 Before Final",
+            "Doubles ticket sales late in a strong concert.",
+            Rarity.VERY_RARE,
+            null,
+            ItemType.CONDITIONAL,
+            2.0,
+            (artist, value) -> 0
+    ),
+
+    CROWD_BOOST_ON_FINAL_EVENT(
+            "Crowd Boost On Final Event",
+            "Boosts crowd energy during the final event.",
+            Rarity.VERY_RARE,
+            null,
+            ItemType.CONDITIONAL,
+            50.0,
+            (artist, value) -> 0
+    ),
+
+    FULL_ROSTER_INCOME_2X(
+            "Full Roster Income 2x",
+            "Doubles income when every artist is fully equipped.",
+            Rarity.ULTRA,
+            null,
+            ItemType.CONDITIONAL,
+            2.0,
+            (artist, value) -> 0
+    ),
+
+    FINAL_WIN_INCOME_2X(
+            "Final Win Income 2x",
+            "Doubles income after winning the final event.",
+            Rarity.MYTHIC,
+            null,
+            ItemType.CONDITIONAL,
+            2.0,
+            (artist, value) -> 0
     );
 
     private final String name;
@@ -39,15 +203,17 @@ public enum Effect {
     private final Rarity rarity;
     private final StatType targetStat;
     private final ItemType itemType;
+    private final double defaultValue;
     private final StatModifier modifier;
 
     Effect(String name, String description, Rarity rarity,
-           StatType targetStat, ItemType itemType, StatModifier modifier) {
+           StatType targetStat, ItemType itemType, double defaultValue, StatModifier modifier) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
         this.targetStat = targetStat;
         this.itemType = itemType;
+        this.defaultValue = defaultValue;
         this.modifier = modifier;
     }
 
@@ -61,5 +227,6 @@ public enum Effect {
     public Rarity getRarity() { return rarity; }
     public StatType getTargetStat() { return targetStat; }
     public ItemType getItemType() { return itemType; }
+    public double getDefaultValue() { return defaultValue; }
     public StatModifier getModifier() { return modifier; }
 }

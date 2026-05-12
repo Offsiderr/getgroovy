@@ -81,6 +81,21 @@ public abstract class Artist implements Purchasable {
         return baseStamina;
     }
 
+    public int getBaseStarPowerValue()
+    {
+        return starPower;
+    }
+
+    public int getCurrentStaminaValue()
+    {
+        return stamina;
+    }
+
+    public int getBaseHealthValue()
+    {
+        return health;
+    }
+
     public int getStarPower()
     {
         return getModifiedStarPower();
@@ -175,8 +190,13 @@ public abstract class Artist implements Purchasable {
     //Returns true if anything actually changed (so therefore true means yes trigger the UI event)
     public Boolean calculateEffect(Effect effect)
     {
-        int value = getEffectValue(effect);
-        if (value == 0) return false;
+        return calculateEffect(null, effect);
+    }
+
+    public Boolean calculateEffect(Item item, Effect effect)
+    {
+        int value = getEffectValue(item, effect);
+        if (value == 0 || effect.getTargetStat() == null) return false;
 
         switch (effect.getTargetStat()) {
             case STAR_POWER -> starPower += value;
@@ -188,7 +208,12 @@ public abstract class Artist implements Purchasable {
 
     public int getEffectValue(Effect effect)
     {
-        return effect.getModifier().apply(this);
+        return getEffectValue(null, effect);
+    }
+
+    public int getEffectValue(Item item, Effect effect)
+    {
+        return effect.getModifier().apply(this, resolveEffectValue(item, effect));
     }
 
     public int getModifiedStarPower()
@@ -221,11 +246,20 @@ public abstract class Artist implements Purchasable {
             {
                 if (effect.getTargetStat() == statType)
                 {
-                    value += effect.getModifier().apply(this);
+                    value += getEffectValue(item, effect);
                 }
             }
         }
 
         return value;
+    }
+
+    private double resolveEffectValue(Item item, Effect effect)
+    {
+        if (item != null && item.getMultiplier() != null)
+        {
+            return item.getMultiplier();
+        }
+        return effect.getDefaultValue();
     }
 }

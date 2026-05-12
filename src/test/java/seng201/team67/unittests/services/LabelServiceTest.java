@@ -218,6 +218,29 @@ public class LabelServiceTest {
     }
 
     @Test
+    void useConsumableUsesItemMultiplierWhenApplyingEffect() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Rockstar("Boosted Artist", 3, "Rock");
+        artist.setStamina(50);
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        CosumableItem item = new CosumableItem(
+                "Energy Drink",
+                "A quick backstage boost",
+                1,
+                100,
+                Rarity.COMMON,
+                List.of(Effect.STAMINA_BOOST)
+        );
+        item.setMultiplier(15.0);
+        service.buyItem(item, 0);
+        service.equipItem(artist, item);
+
+        service.useConsumable(artist, item);
+
+        assertEquals(65, artist.getStamina());
+    }
+
+    @Test
     void getItemSellPriceReturnsConfiguredRateForUnusedItem() {
         LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
         Item item = new EquippedItem(

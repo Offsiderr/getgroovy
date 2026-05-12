@@ -106,7 +106,7 @@ public class SkillLoaderService {
             }
 
             StatModifier currentModifier = statModifier;
-            statModifier = artist -> currentModifier.apply(artist) + nextModifier.apply(artist);
+            statModifier = (artist, value) -> currentModifier.apply(artist, value) + nextModifier.apply(artist, value);
         }
 
         return statModifier;

@@ -290,8 +290,8 @@ public class ConcertService {
 
                 for (Effect effect : item.getEffects())
                 {
-                    int effectValue = artist.getEffectValue(effect);
-                    if (!artist.calculateEffect(effect))
+                    int effectValue = artist.getEffectValue(item, effect);
+                    if (!artist.calculateEffect(item, effect))
                     {
                         continue;
                     }

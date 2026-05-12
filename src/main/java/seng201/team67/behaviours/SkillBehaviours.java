@@ -9,22 +9,22 @@ public class SkillBehaviours {
 
     public static StatModifier flatStaminaBoost(int amount)
     {
-        return artist -> amount;
+        return (artist, value) -> amount;
     }
 
     public static StatModifier flatStarPowerBoost(int amount)
     {
-        return artist -> amount;
+        return (artist, value) -> amount;
     }
 
     public static StatModifier staminaCostReduction(double multiplier)
     {
-        return artist -> (int) Math.round(multiplier * 100);
+        return (artist, value) -> (int) Math.round(multiplier * 100);
     }
 
     public static StatModifier retirementRisk()
     {
-        return artist -> 1;
+        return (artist, value) -> 1;
     }
 
     //PayoutModifier factories
