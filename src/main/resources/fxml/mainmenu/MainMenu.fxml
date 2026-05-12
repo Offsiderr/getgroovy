@@ -54,11 +54,32 @@
          </styleClass>
       </Button>
       <SplitPane fx:id="artistPane" dividerPositions="0.33, 0.66" layoutX="135.0" layoutY="504.0" prefHeight="191.0" prefWidth="998.0">
-        <items>
-          <VBox fx:id="artistOne" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-          <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="241.0" prefWidth="307.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-        </items>
+         <items>
+            <VBox fx:id="artistOne" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;">
+               <children>
+                  <ImageView fitHeight="210.0" fitWidth="328.0" opacity="0.4" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../images/Backstage.png" />
+                     </image>
+                  </ImageView>
+               </children></VBox>
+            <VBox fx:id="artistTwo" alignment="CENTER" prefHeight="250.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;">
+               <children>
+                  <ImageView fitHeight="210.0" fitWidth="328.0" opacity="0.4" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../images/Backstage.png" />
+                     </image>
+                  </ImageView>
+               </children></VBox>
+            <VBox fx:id="artistThree" alignment="CENTER" prefHeight="241.0" prefWidth="307.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;">
+               <children>
+                  <ImageView fitHeight="210.0" fitWidth="328.0" opacity="0.4" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../images/Backstage.png" />
+                     </image>
+                  </ImageView>
+               </children></VBox>
+         </items>
       </SplitPane>
       <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
          <font>
@@ -122,15 +143,16 @@
                   <Font size="37.0" />
                </font>
             </Label>
-         </children></AnchorPane>
-      <Label fx:id="labelName11" layoutX="585.0" layoutY="7.0" stylesheets="@../../Styles/Style.css" text="Score:">
-         <font>
-            <Font size="21.0" />
-         </font>
-         <styleClass>
-            <String fx:value="root" />
-            <String fx:value="root" />
-         </styleClass>
-      </Label>
+            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" stylesheets="@../../Styles/Style.css" text="Score:">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="root" />
+               </styleClass>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

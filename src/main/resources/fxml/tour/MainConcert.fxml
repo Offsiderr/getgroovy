@@ -80,7 +80,14 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <AnchorPane fx:id="eventBox" layoutX="351.0" layoutY="118.0" prefHeight="485.0" prefWidth="785.0" />
+      <AnchorPane fx:id="eventBox" layoutX="351.0" layoutY="118.0" prefHeight="485.0" prefWidth="785.0">
+         <children>
+            <ImageView fitHeight="492.0" fitWidth="785.0" opacity="0.8" pickOnBounds="true">
+               <image>
+                  <Image url="@../../images/Local_Stage.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
       <Label layoutX="1199.0" layoutY="348.0" prefHeight="26.0" prefWidth="67.0" text="Hyped">
          <font>
             <Font size="10.0" />

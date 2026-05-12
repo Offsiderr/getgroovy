@@ -18,7 +18,7 @@
          <image>
             <Image url="@../../images/gameBackground.png" />
          </image></ImageView>
-      <RadioButton fx:id="easyButton" layoutX="81.0" layoutY="146.0" mnemonicParsing="false" opacity="0.9" prefHeight="149.0" prefWidth="278.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, green, 10, 0.7, 0, 0);" text="Easy">
+      <RadioButton fx:id="easyButton" layoutX="81.0" layoutY="146.0" mnemonicParsing="false" opacity="0.9" prefHeight="149.0" prefWidth="278.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, green, 2, 0.7, 0, 0);" text="Easy">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
@@ -30,12 +30,12 @@
             <String fx:value="root" />
          </styleClass>
       </RadioButton>
-      <RadioButton fx:id="yikesButton" layoutX="78.0" layoutY="297.0" mnemonicParsing="false" opacity="0.9" prefHeight="145.0" prefWidth="331.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, orange, 10, 0.7, 0, 0);" styleClass="root" text="A Challenge" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="yikesButton" layoutX="78.0" layoutY="297.0" mnemonicParsing="false" opacity="0.9" prefHeight="145.0" prefWidth="331.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, orange, 4, 0.7, 0, 0);" styleClass="root" text="A Challenge" toggleGroup="$difficultyGroup">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="78.0" layoutY="453.0" mnemonicParsing="false" opacity="0.9" prefHeight="159.0" prefWidth="351.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, red, 10, 0.7, 0, 0);" styleClass="root" text="Heartless" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="78.0" layoutY="453.0" mnemonicParsing="false" opacity="0.9" prefHeight="159.0" prefWidth="351.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, red, 20, 0.7, 0, 0);" styleClass="root" text="Heartless" toggleGroup="$difficultyGroup">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
