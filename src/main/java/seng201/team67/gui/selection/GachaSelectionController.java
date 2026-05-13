@@ -70,7 +70,8 @@ public class GachaSelectionController extends ArtistSelectionController {
             selectArtists.setText("Select Item");
         }
 
-        GachaController gachaController = new GachaController(gameEnvironment);
+        String source = artists ? "studio" : "market";
+        GachaController gachaController = new GachaController(gameEnvironment, source);
         gachaController.setOnGachaComplete(() -> {if(artists){showArtistCards();}else{showItemCards();}});
         viewLoader.loadInto(gachaContainer, "/fxml/components/Gatcha.fxml", gachaController);
     }

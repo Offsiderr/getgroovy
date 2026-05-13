@@ -26,15 +26,24 @@ public class GachaController {
 
     private Runnable onGatchaComplete;
 
+    private String source;
+
     public GachaController(GameEnvironment gameEnvironment)
     {
+        this(gameEnvironment, "");
+    }
+
+    public GachaController(GameEnvironment gameEnvironment, String source)
+    {
         this.gameEnvironment = gameEnvironment;
+        this.source = source;
     }
 
     @FXML
     public void initialize() {
         for (int i = 1; i <= gameEnvironment.getConfig().gachaStageCount; i++) {
-            recordStages.add(new Image(getClass().getResourceAsStream("/images/Gatcha/Stage" + i + ".png")));
+            String suffix = source.equals("market") ? "Market" : "";
+            recordStages.add(new Image(getClass().getResourceAsStream("/images/Gatcha/Stage" + i + suffix + ".png")));
         }
         recordImage.setOnMouseClicked(e -> onRecordClicked());
         resetRecord();
@@ -53,7 +62,6 @@ public class GachaController {
         }
     }
 
-    //used for testing. won't reset obivously in the game
     private void resetRecord() {
         clicksRequired = random.nextInt(gameEnvironment.getConfig().gachaMaxClicks - gameEnvironment.getConfig().gachaMinClicks + 1) + minimumClicks;
         clicksSoFar = 0;
@@ -71,7 +79,6 @@ public class GachaController {
         if (clicksSoFar >= clicksRequired) {
             System.out.println("gatcha opened");
             finishGacha();
-            //resetRecord();
         }
     }
 }
