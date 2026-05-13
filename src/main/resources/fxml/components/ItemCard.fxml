@@ -10,7 +10,7 @@
 
 <VBox fx:id="CardRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="200.0" spacing="6.0" style="-fx-background-color: #1a1a2e; -fx-background-radius: 8; -fx-border-color: #4ecdc4; -fx-border-radius: 8; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="name" alignment="CENTER" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-background-color: trans; -fx-effect: dropshadow(gaussian, pink, 50, 0.7, 0, 0);" stylesheets="@../../Styles/Style.css" text="Item Name" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="name" alignment="CENTER" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-background-color: trans; -fx-effect: dropshadow(gaussian, pink, 50, 0.7, 0, 0);" stylesheets="@../../Styles/Style.css" text="Item Name" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <styleClass>
             <String fx:value="root" />
             <String fx:value="big-label" />

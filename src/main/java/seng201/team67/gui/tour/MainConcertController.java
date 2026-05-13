@@ -5,6 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.questions.OutcomeController;
 import seng201.team67.gui.instantiable.questions.QuestionController;
@@ -69,6 +73,22 @@ public class MainConcertController {
 
     }
 
+    private void makeSilhouette(ImageView imageView) {
+        ColorAdjust adjust = new ColorAdjust();
+        adjust.setBrightness(-1.0);
+        adjust.setContrast(0.0);
+        adjust.setSaturation(-1.0);
+
+        DropShadow glow = new DropShadow();
+        glow.setColor(javafx.scene.paint.Color.web("#ffffff"));
+        glow.setRadius(15);
+        glow.setSpread(0.3);
+
+        glow.setInput(adjust);
+
+        imageView.setEffect(glow);
+    }
+
     private void loadLineup()
     {
         List<Artist> pool = gameEnvironment.getLabelService().getLineup();
@@ -115,6 +135,19 @@ public class MainConcertController {
 
         QuestionController questionController = new QuestionController(question, this::handleAnswer);
         viewLoader.loadInto(eventBox, "/fxml/events/QuestionEvent.fxml", questionController);
+
+        AnchorPane questionPane = (AnchorPane) eventBox.getChildren().get(0);
+
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        for (int i = 0; i < lineup.size(); i++) {
+            ImageView artistView = new ImageView(new Image(getClass().getResourceAsStream(lineup.get(i).getImagePath())));
+            artistView.setFitHeight(150);
+            artistView.setPreserveRatio(true);
+            makeSilhouette(artistView);
+            artistView.setLayoutX(170 + i * 150);
+            artistView.setLayoutY(180);
+            questionPane.getChildren().add(1, artistView);
+        }
     }
 
     private void startMinigame(Minigame minigame) throws IOException {
