@@ -78,7 +78,8 @@ public class ArtistDetailBoxFiller {
                 createLabel("Star Power: " + artist.getStarPower()),
                 createLabel("Stamina: " + artist.getStamina()),
                 createLabel("Health: " + artist.getHealth()),
-                createLabel("Hire: $" + (int) artist.getCost())
+                createLabel("Hire: $" + (int) artist.getCost()),
+                createLabel("Skill: " + artist.getSkill().getName(), artist.getSkill().getDescription())
         );
 
         VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
@@ -156,6 +157,15 @@ public class ArtistDetailBoxFiller {
 
     private static Label createLabel(String text) {
         Label label = new Label(text);
+        label.setAlignment(Pos.CENTER_LEFT);
+        label.setMaxWidth(Double.MAX_VALUE);
+        label.setWrapText(true);
+        return label;
+    }
+
+    private static Label createLabel(String text, String tooltipText) {
+        Label label = new Label(text);
+        Tooltip.install(label, new Tooltip(tooltipText));
         label.setAlignment(Pos.CENTER_LEFT);
         label.setMaxWidth(Double.MAX_VALUE);
         label.setWrapText(true);

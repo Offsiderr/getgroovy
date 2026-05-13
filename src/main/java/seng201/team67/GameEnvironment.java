@@ -8,6 +8,7 @@ import seng201.team67.models.enums.PayoutTier;
 import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.audio.MusicService;
+import seng201.team67.services.data.SkillLoaderService;
 import seng201.team67.services.management.LabelService;
 import seng201.team67.services.setup.GameInitialisationService;
 import seng201.team67.services.setup.SetupService;
@@ -46,9 +47,12 @@ public class GameEnvironment {
 
     private ArrayList<Item> allItems = new ArrayList<>();
 
+    private SkillLoaderService skillLoaderService;
+
     public GameEnvironment()
     {
         this.musicService = new MusicService(this);
+        this.skillLoaderService = new SkillLoaderService();
         new GameInitialisationService().initialise(this);
     }
 

@@ -3,6 +3,8 @@ package seng201.team67.services.gameplay;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
 import seng201.team67.models.ConcertResults;
+import seng201.team67.models.artists.Artist;
+import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.PayoutType;
@@ -145,7 +147,8 @@ public class ConcertService {
 
         if(outcome.getPayoutType() != PayoutType.NONE)
         {
-            income += payoutService.getPayoutAmount(gameEnvironment, outcome.getPayoutType());
+            double basePayout = payoutService.getPayoutAmount(gameEnvironment, outcome.getPayoutType());
+            income += applySkillPayoutModifiers(basePayout);
         }
 
         //stamina change goes here
@@ -266,12 +269,21 @@ public class ConcertService {
             return;
         }
 
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        if (lineup.isEmpty())
+        {
+            return;
+        }
+
+        Artist targetArtist = lineup.get(Math.floorMod(tourService.getCurrentLineupStaminaIndex(), lineup.size()));
+        int adjustedDrain = applySkillStaminaModifiers(targetArtist, drainAmount);
+
         gameEnvironment.getLabelService().applyStaminaChangeToLineupArtist(
                 tourService.getCurrentLineupStaminaIndex(),
-                -drainAmount
+                -adjustedDrain
         );
-        staminaDrain += drainAmount;
-        tourService.addStamina(drainAmount);
+        staminaDrain += adjustedDrain;
+        tourService.addStamina(adjustedDrain);
         tourService.advanceLineupStaminaIndex();
     }
 
@@ -308,5 +320,35 @@ public class ConcertService {
     private String formatStatName(Effect effect)
     {
         return effect.getTargetStat().toString().toLowerCase().replace('_', ' ');
+    }
+
+    private double applySkillPayoutModifiers(double basePayout)
+    {
+        int modifiedPayout = roundStaminaChange(basePayout);
+
+        for (Artist artist : gameEnvironment.getLabelService().getLineup())
+        {
+            if (!artist.hasSkill() || !artist.getSkill().hasPayoutModifier())
+            {
+                continue;
+            }
+
+            modifiedPayout = artist.getSkill().getPayoutModifier().apply(artist, modifiedPayout);
+        }
+
+        return modifiedPayout;
+    }
+
+    private int applySkillStaminaModifiers(Artist artist, int drainAmount)
+    {
+        if (!artist.hasSkill()
+                || !artist.getSkill().hasStatModifier()
+                || !artist.getSkill().hasEffect(SkillEffects.STAMINA_COST_REDUCTION))
+        {
+            return drainAmount;
+        }
+
+        int staminaPercent = artist.getSkill().getStatModifier().apply(artist, drainAmount);
+        return Math.max(0, roundStaminaChange(drainAmount * (staminaPercent / 100.0)));
     }
 }

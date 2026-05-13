@@ -1,9 +1,15 @@
 package seng201.team67.unittests.models;
 
 import org.junit.jupiter.api.Test;
+import seng201.team67.behaviours.SkillBehaviours;
+import seng201.team67.models.Skill;
+import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -84,5 +90,44 @@ public class ArtistTest {
         artist.setStamina(-5);
 
         assertEquals(0, artist.getStamina());
+    }
+
+    @Test
+    void skillFlatStarPowerBoostAppliesToDisplayedStarPower() {
+        Rockstar artist = new Rockstar("Muse", 3, "Rock artist");
+        Skill skill = new Skill(
+                "RIFF_LORD",
+                "Riff Lord",
+                "Boosts star power",
+                "ROCKSTAR",
+                Rarity.RARE,
+                List.of(SkillEffects.FLAT_STAR_POWER_BOOST),
+                SkillBehaviours.flatStarPowerBoost(10),
+                null
+        );
+
+        artist.setSkill(skill);
+
+        assertEquals(13, artist.getStarPower());
+    }
+
+    @Test
+    void skillFlatStaminaBoostAppliesWhenSkillIsAssigned() {
+        Rapper artist = new Rapper("Yeat", 2, "Rap artist");
+        Skill skill = new Skill(
+                "GRIND_MENTALITY",
+                "Grind Mentality",
+                "Boosts stamina",
+                "RAPPER",
+                Rarity.COMMON,
+                List.of(SkillEffects.FLAT_STAMINA_BOOST),
+                SkillBehaviours.flatStaminaBoost(10),
+                null
+        );
+
+        artist.setSkill(skill);
+
+        assertEquals(130, artist.getBaseStamina());
+        assertEquals(130, artist.getStamina());
     }
 }

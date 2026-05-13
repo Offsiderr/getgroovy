@@ -1,10 +1,14 @@
 package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
+import seng201.team67.behaviours.SkillBehaviours;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.ConcertResults;
+import seng201.team67.models.Skill;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.minigames.MiniGameResult;
+import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
@@ -54,6 +58,56 @@ public class ConcertServiceTest {
         assertEquals(1, tourService.getCurrentLineupStaminaIndex());
         assertEquals(11, service.getCrowdEnergyChange());
         assertEquals(5.0, service.totalStaminaDrain(), 0.0001);
+    }
+
+    @Test
+    void handleAnswerAppliesSkillPayoutModifiersToConcertPayouts() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        gameEnvironment.getLabelService().getLineup().getFirst().setSkill(new Skill(
+                "CHART_TOPPER",
+                "Chart Topper",
+                "Boosts payouts",
+                "POPSTAR",
+                Rarity.COMMON,
+                List.of(SkillEffects.PAYOUT_MULTIPLIER),
+                null,
+                SkillBehaviours.payoutMultiplier(1.1)
+        ));
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.OK_PAYOUT, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(110.0, service.getIncome(), 0.0001);
+    }
+
+    @Test
+    void handleAnswerAppliesSkillStaminaReductionBeforeDrain() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
+        firstLineupArtist.setSkill(new Skill(
+                "ROAD_VETERAN",
+                "Road Veteran",
+                "Reduces stamina drain",
+                "ANY",
+                Rarity.COMMON,
+                List.of(SkillEffects.STAMINA_COST_REDUCTION),
+                SkillBehaviours.staminaCostReduction(0.8),
+                null
+        ));
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        Outcome outcome = new Outcome(1, "Stay steady", PayoutType.NONE, -5, 0, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(96, firstLineupArtist.getStamina());
+        assertEquals(4.0, service.totalStaminaDrain(), 0.0001);
     }
 
     @Test

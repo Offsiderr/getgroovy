@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
 import seng201.team67.models.Skill;
+import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.enums.items.StatType;
 import seng201.team67.models.items.ConditionalItem;
@@ -133,6 +134,7 @@ public abstract class Artist implements Purchasable {
     public void setSkill(Skill skill)
     {
         this.skill = skill;
+        applyFlatSkillBonuses(skill);
     }
 
     public void increaseSkillLevel()
@@ -218,7 +220,7 @@ public abstract class Artist implements Purchasable {
 
     public int getModifiedStarPower()
     {
-        return starPower + getEquipableEffectValue(StatType.STAR_POWER);
+        return starPower + getEquipableEffectValue(StatType.STAR_POWER) + getSkillEffectValue(StatType.STAR_POWER);
     }
 
     public int getModifiedStamina()
@@ -252,6 +254,36 @@ public abstract class Artist implements Purchasable {
         }
 
         return value;
+    }
+
+    private int getSkillEffectValue(StatType statType)
+    {
+        if (!hasSkill() || !skill.hasStatModifier())
+        {
+            return 0;
+        }
+
+        return switch (statType) {
+            case STAR_POWER -> skill.hasEffect(SkillEffects.FLAT_STAR_POWER_BOOST)
+                    ? skill.getStatModifier().apply(this, 0)
+                    : 0;
+            case STAMINA, HEALTH -> 0;
+        };
+    }
+
+    private void applyFlatSkillBonuses(Skill skill)
+    {
+        if (skill == null || !skill.hasStatModifier())
+        {
+            return;
+        }
+
+        if (skill.hasEffect(SkillEffects.FLAT_STAMINA_BOOST))
+        {
+            int staminaBoost = skill.getStatModifier().apply(this, 0);
+            baseStamina += staminaBoost;
+            stamina += staminaBoost;
+        }
     }
 
     private double resolveEffectValue(Item item, Effect effect)

@@ -2,7 +2,7 @@
   {
     "id": "ROAD_VETERAN",
     "name": "Road Veteran",
-    "description": "Years on the road have toughened this artist up. World tours drain less stamina.",
+    "description": "Years on the road have toughened this artist up. World tours drain less stamina. Effect: −20% stamina cost on World tours.",
     "artistType": "ANY",
     "rarity": "COMMON",
     "effects": ["STAMINA_COST_REDUCTION"],
@@ -11,7 +11,7 @@
   {
     "id": "CROWD_PLEASER",
     "name": "Crowd Pleaser",
-    "description": "This artist just knows how to work a room. Starts every concert with a boost to star power.",
+    "description": "This artist just knows how to work a room. Starts every concert with a boost to star power. Effect: +5 star power at the start of every concert.",
     "artistType": "ANY",
     "rarity": "COMMON",
     "effects": ["FLAT_STAR_POWER_BOOST"],
@@ -20,7 +20,7 @@
   {
     "id": "RESILIENT",
     "name": "Resilient",
-    "description": "Setbacks roll off this artist like water. Stamina penalties from bad outcomes are softened.",
+    "description": "Setbacks roll off this artist like water. Stamina penalties from bad outcomes are softened. Effect: −15% to all incoming stamina penalties.",
     "artistType": "ANY",
     "rarity": "RARE",
     "effects": ["STAMINA_COST_REDUCTION"],
@@ -29,7 +29,7 @@
   {
     "id": "QUICK_LEARNER",
     "name": "Quick Learner",
-    "description": "Every decent show is a lesson. Solid performances pay out a little more than usual.",
+    "description": "Every decent show is a lesson. Solid performances pay out a little more than usual. Effect: +10% credits on OK payout outcomes.",
     "artistType": "ANY",
     "rarity": "RARE",
     "effects": ["PAYOUT_MULTIPLIER"],
@@ -38,7 +38,7 @@
   {
     "id": "HEADLINER",
     "name": "Headliner",
-    "description": "Born to be the main act. Earns a bonus when performing without a supporting lineup.",
+    "description": "Born to be the main act. Earns a bonus when performing without a supporting lineup. Effect: +15% payout when this artist is the only one in the lineup.",
     "artistType": "ANY",
     "rarity": "VERY_RARE",
     "effects": ["PAYOUT_MULTIPLIER"],
@@ -47,7 +47,7 @@
   {
     "id": "VIRAL_MOMENT",
     "name": "Viral Moment",
-    "description": "One incredible night can change everything. Great performances earn significantly more credits.",
+    "description": "One incredible night can change everything. Great performances earn significantly more credits. Effect: +50% credits on GREAT payout outcomes.",
     "artistType": "POPSTAR",
     "rarity": "VERY_RARE",
     "effects": ["GREAT_PAYOUT_MULTIPLIER"],
@@ -56,7 +56,7 @@
   {
     "id": "FAN_FAVOURITE",
     "name": "Fan Favourite",
-    "description": "The fans adore this artist. Each standout performance permanently boosts their star power.",
+    "description": "The fans adore this artist. Each standout performance permanently boosts their star power. Effect: +8 star power permanently after each GREAT outcome.",
     "artistType": "POPSTAR",
     "rarity": "RARE",
     "effects": ["FLAT_STAR_POWER_BOOST"],
@@ -65,7 +65,7 @@
   {
     "id": "TREND_SETTER",
     "name": "Trend Setter",
-    "description": "Always ahead of the curve. Star power grows steadily the longer this artist stays in the lineup.",
+    "description": "Always ahead of the curve. Star power grows steadily the longer this artist stays in the lineup. Effect: +2 star power per round while in the lineup.",
     "artistType": "POPSTAR",
     "rarity": "RARE",
     "effects": ["FLAT_STAR_POWER_BOOST"],
@@ -74,7 +74,7 @@
   {
     "id": "CHART_TOPPER",
     "name": "Chart Topper",
-    "description": "Mainstream appeal that translates directly to revenue. All payouts get a small boost.",
+    "description": "Mainstream appeal that translates directly to revenue. All payouts get a small boost. Effect: +10% credits on all non-zero payout outcomes.",
     "artistType": "POPSTAR",
     "rarity": "COMMON",
     "effects": ["PAYOUT_MULTIPLIER"],
@@ -83,7 +83,7 @@
   {
     "id": "SOCIAL_BUTTERFLY",
     "name": "Social Butterfly",
-    "description": "Effortlessly sociable on and off stage. This artist moves through tours without burning out as fast.",
+    "description": "Effortlessly sociable on and off stage. This artist moves through tours without burning out as fast. Effect: −10% stamina cost on all tours.",
     "artistType": "POPSTAR",
     "rarity": "COMMON",
     "effects": ["STAMINA_COST_REDUCTION"],
@@ -92,7 +92,7 @@
   {
     "id": "SIDE_HUSTLE",
     "name": "Side Hustle",
-    "description": "Always finding ways to make money on the side. Earns a flat credit bonus at the end of every tour.",
+    "description": "Always finding ways to make money on the side. Earns a flat credit bonus at the end of every tour. Effect: +20 credits at the end of every tour.",
     "artistType": "RAPPER",
     "rarity": "COMMON",
     "effects": ["FLAT_CREDIT_BONUS"],
@@ -101,7 +101,7 @@
   {
     "id": "BATTLE_HARDENED",
     "name": "Battle Hardened",
-    "description": "This artist has seen it all. Terrible outcomes hit a little less hard.",
+    "description": "This artist has seen it all. Terrible outcomes hit a little less hard. Effect: −25% stamina loss from BAD and TERRIBLE outcomes.",
     "artistType": "RAPPER",
     "rarity": "RARE",
     "effects": ["TERRIBLE_PAYOUT_REDUCTION"],
@@ -110,7 +110,7 @@
   {
     "id": "COLLAB_KING",
     "name": "Collab King",
-    "description": "Thrives alongside other artists. Earns a payout bonus when the lineup has more than one artist type.",
+    "description": "Thrives alongside other artists. Earns a payout bonus when the lineup has more than one artist type. Effect: +15% payout when the lineup contains at least one other artist type.",
     "artistType": "RAPPER",
     "rarity": "VERY_RARE",
     "effects": ["PAYOUT_MULTIPLIER"],
@@ -119,7 +119,7 @@
   {
     "id": "GRIND_MENTALITY",
     "name": "Grind Mentality",
-    "description": "No days off. This artist's relentless work ethic gives them a permanently higher stamina pool.",
+    "description": "No days off. This artist's relentless work ethic gives them a permanently higher stamina pool. Effect: +10 max stamina permanently.",
     "artistType": "RAPPER",
     "rarity": "COMMON",
     "effects": ["FLAT_STAMINA_BOOST"],
@@ -128,7 +128,7 @@
   {
     "id": "STREET_CRED",
     "name": "Street Cred",
-    "description": "Even a bad night keeps the reputation intact. Softens the blow of the worst concert outcomes.",
+    "description": "Even a bad night keeps the reputation intact. Softens the blow of the worst concert outcomes. Effect: −20% penalty on TERRIBLE payout outcomes.",
     "artistType": "RAPPER",
     "rarity": "RARE",
     "effects": ["TERRIBLE_PAYOUT_REDUCTION"],
@@ -137,7 +137,7 @@
   {
     "id": "STAGE_DIVER",
     "name": "Stage Diver",
-    "description": "Unpredictable and electric. Great shows pay out more, but this artist plays with fire every night.",
+    "description": "Unpredictable and electric. Great shows pay out more, but this artist plays with fire every night. Effect: +30% on GREAT payouts and +30% to BAD penalties.",
     "artistType": "ROCKSTAR",
     "rarity": "VERY_RARE",
     "effects": ["GREAT_PAYOUT_MULTIPLIER"],
@@ -146,7 +146,7 @@
   {
     "id": "ENCORE_MACHINE",
     "name": "Encore Machine",
-    "description": "Leaves the crowd wanting more every time. Earns a bonus when a concert ends on a high.",
+    "description": "Leaves the crowd wanting more every time. Earns a bonus when a concert ends on a high. Effect: +25% credits when the concert ends with crowd meter ≥ 75%.",
     "artistType": "ROCKSTAR",
     "rarity": "RARE",
     "effects": ["PAYOUT_MULTIPLIER"],
@@ -155,7 +155,7 @@
   {
     "id": "BURNOUT_PRONE",
     "name": "Burnout Prone",
-    "description": "Performs with everything they have, every night. More stamina than most, but burns out faster.",
+    "description": "Performs with everything they have, every night. More stamina than most, but burns out faster. Effect: +20 max stamina, but retirement risk is increased by 40%.",
     "artistType": "ROCKSTAR",
     "rarity": "RARE",
     "effects": ["FLAT_STAMINA_BOOST", "RETIREMENT_RISK"],
@@ -164,7 +164,7 @@
   {
     "id": "RIFF_LORD",
     "name": "Riff Lord",
-    "description": "A natural on stage. This artist's raw charisma gives them a permanent star power advantage.",
+    "description": "A natural on stage. This artist's raw charisma gives them a permanent star power advantage. Effect: +10 star power permanently.",
     "artistType": "ROCKSTAR",
     "rarity": "RARE",
     "effects": ["FLAT_STAR_POWER_BOOST"],
@@ -173,7 +173,7 @@
   {
     "id": "AMP_IT_UP",
     "name": "Amp It Up",
-    "description": "Gets better as the tour goes on. Payouts grow with each concert completed in a single tour.",
+    "description": "Gets better as the tour goes on. Payouts grow with each concert completed in a single tour. Effect: +10% payout per concert completed in a single tour.",
     "artistType": "ROCKSTAR",
     "rarity": "VERY_RARE",
     "effects": ["PAYOUT_MULTIPLIER"],

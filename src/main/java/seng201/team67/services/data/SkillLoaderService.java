@@ -11,6 +11,7 @@ import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
 import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.SkillEffects;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,7 +62,6 @@ public class SkillLoaderService {
             for (JsonNode skillNode : root)
             {
                 skills.add(buildSkill(skillNode));
-                System.out.println(buildSkill(skillNode));
             }
 
             return skills;
@@ -80,11 +80,24 @@ public class SkillLoaderService {
         Rarity rarity = Rarity.valueOf(skillNode.path("rarity").asText());
         double multiplier = skillNode.path("multiplier").asDouble();
         JsonNode effectsNode = skillNode.path("effects");
+        List<SkillEffects> effects = buildEffects(effectsNode);
 
         StatModifier statModifier = buildStatModifier(effectsNode, multiplier);
         PayoutModifier payoutModifier = buildPayoutModifier(effectsNode, multiplier);
 
-        return new Skill(id, name, description, artistType, rarity, statModifier, payoutModifier);
+        return new Skill(id, name, description, artistType, rarity, effects, statModifier, payoutModifier);
+    }
+
+    private List<SkillEffects> buildEffects(JsonNode effectsNode)
+    {
+        List<SkillEffects> effects = new ArrayList<>();
+
+        for (JsonNode effectNode : effectsNode)
+        {
+            effects.add(SkillEffects.valueOf(effectNode.asText()));
+        }
+
+        return effects;
     }
 
     private StatModifier buildStatModifier(JsonNode effectsNode, double multiplier)
