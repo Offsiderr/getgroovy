@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.instantiable.GachaController;
@@ -35,6 +38,10 @@ public class GachaSelectionController extends ArtistSelectionController {
     @FXML private HBox itemTwo;
     @FXML private HBox itemThree;
     @FXML private StackPane gachaContainer;
+    @FXML private AnchorPane root;
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
+    @FXML private ImageView bg3;
     @FXML private Button selectArtists;
 
     private int hboxSize;
@@ -74,6 +81,13 @@ public class GachaSelectionController extends ArtistSelectionController {
         GachaController gachaController = new GachaController(gameEnvironment, source);
         gachaController.setOnGachaComplete(() -> {if(artists){showArtistCards();}else{showItemCards();}});
         viewLoader.loadInto(gachaContainer, "/fxml/components/Gatcha.fxml", gachaController);
+
+        if (!artists) {
+            Image marketBg = new Image(getClass().getResourceAsStream("/images/MarketGatchaBackground.png"));
+            bg1.setImage(marketBg);
+            bg2.setImage(marketBg);
+            bg3.setImage(marketBg);
+        }
     }
 
     private void showArtistCards() {

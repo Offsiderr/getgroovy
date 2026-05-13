@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" style="-fx-background-color: black;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.33, 0.66" prefHeight="720.0" prefWidth="1280.0">
+      <SplitPane dividerPositions="0.33, 0.66" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #11132A;">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
                <children>
-                  <ImageView fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
+                  <ImageView fx:id="bg1" fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
                      <image>
                         <Image url="@../../images/gameBackground.png" />
                      </image>
@@ -27,7 +27,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
                <children>
-                  <ImageView fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
+                  <ImageView fx:id="bg2" fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
                      <image>
                         <Image url="@../../images/gameBackground.png" />
                      </image>
@@ -51,7 +51,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="256.0">
                <children>
-                  <ImageView fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
+                  <ImageView fx:id="bg3" fitHeight="775.0" fitWidth="1134.0" pickOnBounds="false" preserveRatio="true">
                      <image>
                         <Image url="@../../images/gameBackground.png" />
                      </image>
