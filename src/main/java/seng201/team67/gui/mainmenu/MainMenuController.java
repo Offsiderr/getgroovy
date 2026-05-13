@@ -121,8 +121,8 @@ public class MainMenuController {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                bg1.setLayoutX(bg1.getLayoutX() - 0.2);
-                bg2.setLayoutX(bg2.getLayoutX() - 0.2);
+                bg1.setLayoutX(bg1.getLayoutX() - 0.4);
+                bg2.setLayoutX(bg2.getLayoutX() - 0.4);
 
                 if (bg1.getLayoutX() + bg1.getFitWidth() <= 0) {
                     bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());
