@@ -17,7 +17,7 @@
          <image>
             <Image url="@../../images/PlayerSelectBackground.png" />
          </image></ImageView>
-      <RadioButton fx:id="easyButton" layoutX="215.0" layoutY="428.0" mnemonicParsing="false" opacity="0.9" prefHeight="42.0" prefWidth="106.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, green, 5, 0.7, 0, 0);" text="Easy" textFill="#e3f2e4">
+      <RadioButton fx:id="easyButton" layoutX="215.0" layoutY="428.0" mnemonicParsing="false" opacity="0.9" prefHeight="42.0" prefWidth="106.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, green, 5, 0.7, 0, 0);" text="Easy" textFill="#00ff3c">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
@@ -31,7 +31,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </RadioButton>
-      <RadioButton fx:id="yikesButton" layoutX="214.0" layoutY="490.0" mnemonicParsing="false" opacity="0.9" prefHeight="49.0" prefWidth="164.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, orange, 8, 0.7, 0, 0);" text="A Challenge" textFill="#ffefc3" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="yikesButton" layoutX="214.0" layoutY="490.0" mnemonicParsing="false" opacity="0.9" prefHeight="49.0" prefWidth="164.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, orange, 8, 0.7, 0, 0);" text="A Challenge" textFill="#ffea00" toggleGroup="$difficultyGroup">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
@@ -41,7 +41,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </RadioButton>
-      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="215.0" layoutY="548.0" mnemonicParsing="false" opacity="0.9" prefHeight="49.0" prefWidth="301.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, red, 20, 0.7, 0, 0);" text="Heartless" textFill="WHITE" toggleGroup="$difficultyGroup">
+      <RadioButton fx:id="heartlessButton" alignment="CENTER_LEFT" layoutX="215.0" layoutY="548.0" mnemonicParsing="false" opacity="0.9" prefHeight="49.0" prefWidth="301.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(gaussian, red, 20, 0.7, 0, 0);" text="Heartless" toggleGroup="$difficultyGroup">
          <font>
             <Font name="Javanese Text" size="33.0" />
          </font>
@@ -56,7 +56,7 @@
             <Font size="49.0" />
          </font>
       </Button>
-      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="443.0" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: ff00ff;" styleClass="root">
+      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="442.0" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: TRANS;" styleClass="root">
          <font>
             <Font name="Javanese Text" size="47.0" />
          </font>

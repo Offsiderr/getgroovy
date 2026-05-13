@@ -1,5 +1,6 @@
 package seng201.team67.gui.selection;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -86,6 +87,23 @@ public class GachaSelectionController extends ArtistSelectionController {
             bg2.setImage(marketBg);
             bg3.setImage(marketBg);
         }
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                bg1.setLayoutX(bg1.getLayoutX() - 0.15);
+                bg2.setLayoutX(bg2.getLayoutX() - 0.15);
+
+                if (bg1.getLayoutX() + bg1.getFitWidth() <= 0) {
+                    bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());
+                }
+
+                if (bg2.getLayoutX() + bg2.getFitWidth() <= 0) {
+                    bg2.setLayoutX(bg1.getLayoutX() + bg1.getFitWidth());
+                }
+            }
+        };
+        timer.start();
     }
 
     private void showArtistCards() {

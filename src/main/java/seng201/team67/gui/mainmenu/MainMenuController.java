@@ -1,5 +1,6 @@
 package seng201.team67.gui.mainmenu;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.gameplay.GameStatusService;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,10 +48,11 @@ public class MainMenuController {
     @FXML private VBox artistTwo;
     @FXML private VBox artistThree;
     @FXML private AnchorPane settingsHolder;
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
 
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
-
 
     public MainMenuController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
@@ -66,7 +69,7 @@ public class MainMenuController {
 
         if (gameStatusService.isGameLost(gameEnvironment))
         {
-            Platform.runLater(() -> //we have to run it later so that we don't need an action event to init the scene
+            Platform.runLater(() ->
             {
                 try {
                     showLoseScreen();
@@ -114,6 +117,23 @@ public class MainMenuController {
                 clearArtistCard(slot);
             }
         }
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                bg1.setLayoutX(bg1.getLayoutX() - 0.2);
+                bg2.setLayoutX(bg2.getLayoutX() - 0.2);
+
+                if (bg1.getLayoutX() + bg1.getFitWidth() <= 0) {
+                    bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());
+                }
+
+                if (bg2.getLayoutX() + bg2.getFitWidth() <= 0) {
+                    bg2.setLayoutX(bg1.getLayoutX() + bg1.getFitWidth());
+                }
+            }
+        };
+        timer.start();
     }
 
     private void configureArtistPane(List<VBox> slots, int artistCount) {
@@ -136,8 +156,6 @@ public class MainMenuController {
     private void showLoseScreen() throws IOException {
         screenNavigator.navigate(labelName, "/fxml/results/LoseScreen.fxml", new LoseScreenController(gameEnvironment));
     }
-
-    //Mainmenu buttons
 
     @FXML public void startTour(ActionEvent event) throws IOException
     {
