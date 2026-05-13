@@ -106,6 +106,8 @@ public abstract class Artist implements Purchasable {
 
     public String getType(){return "Artist";}
 
+    public Integer getSkillLevel(){return skillLevel;}
+
     public String getImagePath()
     {
         return "/images/Artists/" + this.name + ".png";

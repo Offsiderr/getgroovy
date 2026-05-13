@@ -79,7 +79,7 @@ public class ArtistDetailBoxFiller {
                 createLabel("Stamina: " + artist.getStamina()),
                 createLabel("Health: " + artist.getHealth()),
                 createLabel("Hire: $" + (int) artist.getCost()),
-                createLabel("Skill: " + artist.getSkill().getName(), artist.getSkill().getDescription())
+                createLabel("Skill: " + artist.getSkill().getName() + " (Level " + artist.getSkillLevel() + ")", artist.getSkill().getDescription())
         );
 
         VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
