@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="485.0" fitWidth="785.0" pickOnBounds="true">
+            <image>
+                <Image url="@../../images/CrowdHypeBackground.png" />
+            </image>
+        </ImageView>
+
+        <ProgressBar fx:id="hypeBar" layoutX="100.0" layoutY="250.0" prefWidth="585.0" progress="0.5" />
+
+        <ImageView fx:id="crowdImage" fitHeight="250.0" fitWidth="785.0" layoutX="-2.0" layoutY="268.0" pickOnBounds="true">
+            <image>
+                <Image url="@../../images/CrowdHidden.png" />
+            </image>
+        </ImageView>
+
+        <Button fx:id="hypeButton" layoutX="290.0" layoutY="330.0" onAction="#handleHype" opacity="0.6" prefHeight="60.0" prefWidth="200.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="HYPE!" />
+
+        <Label fx:id="resultLabel" layoutX="133.0" layoutY="110.0" prefHeight="120.0" prefWidth="547.0" />
+
+        <Label layoutX="180.0" layoutY="10.0" prefHeight="120.0" prefWidth="453.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="HYPE THE CROWD" textFill="WHITE">
+            <styleClass>
+                <String fx:value="root" />
+                <String fx:value="big-label" />
+            </styleClass>
+        </Label>
+      <Label layoutX="76.0" layoutY="343.0" opacity="0.5" style="-fx-background-color: trans;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Click fast!" textFill="RED" />
+
+    </children>
+</AnchorPane>

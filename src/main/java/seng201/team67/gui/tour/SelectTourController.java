@@ -1,5 +1,6 @@
 package seng201.team67.gui.tour;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.mainmenu.MainMenuController;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
@@ -40,6 +42,8 @@ public class SelectTourController {
 
     @FXML private Pane countryTourPane;
     @FXML private Pane worldTourPane;
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
 
@@ -67,6 +71,26 @@ public class SelectTourController {
 
         checkTours(countryTourText, countryTourPane, COUNTRY);
         checkTours(worldTourText, worldTourPane, WORLD);
+
+        AnimationTimer bgTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+                double speed = 0.5;
+
+                bg1.setLayoutX(bg1.getLayoutX() - speed);
+                bg2.setLayoutX(bg2.getLayoutX() - speed);
+
+                if (bg1.getLayoutX() <= -1280) {
+                    bg1.setLayoutX(bg2.getLayoutX() + 1280);
+                }
+
+                if (bg2.getLayoutX() <= -1280) {
+                    bg2.setLayoutX(bg1.getLayoutX() + 1280);
+                }
+            }
+        };
+        bgTimer.start();
     }
 
     private void configureArtistPane(List<VBox> slots, int lineupSize) {
@@ -92,7 +116,7 @@ public class SelectTourController {
         {
             pane.setVisible(true);
             label.setText("Complete " + Integer.toString(tour.getExpeditionsUnlocked() - gameEnvironment.getTourCount()) +
-            " more tours to unlock the " + tour + " tour.");
+                    " more tours to unlock the " + tour + " tour.");
         }
         else
         {
@@ -128,4 +152,3 @@ public class SelectTourController {
     }
 
 }
-

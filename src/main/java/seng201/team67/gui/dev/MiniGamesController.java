@@ -31,6 +31,12 @@ public class MiniGamesController {
                 new MiniGameScreenController(Minigame.MICTIMING, gameEnvironment));
     }
 
+    @FXML public void crowdHype(ActionEvent event)
+    {
+        screenNavigator.navigate(event, "/fxml/devui/MiniGameScreen.fxml",
+                new MiniGameScreenController(Minigame.CROWDHYPE, gameEnvironment));
+    }
+
     @FXML public void goBack(ActionEvent event)
     {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));

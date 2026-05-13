@@ -13,6 +13,12 @@ public enum Minigame {
     MICTIMING(20, 100, 200,new MiniGameResult(30, 0),
             new MiniGameResult(10, 0),
             new MiniGameResult(-10, 0)
+    ),
+
+    CROWDHYPE(20, 100, 200,
+            new MiniGameResult(30, 0),
+            new MiniGameResult(10, 0), 
+            new MiniGameResult(-10, 0)
     );
 
 

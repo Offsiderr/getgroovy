@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
 import seng201.team67.gui.instantiable.minigames.MicTimingController;
+import seng201.team67.gui.instantiable.minigames.CrowdHypeController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.enums.Minigame;
@@ -54,6 +55,12 @@ public class MiniGameScreenController {
             case MICTIMING -> viewLoader.load(
                     minigame.path(),
                     new MicTimingController(result -> loadMiniGame())
+            );
+            case CROWDHYPE -> viewLoader.load(
+                    "/fxml/minigames/CrowdHype.fxml",
+                    new CrowdHypeController(
+                            result -> loadMiniGame()
+                    )
             );
         };
 

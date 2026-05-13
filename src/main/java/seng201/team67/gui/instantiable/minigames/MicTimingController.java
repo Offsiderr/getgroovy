@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import seng201.team67.models.minigames.MiniGameResult;
 
 import java.util.function.Consumer;
@@ -17,8 +19,17 @@ public class MicTimingController {
     @FXML private Label resultLabel;
     @FXML private Button hitButton;
 
+    @FXML private Label missLeft;
+    @FXML private Label goodLeft;
+    @FXML private Label perfect;
+    @FXML private Label goodRight;
+    @FXML private Label missRight;
+
+    @FXML private ImageView micThumb;
+
     private double direction = 1;
     private Consumer<MiniGameResult> gameResult;
+    private AnimationTimer timer;
 
     public MicTimingController(Consumer<MiniGameResult> gameResult) {
         this.gameResult = gameResult;
@@ -29,7 +40,11 @@ public class MicTimingController {
         timingSlider.setMin(0);
         timingSlider.setMax(100);
 
-        AnimationTimer timer = new AnimationTimer() {
+        micThumb.setImage(new Image(getClass().getResource("/images/GoldMic.png").toExternalForm()));
+
+        positionMarkers();
+
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 double value = timingSlider.getValue();
@@ -40,13 +55,58 @@ public class MicTimingController {
                 }
 
                 timingSlider.setValue(value);
+
+                updateMicPosition();
             }
         };
         timer.start();
     }
 
+    private void updateMicPosition() {
+        double width = timingSlider.getPrefWidth();
+        double startX = timingSlider.getLayoutX();
+        double y = timingSlider.getLayoutY();
+
+        double padding = 20;
+        double usableWidth = width - (padding * 2);
+
+        double x = startX + padding + (timingSlider.getValue() / 100.0) * usableWidth;
+
+        micThumb.setLayoutX(x - 20);
+        micThumb.setLayoutY(y - 20);
+    }
+
+    private void positionMarkers() {
+        double width = timingSlider.getPrefWidth();
+        double startX = timingSlider.getLayoutX();
+        double y = timingSlider.getLayoutY() - 20;
+
+        placeMarker(missLeft, 0, width, startX, y);
+        placeMarker(goodLeft, 35, width, startX, y);
+        placeMarker(perfect, 50, width, startX, y);
+        placeMarker(goodRight, 65, width, startX, y);
+        placeMarker(missRight, 100, width, startX, y);
+
+        missLeft.setStyle("-fx-text-fill: red; -fx-effect: dropshadow(gaussian, red, 8, 0.6, 0, 0);");
+        goodLeft.setStyle("-fx-text-fill: orange; -fx-effect: dropshadow(gaussian, orange, 8, 0.6, 0, 0);");
+        perfect.setStyle("-fx-text-fill: lime; -fx-effect: dropshadow(gaussian, lime, 10, 0.7, 0, 0);");
+        goodRight.setStyle("-fx-text-fill: orange; -fx-effect: dropshadow(gaussian, orange, 8, 0.6, 0, 0);");
+        missRight.setStyle("-fx-text-fill: red; -fx-effect: dropshadow(gaussian, red, 8, 0.6, 0, 0);");
+    }
+
+    private void placeMarker(Label label, double value, double width, double startX, double y) {
+        double padding = 20;
+        double usableWidth = width - (padding * 2);
+
+        double x = startX + padding + (value / 100.0) * usableWidth;
+
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+    }
+
     @FXML
     private void handleHit() {
+        timer.stop();
         double value = timingSlider.getValue();
         double distance = Math.abs(value - 50);
 

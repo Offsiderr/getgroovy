@@ -1,10 +1,12 @@
 package seng201.team67.gui.mainmenu;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -31,6 +33,9 @@ public class RosterController {
     @FXML private FlowPane allItemsContainer;
     @FXML private Label lineupWarning;
 
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
+
     private final List<AnchorPane> lineupSlots = new ArrayList<>();
     private final List<VBox> lineupCards = new ArrayList<>();
     private final List<VBox> poolCards = new ArrayList<>();
@@ -45,6 +50,25 @@ public class RosterController {
         refreshView();
         lineupWarning.setText("You must have between 1 and " + gameEnvironment.getLabelService().getLineupLimit() + " artist(s) in your lineup.");
         lineupWarning.setVisible(false);
+
+        AnimationTimer bgTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                double speed = 0.5;
+
+                bg1.setLayoutX(bg1.getLayoutX() - speed);
+                bg2.setLayoutX(bg2.getLayoutX() - speed);
+
+                if (bg1.getLayoutX() <= -1280) {
+                    bg1.setLayoutX(bg2.getLayoutX() + 1280);
+                }
+
+                if (bg2.getLayoutX() <= -1280) {
+                    bg2.setLayoutX(bg1.getLayoutX() + 1280);
+                }
+            }
+        };
+        bgTimer.start();
     }
 
     public void refreshView() {
@@ -182,16 +206,11 @@ public class RosterController {
 
     private VBox createCard(Artist artist) {
         VBox root = ArtistDetailBoxFiller.createArtistBox(artist, dragString -> {
-            // Find the item by name from the player's inventory
-
-            //drag string is now prefixed with whether it is the inventory or the artist slot
-            //splits it into the name
             if (!dragString.startsWith("inventory:")) {
-                return; // ignore drags from equipped slots
+                return;
             }
 
             String itemName = dragString.split(":", 2)[1];
-
 
             Item item = gameEnvironment.getLabelService().getAllItems().stream()
                     .filter(i -> i.getName().equals(itemName))
@@ -201,7 +220,7 @@ public class RosterController {
             if (item != null) {
                 boolean equipped = gameEnvironment.getLabelService().equipItem(artist, item);
                 if (equipped) {
-                    refreshView(); // rebuild all cards to reflect the change
+                    refreshView();
                 }
             }
         }, null, item -> {
@@ -235,20 +254,17 @@ public class RosterController {
         addSellButton(root, item);
         root.setUserData(item);
 
-        //Allow it to be dragged
         root.setOnDragDetected(mouseEvent -> {
             Dragboard db = root.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.putString("inventory:" + item.getName());
             db.setContent(content);
 
-            //set the drag cursor to the item's image
             var stream = getClass().getResourceAsStream(item.getImagePath());
             if (stream == null) {
                 stream = getClass().getResourceAsStream("/images/Artists/placeholder.png");
             }
             if (stream != null) {
-                //TODO: standardize sizes
                 Image dragImage = new Image(stream, 48, 48, true, true);
                 db.setDragView(dragImage, 24, 24);
             }

@@ -17,6 +17,11 @@
             <Font size="53.0" />
          </font>
       </Button>
+      <Button layoutX="392.0" layoutY="340.0" mnemonicParsing="false" onAction="#crowdHype" prefHeight="224.0" prefWidth="496.0" text="Crowd Hype">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Button>
       <Label fx:id="labelName" layoutX="540.0" layoutY="14.0" text="Mini Games">
          <font>
             <Font size="37.0" />
