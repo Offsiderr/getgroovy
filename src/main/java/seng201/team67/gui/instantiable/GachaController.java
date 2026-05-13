@@ -1,8 +1,10 @@
 package seng201.team67.gui.instantiable;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
 
 import java.util.ArrayList;
@@ -11,12 +13,17 @@ import java.util.Random;
 
 public class GachaController {
 
+    private static final double SHAKE_DISTANCE = 8.0;
+    private static final double SHAKE_DURATION_MILLIS = 45.0;
+    private static final int SHAKE_CYCLES = 4;
+
     private GameEnvironment gameEnvironment;
 
     @FXML private ImageView recordImage;
 
     private final List<Image> recordStages = new ArrayList<>();
     private final Random random = new Random();
+    private TranslateTransition shakeAnimation;
 
     private int clicksRequired;
     private int clicksSoFar;
@@ -46,6 +53,7 @@ public class GachaController {
             recordStages.add(new Image(getClass().getResourceAsStream("/images/Gatcha/Stage" + i + suffix + ".png")));
         }
         recordImage.setOnMouseClicked(e -> onRecordClicked());
+        shakeAnimation = createShakeAnimation();
         resetRecord();
     }
 
@@ -70,6 +78,7 @@ public class GachaController {
     }
 
     private void onRecordClicked() {
+        playShakeAnimation();
         clicksSoFar++;
 
         int stageIndex = (int) Math.floor((double) clicksSoFar / clicksRequired * (recordStages.size() - 1));
@@ -80,5 +89,21 @@ public class GachaController {
             System.out.println("gatcha opened");
             finishGacha();
         }
+    }
+
+    private TranslateTransition createShakeAnimation() {
+        TranslateTransition animation = new TranslateTransition(Duration.millis(SHAKE_DURATION_MILLIS), recordImage);
+        animation.setFromX(-SHAKE_DISTANCE);
+        animation.setByX(SHAKE_DISTANCE * 2);
+        animation.setCycleCount(SHAKE_CYCLES);
+        animation.setAutoReverse(true);
+        animation.setOnFinished(event -> recordImage.setTranslateX(0));
+        return animation;
+    }
+
+    private void playShakeAnimation() {
+        shakeAnimation.stop();
+        recordImage.setTranslateX(0);
+        shakeAnimation.playFromStart();
     }
 }

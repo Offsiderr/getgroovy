@@ -52,9 +52,6 @@
             <Font name="Javanese Text" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="370.0" layoutY="261.0" mnemonicParsing="false" onAction="#buyStandard" opacity="0.0" prefHeight="170.0" prefWidth="180.0" />
-      <Button layoutX="585.0" layoutY="280.0" mnemonicParsing="false" onAction="#buyGolden" opacity="0.0" prefHeight="160.0" prefWidth="180.0" />
-      <Button layoutX="807.0" layoutY="275.0" mnemonicParsing="false" onAction="#buyPlatinum" opacity="0.0" prefHeight="160.0" prefWidth="155.0" />
       <Label layoutX="387.0" layoutY="225.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Bootleg Drop" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Javanese Text" size="23.0" />
@@ -132,5 +129,8 @@
             <Image url="@../../images/Bootleg%20Item.png" />
          </image>
       </ImageView>
+      <Button layoutX="590.0" layoutY="268.0" mnemonicParsing="false" onAction="#buyGolden" opacity="0.0" prefHeight="172.0" prefWidth="175.0" />
+      <Button layoutX="807.0" layoutY="275.0" mnemonicParsing="false" onAction="#buyPlatinum" opacity="0.0" prefHeight="160.0" prefWidth="155.0" />
+      <Button layoutX="370.0" layoutY="261.0" mnemonicParsing="false" onAction="#buyStandard" opacity="0.0" prefHeight="170.0" prefWidth="180.0" />
    </children>
 </AnchorPane>
