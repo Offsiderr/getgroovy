@@ -41,3 +41,25 @@
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
 }
+
+.spinner {
+    -fx-background-color: transparent;
+}
+
+.spinner .text-field {
+    -fx-background-color: rgba(0,0,0,0.7);
+    -fx-text-fill: white;
+    -fx-border-color: #ff00ff;
+    -fx-border-width: 2;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: rgba(0,0,0,0.7);
+    -fx-border-color: #ff00ff;
+}
+
+.spinner .increment-arrow,
+.spinner .decrement-arrow {
+    -fx-background-color: #ff00ff;
+}
