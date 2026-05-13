@@ -17,15 +17,22 @@ public enum Minigame {
 
     CROWDHYPE(20, 100, 200,
             new MiniGameResult(30, 0),
-            new MiniGameResult(10, 0), 
+            new MiniGameResult(10, 0),
+            new MiniGameResult(-10, 0)
+    ),
+
+    CROWDWAVE(20, 100, 200,
+            new MiniGameResult(30, 0),
+            new MiniGameResult(10, 0),
             new MiniGameResult(-10, 0)
     );
 
 
 
-    //Paths
     private final String soundEngineerPath = "/fxml/minigames/SoundMixer.fxml";
     private final String micTimingPath = "/fxml/minigames/MicTiming.fxml";
+    private final String crowdHypePath = "/fxml/minigames/CrowdHype.fxml";
+    private final String crowdWavePath = "/fxml/minigames/CrowdWave.fxml";
 
 
     private final int minCrowdmeterPercentage;
@@ -60,6 +67,10 @@ public enum Minigame {
                 return soundEngineerPath;
             case MICTIMING:
                 return micTimingPath;
+            case CROWDHYPE:
+                return crowdHypePath;
+            case CROWDWAVE:
+                return crowdWavePath;
             default:
                 return null;
         }

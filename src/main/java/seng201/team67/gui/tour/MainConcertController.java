@@ -1,5 +1,6 @@
 package seng201.team67.gui.tour;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -53,8 +54,12 @@ public class MainConcertController {
     @FXML private VBox artistCardTwo;
     @FXML private VBox artistCardThree;
 
-    @FXML private AnchorPane eventBox;//we load the questions in here
+    @FXML private AnchorPane eventBox;
 
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
+
+    private double bgSpeed = 0.5;
 
     public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
     {
@@ -64,6 +69,7 @@ public class MainConcertController {
 
     @FXML public void initialize() throws IOException {
 
+        startBackgroundAnimation();
 
         loadLineup();
         concertService = new ConcertService(gameEnvironment, tourService);
@@ -71,6 +77,26 @@ public class MainConcertController {
         populateQuestion();
         refreshView();
 
+    }
+
+    private void startBackgroundAnimation() {
+        AnimationTimer bgTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+                bg1.setLayoutX(bg1.getLayoutX() - bgSpeed);
+                bg2.setLayoutX(bg2.getLayoutX() - bgSpeed);
+
+                if (bg1.getLayoutX() <= -bg1.getFitWidth()) {
+                    bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());
+                }
+
+                if (bg2.getLayoutX() <= -bg2.getFitWidth()) {
+                    bg2.setLayoutX(bg1.getLayoutX() + bg1.getFitWidth());
+                }
+            }
+        };
+        bgTimer.start();
     }
 
     private void makeSilhouette(ImageView imageView) {
@@ -170,8 +196,6 @@ public class MainConcertController {
         moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
 
-        //refresh UI components
-        //crowd meter. is there a more efficent way of doing this?
         crowdMeter.setBlockIncrement(concertService.getCrowdEnergyChange());
         crowdMeter.increment();
 
@@ -212,7 +236,6 @@ public class MainConcertController {
             throw  new RuntimeException("Next question couldn't load", e);
         }
     }
-
 
     private void handleConcertEnd() throws IOException
     {

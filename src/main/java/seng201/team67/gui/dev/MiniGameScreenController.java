@@ -8,6 +8,7 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
 import seng201.team67.gui.instantiable.minigames.MicTimingController;
 import seng201.team67.gui.instantiable.minigames.CrowdHypeController;
+import seng201.team67.gui.instantiable.minigames.CrowdWaveController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.enums.Minigame;
@@ -59,6 +60,12 @@ public class MiniGameScreenController {
             case CROWDHYPE -> viewLoader.load(
                     "/fxml/minigames/CrowdHype.fxml",
                     new CrowdHypeController(
+                            result -> loadMiniGame()
+                    )
+            );
+            case CROWDWAVE -> viewLoader.load(
+                    "/fxml/minigames/CrowdWave.fxml",
+                    new CrowdWaveController(
                             result -> loadMiniGame()
                     )
             );

@@ -11,12 +11,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="2.0" pickOnBounds="true">
+      <ImageView fx:id="bg1" fitHeight="720.0" fitWidth="1280.0" layoutY="2.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/gameBackground.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
+      <ImageView fx:id="bg2" fitHeight="720.0" fitWidth="1280.0" layoutX="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/gameBackground2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" style="-fx-background-color: trans;" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
          <font>
             <Font size="37.0" />
          </font>
@@ -37,9 +42,9 @@
       </Label>
       <VBox layoutY="118.0" prefHeight="485.0" prefWidth="320.0" spacing="12.0">
          <children>
-            <VBox fx:id="artistCardOne" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistCardTwo" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-            <VBox fx:id="artistCardThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistCardOne" alignment="CENTER" opacity="0.7" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistCardTwo" alignment="CENTER" opacity="0.7" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
+            <VBox fx:id="artistCardThree" alignment="CENTER" opacity="0.7" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
          </children>
       </VBox>
       <Label fx:id="moneyText" layoutX="292.0" layoutY="28.0" text="\$1000" textAlignment="RIGHT">
@@ -47,7 +52,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="224.0" layoutY="28.0" stylesheets="@../../Styles/Style.css" text="credits">
+      <Label layoutX="224.0" layoutY="28.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="credits">
          <font>
             <Font size="17.0" />
          </font>
@@ -61,7 +66,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="341.0" layoutY="28.0" stylesheets="@../../Styles/Style.css" text="expeditions:">
+      <Label layoutX="341.0" layoutY="28.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="expeditions:">
          <font>
             <Font size="17.0" />
          </font>

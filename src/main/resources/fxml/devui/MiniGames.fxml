@@ -12,24 +12,34 @@
             <Font size="53.0" />
          </font>
       </Button>
+
       <Button layoutX="653.0" layoutY="106.0" mnemonicParsing="false" onAction="#micTiming" prefHeight="224.0" prefWidth="496.0" text="Mic Timing">
          <font>
             <Font size="53.0" />
          </font>
       </Button>
-      <Button layoutX="392.0" layoutY="340.0" mnemonicParsing="false" onAction="#crowdHype" prefHeight="224.0" prefWidth="496.0" text="Crowd Hype">
+
+      <Button layoutX="392.0" layoutY="340.0" mnemonicParsing="false" onAction="#crowdHype" prefHeight="180.0" prefWidth="496.0" text="Crowd Hype">
          <font>
-            <Font size="53.0" />
+            <Font size="45.0" />
          </font>
       </Button>
+
+      <Button layoutX="392.0" layoutY="540.0" mnemonicParsing="false" onAction="#crowdWave" prefHeight="120.0" prefWidth="496.0" text="Crowd Wave">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Button>
+
       <Label fx:id="labelName" layoutX="540.0" layoutY="14.0" text="Mini Games">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="goOnTour1" layoutX="407.0" layoutY="564.0" mnemonicParsing="false" onAction="#goBack" prefHeight="111.0" prefWidth="496.0" text="Go Back">
+
+      <Button fx:id="goOnTour1" layoutX="392.0" layoutY="660.0" mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="496.0" text="Go Back">
          <font>
-            <Font size="53.0" />
+            <Font size="28.0" />
          </font>
       </Button>
    </children>

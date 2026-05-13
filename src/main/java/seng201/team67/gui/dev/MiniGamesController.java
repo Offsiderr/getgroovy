@@ -7,7 +7,6 @@ import seng201.team67.gui.mainmenu.MainMenuController;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.enums.Minigame;
 
-
 public class MiniGamesController {
 
     private final GameEnvironment gameEnvironment;
@@ -17,7 +16,6 @@ public class MiniGamesController {
     {
         this.gameEnvironment = gameEnvironment;
     }
-
 
     @FXML public void soundEngineer(ActionEvent event)
     {
@@ -35,6 +33,12 @@ public class MiniGamesController {
     {
         screenNavigator.navigate(event, "/fxml/devui/MiniGameScreen.fxml",
                 new MiniGameScreenController(Minigame.CROWDHYPE, gameEnvironment));
+    }
+
+    @FXML public void crowdWave(ActionEvent event)
+    {
+        screenNavigator.navigate(event, "/fxml/devui/MiniGameScreen.fxml",
+                new MiniGameScreenController(Minigame.CROWDWAVE, gameEnvironment));
     }
 
     @FXML public void goBack(ActionEvent event)
