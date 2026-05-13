@@ -86,12 +86,12 @@
                </children></VBox>
          </items>
       </SplitPane>
-      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
+      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" style="-fx-background-color: TRANS;" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Label fx:id="gameDifficulty" layoutX="14.0" layoutY="62.0" stylesheets="@../../Styles/Style.css" text="test difficulty">
+      <Label fx:id="gameDifficulty" layoutX="14.0" layoutY="62.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="test difficulty">
          <font>
             <Font size="17.0" />
          </font>
@@ -120,7 +120,7 @@
       </Button>
       <AnchorPane fx:id="settingsHolder" disable="true" layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" stylesheets="@../../Styles/Style.css">
          <children>
-            <Label fx:id="gameTours" layoutX="165.0" layoutY="75.0" stylesheets="@../../Styles/Style.css" text="1outof3tours">
+            <Label fx:id="gameTours" layoutX="165.0" layoutY="75.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="1outof3tours">
                <font>
                   <Font size="17.0" />
                </font>
@@ -129,12 +129,12 @@
                   <String fx:value="small-label" />
                </styleClass>
             </Label>
-            <Label fx:id="moneyText" layoutX="1198.0" layoutY="61.0" text="\$1000" textAlignment="RIGHT">
+            <Label fx:id="moneyText" layoutX="1174.0" layoutY="61.0" text="\$1000" textAlignment="RIGHT">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Label layoutX="1164.0" layoutY="14.0" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
+            <Label layoutX="1164.0" layoutY="14.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
                <font>
                   <Font size="17.0" />
                </font>
@@ -148,7 +148,7 @@
                   <Font size="37.0" />
                </font>
             </Label>
-            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" stylesheets="@../../Styles/Style.css" text="Score:">
+            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Score:">
                <font>
                   <Font size="21.0" />
                </font>

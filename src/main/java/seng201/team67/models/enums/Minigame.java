@@ -8,10 +8,18 @@ public enum Minigame {
             new MiniGameResult(30, 0),
             new MiniGameResult(10, 0),
             new MiniGameResult(-15, 0)
-            );
+    ),
+
+    MICTIMING(20, 100, 200,new MiniGameResult(30, 0),
+            new MiniGameResult(10, 0),
+            new MiniGameResult(-10, 0)
+    );
+
+
 
     //Paths
     private final String soundEngineerPath = "/fxml/minigames/SoundMixer.fxml";
+    private final String micTimingPath = "/fxml/minigames/MicTiming.fxml";
 
 
     private final int minCrowdmeterPercentage;
@@ -44,6 +52,8 @@ public enum Minigame {
         {
             case SOUNDENGINEER:
                 return soundEngineerPath;
+            case MICTIMING:
+                return micTimingPath;
             default:
                 return null;
         }

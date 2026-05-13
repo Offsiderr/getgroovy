@@ -25,6 +25,12 @@ public class MiniGamesController {
                 new MiniGameScreenController(Minigame.SOUNDENGINEER, gameEnvironment));
     }
 
+    @FXML public void micTiming(ActionEvent event)
+    {
+        screenNavigator.navigate(event, "/fxml/devui/MiniGameScreen.fxml",
+                new MiniGameScreenController(Minigame.MICTIMING, gameEnvironment));
+    }
+
     @FXML public void goBack(ActionEvent event)
     {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
