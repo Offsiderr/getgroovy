@@ -56,11 +56,11 @@
             <Font size="49.0" />
          </font>
       </Button>
-      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="443.0" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: ff00ff;;" styleClass="root">
+      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="443.0" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: ff00ff;" styleClass="root">
          <font>
             <Font name="Javanese Text" size="47.0" />
          </font>
       </TextField>
-      <Spinner fx:id="expeditionCountSpinner" layoutX="845.0" layoutY="442.0" prefHeight="98.0" prefWidth="220.0" style="-fx-background-color: #E00F11;" styleClass="root" />
+      <Spinner fx:id="expeditionCountSpinner" layoutX="845.0" layoutY="442.0" prefHeight="98.0" prefWidth="220.0" style="-fx-background-color: trans;" styleClass="root" />
    </children>
 </AnchorPane>
