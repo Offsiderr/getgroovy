@@ -28,7 +28,7 @@
             <Image url="@../../images/gameBackground.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="18.0" opacity="0.4" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Select One:" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="484.0" layoutY="9.0" opacity="0.4" style="-fx-background-color: trans; -fx-effect: dropshadow(gaussian, white, 40, 0.5, 0, 0);" stylesheets="@../../Styles/Style.css" text="Select One:" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
@@ -44,7 +44,7 @@
             <VBox fx:id="itemThree" alignment="CENTER" fillWidth="false" prefHeight="250.0" prefWidth="315.0" />
          </children>
       </HBox>
-      <Button fx:id="selectArtists" disable="true" layoutX="540.0" layoutY="626.0" mnemonicParsing="false" onAction="#artistsSelected" styleClass="root" stylesheets="@../../Styles/Style.css" text="Select Artists" textAlignment="CENTER">
+      <Button fx:id="selectArtists" disable="true" layoutX="477.0" layoutY="626.0" mnemonicParsing="false" onAction="#artistsSelected" styleClass="root" stylesheets="@../../Styles/Style.css" text="Select Artists" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>

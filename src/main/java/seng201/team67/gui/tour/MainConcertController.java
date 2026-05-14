@@ -41,8 +41,7 @@ public class MainConcertController {
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
 
-    @FXML
-    private Label labelName;
+    @FXML private Label labelName;
     @FXML private Label moneyText;
     @FXML private Label expeditionCount;
     @FXML private Label payText;
@@ -69,6 +68,8 @@ public class MainConcertController {
 
     @FXML public void initialize() throws IOException {
 
+        setTourBackground();
+
         startBackgroundAnimation();
 
         loadLineup();
@@ -76,7 +77,16 @@ public class MainConcertController {
 
         populateQuestion();
         refreshView();
+    }
 
+    private void setTourBackground() {
+
+        String imagePath = "/images/gameBackground.png";
+
+        bgSpeed = 0.5;
+
+        bg1.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+        bg2.setImage(new Image(getClass().getResourceAsStream(imagePath)));
     }
 
     private void startBackgroundAnimation() {
@@ -159,7 +169,7 @@ public class MainConcertController {
             return;
         }
 
-        QuestionController questionController = new QuestionController(question, this::handleAnswer);
+        QuestionController questionController = new QuestionController(question, this::handleAnswer, tourService);
         viewLoader.loadInto(eventBox, "/fxml/events/QuestionEvent.fxml", questionController);
 
         AnchorPane questionPane = (AnchorPane) eventBox.getChildren().get(0);
@@ -171,7 +181,17 @@ public class MainConcertController {
             artistView.setPreserveRatio(true);
             makeSilhouette(artistView);
             artistView.setLayoutX(170 + i * 150);
-            artistView.setLayoutY(180);
+
+            double yOffset = 180;
+            if (tourService.getTourType() == seng201.team67.models.enums.TourType.COUNTRY) {
+                yOffset = 230;
+            }
+            if (tourService.getTourType() == seng201.team67.models.enums.TourType.WORLD) {
+                yOffset = 260;
+            }
+
+            artistView.setLayoutY(yOffset);
+
             questionPane.getChildren().add(1, artistView);
         }
     }
@@ -253,5 +273,4 @@ public class MainConcertController {
 
         screenNavigator.navigate(eventBox, "/fxml/results/ConcertResults.fxml", new ResultsController(gameEnvironment, concertService));
     }
-
 }

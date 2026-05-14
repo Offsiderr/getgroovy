@@ -56,7 +56,7 @@
             <Font size="49.0" />
          </font>
       </Button>
-      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="442.0" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: TRANS;" styleClass="root">
+      <TextField fx:id="labelNameField" alignment="CENTER" layoutX="525.0" layoutY="442.0" opacity="0.8" prefHeight="84.0" prefWidth="285.0" promptText="Label Name" style="-fx-background-color: TRANS;" styleClass="root">
          <font>
             <Font name="Javanese Text" size="47.0" />
          </font>
