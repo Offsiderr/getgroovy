@@ -37,7 +37,7 @@
       <Label fx:id="labelName" layoutX="14.0" layoutY="32.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
          <font><Font size="37.0" /></font>
       </Label>
-      <Label fx:id="gameDifficulty" layoutX="519.0" layoutY="32.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="The Studio" textAlignment="CENTER">
+      <Label fx:id="gameDifficulty" layoutX="537.0" layoutY="23.0" prefHeight="63.0" prefWidth="194.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="The Studio" textAlignment="CENTER">
          <font><Font name="Javanese Text" size="36.0" /></font>
       </Label>
       <Label fx:id="moneyText" layoutX="1084.0" layoutY="79.0" style="-fx-effect: dropshadow(three-pass-box, green, 15, 0.9, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="#05ff1e">
@@ -46,18 +46,18 @@
       <Label layoutX="1072.0" layoutY="30.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
          <font><Font size="17.0" /></font>
       </Label>
-      <Label layoutX="270.0" layoutY="92.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Try your luck by buying a record company:" textAlignment="CENTER">
+      <Label layoutX="288.0" layoutY="103.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Try your luck by buying a record company!" textAlignment="CENTER">
          <font><Font name="Javanese Text" size="23.0" /></font>
          <styleClass>
             <String fx:value="root" />
-            <String fx:value="small-label" />
+            <String fx:value="tiny-label" />
          </styleClass>
       </Label>
       <Button layoutX="254.0" layoutY="119.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="185.0" prefWidth="171.0" style="-fx-background-color: transparent;" />
       <Button layoutX="539.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyGolden" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
       <Button layoutX="817.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyPlatinum" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
 
-      <Label layoutX="278.0" layoutY="305.0" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Standard Record" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="278.0" layoutY="305.0" style="-fx-effect: dropshadow(three-pass-box, white, 5, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Standard Record" textAlignment="CENTER">
          <font><Font size="23.0" /></font>
          <styleClass>
             <String fx:value="root" />
@@ -81,10 +81,10 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="599.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER">
+      <Label layoutX="599.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
-      <Label layoutX="879.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="#a49e9e">
+      <Label layoutX="879.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
       <Label layoutX="152.0" layoutY="376.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Hire an Artist:" textFill="WHITE">

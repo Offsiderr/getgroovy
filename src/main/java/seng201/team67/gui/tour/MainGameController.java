@@ -1,5 +1,6 @@
 package seng201.team67.gui.tour;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,8 +27,6 @@ import java.util.List;
 
 public class MainGameController {
 
-    //TODO: implement different maps
-
     private GameEnvironment gameEnvironment;
     private TourService tourService;
     private SoundEffectsService sfx;
@@ -53,9 +52,14 @@ public class MainGameController {
 
     @FXML private AnchorPane mapAnchorPane;
     @FXML private AnchorPane cancelTourPane;
+
+    @FXML private javafx.scene.image.ImageView bg1;
+    @FXML private javafx.scene.image.ImageView bg2;
+
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
 
+    private double scroll = 0;
 
     public MainGameController(GameEnvironment gameEnvironment, TourService tourService)
     {
@@ -86,6 +90,24 @@ public class MainGameController {
         refreshTourActionButtons();
 
         tourProgressBar.setProgress((double) tourService.getStopIndex() / tourService.getTourType().getStops());
+
+        startBackgroundAnimation();
+    }
+
+    private void startBackgroundAnimation() {
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                scroll += 0.3;
+                bg1.setTranslateX(-scroll);
+                bg2.setTranslateX(-scroll + bg1.getFitWidth());
+
+                if (scroll >= bg1.getFitWidth()) {
+                    scroll = 0;
+                }
+            }
+        };
+        timer.start();
     }
 
     private void refreshTourActionButtons()
@@ -136,9 +158,7 @@ public class MainGameController {
     }
 
     private void loadMap(TourType type) throws IOException {
-        //TODO: make the world tour controller a class variable instead of local.
         String path = "";
-        //TODO: something weird is up with this switch statement. investigate.
         switch (type)
         {
             case LOCAL:
@@ -168,7 +188,6 @@ public class MainGameController {
         for (int i = 0; i < tourService.getStopIndex(); i++) {
             mapController.markStopCompleted(i);
         }
-
     }
 
     public void endTourEarly()
@@ -178,8 +197,6 @@ public class MainGameController {
 
     @FXML public void startConcert(ActionEvent event) throws IOException
     {
-        //sfx.playYes(); TODO: wire this up.
-
         if(tourService.isTourComplete())
         {
             finishTour(event);
@@ -191,7 +208,6 @@ public class MainGameController {
 
     private boolean concertFinished()
     {
-        //Returns false if the tour is finished
         return true;
     }
 
@@ -214,24 +230,23 @@ public class MainGameController {
     {
     }
 
+    @FXML private void finishTour(ActionEvent event) throws IOException {
+        if (cancelTourPane.isVisible() && !tourService.isTourComplete()) {
+            tourService.addCreditsEarned((double) -gameEnvironment.getConfig().cancelTourPenalty);
+        }
 
-     @FXML private void finishTour(ActionEvent event) throws IOException {
-         if (cancelTourPane.isVisible() && !tourService.isTourComplete()) {
-             tourService.addCreditsEarned((double) -gameEnvironment.getConfig().cancelTourPenalty);
-         }
-
-         tourService.tourEnded();
-         gameEnvironment.setArtistPoolGenerated(false);
-         if (tourService.isEndedByExhaustion())
-         {
-             screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                     new TourResultsController(gameEnvironment, tourService, true));
-         }
-         else
-         {
-             screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                     new TourResultsController(gameEnvironment, tourService, false));
-         }
+        tourService.tourEnded();
+        gameEnvironment.setArtistPoolGenerated(false);
+        if (tourService.isEndedByExhaustion())
+        {
+            screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
+                    new TourResultsController(gameEnvironment, tourService, true));
+        }
+        else
+        {
+            screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
+                    new TourResultsController(gameEnvironment, tourService, false));
+        }
     }
 
     @FXML private void closePane(ActionEvent event) throws IOException

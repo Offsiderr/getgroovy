@@ -31,7 +31,7 @@
             <VBox fx:id="artistFive" alignment="CENTER" fillWidth="false" prefHeight="250.0" prefWidth="315.0" />
          </children>
       </FlowPane>
-      <Button fx:id="selectArtists" disable="true" layoutX="499.0" layoutY="616.0" mnemonicParsing="false" onAction="#artistsSelected" stylesheets="@../../Styles/Style.css" text="Select Artists" textAlignment="CENTER">
+      <Button fx:id="selectArtists" disable="true" layoutX="506.0" layoutY="616.0" mnemonicParsing="false" onAction="#artistsSelected" stylesheets="@../../Styles/Style.css" text="Select Artists" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>

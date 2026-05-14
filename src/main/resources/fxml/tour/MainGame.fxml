@@ -12,7 +12,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
+      <ImageView fx:id="bg1" fitHeight="721.0" fitWidth="1283.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/gameBackground.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bg2" fitHeight="721.0" fitWidth="1283.0" layoutX="1283.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/gameBackground2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelName" layoutX="14.0" layoutY="14.0" style="-fx-background-color: trans;" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name">
          <font>
             <Font size="37.0" />
          </font>
@@ -47,12 +57,12 @@
             <VBox fx:id="artistCardThree" alignment="CENTER" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
          </children>
       </VBox>
-      <Label fx:id="moneyText" layoutX="283.0" layoutY="28.0" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="moneyText" layoutX="283.0" layoutY="28.0" style="-fx-background-color: trans;" text="\$1000" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="224.0" layoutY="28.0" stylesheets="@../../Styles/Style.css" text="credits">
+      <Label layoutX="224.0" layoutY="28.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="credits">
          <font>
             <Font size="17.0" />
          </font>
@@ -66,7 +76,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="341.0" layoutY="28.0" stylesheets="@../../Styles/Style.css" text="expeditions:">
+      <Label layoutX="341.0" layoutY="28.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="expeditions:">
          <font>
             <Font size="17.0" />
          </font>
@@ -75,8 +85,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <ProgressBar fx:id="tourProgressBar" layoutX="162.0" layoutY="673.0" prefHeight="18.0" prefWidth="874.0" progress="0.0" />
-      <Label layoutX="30.0" layoutY="669.0" stylesheets="@../../Styles/Style.css" text="Tour Progress" textAlignment="RIGHT">
+      <Label layoutX="30.0" layoutY="669.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Tour Progress" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
@@ -95,7 +104,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Button>
-      <Label fx:id="staminaText" layoutX="951.0" layoutY="22.0" stylesheets="@../../Styles/Style.css" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="staminaText" layoutX="951.0" layoutY="22.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="\$1000" textAlignment="RIGHT">
          <font>
             <Font size="37.0" />
          </font>
@@ -156,6 +165,7 @@
                   <String fx:value="small-label" />
                </styleClass>
             </Button>
+            <ProgressBar fx:id="tourProgressBar" layoutX="185.0" layoutY="681.0" prefHeight="18.0" prefWidth="874.0" progress="0.0" />
          </children>
       </AnchorPane>
    </children>
