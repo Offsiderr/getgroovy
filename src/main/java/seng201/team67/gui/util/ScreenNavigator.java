@@ -1,5 +1,7 @@
 package seng201.team67.gui.util;
 
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +14,6 @@ import java.net.URL;
 import java.util.Objects;
 
 public class ScreenNavigator {
-    //Refactored to use the screen navigator to switch screens
 
     public void navigate(ActionEvent event, String fxmlPath, Object controller)
     {
@@ -52,8 +53,32 @@ public class ScreenNavigator {
                 throw new IllegalStateException("Unable to determine which stage to navigate on.");
             }
 
-            targetStage.setScene(new Scene(root));
-            targetStage.show();
+            boolean isTitleScreen = targetStage.getScene() != null &&
+                    targetStage.getScene().getRoot().getId() != null &&
+                    targetStage.getScene().getRoot().getId().equals("titleRoot");
+
+            if (isTitleScreen) {
+                final Stage finalStage = targetStage;
+
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), finalStage.getScene().getRoot());
+                fadeOut.setFromValue(1.0);
+                fadeOut.setToValue(0.0);
+
+                fadeOut.setOnFinished(e -> {
+                    finalStage.setScene(new Scene(root));
+
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(300), root);
+                    fadeIn.setFromValue(0.0);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.play();
+                });
+
+                fadeOut.play();
+            } else {
+                targetStage.setScene(new Scene(root));
+                targetStage.show();
+            }
+
         } catch (IOException e) {
             throw new RuntimeException("Failed to load FXML: " + fxmlPath, e);
         }
