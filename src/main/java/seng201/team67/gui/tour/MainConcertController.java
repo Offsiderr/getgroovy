@@ -1,6 +1,7 @@
 package seng201.team67.gui.tour;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -48,6 +49,7 @@ public class MainConcertController {
     @FXML private Label staminaText;
 
     @FXML private Slider crowdMeter;
+    @FXML private ImageView micThumb;
 
     @FXML private VBox artistCardOne;
     @FXML private VBox artistCardTwo;
@@ -75,8 +77,27 @@ public class MainConcertController {
         loadLineup();
         concertService = new ConcertService(gameEnvironment, tourService);
 
+        crowdMeter.valueProperty().addListener((obs, oldVal, newVal) -> updateMicPosition());
+
         populateQuestion();
         refreshView();
+
+        Platform.runLater(() -> updateMicPosition());
+    }
+
+    private void updateMicPosition() {
+        double min = crowdMeter.getMin();
+        double max = crowdMeter.getMax();
+        double value = crowdMeter.getValue();
+
+        double percent = (value - min) / (max - min);
+
+        double sliderHeight = crowdMeter.getHeight();
+
+        double y = (1 - percent) * sliderHeight;
+
+        micThumb.setLayoutY(crowdMeter.getLayoutY() + y - micThumb.getFitHeight() / 2);
+        micThumb.setLayoutX(1158 + 16 - (micThumb.getFitWidth() / 2));
     }
 
     private void setTourBackground() {
@@ -216,10 +237,11 @@ public class MainConcertController {
         moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
 
-        crowdMeter.setBlockIncrement(concertService.getCrowdEnergyChange());
-        crowdMeter.increment();
+        crowdMeter.setValue(concertService.getCrowdEnergyChange());
 
         payText.setText(Double.toString(concertService.getIncome()));
+
+        updateMicPosition();
     }
 
     private void handleAnswer(Answer answer) {
