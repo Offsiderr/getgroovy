@@ -26,7 +26,7 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Label fx:id="payText" layoutX="1160.0" layoutY="14.0" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="payText" layoutX="1160.0" layoutY="14.0" text="\$1000" textAlignment="RIGHT" textFill="#00a80e">
          <font>
             <Font size="37.0" />
          </font>
@@ -47,7 +47,7 @@
             <VBox fx:id="artistCardThree" alignment="CENTER" opacity="0.7" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
          </children>
       </VBox>
-      <Label fx:id="moneyText" layoutX="292.0" layoutY="28.0" text="\$1000" textAlignment="RIGHT">
+      <Label fx:id="moneyText" layoutX="302.0" layoutY="28.0" prefHeight="26.0" prefWidth="49.0" text="\$1000" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
@@ -61,12 +61,12 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label fx:id="expeditionCount" layoutX="450.0" layoutY="28.0" text="1/5" textAlignment="RIGHT">
+      <Label fx:id="expeditionCount" layoutX="673.0" layoutY="30.0" text="1/5" textAlignment="RIGHT">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="341.0" layoutY="28.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="expeditions:">
+      <Label layoutX="558.0" layoutY="30.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="expeditions:">
          <font>
             <Font size="17.0" />
          </font>
