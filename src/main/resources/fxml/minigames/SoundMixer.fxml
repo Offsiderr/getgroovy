@@ -49,10 +49,14 @@
          </styleClass>
       </Label>
       <Pane fx:id="resultsPane" layoutX="191.0" layoutY="143.0" prefHeight="191.0" prefWidth="433.0" />
-      <Label fx:id="resultsText" layoutX="71.0" layoutY="120.0" style="-fx-background-color: TRANS;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" textFill="WHITE" wrapText="true">
+      <Label fx:id="resultsText" layoutX="234.0" layoutY="131.0" prefHeight="25.0" prefWidth="337.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" textAlignment="CENTER" textFill="#f2ff00" wrapText="true">
          <font>
             <Font size="19.0" />
          </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
       </Label>
    </children>
 </AnchorPane>
