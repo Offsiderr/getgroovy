@@ -21,7 +21,7 @@
             </image>
         </ImageView>
 
-        <Button fx:id="hypeButton" layoutX="290.0" layoutY="330.0" onAction="#handleHype" opacity="0.6" prefHeight="60.0" prefWidth="200.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="HYPE!" />
+        <Button fx:id="hypeButton" layoutX="290.0" layoutY="330.0" onAction="#handleHype" opacity="0.6" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #2B0675;" styleClass="root" stylesheets="@../../Styles/Style.css" text="HYPE!" textFill="WHITE" />
 
         <Label fx:id="resultLabel" layoutX="133.0" layoutY="110.0" prefHeight="120.0" prefWidth="547.0" />
 
@@ -32,6 +32,13 @@
             </styleClass>
         </Label>
       <Label layoutX="76.0" layoutY="343.0" opacity="0.5" style="-fx-background-color: trans;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Click fast!" textFill="RED" />
+      <Button fx:id="hypeButton" layoutX="349.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleHype" style="-fx-background-color: #2B0675;" stylesheets="@../../Styles/Style.css" text="Button" textFill="WHITE">
+         <styleClass>
+            <String fx:value="button" />
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Button>
 
     </children>
 </AnchorPane>

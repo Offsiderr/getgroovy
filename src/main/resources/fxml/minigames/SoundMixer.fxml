@@ -48,23 +48,11 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Pane fx:id="resultsPane" layoutX="191.0" layoutY="143.0" prefHeight="191.0" prefWidth="433.0">
-         <children>
-            <ImageView fitHeight="191.0" fitWidth="433.0" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../../images/Color-white.jpg" />
-               </image>
-            </ImageView>
-            <Label fx:id="resultsText" layoutX="48.0" layoutY="83.0" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" wrapText="true">
-               <font>
-                  <Font size="19.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="small-label" />
-               </styleClass>
-            </Label>
-         </children>
-      </Pane>
+      <Pane fx:id="resultsPane" layoutX="191.0" layoutY="143.0" prefHeight="191.0" prefWidth="433.0" />
+      <Label fx:id="resultsText" layoutX="71.0" layoutY="120.0" style="-fx-background-color: TRANS;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Fix the sound engineer's poor mixing!" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

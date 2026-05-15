@@ -21,16 +21,18 @@ public class CrowdHypeController {
     @FXML private ImageView crowdImage;
 
     private double hype = 0.5;
-    private Consumer<MiniGameResult> gameResult;
+    private Consumer<MiniGameResult> onComplete;
     private AnimationTimer timer;
     private boolean gameEnded = false;
 
-    public CrowdHypeController(Consumer<MiniGameResult> gameResult) {
-        this.gameResult = gameResult;
+    public CrowdHypeController(Consumer<MiniGameResult> onComplete) {
+        this.onComplete = onComplete;
     }
 
     @FXML
     public void initialize() {
+
+        hypeButton.setVisible(false);
 
         ScaleTransition pulse = new ScaleTransition(Duration.seconds(0.6), hypeBar);
         pulse.setFromX(1);
@@ -97,9 +99,10 @@ public class CrowdHypeController {
 
         MiniGameResult result = new MiniGameResult(30, 0);
 
-        hypeButton.setDisable(true);
+        hypeButton.setDisable(false);
         hypeButton.setText("Continue");
-        hypeButton.setOnAction(e -> gameResult.accept(result));
+        hypeButton.setVisible(true);
+        hypeButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void endGameLose() {
@@ -112,9 +115,10 @@ public class CrowdHypeController {
 
         MiniGameResult result = new MiniGameResult(-10, 0);
 
-        hypeButton.setDisable(true);
+        hypeButton.setDisable(false);
         hypeButton.setText("Continue");
-        hypeButton.setOnAction(e -> gameResult.accept(result));
+        hypeButton.setVisible(true);
+        hypeButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void playPopAnimation() {

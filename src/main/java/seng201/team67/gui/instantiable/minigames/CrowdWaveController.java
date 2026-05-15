@@ -20,15 +20,17 @@ public class CrowdWaveController {
     private int perfectCount = 0;
     private int failCount = 0;
 
-    private Consumer<MiniGameResult> gameResult;
+    private Consumer<MiniGameResult> onComplete;
 
-    public CrowdWaveController(Consumer<MiniGameResult> gameResult) {
-        this.gameResult = gameResult;
+    public CrowdWaveController(Consumer<MiniGameResult> onComplete) {
+        this.onComplete = onComplete;
     }
 
     @FXML
     public void initialize() {
         startTime = System.currentTimeMillis();
+
+        tapButton.setText("TAP");
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -88,9 +90,9 @@ public class CrowdWaveController {
 
         MiniGameResult result = new MiniGameResult(30, 0);
 
-        tapButton.setDisable(true);
+        tapButton.setDisable(false);
         tapButton.setText("Continue");
-        tapButton.setOnAction(e -> gameResult.accept(result));
+        tapButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void endGameLose() {
@@ -100,8 +102,8 @@ public class CrowdWaveController {
 
         MiniGameResult result = new MiniGameResult(-10, 0);
 
-        tapButton.setDisable(true);
+        tapButton.setDisable(false);
         tapButton.setText("Continue");
-        tapButton.setOnAction(e -> gameResult.accept(result));
+        tapButton.setOnAction(e -> onComplete.accept(result));
     }
 }

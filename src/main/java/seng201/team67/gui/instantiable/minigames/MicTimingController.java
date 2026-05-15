@@ -28,17 +28,19 @@ public class MicTimingController {
     @FXML private ImageView micThumb;
 
     private double direction = 1;
-    private Consumer<MiniGameResult> gameResult;
+    private Consumer<MiniGameResult> onComplete;
     private AnimationTimer timer;
 
-    public MicTimingController(Consumer<MiniGameResult> gameResult) {
-        this.gameResult = gameResult;
+    public MicTimingController(Consumer<MiniGameResult> onComplete) {
+        this.onComplete = onComplete;
     }
 
     @FXML
     public void initialize() {
         timingSlider.setMin(0);
         timingSlider.setMax(100);
+
+        hitButton.setVisible(false);
 
         micThumb.setImage(new Image(getClass().getResource("/images/GoldMic.png").toExternalForm()));
 
@@ -132,10 +134,10 @@ public class MicTimingController {
         resultLabel.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         resultLabel.setMaxSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
-        hitButton.setDisable(true);
-
-        hitButton.setOnAction(e -> gameResult.accept(result));
+        hitButton.setDisable(false);
         hitButton.setText("Continue");
+        hitButton.setVisible(true);
+        hitButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void playPopAnimation() {
