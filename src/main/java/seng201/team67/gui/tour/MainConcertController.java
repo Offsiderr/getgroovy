@@ -15,6 +15,9 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.questions.OutcomeController;
 import seng201.team67.gui.instantiable.questions.QuestionController;
 import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
+import seng201.team67.gui.instantiable.minigames.CrowdWaveController;
+import seng201.team67.gui.instantiable.minigames.CrowdHypeController;
+import seng201.team67.gui.instantiable.minigames.MicTimingController;
 import seng201.team67.gui.results.ResultsController;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
@@ -225,8 +228,18 @@ public class MainConcertController {
             case SOUNDENGINEER -> {
                 controller = new SoundEngineerStandoffController(new MinigamesService(minigame), this::onMiniGameComplete, gameEnvironment);
             }
-            default -> throw new IllegalStateException("Unexpected minigame: " + minigame);
-
+            case CROWDWAVE -> {
+                controller = new CrowdWaveController(this::onMiniGameComplete);
+            }
+            case CROWDHYPE -> {
+                controller = new CrowdHypeController(this::onMiniGameComplete);
+            }
+            case MICTIMING -> {
+                controller = new MicTimingController(this::onMiniGameComplete);
+            }
+            default -> {
+                return;
+            }
         }
         viewLoader.loadInto(eventBox, minigame.path(), controller);
     }

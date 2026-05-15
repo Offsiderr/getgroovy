@@ -15,7 +15,9 @@ public class MusicService {
 
     private Boolean currentlyPlaying = false;
 
-    private static final double MAX_VOLUME_PERCENT = 100.0; //TODO: Constants are all capitalised I think? double check
+    private static final double MAX_VOLUME_PERCENT = 100.0;
+
+    private static Clip currentClip = null;
 
     public MusicService(GameEnvironment gameEnvironment)
     {
@@ -30,6 +32,21 @@ public class MusicService {
         }
     }
 
+    public static void stop()
+    {
+        if (currentClip != null && currentClip.isRunning())
+        {
+            currentClip.stop();
+            currentClip.close();
+            currentClip = null;
+        }
+    }
+
+    public void stopAndReset()
+    {
+        stop();
+        currentlyPlaying = false;
+    }
 
     public static void play(String resourcePath) {
         play(resourcePath, MAX_VOLUME_PERCENT);
@@ -68,6 +85,7 @@ public class MusicService {
             clip.open(audioIn);
             applyVolume(clip, volumePercent);
             clip.start();
+            currentClip = clip;
             clip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
                     clip.close();

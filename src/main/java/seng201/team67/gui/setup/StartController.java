@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.services.audio.MusicService;
 import seng201.team67.services.audio.SoundEffectsService;
 
 import java.io.IOException;
@@ -39,10 +40,12 @@ public class StartController {
         zoomIn.setCycleCount(Animation.INDEFINITE);
         zoomIn.setAutoReverse(true);
         zoomIn.play();
+        MusicService.play("/sound/Music/Title_Screen_Placeholder.wav");
     }
 
     @FXML
     public void onStartGame(ActionEvent event) throws IOException {
+        MusicService.stop();
         soundEffectsService.playYes();
 
         Node currentRoot = ((Node) event.getSource()).getScene().getRoot();

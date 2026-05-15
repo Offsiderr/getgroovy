@@ -11,6 +11,7 @@ import seng201.team67.gui.selection.GachaSelectionController;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.services.audio.MusicService;
 import seng201.team67.services.management.StudioService;
 
 import java.io.IOException;
@@ -101,6 +102,7 @@ public class TheStudioController {
     }
 
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
+        gameEnvironment.getMusicService().stopAndReset();
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 

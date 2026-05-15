@@ -19,14 +19,12 @@ import java.util.List;
 
 public class ConcertService {
 
-    //TODO: Refactor questions to be in a dict
-
     private Concert concert;
     private GameEnvironment gameEnvironment;
     private TourService tourService;
     private List<Question> concertQuestions;
     private int count = 0;
-    private Double income = 0.0; //pay for the concert
+    private Double income = 0.0;
     private double staminaDrain;
     private boolean isEnded = false;
     private boolean minigameCheckResolved = false;
@@ -44,13 +42,11 @@ public class ConcertService {
 
     private int generateQuestionCount()
     {
-        //TODO: get rid of this
         return gameEnvironment.getConfig().concertQuestionsCount;
     }
 
     private List<Question> generateConcertQuestions()
     {
-        //50/50 chance question is either common or directly related to the tour.
         List<Question> concertQuestions = new ArrayList<>();
 
         for(int i = 1; i <= generateQuestionCount(); i++)
@@ -74,20 +70,15 @@ public class ConcertService {
     {
         if (isEnded) return;
         isEnded = true;
-        //add ticket revenue
         tourService.addCreditsEarned(calculateTicketRevenue());
-        //apply all event and minigame payouts/penalties through tour earnings
         tourService.addCreditsEarned(income);
-        //take away lineup's pay
         tourService.addCreditsEarned(-gameEnvironment.getLabelService().getLineupTotalPay());
-        //apply the stamina changes
         int endConcertDrain = roundStaminaChange(calculateStaminaDrain());
         applySequentialLineupDrain(endConcertDrain);
     }
 
     public Question getNextQuestion()
     {
-        //TODO: needs work
         if(count == concertQuestions.size())
         {
             endConcert();
@@ -121,28 +112,15 @@ public class ConcertService {
                 return outcome;
             }
         }
-        return  outcomes.getLast(); //TODO: Exception handling here
+        return  outcomes.getLast();
     }
 
     private void applyOutcome(Outcome outcome)
     {
-        //I wrote this tired and sleep deprived so check later
-
-        //Every variable in outcomes
-        //    private final int weight;
-        //    private final String description;
-        //    private final int creditChange;
-        //
-        //    private final int staminaChange; //TODO: stamina needs to be implemented properly with artists.
-        //    private final int crowdEnergyChange;
-        //    private final boolean expeditionEnds;
-
         if (outcome.getConcertEnds())
         {
             endConcert();
             System.out.println("Concert ended");
-            //TODO: implement concert ending
-            //we don't break as the other effects still apply apart from the crowd energy change
         }
 
         if(outcome.getPayoutType() != PayoutType.NONE)
@@ -151,7 +129,6 @@ public class ConcertService {
             income += applySkillPayoutModifiers(basePayout);
         }
 
-        //stamina change goes here
         int staminaChange = roundStaminaChange(outcome.getStaminaChange());
         if (staminaChange < 0)
         {
@@ -162,7 +139,6 @@ public class ConcertService {
             gameEnvironment.getLabelService().applyStaminaChange(staminaChange);
         }
 
-        //Calculate concert crowd energy gain
         concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
         applyConditionalItemEffects();
     }
@@ -180,8 +156,14 @@ public class ConcertService {
             return null;
         }
 
-        minigameCheckResolved = true;
-        return tourService.rollMiniGameTrigger(concert.getEnergy());
+        Minigame result = tourService.rollMiniGameTrigger(concert.getEnergy());
+
+        if (result != null)
+        {
+            minigameCheckResolved = true;
+        }
+
+        return result;
     }
 
     public boolean isEnded()
@@ -194,7 +176,6 @@ public class ConcertService {
         return concert.getEnergy();
     }
 
-    //move to class layer instead of service
     public Double getIncome()
     {
         return income;
@@ -233,7 +214,6 @@ public class ConcertService {
 
     public double calculateTicketRevenue()
     {
-        //concert ticket pay = (crowdMeter / 100) × baseTicketRevenue × tour multiplier × (1 + avgSP / maxSP)
         double maxSp = gameEnvironment.getLabelService().getMaxSP();
         double starPowerMultiplier = maxSp <= 0 ? 1 : 1 + gameEnvironment.getLabelService().getAverageSP() / maxSp;
         return (concert.getEnergy() / 100.0)
@@ -244,10 +224,7 @@ public class ConcertService {
 
     public double calculateStaminaDrain()
     {
-        //base drain + crowd penalty
-        //base drain
         int baseDrain = tourService.getTourType().getBaseStaminaDrain();
-        //crowdPenalty = baseDrain × max(0, (50 - crowdMeter) / 50)
         double crowdPenalty = baseDrain * Math.max(0, (50.0 -concert.getEnergy()) / 50.0);
         return baseDrain + crowdPenalty;
     }
