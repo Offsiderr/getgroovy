@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.tourmaps.TourMapController;
 import seng201.team67.gui.mainmenu.MainMenuController;
+import seng201.team67.gui.results.RandomEventResultController;
 import seng201.team67.gui.results.TourResultsController;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
@@ -20,6 +21,7 @@ import seng201.team67.models.enums.TourType;
 import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.services.audio.SoundEffectsService;
+import seng201.team67.services.gameplay.RandomEventService;
 import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
@@ -58,6 +60,7 @@ public class MainGameController {
 
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
+    private final RandomEventService randomEventService = new RandomEventService();
 
     private double scroll = 0;
 
@@ -98,6 +101,13 @@ public class MainGameController {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
+                    scroll = 0;
+                    bg1.setTranslateX(0);
+                    bg2.setTranslateX(bg1.getFitWidth());
+                    return;
+                }
+
                 scroll += 0.3;
                 bg1.setTranslateX(-scroll);
                 bg2.setTranslateX(-scroll + bg1.getFitWidth());
@@ -237,16 +247,24 @@ public class MainGameController {
 
         tourService.tourEnded();
         gameEnvironment.setArtistPoolGenerated(false);
-        if (tourService.isEndedByExhaustion())
-        {
-            screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                    new TourResultsController(gameEnvironment, tourService, true));
+        navigateAfterTourEnd(event, tourService.isEndedByExhaustion());
+    }
+
+    private void navigateAfterTourEnd(ActionEvent event, boolean staminaLoss) throws IOException {
+        if (randomEventService.shouldTriggerRandomEvent(gameEnvironment)) {
+            screenNavigator.navigate(event, "/fxml/results/EventResult.fxml",
+                    new RandomEventResultController(
+                            gameEnvironment,
+                            tourService,
+                            randomEventService.getWeightedRandomEvent(),
+                            randomEventService.getRandomAffectedArtist(gameEnvironment),
+                            staminaLoss
+                    ));
+            return;
         }
-        else
-        {
-            screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                    new TourResultsController(gameEnvironment, tourService, false));
-        }
+
+        screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
+                new TourResultsController(gameEnvironment, tourService, staminaLoss));
     }
 
     @FXML private void closePane(ActionEvent event) throws IOException

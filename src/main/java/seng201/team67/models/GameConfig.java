@@ -44,6 +44,9 @@ public class GameConfig {
     //Probability that a generated question is a generic "common" question vs tour-type
     public final double questionCommonChance;
 
+    //Probability that a random event occurs after a tour ends
+    public final double randomEventTriggerChance;
+
     //Maximum star power that an artist from the starting selection can be
     public final int maxSPInStartingSelection;
 
@@ -128,6 +131,7 @@ public class GameConfig {
     public double mainVolume;
     public double musicVolume;
     public double soundEffectsVolume;
+    public boolean movingBackgroundEnabled;
 
 
     public GameConfig(
@@ -144,6 +148,7 @@ public class GameConfig {
             double itemSellbackRate,
             double miniGameTriggerChance,
             double questionCommonChance,
+            double randomEventTriggerChance,
             int maxSPInStartingSelection,
             // Expedition Parameters
             int    minTourCount,
@@ -179,7 +184,8 @@ public class GameConfig {
             //Game settings
             double mainVolume,
             double musicVolume,
-            double soundEffectsVolume
+            double soundEffectsVolume,
+            boolean movingBackgroundEnabled
     ) {
         //this.artistBasePay                    = artistBasePay;
         //this.artistBaseHiringCost             = artistBaseHiringCost;
@@ -193,6 +199,7 @@ public class GameConfig {
         this.itemSellbackRate                 = itemSellbackRate;
         this.miniGameTriggerChance            = miniGameTriggerChance;
         this.questionCommonChance             = questionCommonChance;
+        this.randomEventTriggerChance        = randomEventTriggerChance;
         this.maxSPInStartingSelection         = maxSPInStartingSelection;
         this.minTourCount                     = minTourCount;
         this.maxTourCount                     = maxTourCount;
@@ -226,6 +233,7 @@ public class GameConfig {
         this.mainVolume                       = mainVolume;
         this.musicVolume                      = musicVolume;
         this.soundEffectsVolume               = soundEffectsVolume;
+        this.movingBackgroundEnabled          = movingBackgroundEnabled;
     }
 
     // ── Difficulty presets ────────────────────────────────────────────────────
@@ -239,7 +247,7 @@ public class GameConfig {
                 100, 500, 1000, 100,
                 0.7,
                 // Probabilities
-                0.15, 0.5, 3,
+                0.15, 0.5, 0.25, 3,
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
@@ -251,7 +259,7 @@ public class GameConfig {
                 // Score tuning
                 25, 5, 0.5, 20.0, 40, 90, 150, 50,
                 //Game config
-                100.0, 100.0, 100.0
+                100.0, 100.0, 100.0, true
         );
     }
 
@@ -264,7 +272,7 @@ public class GameConfig {
                 100, 500, 1000, 100,
                 0.7,
                 // Probabilities
-                0.15, 0.5, 2,
+                0.15, 0.5, 0.30, 2,
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
@@ -276,7 +284,7 @@ public class GameConfig {
                 // Score tuning
                 30, 5, 0.6, 18.0, 50, 110, 180, 75,
                 //Game config
-                100.0, 100.0, 100.0
+                100.0, 100.0, 100.0, true
         );
     }
 
@@ -289,7 +297,7 @@ public class GameConfig {
                 100, 500, 1000, 100,
                 0.7,
                 // Probabilities
-                0.15, 0.5, 1,
+                0.15, 0.5, 0.40, 1,
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
@@ -301,7 +309,7 @@ public class GameConfig {
                 // Score tuning
                 35, 6, 0.75, 15.0, 60, 130, 220, 100,
                 //Game config
-                100.0, 100.0, 100.0
+                100.0, 100.0, 100.0, true
         );
     }
 }

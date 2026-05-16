@@ -121,6 +121,12 @@ public class MainMenuController {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
+                    bg1.setLayoutX(0);
+                    bg2.setLayoutX(bg1.getFitWidth());
+                    return;
+                }
+
                 bg1.setLayoutX(bg1.getLayoutX() - 0.4);
                 bg2.setLayoutX(bg2.getLayoutX() - 0.4);
 

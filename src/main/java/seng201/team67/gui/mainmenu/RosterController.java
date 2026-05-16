@@ -54,6 +54,12 @@ public class RosterController {
         AnimationTimer bgTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
+                    bg1.setLayoutX(0);
+                    bg2.setLayoutX(1280);
+                    return;
+                }
+
                 double speed = 0.5;
 
                 bg1.setLayoutX(bg1.getLayoutX() - speed);

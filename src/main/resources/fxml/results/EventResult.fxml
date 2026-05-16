@@ -19,7 +19,7 @@
          </font>
       </Button>
       <VBox fx:id="artistCardTwo" alignment="CENTER" layoutX="483.0" layoutY="307.0" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-      <Label fx:id="labelName1" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="110.0" prefHeight="169.0" prefWidth="579.0" styleClass="small-label" stylesheets="@../../Styles/Style.css" text="Event description" textAlignment="CENTER">
+      <Label fx:id="labelName1" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="110.0" prefHeight="169.0" prefWidth="579.0" styleClass="small-label" stylesheets="@../../Styles/Style.css" text="Event description" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>

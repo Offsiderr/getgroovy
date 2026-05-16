@@ -16,6 +16,7 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.services.gameplay.ConcertService;
+import seng201.team67.services.gameplay.RandomEventService;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -41,6 +42,7 @@ public class ResultsController {
     @FXML private Label difficultyType;
     @FXML private Label concertType;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    private final RandomEventService randomEventService = new RandomEventService();
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.##");
     private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
@@ -139,22 +141,29 @@ public class ResultsController {
         if (concertService.getTourService().isEndedByExhaustion()) {
             concertService.getTourService().tourEnded();
             gameEnvironment.setArtistPoolGenerated(false);
-
-            if(concertService.getTourService().isEndedByExhaustion())
-            {
-                screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                        new TourResultsController(gameEnvironment, concertService.getTourService(), true));
-            }
-            else
-            {
-                screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
-                        new TourResultsController(gameEnvironment, concertService.getTourService(), false));
-            }
+            navigateToPostTourScreen(event, true);
             return;
         }
 
         screenNavigator.navigate(event, "/fxml/tour/MainGame.fxml",
                 new MainGameController(gameEnvironment, concertService.getTourService()));
+    }
+
+    private void navigateToPostTourScreen(ActionEvent event, boolean staminaLoss) throws IOException {
+        if (randomEventService.shouldTriggerRandomEvent(gameEnvironment)) {
+            screenNavigator.navigate(event, "/fxml/results/EventResult.fxml",
+                    new RandomEventResultController(
+                            gameEnvironment,
+                            concertService.getTourService(),
+                            randomEventService.getWeightedRandomEvent(),
+                            randomEventService.getRandomAffectedArtist(gameEnvironment),
+                            staminaLoss
+                    ));
+            return;
+        }
+
+        screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
+                new TourResultsController(gameEnvironment, concertService.getTourService(), staminaLoss));
     }
 
     private void animateCount(Label label, int target, double seconds) {

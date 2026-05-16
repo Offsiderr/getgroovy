@@ -56,7 +56,7 @@
             <String fx:value="root" />
             <String fx:value="small-label" />
          </styleClass></CheckBox>
-      <CheckBox fx:id="fullscreen" layoutX="688.0" layoutY="449.0" mnemonicParsing="false" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Fullscreen">
+      <CheckBox fx:id="fullscreen" layoutX="619.0" layoutY="449.0" mnemonicParsing="false" selected="true" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Moving Background">
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />
