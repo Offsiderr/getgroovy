@@ -18,7 +18,6 @@ import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.TourType;
-import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.gameplay.RandomEventService;
@@ -136,29 +135,11 @@ public class MainGameController {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
                 Artist artist = pool.get(i);
-                ArtistDetailBoxFiller.populateArtistBox(cards[i], artist, null, item -> handleItemUse(artist, item));
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], artist, null);
             } else {
                 clearArtistCard(cards[i]);
             }
         }
-    }
-
-    private void handleItemUse(Artist artist, Item item)
-    {
-        if (!(item instanceof CosumableItem))
-        {
-            return;
-        }
-
-        String result = gameEnvironment.getLabelService().useConsumable(artist, item);
-        if (result.isBlank())
-        {
-            return;
-        }
-
-        effectText.setText(result);
-        effectText.setVisible(true);
-        loadLineup();
     }
 
     private void clearArtistCard(VBox card) {

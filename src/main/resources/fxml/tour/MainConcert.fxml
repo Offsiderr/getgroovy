@@ -118,5 +118,6 @@
             <VBox fx:id="artistCardThree" alignment="CENTER" opacity="0.7" prefHeight="200.0" prefWidth="315.0" style="-fx-border-color: #888888; -fx-border-width: 2;" />
          </children>
       </VBox>
+      <Label fx:id="effectText" layoutX="351.0" layoutY="621.0" prefHeight="62.0" prefWidth="785.0" style="-fx-background-color: transparent;" stylesheets="@../../Styles/Style.css" textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>

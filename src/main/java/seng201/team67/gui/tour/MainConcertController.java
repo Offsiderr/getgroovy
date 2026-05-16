@@ -32,6 +32,8 @@ import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.Minigame;
+import seng201.team67.models.items.CosumableItem;
+import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
@@ -57,6 +59,7 @@ public class MainConcertController {
     @FXML private Label expeditionCount;
     @FXML private Label payText;
     @FXML private Label staminaText;
+    @FXML private Label effectText;
 
     @FXML private Slider crowdMeter;
     @FXML private ImageView micThumb;
@@ -83,6 +86,8 @@ public class MainConcertController {
     @FXML public void initialize() throws IOException {
 
         setTourBackground();
+        effectText.setVisible(false);
+        effectText.setText("");
 
         startBackgroundAnimation();
 
@@ -175,7 +180,8 @@ public class MainConcertController {
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
-                ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
+                Artist artist = pool.get(i);
+                ArtistDetailBoxFiller.populateArtistBox(cards[i], artist, null, item -> handleItemUse(artist, item));
                 if (i == activeArtistIndex) {
                     highlightArtistName(cards[i]);
                 }
@@ -189,6 +195,24 @@ public class MainConcertController {
         card.getChildren().clear();
         card.setDisable(true);
         ArtistDetailBoxFiller.applyBaseStyle(card);
+    }
+
+    private void handleItemUse(Artist artist, Item item)
+    {
+        if (!(item instanceof CosumableItem))
+        {
+            return;
+        }
+
+        String result = gameEnvironment.getLabelService().useConsumable(artist, item);
+        if (result.isBlank())
+        {
+            return;
+        }
+
+        effectText.setText(result);
+        effectText.setVisible(true);
+        refreshView();
     }
 
     private void populateQuestion() throws IOException {
