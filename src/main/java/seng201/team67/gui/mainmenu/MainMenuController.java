@@ -63,9 +63,6 @@ public class MainMenuController {
     @FXML
     public void initialize() throws IOException
     {
-        settingsHolder.setVisible(false);
-        settingsHolder.setManaged(false);
-        settingsHolder.setDisable(true);
 
         if (gameStatusService.isGameLost(gameEnvironment))
         {
@@ -83,7 +80,7 @@ public class MainMenuController {
 
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
         gameDifficulty.setText(gameEnvironment.getDifficulty().name());
-        moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+        moneyText.setText("$" + Double.toString(gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
         scoreLabel.setText(Integer.toString(gameEnvironment.getGameScore()));
 

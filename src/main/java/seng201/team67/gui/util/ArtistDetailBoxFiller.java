@@ -79,7 +79,8 @@ public class ArtistDetailBoxFiller {
                 createLabel("Stamina: " + artist.getStamina()),
                 createLabel("Health: " + artist.getHealth()),
                 createLabel("Hire: $" + (int) artist.getCost()),
-                createLabel("Skill: " + artist.getSkill().getName() + " (Level " + artist.getSkillLevel() + ")", artist.getSkill().getDescription())
+                createLabel("Pay : $" + (int) artist.getPay()),
+                createSkillLabel(artist)
         );
 
         VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
@@ -170,6 +171,17 @@ public class ArtistDetailBoxFiller {
         label.setMaxWidth(Double.MAX_VALUE);
         label.setWrapText(true);
         return label;
+    }
+
+    private static Label createSkillLabel(Artist artist) {
+        if (!artist.hasSkill()) {
+            return createLabel("Skill: None");
+        }
+
+        return createLabel(
+                "Skill: " + artist.getSkill().getName() + " (Level " + artist.getSkillLevel() + ")",
+                artist.getSkill().getDescription()
+        );
     }
 
     private static VBox createItemSlots(Artist artist,

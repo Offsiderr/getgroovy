@@ -125,7 +125,7 @@ public class RandomEventResultController {
 
     @FXML
     private void continueGame(ActionEvent event) throws IOException {
-        if (staminaLoss != null) {
+        if (shouldNavigateToTourResults()) {
             screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
                     new TourResultsController(gameEnvironment, tourService, staminaLoss));
             return;
@@ -133,5 +133,9 @@ public class RandomEventResultController {
 
         screenNavigator.navigate(event, "/fxml/tour/MainGame.fxml",
                 new MainGameController(gameEnvironment, tourService));
+    }
+
+    private boolean shouldNavigateToTourResults() {
+        return staminaLoss != null || tourService.isTourComplete() || tourService.isEndedByExhaustion();
     }
 }

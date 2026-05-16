@@ -37,8 +37,8 @@ public abstract class Artist implements Purchasable {
     private int stamina;
     private int starPower;
     private int skillLevel = 1;
-    private static final double basePay         = 5; //Unfortunately these cannot be included in the game config;
-    private static final double baseHiringCost = 7;//as they are imported through JSON with Jackson.
+    private static final double basePay         = 20; //Unfortunately these cannot be included in the game config;
+    private static final double baseHiringCost = 110;//as they are imported through JSON with Jackson.
     public boolean owned = false;
 
     private ArrayList<Item> items = new ArrayList<>();
@@ -147,6 +147,10 @@ public abstract class Artist implements Purchasable {
 
     //Setters
 
+    public void setBaseStamina(int stamina)
+    {
+        this.baseStamina = stamina;
+    }
 
     public void setSkill(Skill skill)
     {

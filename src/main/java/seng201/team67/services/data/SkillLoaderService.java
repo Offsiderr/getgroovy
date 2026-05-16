@@ -84,7 +84,7 @@ public class SkillLoaderService {
         StatModifier statModifier = buildStatModifier(effects, multiplier);
         PayoutModifier payoutModifier = buildPayoutModifier(effects, multiplier);
 
-        return new Skill(id, name, description, artistType, rarity, multiplier, effects, statModifier, payoutModifier);
+        return new Skill(id, name, description, artistType, multiplier, effects, statModifier, payoutModifier);
     }
 
     private List<GameplayEffect> buildEffects(JsonNode effectsNode)

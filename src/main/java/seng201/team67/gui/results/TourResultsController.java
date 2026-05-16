@@ -61,7 +61,6 @@ public class TourResultsController {
     }
 
     @FXML private void initialize() {
-        loadLineup();
         populateTourResults();
 
         if (staminaLoss) {
@@ -71,42 +70,6 @@ public class TourResultsController {
         }
     }
 
-    private void loadLineup() {
-        List<Artist> pool = gameEnvironment.getLabelService().getLineup();
-        List<VBox> leftCards = List.of(artistCardOne, artistCardTwo, artistCardThree);
-        List<VBox> rightCards = List.of(artistCardOne1, artistCardTwo1, artistCardThree1);
-
-        for (int i = 0; i < leftCards.size(); i++) {
-            VBox card = leftCards.get(i);
-            card.getChildren().clear();
-            if (i < pool.size()) {
-                card.setAlignment(Pos.CENTER);
-                card.getChildren().add(createSpriteView(pool.get(i)));
-            }
-        }
-
-        for (int i = 0; i < rightCards.size(); i++) {
-            VBox card = rightCards.get(i);
-            card.getChildren().clear();
-            if (i < pool.size()) {
-                card.setAlignment(Pos.CENTER);
-                card.getChildren().add(createSpriteView(pool.get(i)));
-            }
-        }
-    }
-
-    private ImageView createSpriteView(Artist artist) {
-        var stream = ArtistDetailBoxFiller.class.getResourceAsStream(artist.getImagePath());
-        if (stream == null) {
-            stream = ArtistDetailBoxFiller.class.getResourceAsStream("/images/Artists/placeholder.png");
-        }
-        ImageView imageView = new ImageView(new Image(stream));
-        imageView.setFitWidth(140);
-        imageView.setFitHeight(140);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        return imageView;
-    }
 
     private void populateTourResults() {
         List<ConcertResults> concertResults = tourService.getConcertResults();

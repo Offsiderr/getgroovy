@@ -36,6 +36,7 @@ public class TheMarketController {
     @FXML private VBox artistCardTwo;
     @FXML private VBox artistCardThree;
     @FXML private Button buyItemButton;
+    @FXML private Label insufficientFundsWarning;
     @FXML private ImageView bg1;
     @FXML private ImageView bg2;
 
@@ -49,6 +50,7 @@ public class TheMarketController {
     {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
         this.moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+        insufficientFundsWarning.setVisible(false);
 
         loadItemPool();
 
@@ -97,6 +99,7 @@ public class TheMarketController {
 
         selectedItem = null;
         buyItemButton.setVisible(false);
+        hideInsufficientFundsWarning();
     }
 
     private void clearArtistCard(VBox card) {
@@ -117,16 +120,24 @@ public class TheMarketController {
         ItemDetailBoxFiller.applySelectedStyle(card);
         selectedItem = item;
         buyItemButton.setVisible(true);
+        hideInsufficientFundsWarning();
     }
 
     @FXML public void handleBuyItem()
     {
-        if (selectedItem != null && gameEnvironment.getLabelService().buyItem(selectedItem))
+        if (selectedItem == null) {
+            return;
+        }
+
+        if (gameEnvironment.getLabelService().buyItem(selectedItem))
         {
             gameEnvironment.removeItemFromPurchasePool(selectedItem);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadItemPool();
+            return;
         }
+
+        showInsufficientFundsWarning();
     }
 
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
@@ -138,27 +149,39 @@ public class TheMarketController {
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))
         {
+            hideInsufficientFundsWarning();
             screenNavigator.navigate(event, "/fxml/market/GatchaSelection.fxml",
                     new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, RARE));
+            return;
         }
+
+        showInsufficientFundsWarning();
     }
 
     @FXML public void buyGolden(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))
         {
+            hideInsufficientFundsWarning();
             screenNavigator.navigate(event, "/fxml/market/GatchaSelection.fxml",
                     new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, VERY_RARE));
+            return;
         }
+
+        showInsufficientFundsWarning();
     }
 
     @FXML public void buyPlatinum(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))
         {
+            hideInsufficientFundsWarning();
             screenNavigator.navigate(event, "/fxml/market/GatchaSelection.fxml",
                     new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, ULTRA));
+            return;
         }
+
+        showInsufficientFundsWarning();
     }
 
     private ArrayList<Item> getItemPool()
@@ -172,7 +195,18 @@ public class TheMarketController {
             gameEnvironment.setItemPoolGenerated(false);
             moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
             loadItemPool();
+            return;
         }
+
+        showInsufficientFundsWarning();
+    }
+
+    private void showInsufficientFundsWarning() {
+        insufficientFundsWarning.setVisible(true);
+    }
+
+    private void hideInsufficientFundsWarning() {
+        insufficientFundsWarning.setVisible(false);
     }
 
 }

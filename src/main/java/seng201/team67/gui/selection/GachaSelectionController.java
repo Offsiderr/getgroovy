@@ -7,13 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.instantiable.GachaController;
-import seng201.team67.gui.instantiable.ItemCardController;
 import seng201.team67.gui.market.TheMarketController;
 import seng201.team67.gui.studio.TheStudioController;
+import seng201.team67.gui.util.ItemDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
@@ -22,7 +21,6 @@ import seng201.team67.models.items.Item;
 import seng201.team67.services.setup.GachaService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GachaSelectionController extends ArtistSelectionController {
@@ -53,8 +51,6 @@ public class GachaSelectionController extends ArtistSelectionController {
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final ViewLoader viewLoader = new ViewLoader();
 
-    private final List<ItemCardController> itemCards = new ArrayList<>();
-
     public GachaSelectionController(GameEnvironment gameEnvironment, Boolean artists, int hboxSize, Rarity rarity) {
         super(gameEnvironment);
         this.gameEnvironment = gameEnvironment;
@@ -82,10 +78,11 @@ public class GachaSelectionController extends ArtistSelectionController {
         viewLoader.loadInto(gachaContainer, "/fxml/components/Gatcha.fxml", gachaController);
 
         if (!artists) {
-            Image marketBg = new Image(getClass().getResourceAsStream("/images/MarketGatchaBackground.png"));
-            bg1.setImage(marketBg);
-            bg2.setImage(marketBg);
-            bg3.setImage(marketBg);
+            //Louie disabled for now
+            //Image marketBg = new Image(getClass().getResourceAsStream("/images/MarketGatchaBackground.png"));
+            //bg1.setImage(marketBg);
+            //bg2.setImage(marketBg);
+            //bg3.setImage(marketBg);
         }
 
         AnimationTimer timer = new AnimationTimer() {
@@ -123,22 +120,25 @@ public class GachaSelectionController extends ArtistSelectionController {
 
     private void showItemCards() {
         gachaContainer.setVisible(false);
-        itemCards.clear();
 
         List<VBox> slots = List.of(itemOne, itemTwo, itemThree);
         List<Item> picked = gachaService.getPickedItems(slots.size(), rarity);
 
         for (int i = 0; i < slots.size(); i++) {
-            slots.get(i).getChildren().clear();
+            VBox slot = slots.get(i);
+            slot.getChildren().clear();
             if (i >= picked.size()) {
+                clearItemSlot(slot);
                 continue;
             }
 
-            ItemCardController cardController = new ItemCardController(gameEnvironment, null);
-            viewLoader.loadInto(slots.get(i), "/fxml/components/ItemCard.fxml", cardController);
-            cardController.setItem(picked.get(i));
-            cardController.setSelectionHandler(this::onSelectionChanged);
-            itemCards.add(cardController);
+            Item item = picked.get(i);
+            ItemDetailBoxFiller.populateArtistBox(slot, item);
+            slot.setUserData(item);
+            slot.setOpacity(1.0);
+            slot.setDisable(false);
+            setItemSelected(slot, false);
+            slot.setOnMouseClicked(e -> toggleItemSelection(slot));
         }
     }
 
@@ -147,12 +147,7 @@ public class GachaSelectionController extends ArtistSelectionController {
             long selectedCount = updateArtistSelectionAvailability(getMaxArtistSelections());
             selectArtists.setDisable(selectedCount != getMaxArtistSelections());
         } else {
-            long selectedCount = itemCards.stream().filter(ItemCardController::isSelected).count();
-            itemCards.forEach(card -> {
-                if (!card.isSelected()) {
-                    card.setSelectable(selectedCount < 1);
-                }
-            });
+            long selectedCount = updateItemSelectionAvailability();
             selectArtists.setDisable(selectedCount != 1);
         }
     }
@@ -163,10 +158,70 @@ public class GachaSelectionController extends ArtistSelectionController {
     }
 
     public List<Item> getSelectedItems() {
-        return itemCards.stream()
-                .filter(ItemCardController::isSelected)
-                .map(c -> c.item)
+        List<VBox> itemSlots = List.of(itemOne, itemTwo, itemThree);
+
+        return itemSlots.stream()
+                .filter(slot -> !slot.isDisable())
+                .filter(this::isItemSelected)
+                .map(slot -> (Item) slot.getUserData())
                 .toList();
+    }
+
+    private void toggleItemSelection(VBox slot) {
+        setItemSelected(slot, !isItemSelected(slot));
+        onSelectionChanged();
+    }
+
+    private long updateItemSelectionAvailability() {
+        List<VBox> itemSlots = List.of(itemOne, itemTwo, itemThree);
+        long selectedCount = itemSlots.stream()
+                .filter(slot -> !slot.isDisable())
+                .filter(this::isItemSelected)
+                .count();
+
+        itemSlots.stream()
+                .filter(slot -> !slot.isDisable())
+                .forEach(slot -> {
+                    boolean selected = isItemSelected(slot);
+                    updateItemCardStyle(slot, selected);
+                    if (selected) {
+                        slot.setOpacity(1.0);
+                        slot.setOnMouseClicked(e -> toggleItemSelection(slot));
+                        return;
+                    }
+
+                    boolean selectable = selectedCount < 1;
+                    slot.setOpacity(selectable ? 1.0 : 0.4);
+                    slot.setOnMouseClicked(selectable ? e -> toggleItemSelection(slot) : null);
+                });
+
+        return selectedCount;
+    }
+
+    private void clearItemSlot(VBox slot) {
+        slot.getChildren().clear();
+        slot.setUserData(null);
+        slot.setDisable(true);
+        slot.setOnMouseClicked(null);
+        slot.setOpacity(0.4);
+        ItemDetailBoxFiller.applyBaseStyle(slot);
+    }
+
+    private boolean isItemSelected(VBox slot) {
+        return Boolean.TRUE.equals(slot.getProperties().get("selected"));
+    }
+
+    private void setItemSelected(VBox slot, boolean selected) {
+        slot.getProperties().put("selected", selected);
+        updateItemCardStyle(slot, selected);
+    }
+
+    private void updateItemCardStyle(VBox slot, boolean selected) {
+        if (selected) {
+            ItemDetailBoxFiller.applySelectedStyle(slot);
+        } else {
+            ItemDetailBoxFiller.applyBaseStyle(slot);
+        }
     }
 
     @FXML

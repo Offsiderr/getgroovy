@@ -22,6 +22,47 @@
             <Image url="@../../images/gameBackground2.png" />
          </image>
       </ImageView>
+      <AnchorPane layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" stylesheets="@../../Styles/Style.css">
+         <children>
+            <Label fx:id="gameTours" layoutX="165.0" layoutY="72.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="1outof3tours">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="small-label" />
+               </styleClass>
+            </Label>
+            <Label fx:id="moneyText" layoutX="1158.0" layoutY="61.0" text="\$1000">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <Label layoutX="1158.0" layoutY="14.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="root" />
+               </styleClass>
+            </Label>
+            <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="529.0" layoutY="61.0" text="000000000000" textAlignment="CENTER">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Score:">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="root" />
+               </styleClass>
+            </Label>
+         </children>
+      </AnchorPane>
       <Button fx:id="artistRoster" layoutX="655.0" layoutY="106.0" mnemonicParsing="false" onAction="#startRoster" prefHeight="224.0" prefWidth="496.0" stylesheets="@../../Styles/Style.css" text="Artist Roster">
          <font>
             <Font size="53.0" />
@@ -118,46 +159,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane fx:id="settingsHolder" disable="true" layoutX="-9.0" layoutY="-10.0" prefHeight="737.0" prefWidth="1298.0" stylesheets="@../../Styles/Style.css">
-         <children>
-            <Label fx:id="gameTours" layoutX="165.0" layoutY="75.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="1outof3tours">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="small-label" />
-               </styleClass>
-            </Label>
-            <Label fx:id="moneyText" layoutX="1174.0" layoutY="61.0" text="\$1000" textAlignment="RIGHT">
-               <font>
-                  <Font size="37.0" />
-               </font>
-            </Label>
-            <Label layoutX="1164.0" layoutY="14.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="root" />
-               </styleClass>
-            </Label>
-            <Label fx:id="scoreLabel" layoutX="529.0" layoutY="61.0" text="000000000000" textAlignment="CENTER">
-               <font>
-                  <Font size="37.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Score:">
-               <font>
-                  <Font size="21.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="root" />
-               </styleClass>
-            </Label>
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="settingsHolder" disable="true" prefHeight="737.0" prefWidth="1298.0" />
    </children>
 </AnchorPane>

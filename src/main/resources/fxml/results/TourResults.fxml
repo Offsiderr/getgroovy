@@ -21,10 +21,6 @@
          </styleClass>
       </Label>
 
-      <VBox fx:id="artistCardOne" alignment="CENTER" layoutX="-5.0" layoutY="-7.0" prefHeight="232.0" prefWidth="209.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-      <VBox fx:id="artistCardTwo" alignment="CENTER" layoutY="225.0" prefHeight="244.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-      <VBox fx:id="artistCardThree" alignment="CENTER" layoutY="468.0" prefHeight="253.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-
       <VBox layoutX="200.0" layoutY="75.0" prefWidth="880.0" spacing="6.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 20;">
 
          <HBox alignment="CENTER_LEFT" spacing="0.0">
@@ -155,9 +151,6 @@
       <Button layoutX="508.0" layoutY="644.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="56.0" prefWidth="260.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Continue">
          <font><Font size="24.0" /></font>
       </Button>
-      <VBox fx:id="artistCardOne1" alignment="CENTER" layoutX="1080.0" layoutY="-3.0" prefHeight="220.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-      <VBox fx:id="artistCardTwo1" alignment="CENTER" layoutX="1080.0" layoutY="217.0" prefHeight="253.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
-      <VBox fx:id="artistCardThree1" alignment="CENTER" layoutX="1080.0" layoutY="468.0" prefHeight="253.0" prefWidth="200.0" style="-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;" />
 
    </children>
 </AnchorPane>

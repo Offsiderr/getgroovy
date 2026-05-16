@@ -266,7 +266,7 @@ public class GameConfig {
                 // Economy
                 500,  // startingCredits
                 12, 3,
-                100, 500, 1000, 100,
+                150, 1500, 3000, 100,
                 0.7,
                 // Probabilities
                 0.15, 0.5, 0.25, 3,

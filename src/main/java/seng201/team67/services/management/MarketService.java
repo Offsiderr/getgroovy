@@ -27,7 +27,7 @@ public class MarketService {
         }
 
         ArrayList<Item> purchasePool = new ArrayList<>();
-        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.VERY_RARE));
+        ArrayList<Rarity> rarities = new ArrayList<>(Arrays.asList(Rarity.COMMON, Rarity.RARE, Rarity.COMMON));
         Collections.shuffle(rarities);
 
         for (Rarity rarity : rarities)

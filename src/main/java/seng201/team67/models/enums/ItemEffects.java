@@ -43,7 +43,7 @@ public enum ItemEffects {
             Rarity.RARE,
             StatType.STAR_POWER,
             ItemType.CONSUMABLE,
-            1.0,
+            2.0,
             GameplayEffect.STAR_POWER_BOOST
     ),
 
