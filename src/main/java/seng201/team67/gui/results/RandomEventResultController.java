@@ -26,20 +26,22 @@ public class RandomEventResultController {
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final RandomEventService randomEventService = new RandomEventService();
     private final RandomEvent randomEvent;
+    private final String customTitle;
+    private final String customDescription;
 
     @FXML private Label labelName;
     @FXML private Label labelName1;
     @FXML private VBox artistCardTwo;
 
     public RandomEventResultController(GameEnvironment gameEnvironment, TourService tourService, RandomEvent randomEvent) {
-        this(gameEnvironment, tourService, randomEvent, null, null);
+        this(gameEnvironment, tourService, randomEvent, null, null, null, null);
     }
 
     public RandomEventResultController(GameEnvironment gameEnvironment,
                                        TourService tourService,
                                        RandomEvent randomEvent,
                                        Artist affectedArtist) {
-        this(gameEnvironment, tourService, randomEvent, affectedArtist, null);
+        this(gameEnvironment, tourService, randomEvent, affectedArtist, null, null, null);
     }
 
     public RandomEventResultController(GameEnvironment gameEnvironment,
@@ -47,22 +49,52 @@ public class RandomEventResultController {
                                        RandomEvent randomEvent,
                                        Artist affectedArtist,
                                        Boolean staminaLoss) {
+        this(gameEnvironment, tourService, randomEvent, affectedArtist, staminaLoss, null, null);
+    }
+
+    public RandomEventResultController(GameEnvironment gameEnvironment,
+                                       TourService tourService,
+                                       String customTitle,
+                                       String customDescription,
+                                       Artist affectedArtist,
+                                       Boolean staminaLoss) {
+        this(gameEnvironment, tourService, null, affectedArtist, staminaLoss, customTitle, customDescription);
+    }
+
+    private RandomEventResultController(GameEnvironment gameEnvironment,
+                                        TourService tourService,
+                                        RandomEvent randomEvent,
+                                        Artist affectedArtist,
+                                        Boolean staminaLoss,
+                                        String customTitle,
+                                        String customDescription) {
         this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
         this.randomEvent = randomEvent;
         this.affectedArtist = affectedArtist;
         this.staminaLoss = staminaLoss;
+        this.customTitle = customTitle;
+        this.customDescription = customDescription;
     }
 
     @FXML
     private void initialize() {
-        randomEventService.applyRandomEvent(gameEnvironment, randomEvent, affectedArtist);
-        labelName.setText(randomEvent.getName());
+        if (randomEvent != null) {
+            randomEventService.applyRandomEvent(gameEnvironment, randomEvent, affectedArtist);
+            labelName.setText(randomEvent.getName());
+        } else {
+            labelName.setText(customTitle);
+        }
+
         labelName1.setText(buildEventDescription());
         loadArtistCard();
     }
 
     private String buildEventDescription() {
+        if (randomEvent == null) {
+            return customDescription == null ? "" : customDescription;
+        }
+
         return randomEvent.getDescription() + "\n\n" + buildEffectText();
     }
 

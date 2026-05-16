@@ -2,6 +2,7 @@ package seng201.team67.unittests.models;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.models.GameConfig;
+import seng201.team67.models.enums.TourType;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +29,10 @@ public class GameConfigTest {
                 () -> assertEquals(15.0, config.soundEngineerMatchTolerance),
                 () -> assertEquals(100.0, config.mainVolume),
                 () -> assertEquals(100.0, config.musicVolume),
-                () -> assertEquals(100.0, config.soundEffectsVolume)
+                () -> assertEquals(100.0, config.soundEffectsVolume),
+                () -> assertEquals(1.0, config.getArtistPayMultiplier(TourType.LOCAL)),
+                () -> assertEquals(1.5, config.getArtistPayMultiplier(TourType.COUNTRY)),
+                () -> assertEquals(2.0, config.getArtistPayMultiplier(TourType.WORLD))
         );
     }
 

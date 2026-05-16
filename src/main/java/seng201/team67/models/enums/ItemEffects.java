@@ -1,12 +1,11 @@
-package seng201.team67.models.enums.items;
+package seng201.team67.models.enums;
 
-import seng201.team67.behaviours.EffectBehavioursConditional;
-import seng201.team67.behaviours.EffectBehavioursConsumable;
-import seng201.team67.behaviours.EffectBehavioursEquipped;
+import seng201.team67.interfaces.ConcertModifier;
 import seng201.team67.interfaces.StatModifier;
-import seng201.team67.models.enums.Rarity;
+import seng201.team67.models.enums.items.ItemType;
+import seng201.team67.models.enums.items.StatType;
 
-public enum Effect {
+public enum ItemEffects {
 
     //Conditional
     SECOND_WIND(
@@ -16,7 +15,7 @@ public enum Effect {
             StatType.STAR_POWER,
             ItemType.CONDITIONAL,
             3.0,
-            EffectBehavioursConditional.lowStaminaBoost(30)
+            GameplayEffect.SECOND_WIND
     ),
 
     STAR_FUELLED(
@@ -26,7 +25,7 @@ public enum Effect {
             StatType.STAMINA,
             ItemType.CONDITIONAL,
             10.0,
-            EffectBehavioursConditional.highStarPowerStaminaBoost(5)
+            GameplayEffect.STAR_FUELLED
     ),
 
     STAMINA_BOOST("Stamina Boost",
@@ -35,7 +34,7 @@ public enum Effect {
             StatType.STAMINA,
             ItemType.CONSUMABLE,
             10.0,
-            EffectBehavioursConsumable.restoreUpToBase()
+            GameplayEffect.STAMINA_BOOST
     ),
 
     STAR_POWER_BOOST(
@@ -45,7 +44,7 @@ public enum Effect {
             StatType.STAR_POWER,
             ItemType.CONSUMABLE,
             1.0,
-            EffectBehavioursConsumable.instantBoost()
+            GameplayEffect.STAR_POWER_BOOST
     ),
 
     STAR_POWER_MULTIPLIER(
@@ -55,7 +54,7 @@ public enum Effect {
             StatType.STAR_POWER,
             ItemType.EQUIPPED,
             1.05,
-            EffectBehavioursEquipped.starPowerMultiplier()
+            GameplayEffect.STAR_POWER_MULTIPLIER
     ),
 
     STAMINA_MULTIPLIER(
@@ -65,7 +64,7 @@ public enum Effect {
             StatType.STAMINA,
             ItemType.EQUIPPED,
             1.1,
-            EffectBehavioursEquipped.staminaMultiplier()
+            GameplayEffect.STAMINA_MULTIPLIER
     ),
 
     CROWD_BOOST(
@@ -75,7 +74,7 @@ public enum Effect {
             null,
             ItemType.CONSUMABLE,
             10.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_BOOST
     ),
 
     CROWD_MULTIPLIER(
@@ -85,7 +84,7 @@ public enum Effect {
             null,
             ItemType.EQUIPPED,
             1.05,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_MULTIPLIER
     ),
 
     CROWD_BOOST_IF_STAMINA_BELOW_20_AFTER_EVENT_4(
@@ -95,7 +94,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             15.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_BOOST_IF_STAMINA_BELOW_20_AFTER_EVENT_4
     ),
 
     CROWD_BOOST_PER_EVENT_IF_LINEUP_FULL(
@@ -105,7 +104,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             5.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_BOOST_PER_EVENT_IF_LINEUP_FULL
     ),
 
     CROWD_AND_STAMINA_BOOST_IF_FIRST_EVENT_WIN(
@@ -115,7 +114,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             25.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_AND_STAMINA_BOOST_IF_FIRST_EVENT_WIN
     ),
 
     CROWD_2X_IF_THREE_WIN_STREAK(
@@ -125,7 +124,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             2.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_2X_IF_THREE_WIN_STREAK
     ),
 
     STAMINA_RECOVER_IF_BELOW_25(
@@ -135,7 +134,7 @@ public enum Effect {
             StatType.STAMINA,
             ItemType.CONDITIONAL,
             30.0,
-            EffectBehavioursConditional.lowStaminaBoost(25)
+            GameplayEffect.STAMINA_RECOVER_IF_BELOW_25
     ),
 
     AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3(
@@ -145,7 +144,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             1.0,
-            (artist, value) -> 0
+            GameplayEffect.AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3
     ),
 
     STAMINA_RECOVER_ALL_IF_LOWEST_BELOW_35(
@@ -155,7 +154,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             25.0,
-            (artist, value) -> 0
+            GameplayEffect.STAMINA_RECOVER_ALL_IF_LOWEST_BELOW_35
     ),
 
     TICKET_SALES_2X_IF_CROWD_ABOVE_70_BEFORE_FINAL(
@@ -165,7 +164,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             2.0,
-            (artist, value) -> 0
+            GameplayEffect.TICKET_SALES_2X_IF_CROWD_ABOVE_70_BEFORE_FINAL
     ),
 
     CROWD_BOOST_ON_FINAL_EVENT(
@@ -175,7 +174,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             50.0,
-            (artist, value) -> 0
+            GameplayEffect.CROWD_BOOST_ON_FINAL_EVENT
     ),
 
     FULL_ROSTER_INCOME_2X(
@@ -185,7 +184,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             2.0,
-            (artist, value) -> 0
+            GameplayEffect.FULL_ROSTER_INCOME_2X
     ),
 
     FINAL_WIN_INCOME_2X(
@@ -195,7 +194,7 @@ public enum Effect {
             null,
             ItemType.CONDITIONAL,
             2.0,
-            (artist, value) -> 0
+            GameplayEffect.FINAL_WIN_INCOME_2X
     );
 
     private final String name;
@@ -204,17 +203,17 @@ public enum Effect {
     private final StatType targetStat;
     private final ItemType itemType;
     private final double defaultValue;
-    private final StatModifier modifier;
+    private final GameplayEffect gameplayEffect;
 
-    Effect(String name, String description, Rarity rarity,
-           StatType targetStat, ItemType itemType, double defaultValue, StatModifier modifier) {
+    ItemEffects(String name, String description, Rarity rarity,
+                StatType targetStat, ItemType itemType, double defaultValue, GameplayEffect gameplayEffect) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
         this.targetStat = targetStat;
         this.itemType = itemType;
         this.defaultValue = defaultValue;
-        this.modifier = modifier;
+        this.gameplayEffect = gameplayEffect;
     }
 
     public String toString()
@@ -228,5 +227,7 @@ public enum Effect {
     public StatType getTargetStat() { return targetStat; }
     public ItemType getItemType() { return itemType; }
     public double getDefaultValue() { return defaultValue; }
-    public StatModifier getModifier() { return modifier; }
+    public GameplayEffect getGameplayEffect() { return gameplayEffect; }
+    public StatModifier getStatModifier() { return gameplayEffect.createStatModifier(defaultValue); }
+    public ConcertModifier getConcertModifier() { return gameplayEffect.createConcertModifier(defaultValue); }
 }

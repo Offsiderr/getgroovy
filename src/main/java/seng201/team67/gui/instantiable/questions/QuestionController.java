@@ -19,7 +19,6 @@ public class QuestionController {
     //TODO: impltement .setManaged to allow collapsing of layout space in the future.
 
     private final Question question;
-
     @FXML private Label questionTitle;
 
     @FXML private Button answerOne;

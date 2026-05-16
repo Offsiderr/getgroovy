@@ -1,23 +1,5 @@
 [
   {
-    "id": "ROAD_VETERAN",
-    "name": "Road Veteran",
-    "description": "Years on the road have toughened this artist up. World tours drain less stamina. Effect: −20% stamina cost on World tours.",
-    "artistType": "ANY",
-    "rarity": "COMMON",
-    "effects": ["STAMINA_COST_REDUCTION"],
-    "multiplier": 0.8
-  },
-  {
-    "id": "CROWD_PLEASER",
-    "name": "Crowd Pleaser",
-    "description": "This artist just knows how to work a room. Starts every concert with a boost to star power. Effect: +5 star power at the start of every concert.",
-    "artistType": "ANY",
-    "rarity": "COMMON",
-    "effects": ["FLAT_STAR_POWER_BOOST"],
-    "multiplier": 5
-  },
-  {
     "id": "RESILIENT",
     "name": "Resilient",
     "description": "Setbacks roll off this artist like water. Stamina penalties from bad outcomes are softened. Effect: −15% to all incoming stamina penalties.",
@@ -32,7 +14,7 @@
     "description": "Every decent show is a lesson. Solid performances pay out a little more than usual. Effect: +10% credits on OK payout outcomes.",
     "artistType": "ANY",
     "rarity": "RARE",
-    "effects": ["PAYOUT_MULTIPLIER"],
+    "effects": ["OK_PAYOUT_MULTIPLIER"],
     "multiplier": 1.1
   },
   {
@@ -41,7 +23,7 @@
     "description": "Born to be the main act. Earns a bonus when performing without a supporting lineup. Effect: +15% payout when this artist is the only one in the lineup.",
     "artistType": "ANY",
     "rarity": "VERY_RARE",
-    "effects": ["PAYOUT_MULTIPLIER"],
+    "effects": ["SOLO_PAYOUT_MULTIPLIER"],
     "multiplier": 1.15
   },
   {
@@ -52,24 +34,6 @@
     "rarity": "VERY_RARE",
     "effects": ["GREAT_PAYOUT_MULTIPLIER"],
     "multiplier": 1.5
-  },
-  {
-    "id": "FAN_FAVOURITE",
-    "name": "Fan Favourite",
-    "description": "The fans adore this artist. Each standout performance permanently boosts their star power. Effect: +8 star power permanently after each GREAT outcome.",
-    "artistType": "POPSTAR",
-    "rarity": "RARE",
-    "effects": ["FLAT_STAR_POWER_BOOST"],
-    "multiplier": 8
-  },
-  {
-    "id": "TREND_SETTER",
-    "name": "Trend Setter",
-    "description": "Always ahead of the curve. Star power grows steadily the longer this artist stays in the lineup. Effect: +2 star power per round while in the lineup.",
-    "artistType": "POPSTAR",
-    "rarity": "RARE",
-    "effects": ["FLAT_STAR_POWER_BOOST"],
-    "multiplier": 2
   },
   {
     "id": "CHART_TOPPER",
@@ -92,11 +56,11 @@
   {
     "id": "SIDE_HUSTLE",
     "name": "Side Hustle",
-    "description": "Always finding ways to make money on the side. Earns a flat credit bonus at the end of every tour. Effect: +20 credits at the end of every tour.",
+    "description": "Always finding ways to make money on the side. Earns a flat credit bonus at the end of every tour. Effect: +50 credits at the end of every tour.",
     "artistType": "RAPPER",
     "rarity": "COMMON",
     "effects": ["FLAT_CREDIT_BONUS"],
-    "multiplier": 20
+    "multiplier": 50
   },
   {
     "id": "BATTLE_HARDENED",
@@ -113,7 +77,7 @@
     "description": "Thrives alongside other artists. Earns a payout bonus when the lineup has more than one artist type. Effect: +15% payout when the lineup contains at least one other artist type.",
     "artistType": "RAPPER",
     "rarity": "VERY_RARE",
-    "effects": ["PAYOUT_MULTIPLIER"],
+    "effects": ["COLLAB_PAYOUT_MULTIPLIER"],
     "multiplier": 1.15
   },
   {
@@ -149,7 +113,7 @@
     "description": "Leaves the crowd wanting more every time. Earns a bonus when a concert ends on a high. Effect: +25% credits when the concert ends with crowd meter ≥ 75%.",
     "artistType": "ROCKSTAR",
     "rarity": "RARE",
-    "effects": ["PAYOUT_MULTIPLIER"],
+    "effects": ["ENCORE_PAYOUT_MULTIPLIER"],
     "multiplier": 1.25
   },
   {
@@ -162,21 +126,12 @@
     "multiplier": 1.2
   },
   {
-    "id": "RIFF_LORD",
-    "name": "Riff Lord",
-    "description": "A natural on stage. This artist's raw charisma gives them a permanent star power advantage. Effect: +10 star power permanently.",
-    "artistType": "ROCKSTAR",
-    "rarity": "RARE",
-    "effects": ["FLAT_STAR_POWER_BOOST"],
-    "multiplier": 10
-  },
-  {
     "id": "AMP_IT_UP",
     "name": "Amp It Up",
     "description": "Gets better as the tour goes on. Payouts grow with each concert completed in a single tour. Effect: +10% payout per concert completed in a single tour.",
     "artistType": "ROCKSTAR",
     "rarity": "VERY_RARE",
-    "effects": ["PAYOUT_MULTIPLIER"],
+    "effects": ["TOUR_PROGRESS_PAYOUT_MULTIPLIER"],
     "multiplier": 1.1
   }
 ]

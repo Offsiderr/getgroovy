@@ -21,9 +21,9 @@ public class GachaServiceTest {
         GameEnvironment gameEnvironment = new GameEnvironment();
         List<Artist> pool = List.of(
                 new Popstar("One", 1, "Pop"),
-                new Rapper("Two", 2, "Rap"),
-                new Rockstar("Three", 3, "Rock"),
-                new Popstar("Four", 1, "Pop")
+                new Rapper("Two", 1, "Rap"),
+                new Rockstar("Three", 1, "Rock"),
+                new Popstar("Four", 2, "Pop")
         );
         gameEnvironment.setArtistPool(pool);
 

@@ -74,6 +74,11 @@ public class Label {
     //Setters
     public boolean addArtistToAll(Artist artist)
     {
+        if (allArtists.contains(artist))
+        {
+            return false;
+        }
+
         if(allArtists.size() < artistsLimit)
         {
             allArtists.add(artist);
@@ -85,10 +90,16 @@ public class Label {
         }
     }
 
-    public void addItemToAll(Item item)
+    public boolean addItemToAll(Item item)
     {
+        if (items.contains(item))
+        {
+            return false;
+        }
+
         //add max items later
         items.add(item);
+        return true;
     }
 
     public void setLineUp(List<Artist> line_up)

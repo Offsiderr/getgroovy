@@ -251,13 +251,36 @@ public class MainGameController {
     }
 
     private void navigateAfterTourEnd(ActionEvent event, boolean staminaLoss) throws IOException {
-        if (randomEventService.shouldTriggerRandomEvent(gameEnvironment)) {
+        Artist retiredArtist = randomEventService.rollRetirementArtist(gameEnvironment);
+        if (retiredArtist != null) {
             screenNavigator.navigate(event, "/fxml/results/EventResult.fxml",
                     new RandomEventResultController(
                             gameEnvironment,
                             tourService,
-                            randomEventService.getWeightedRandomEvent(),
-                            randomEventService.getRandomAffectedArtist(gameEnvironment),
+                            "Artist Retiring",
+                            retiredArtist.getName() + " is retiring immediately after this tour.",
+                            retiredArtist,
+                            staminaLoss
+                    ));
+            return;
+        }
+
+        if (randomEventService.shouldTriggerRandomEvent(gameEnvironment)) {
+            var randomEvent = randomEventService.getWeightedRandomEvent(gameEnvironment);
+            var affectedArtist = randomEventService.getRandomAffectedArtist(gameEnvironment, randomEvent);
+
+            if (randomEvent == null || affectedArtist == null) {
+                screenNavigator.navigate(event, "/fxml/results/TourResults.fxml",
+                        new TourResultsController(gameEnvironment, tourService, staminaLoss));
+                return;
+            }
+
+            screenNavigator.navigate(event, "/fxml/results/EventResult.fxml",
+                    new RandomEventResultController(
+                            gameEnvironment,
+                            tourService,
+                            randomEvent,
+                            affectedArtist,
                             staminaLoss
                     ));
             return;

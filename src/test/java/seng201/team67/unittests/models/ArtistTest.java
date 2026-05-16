@@ -1,10 +1,10 @@
 package seng201.team67.unittests.models;
 
 import org.junit.jupiter.api.Test;
-import seng201.team67.behaviours.SkillBehaviours;
+import seng201.team67.behaviours.SkillEffectBehaviours;
 import seng201.team67.models.Skill;
+import seng201.team67.models.enums.GameplayEffect;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
@@ -21,6 +21,7 @@ public class ArtistTest {
 
         assertEquals("Dua Lipa", artist.getName());
         assertEquals(3, artist.getStarPower());
+        assertEquals(3, artist.getSkillLevel());
         assertEquals(100, artist.getHealth());
         assertEquals(100, artist.getStamina());
         assertEquals("Pop artist", artist.getDescription());
@@ -37,6 +38,7 @@ public class ArtistTest {
 
         assertEquals("Louie Campion", artist.getName());
         assertEquals(5, artist.getStarPower());
+        assertEquals(5, artist.getSkillLevel());
         assertEquals(100, artist.getHealth());
         assertEquals(120, artist.getStamina());
         assertEquals("The author of these tests", artist.getDescription());
@@ -93,6 +95,17 @@ public class ArtistTest {
     }
 
     @Test
+    void changeStarPowerClampsWithinOneAndFive() {
+        Popstar artist = new Popstar("Olivia Rodrigo", 3, "Pop artist");
+
+        artist.changeStarPower(10);
+        assertEquals(5, artist.getBaseStarPowerValue());
+
+        artist.changeStarPower(-10);
+        assertEquals(1, artist.getBaseStarPowerValue());
+    }
+
+    @Test
     void skillFlatStarPowerBoostAppliesToDisplayedStarPower() {
         Rockstar artist = new Rockstar("Muse", 3, "Rock artist");
         Skill skill = new Skill(
@@ -101,8 +114,9 @@ public class ArtistTest {
                 "Boosts star power",
                 "ROCKSTAR",
                 Rarity.RARE,
-                List.of(SkillEffects.FLAT_STAR_POWER_BOOST),
-                SkillBehaviours.flatStarPowerBoost(10),
+                10,
+                List.of(GameplayEffect.FLAT_STAR_POWER_BOOST),
+                SkillEffectBehaviours.flatStarPowerBoost(10),
                 null
         );
 
@@ -120,8 +134,9 @@ public class ArtistTest {
                 "Boosts stamina",
                 "RAPPER",
                 Rarity.COMMON,
-                List.of(SkillEffects.FLAT_STAMINA_BOOST),
-                SkillBehaviours.flatStaminaBoost(10),
+                10,
+                List.of(GameplayEffect.FLAT_STAMINA_BOOST),
+                SkillEffectBehaviours.flatStaminaBoost(10),
                 null
         );
 

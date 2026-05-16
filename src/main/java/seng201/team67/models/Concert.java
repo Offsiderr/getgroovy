@@ -27,6 +27,11 @@ public class Concert {
         energy = energy + toAdd;
     }
 
+    public void setEnergy(int energy)
+    {
+        this.energy = energy;
+    }
+
     public double getTicketSales()
     {
         return ticketSales;

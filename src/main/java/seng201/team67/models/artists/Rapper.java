@@ -1,5 +1,8 @@
 package seng201.team67.models.artists;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Rapper extends Artist {
 
     //(Jackson needs this for Json deserialisation)
@@ -8,7 +11,10 @@ public class Rapper extends Artist {
         super("", 0, 120, 100, "");
     }
 
-    public Rapper (String name, int starPower, String description)
+    @JsonCreator
+    public Rapper(@JsonProperty("name") String name,
+                  @JsonProperty("starPower") int starPower,
+                  @JsonProperty("description") String description)
     {
         super(name, starPower, 120, 100, description);
     }

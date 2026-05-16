@@ -7,11 +7,12 @@ import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
+import seng201.team67.models.enums.TourType;
 import seng201.team67.services.management.LabelService;
 import seng201.team67.services.setup.DifficultyService;
 
@@ -43,7 +44,8 @@ public class LabelServiceTest {
     void hireArtistReturnsFalseWhenThereIsNotEnoughMoney() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
         LabelService service = createLabelService(gameEnvironment, new ArrayList<>());
-        Artist expensiveArtist = new Popstar("Expensive", 100, "Pop");
+        Artist expensiveArtist = new Popstar("Expensive", 5, "Pop");
+        service.takeMoney(service.getMoney());
 
         boolean hired = service.hireArtist(expensiveArtist);
 
@@ -71,7 +73,7 @@ public class LabelServiceTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
         double startingMoney = service.getMoney();
 
@@ -108,6 +110,19 @@ public class LabelServiceTest {
 
         assertEquals(20.0, easyService.getLineupTotalPay(), 0.0001);
         assertEquals(30.0, hardService.getLineupTotalPay(), 0.0001);
+    }
+
+    @Test
+    void lineupTotalPayUsesTourArtistPayMultiplier() {
+        List<Artist> artists = List.of(
+                new Popstar("One", 1, "Pop"),
+                new Rapper("Two", 3, "Rap")
+        );
+        LabelService service = createLabelService(createConfiguredEnvironment(0), artists);
+
+        assertEquals(20.0, service.getLineupTotalPay(TourType.LOCAL), 0.0001);
+        assertEquals(30.0, service.getLineupTotalPay(TourType.COUNTRY), 0.0001);
+        assertEquals(40.0, service.getLineupTotalPay(TourType.WORLD), 0.0001);
     }
 
     @Test
@@ -159,7 +174,7 @@ public class LabelServiceTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
         service.buyItem(item, 0);
 
@@ -180,7 +195,7 @@ public class LabelServiceTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
         service.buyItem(item, 0);
         service.equipItem(artist, item);
@@ -204,7 +219,7 @@ public class LabelServiceTest {
                 1,
                 100,
                 Rarity.COMMON,
-                List.of(Effect.SECOND_WIND)
+                List.of(ItemEffects.SECOND_WIND)
         );
         service.buyItem(item, 0);
         service.equipItem(artist, item);
@@ -212,7 +227,7 @@ public class LabelServiceTest {
         String result = service.useConsumable(artist, item);
 
         assertFalse(result.isBlank());
-        assertEquals(6, artist.getStarPower());
+        assertEquals(5, artist.getStarPower());
         assertEquals(0, item.getUses());
         assertFalse(artist.getItems().contains(item));
     }
@@ -229,7 +244,7 @@ public class LabelServiceTest {
                 1,
                 100,
                 Rarity.COMMON,
-                List.of(Effect.STAMINA_BOOST)
+                List.of(ItemEffects.STAMINA_BOOST)
         );
         item.setMultiplier(15.0);
         service.buyItem(item, 0);
@@ -241,6 +256,28 @@ public class LabelServiceTest {
     }
 
     @Test
+    void useConsumableAppliesStarPowerBoostEffect() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        Artist artist = new Popstar("Confident Artist", 2, "Pop");
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>(List.of(artist)));
+        CosumableItem item = new CosumableItem(
+                "Pep Talk",
+                "A quick confidence boost",
+                1,
+                100,
+                Rarity.RARE,
+                List.of(ItemEffects.STAR_POWER_BOOST)
+        );
+        item.setMultiplier(2.0);
+        service.buyItem(item, 0);
+        service.equipItem(artist, item);
+
+        service.useConsumable(artist, item);
+
+        assertEquals(4, artist.getStarPower());
+    }
+
+    @Test
     void getItemSellPriceReturnsConfiguredRateForUnusedItem() {
         LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
         Item item = new EquippedItem(
@@ -248,7 +285,7 @@ public class LabelServiceTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
 
         assertEquals(70, service.getItemSellPrice(item));
@@ -263,7 +300,7 @@ public class LabelServiceTest {
                 3,
                 300,
                 Rarity.COMMON,
-                List.of(Effect.SECOND_WIND)
+                List.of(ItemEffects.SECOND_WIND)
         );
 
         item.consumeUse();
@@ -281,7 +318,7 @@ public class LabelServiceTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
         service.buyItem(item, 0);
         double startingMoney = service.getMoney();

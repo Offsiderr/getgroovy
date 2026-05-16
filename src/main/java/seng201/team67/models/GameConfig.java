@@ -115,6 +115,10 @@ public class GameConfig {
     public final int cancelTourPenalty;
 
     public final double ticketSalesAmount;
+    public final double localTourArtistPayMultiplier;
+    public final double countryTourArtistPayMultiplier;
+    public final double worldTourArtistPayMultiplier;
+    public final int retirementChanceIncreasePerThreeToursWithoutBreak;
 
     //Score tuning
     public final int concertCompletionScore;
@@ -173,6 +177,10 @@ public class GameConfig {
             int labelNameMaxLength,
             int cancelTourPenalty,
             double ticketSalesAmount,
+            double localTourArtistPayMultiplier,
+            double countryTourArtistPayMultiplier,
+            double worldTourArtistPayMultiplier,
+            int retirementChanceIncreasePerThreeToursWithoutBreak,
             int concertCompletionScore,
             int questionAnsweredScore,
             double crowdHypeScoreMultiplier,
@@ -222,6 +230,10 @@ public class GameConfig {
         this.labelNameMaxLength               = labelNameMaxLength;
         this.cancelTourPenalty                = cancelTourPenalty;
         this.ticketSalesAmount                = ticketSalesAmount;
+        this.localTourArtistPayMultiplier     = localTourArtistPayMultiplier;
+        this.countryTourArtistPayMultiplier   = countryTourArtistPayMultiplier;
+        this.worldTourArtistPayMultiplier     = worldTourArtistPayMultiplier;
+        this.retirementChanceIncreasePerThreeToursWithoutBreak = retirementChanceIncreasePerThreeToursWithoutBreak;
         this.concertCompletionScore           = concertCompletionScore;
         this.questionAnsweredScore            = questionAnsweredScore;
         this.crowdHypeScoreMultiplier         = crowdHypeScoreMultiplier;
@@ -234,6 +246,16 @@ public class GameConfig {
         this.musicVolume                      = musicVolume;
         this.soundEffectsVolume               = soundEffectsVolume;
         this.movingBackgroundEnabled          = movingBackgroundEnabled;
+    }
+
+    public double getArtistPayMultiplier(TourType tourType)
+    {
+        return switch (tourType)
+        {
+            case LOCAL -> localTourArtistPayMultiplier;
+            case COUNTRY -> countryTourArtistPayMultiplier;
+            case WORLD -> worldTourArtistPayMultiplier;
+        };
     }
 
     // ── Difficulty presets ────────────────────────────────────────────────────
@@ -256,6 +278,7 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
                 3, 15, 100, 250,
+                1.0, 1.5, 2.0, 5,
                 // Score tuning
                 25, 5, 0.5, 20.0, 40, 90, 150, 50,
                 //Game config
@@ -281,6 +304,7 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 10.0, 50.0,
                 // UI
                 3, 15, 300, 250,
+                1.0, 1.5, 2.0, 5,
                 // Score tuning
                 30, 5, 0.6, 18.0, 50, 110, 180, 75,
                 //Game config
@@ -306,6 +330,7 @@ public class GameConfig {
                 20.0, 60.0, 1.0, 7.0, 50.0,
                 // UI
                 3, 15, 500, 250,
+                1.0, 1.5, 2.0, 5,
                 // Score tuning
                 35, 6, 0.75, 15.0, 60, 130, 220, 100,
                 //Game config

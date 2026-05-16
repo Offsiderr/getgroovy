@@ -18,17 +18,17 @@
          </image>
       </ImageView>
 
-      <ImageView fitHeight="185.0" fitWidth="193.0" layoutX="531.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0);;">
+      <ImageView fitHeight="185.0" fitWidth="193.0" layoutX="531.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0);;">
          <image>
             <Image url="@../../images/Market/golden_record.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="188.0" fitWidth="185.0" layoutX="817.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);;">
+      <ImageView fitHeight="188.0" fitWidth="185.0" layoutX="817.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);;">
          <image>
             <Image url="@../../images/Market/platinum_record.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="227.0" fitWidth="337.0" layoutX="187.0" layoutY="112.0" pickOnBounds="false" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
+      <ImageView fitHeight="227.0" fitWidth="337.0" layoutX="187.0" layoutY="112.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
          <image>
             <Image url="@../../images/Market/record.png" />
          </image>
@@ -40,7 +40,7 @@
       <Label fx:id="gameDifficulty" layoutX="537.0" layoutY="23.0" prefHeight="63.0" prefWidth="194.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="The Studio" textAlignment="CENTER">
          <font><Font name="Javanese Text" size="36.0" /></font>
       </Label>
-      <Label fx:id="moneyText" layoutX="1084.0" layoutY="79.0" style="-fx-effect: dropshadow(three-pass-box, green, 15, 0.9, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="#05ff1e">
+      <Label fx:id="moneyText" layoutX="1084.0" layoutY="79.0" style="-fx-itemEffects: dropshadow(three-pass-box, green, 15, 0.9, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="#05ff1e">
          <font><Font size="37.0" /></font>
       </Label>
       <Label layoutX="1072.0" layoutY="30.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
@@ -57,34 +57,34 @@
       <Button layoutX="539.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyGolden" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
       <Button layoutX="817.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyPlatinum" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
 
-      <Label layoutX="278.0" layoutY="305.0" style="-fx-effect: dropshadow(three-pass-box, white, 5, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Standard Record" textAlignment="CENTER">
+      <Label layoutX="278.0" layoutY="305.0" style="-fx-itemEffects: dropshadow(three-pass-box, white, 5, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Standard Record" textAlignment="CENTER">
          <font><Font size="23.0" /></font>
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="330.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);" text="\$100" textAlignment="CENTER" textFill="#eeeeee">
+      <Label layoutX="330.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);" text="\$100" textAlignment="CENTER" textFill="#eeeeee">
          <font><Font size="23.0" /></font>
       </Label>
-      <Label layoutX="560.0" layoutY="305.0" prefHeight="25.0" prefWidth="138.0" style="-fx-effect: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Golden Record" textAlignment="CENTER">
-         <font><Font size="23.0" /></font>
-         <styleClass>
-            <String fx:value="root" />
-            <String fx:value="small-label" />
-         </styleClass>
-      </Label>
-      <Label layoutX="836.0" layoutY="305.0" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Platinum Record" textAlignment="CENTER">
+      <Label layoutX="560.0" layoutY="305.0" prefHeight="25.0" prefWidth="138.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Golden Record" textAlignment="CENTER">
          <font><Font size="23.0" /></font>
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="599.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="836.0" layoutY="305.0" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Platinum Record" textAlignment="CENTER">
+         <font><Font size="23.0" /></font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label layoutX="599.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
-      <Label layoutX="879.0" layoutY="334.0" style="-fx-effect: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="879.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
       <Label layoutX="152.0" layoutY="376.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Hire an Artist:" textFill="WHITE">

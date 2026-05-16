@@ -2,7 +2,8 @@ package seng201.team67.unittests.models.questionmodels;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import seng201.team67.models.enums.PayoutType;
+import seng201.team67.models.enums.questions.OutcomeType;
+import seng201.team67.models.enums.questions.PayoutType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
@@ -28,8 +29,8 @@ public class QuestionModelsTest {
                         {
                           "weight": 3,
                           "description": "Fans stay patient.",
-                          "payout": "okPayout",
-                          "staminaChange": -5.5,
+                          "outcomeType": "good",
+                          "payout": "minorReward",
                           "crowdEnergyChange": 10,
                           "concertEnds": false
                         }
@@ -51,8 +52,9 @@ public class QuestionModelsTest {
                 () -> assertEquals(1, answer.getOutcomes().size()),
                 () -> assertEquals(3, outcome.getWeight()),
                 () -> assertEquals("Fans stay patient.", outcome.getDescription()),
-                () -> assertEquals(PayoutType.OK_PAYOUT, outcome.getPayoutType()),
-                () -> assertEquals(-5.5, outcome.getStaminaChange()),
+                () -> assertEquals(OutcomeType.GOOD, outcome.getOutcomeType()),
+                () -> assertEquals(PayoutType.MINOR_REWARD, outcome.getPayoutType()),
+                () -> assertFalse(outcome.hasExplicitStaminaChange()),
                 () -> assertEquals(10, outcome.getCrowdEnergyChange()),
                 () -> assertFalse(outcome.getConcertEnds())
         );

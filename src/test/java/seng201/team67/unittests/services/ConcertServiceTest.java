@@ -1,18 +1,18 @@
 package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
-import seng201.team67.behaviours.SkillBehaviours;
+import seng201.team67.behaviours.SkillEffectBehaviours;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.Skill;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.minigames.MiniGameResult;
+import seng201.team67.models.enums.GameplayEffect;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.SkillEffects;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
-import seng201.team67.models.enums.PayoutType;
+import seng201.team67.models.enums.questions.PayoutType;
 import seng201.team67.models.enums.TourType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
@@ -27,6 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConcertServiceTest {
@@ -47,16 +48,19 @@ public class ConcertServiceTest {
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
         ConcertService service = new ConcertService(gameEnvironment, tourService);
         Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
+        double startingMoney = gameEnvironment.getLabelService().getMoney();
+        double payout = new PayoutService().getPayoutAmount(gameEnvironment, PayoutType.MAJOR_REWARD);
 
-        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.GREAT_PAYOUT, -5, 10, false);
+        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.MAJOR_REWARD, -5, 10, false);
         Answer answer = new Answer("Choose this", List.of(outcome));
 
         service.handleAnswer(answer);
 
-        assertEquals(new PayoutService().getPayoutAmount(gameEnvironment, PayoutType.GREAT_PAYOUT), service.getIncome(), 0.0001);
+        assertEquals(payout, service.getIncome(), 0.0001);
+        assertEquals(startingMoney + payout, gameEnvironment.getLabelService().getMoney(), 0.0001);
         assertEquals(95, firstLineupArtist.getStamina());
         assertEquals(1, tourService.getCurrentLineupStaminaIndex());
-        assertEquals(11, service.getCrowdEnergyChange());
+        assertEquals(11, service.getCrowdEnergy());
         assertEquals(5.0, service.totalStaminaDrain(), 0.0001);
     }
 
@@ -69,19 +73,116 @@ public class ConcertServiceTest {
                 "Boosts payouts",
                 "POPSTAR",
                 Rarity.COMMON,
-                List.of(SkillEffects.PAYOUT_MULTIPLIER),
+                1.1,
+                List.of(GameplayEffect.PAYOUT_MULTIPLIER),
                 null,
-                SkillBehaviours.payoutMultiplier(1.1)
+                SkillEffectBehaviours.payoutMultiplier(1.1)
         ));
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
         ConcertService service = new ConcertService(gameEnvironment, tourService);
+        double startingMoney = gameEnvironment.getLabelService().getMoney();
 
-        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.OK_PAYOUT, 0, 0, false);
+        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.MINOR_REWARD, 0, 0, false);
         Answer answer = new Answer("Choose this", List.of(outcome));
 
         service.handleAnswer(answer);
 
         assertEquals(110.0, service.getIncome(), 0.0001);
+        assertEquals(startingMoney + 110.0, gameEnvironment.getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void handleAnswerOnlyUsesAnsweringArtistsPayoutSkill() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
+        Artist secondLineupArtist = gameEnvironment.getLabelService().getLineup().get(1);
+
+        secondLineupArtist.setSkill(new Skill(
+                "CHART_TOPPER",
+                "Chart Topper",
+                "Boosts payouts",
+                "POPSTAR",
+                Rarity.COMMON,
+                1.1,
+                List.of(GameplayEffect.PAYOUT_MULTIPLIER),
+                null,
+                SkillEffectBehaviours.payoutMultiplier(1.1)
+        ));
+
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+        double startingMoney = gameEnvironment.getLabelService().getMoney();
+
+        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.MINOR_REWARD, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(100.0, service.getIncome(), 0.0001);
+        assertEquals(startingMoney + 100.0, gameEnvironment.getLabelService().getMoney(), 0.0001);
+        assertNotEquals(firstLineupArtist, secondLineupArtist);
+    }
+
+    @Test
+    void fanFavouriteOnlyTriggersForAnsweringArtistOnGreatOutcome() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
+        Artist secondLineupArtist = gameEnvironment.getLabelService().getLineup().get(1);
+
+        firstLineupArtist.setSkill(new Skill(
+                "FAN_FAVOURITE",
+                "Fan Favourite",
+                "Boosts star power after GREAT outcomes",
+                "POPSTAR",
+                Rarity.RARE,
+                1.0,
+                List.of(GameplayEffect.FLAT_STAR_POWER_BOOST),
+                SkillEffectBehaviours.flatStarPowerBoost(1),
+                null
+        ));
+
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        assertEquals(1, firstLineupArtist.getStarPower());
+
+        Outcome greatOutcome = new Outcome(1, "Huge crowd reaction", PayoutType.MAJOR_REWARD, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(greatOutcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(2, firstLineupArtist.getStarPower());
+        assertEquals(3, secondLineupArtist.getStarPower());
+    }
+
+    @Test
+    void fanFavouriteDoesNotTriggerForNonAnsweringArtistOrNonGreatOutcome() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        Artist firstLineupArtist = gameEnvironment.getLabelService().getLineup().getFirst();
+        Artist secondLineupArtist = gameEnvironment.getLabelService().getLineup().get(1);
+
+        secondLineupArtist.setSkill(new Skill(
+                "FAN_FAVOURITE",
+                "Fan Favourite",
+                "Boosts star power after GREAT outcomes",
+                "POPSTAR",
+                Rarity.RARE,
+                1.0,
+                List.of(GameplayEffect.FLAT_STAR_POWER_BOOST),
+                SkillEffectBehaviours.flatStarPowerBoost(1),
+                null
+        ));
+
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+
+        Outcome okOutcome = new Outcome(1, "Steady set", PayoutType.MINOR_REWARD, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(okOutcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(1, firstLineupArtist.getStarPower());
+        assertEquals(3, secondLineupArtist.getStarPower());
     }
 
     @Test
@@ -94,8 +195,9 @@ public class ConcertServiceTest {
                 "Reduces stamina drain",
                 "ANY",
                 Rarity.COMMON,
-                List.of(SkillEffects.STAMINA_COST_REDUCTION),
-                SkillBehaviours.staminaCostReduction(0.8),
+                0.8,
+                List.of(GameplayEffect.STAMINA_COST_REDUCTION),
+                SkillEffectBehaviours.staminaCostReduction(0.8),
                 null
         ));
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
@@ -114,11 +216,13 @@ public class ConcertServiceTest {
     void applyMiniGameResultUpdatesIncomeAndCrowdMeter() {
         GameEnvironment gameEnvironment = createEnvironmentWithLabel();
         ConcertService service = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment));
+        double startingMoney = gameEnvironment.getLabelService().getMoney();
 
         service.applyMiniGameResult(new MiniGameResult(15, 200));
 
-        assertEquals(15, service.getCrowdEnergyChange());
+        assertEquals(15, service.getCrowdEnergy());
         assertEquals(200.0, service.getIncome(), 0.0001);
+        assertEquals(startingMoney + 200.0, gameEnvironment.getLabelService().getMoney(), 0.0001);
     }
 
     @Test
@@ -129,7 +233,7 @@ public class ConcertServiceTest {
         setMiniGameTriggerChance(1.0);
         service.applyMiniGameResult(new MiniGameResult(50, 0));
 
-        assertEquals(seng201.team67.models.enums.Minigame.SOUNDENGINEER, service.getConcertMinigame());
+        assertTrue(service.getConcertMinigame() != null);
         assertNull(service.getConcertMinigame());
     }
 

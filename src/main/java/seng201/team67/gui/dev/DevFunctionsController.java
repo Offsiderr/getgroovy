@@ -23,6 +23,11 @@ public class DevFunctionsController {
         screenNavigator.navigate(event, "/fxml/devui/DevArtists.fxml", new DevArtistsController(gameEnvironment));
     }
 
+    @FXML public void showItems(ActionEvent event) throws IOException
+    {
+        screenNavigator.navigate(event, "/fxml/devui/DevItems.fxml", new DevItemsController(gameEnvironment));
+    }
+
     @FXML public void miniGames(ActionEvent event) throws IOException
     {
         screenNavigator.navigate(event, "/fxml/devui/MiniGames.fxml", new MiniGamesController(gameEnvironment));

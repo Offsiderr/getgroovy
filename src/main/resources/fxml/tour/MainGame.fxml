@@ -122,7 +122,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label fx:id="effectText" layoutX="433.0" layoutY="596.0" prefHeight="62.0" prefWidth="293.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="this effect applied" wrapText="true">
+      <Label fx:id="effectText" layoutX="433.0" layoutY="596.0" prefHeight="62.0" prefWidth="293.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="this itemEffects applied" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -147,7 +147,7 @@
                   <String fx:value="small-label" />
                </styleClass>
             </Button>
-            <Label fx:id="cancelTourLabel" layoutX="355.0" layoutY="138.0" prefHeight="154.0" prefWidth="619.0" style="-fx-background-color: transperant; -fx-effect: dropshadow(three-pass-box, red, 10, 0.9, 0, 0);;" stylesheets="@../../Styles/Style.css" text="Are you sure you want to end the tour early? You will have to refund five-hundered of tickets" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="cancelTourLabel" layoutX="355.0" layoutY="138.0" prefHeight="154.0" prefWidth="619.0" style="-fx-background-color: transperant; -fx-itemEffects: dropshadow(three-pass-box, red, 10, 0.9, 0, 0);;" stylesheets="@../../Styles/Style.css" text="Are you sure you want to end the tour early? You will have to refund five-hundered of tickets" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>

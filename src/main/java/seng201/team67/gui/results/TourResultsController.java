@@ -137,7 +137,8 @@ public class TourResultsController {
         labelEventPenalties.setText("- " + formatMoneyValue(eventPenalties));
         labelGross.setText(formatMoney(gross));
         labelPayDescription.setText("Artist pay (" + gameEnvironment.getDifficulty().getDisplayName()
-                + " Difficulty x" + MONEY_FORMAT.format(gameEnvironment.getDifficulty().getPayMultiplier()) + ")");
+                + " Difficulty x" + MONEY_FORMAT.format(gameEnvironment.getDifficulty().getPayMultiplier())
+                + ", " + formatTourName() + " Tour x" + MONEY_FORMAT.format(tourService.getTourArtistPayMultiplier()) + ")");
         labelArtistPay.setText("- " + formatMoneyValue(artistPay));
         labelNetEarned.setText(formatMoney(netEarned));
         labelCreditsBefore.setText(formatMoney(creditsBefore));

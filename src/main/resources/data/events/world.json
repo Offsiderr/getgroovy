@@ -9,18 +9,18 @@
           {
             "weight": 65,
             "description": "The lawyers sort it out. Everyone makes the show with time to spare.",
-            "staminaChange": -15,
+            "outcomeType": "ok",
             "crowdEnergyChange": 0,
             "concertEnds": false,
-            "payout": "terriblePenalty"
+            "payout": "majorPenalty"
           },
           {
             "weight": 35,
             "description": "Legal can't resolve it in time. The artist misses the show entirely.",
-            "staminaChange": -20,
+            "outcomeType": "terrible",
             "crowdEnergyChange": -20,
             "concertEnds": false,
-            "payout": "terriblePenalty"
+            "payout": "majorPenalty"
           }
         ]
       },
@@ -30,7 +30,7 @@
           {
             "weight": 75,
             "description": "The backup steps up brilliantly. The audience never knows.",
-            "staminaChange": -10,
+            "outcomeType": "good",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -38,7 +38,7 @@
           {
             "weight": 25,
             "description": "Local fans specifically came for the detained artist. Disappointment spreads.",
-            "staminaChange": -10,
+            "outcomeType": "bad",
             "crowdEnergyChange": -20,
             "concertEnds": false,
             "payout": "none"
@@ -51,10 +51,10 @@
           {
             "weight": 100,
             "description": "Professional and transparent. It costs you tonight but protects the tour's reputation.",
-            "staminaChange": 0,
+            "outcomeType": "ok",
             "crowdEnergyChange": -10,
             "concertEnds": false,
-            "payout": "terriblePenalty"
+            "payout": "majorPenalty"
           }
         ]
       }
@@ -70,15 +70,15 @@
           {
             "weight": 55,
             "description": "The scout is impressed. A meeting is requested for tomorrow morning.",
-            "staminaChange": -5,
+            "outcomeType": "great",
             "crowdEnergyChange": 10,
             "concertEnds": false,
-            "payout": "greatPayout"
+            "payout": "majorReward"
           },
           {
             "weight": 45,
             "description": "The crowd can feel the set is being performed for someone. The energy dips.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
             "payout": "none"
@@ -91,15 +91,15 @@
           {
             "weight": 70,
             "description": "The scout loves the authenticity. They want to sign without compromising the sound.",
-            "staminaChange": 0,
+            "outcomeType": "great",
             "crowdEnergyChange": 15,
             "concertEnds": false,
-            "payout": "greatPayout"
+            "payout": "majorReward"
           },
           {
             "weight": 30,
             "description": "The scout wanted something more radio-friendly. They leave after four songs.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -112,14 +112,15 @@
           {
             "weight": 80,
             "description": "Natural performance wins the scout over completely. No nerves, just talent.",
-            "staminaChange": 0,
+            "outcomeType": "great",
             "crowdEnergyChange": 20,
             "concertEnds": false,
-            "payout": "greatPayout"
+            "payout": "majorReward"
           },
           {
             "weight": 20,
             "description": "Your artist finds out and is furious. Pre-show blow-up.",
+            "outcomeType": "terrible",
             "staminaChange": -15,
             "crowdEnergyChange": -15,
             "concertEnds": false,
@@ -139,18 +140,20 @@
           {
             "weight": 60,
             "description": "Your artists rise to the occasion. A genuinely career-defining performance.",
+            "outcomeType": "great",
             "staminaChange": -25,
             "crowdEnergyChange": 30,
             "concertEnds": false,
-            "payout": "greatPayout"
+            "payout": "majorReward"
           },
           {
             "weight": 40,
             "description": "Underprepared for the scale. Visible stumbles in front of ten times your usual crowd.",
+            "outcomeType": "bad",
             "staminaChange": -25,
             "crowdEnergyChange": -5,
             "concertEnds": false,
-            "payout": "okPayout"
+            "payout": "minorReward"
           }
         ]
       },
@@ -160,15 +163,15 @@
           {
             "weight": 85,
             "description": "A perfectly timed mid-bill set to a primed crowd. Solid win.",
-            "staminaChange": -10,
+            "outcomeType": "good",
             "crowdEnergyChange": 15,
             "concertEnds": false,
-            "payout": "greatPayout"
+            "payout": "majorReward"
           },
           {
             "weight": 15,
             "description": "The festival gives the slot to someone else. You stay where you were.",
-            "staminaChange": 0,
+            "outcomeType": "none",
             "crowdEnergyChange": 0,
             "concertEnds": false,
             "payout": "none"

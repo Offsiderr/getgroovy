@@ -2,8 +2,8 @@ package seng201.team67.models.items;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import seng201.team67.interfaces.Purchasable;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.items.Effect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +18,20 @@ public abstract class Item implements Purchasable {
     private String imagePath;
     private Rarity rarity;
     private Double multiplier;
-    private ArrayList<Effect> effects;
+    private ArrayList<ItemEffects> itemEffects;
 
     private Boolean owned;
 
     protected Item() {
     }
 
-    public Item(String name, String description, int cost, Rarity rarity, List<Effect> effects)
+    public Item(String name, String description, int cost, Rarity rarity, List<ItemEffects> itemEffects)
     {
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.rarity = rarity;
-        this.effects = effects == null ? new ArrayList<>() : new ArrayList<>(effects);
+        this.itemEffects = itemEffects == null ? new ArrayList<>() : new ArrayList<>(itemEffects);
         owned = false;
     }
 
@@ -58,8 +58,8 @@ public abstract class Item implements Purchasable {
         return imagePath;
     }
 
-    public ArrayList<Effect> getEffects() {
-        return effects;
+    public ArrayList<ItemEffects> getEffects() {
+        return itemEffects;
     }
 
 

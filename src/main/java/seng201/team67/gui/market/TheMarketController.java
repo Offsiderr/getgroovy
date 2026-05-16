@@ -88,7 +88,7 @@ public class TheMarketController {
             if (i < pool.size()) {
                 Item item = pool.get(i);
                 card.setDisable(false);
-                ItemDetailBoxFiller.populateArtistBox(card, item);
+                ItemDetailBoxFiller.populateMarketBox(card, item);
                 card.setOnMouseClicked(e -> selectItem(card, item));
             } else {
                 clearArtistCard(card);

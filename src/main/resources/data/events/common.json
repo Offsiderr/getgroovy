@@ -9,7 +9,7 @@
           {
             "weight": 60,
             "description": "Your artist fires back with a perfect comeback. The crowd erupts.",
-            "staminaChange": 0,
+            "outcomeType": "great",
             "crowdEnergyChange": 20,
             "concertEnds": false,
             "payout": "none"
@@ -17,7 +17,7 @@
           {
             "weight": 40,
             "description": "The exchange falls flat. The heckler doubles down.",
-            "staminaChange": -5,
+            "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
             "payout": "none"
@@ -30,7 +30,7 @@
           {
             "weight": 75,
             "description": "Security handles it quietly. The show continues without a hitch.",
-            "staminaChange": 0,
+            "outcomeType": "good",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -38,7 +38,7 @@
           {
             "weight": 25,
             "description": "The removal causes a scene. Half the crowd sides with the heckler.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -20,
             "concertEnds": false,
             "payout": "none"
@@ -51,7 +51,7 @@
           {
             "weight": 50,
             "description": "The artist stays locked in. The heckler eventually gives up.",
-            "staminaChange": -5,
+            "outcomeType": "ok",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -59,7 +59,7 @@
           {
             "weight": 50,
             "description": "The distraction lingers. The performance suffers.",
-            "staminaChange": -10,
+            "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
             "payout": "none"
@@ -78,6 +78,7 @@
           {
             "weight": 65,
             "description": "They dig deep and deliver. The room ends on a high.",
+            "outcomeType": "great",
             "staminaChange": -15,
             "crowdEnergyChange": 30,
             "concertEnds": false,
@@ -86,6 +87,7 @@
           {
             "weight": 35,
             "description": "Fatigue shows. The encore feels like a formality.",
+            "outcomeType": "terrible",
             "staminaChange": -20,
             "crowdEnergyChange": -5,
             "concertEnds": false,
@@ -99,7 +101,7 @@
           {
             "weight": 100,
             "description": "Classic move. The buzz lasts all week.",
-            "staminaChange": 0,
+            "outcomeType": "good",
             "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "none"
@@ -118,7 +120,7 @@
           {
             "weight": 65,
             "description": "The crowd cheers them on. An authentic moment captured on a dozen phones.",
-            "staminaChange": -5,
+            "outcomeType": "good",
             "crowdEnergyChange": 10,
             "concertEnds": false,
             "payout": "none"
@@ -126,7 +128,7 @@
           {
             "weight": 35,
             "description": "The pause kills the momentum. People start checking their phones.",
-            "staminaChange": -5,
+            "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
             "payout": "none"
@@ -139,7 +141,7 @@
           {
             "weight": 90,
             "description": "Seamless. Barely a hiccup.",
-            "staminaChange": 0,
+            "outcomeType": "none",
             "crowdEnergyChange": 0,
             "concertEnds": false,
             "payout": "none"
@@ -147,7 +149,7 @@
           {
             "weight": 10,
             "description": "The backup is badly out of tune. The next song sounds rough.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -15,
             "concertEnds": false,
             "payout": "none"
@@ -166,7 +168,7 @@
           {
             "weight": 50,
             "description": "A raw, electric moment. The crowd feels like they witnessed something real.",
-            "staminaChange": -10,
+            "outcomeType": "great",
             "crowdEnergyChange": 25,
             "concertEnds": false,
             "payout": "none"
@@ -174,7 +176,7 @@
           {
             "weight": 35,
             "description": "Rough around the edges but the crowd respects the effort.",
-            "staminaChange": -10,
+            "outcomeType": "good",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -182,7 +184,7 @@
           {
             "weight": 15,
             "description": "They lose the flow completely. An awkward stumble mid-set.",
-            "staminaChange": -15,
+            "outcomeType": "bad",
             "crowdEnergyChange": -20,
             "concertEnds": false,
             "payout": "none"
@@ -195,7 +197,7 @@
           {
             "weight": 100,
             "description": "Solid, professional performance. Everything goes to plan.",
-            "staminaChange": 0,
+            "outcomeType": "ok",
             "crowdEnergyChange": 0,
             "concertEnds": false,
             "payout": "none"

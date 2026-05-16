@@ -2,16 +2,23 @@ package seng201.team67.gui.tour;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import seng201.team67.GameEnvironment;
+import seng201.team67.gui.dev.DevFunctionsInGameController;
 import seng201.team67.gui.instantiable.questions.OutcomeController;
 import seng201.team67.gui.instantiable.questions.QuestionController;
 import seng201.team67.gui.instantiable.minigames.SoundEngineerStandoffController;
@@ -64,6 +71,8 @@ public class MainConcertController {
     @FXML private ImageView bg2;
 
     private double bgSpeed = 0.5;
+    private Parent devOverlay;
+    private boolean devOverlayVisible = false;
 
     public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
     {
@@ -85,7 +94,10 @@ public class MainConcertController {
         populateQuestion();
         refreshView();
 
-        Platform.runLater(() -> updateMicPosition());
+        Platform.runLater(() -> {
+            updateMicPosition();
+            attachDevToggleShortcut();
+        });
     }
 
     private void updateMicPosition() {
@@ -158,11 +170,15 @@ public class MainConcertController {
     {
         List<Artist> pool = gameEnvironment.getLabelService().getLineup();
         VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };
+        int activeArtistIndex = getCurrentAnsweringArtistIndex(pool);
 
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
                 cards[i].setDisable(false);
                 ArtistDetailBoxFiller.populateArtistBox(cards[i], pool.get(i), null);
+                if (i == activeArtistIndex) {
+                    highlightArtistName(cards[i]);
+                }
             } else {
                 clearArtistCard(cards[i]);
             }
@@ -223,6 +239,8 @@ public class MainConcertController {
 
             questionPane.getChildren().add(1, artistView);
         }
+
+        showDevOverlayIfVisible();
     }
 
     private void startMinigame(Minigame minigame) throws IOException {
@@ -247,6 +265,7 @@ public class MainConcertController {
             }
         }
         viewLoader.loadInto(eventBox, minigame.path(), controller);
+        showDevOverlayIfVisible();
     }
 
     private void refreshView()
@@ -254,12 +273,48 @@ public class MainConcertController {
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
         moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
         payText.setText(Double.toString(tourService.getCreditsEarned()));
+        loadLineup();
 
-        crowdMeter.setValue(concertService.getCrowdEnergyChange());
+        crowdMeter.setValue(concertService.getCrowdEnergy());
 
         payText.setText(Double.toString(concertService.getIncome()));
 
         updateMicPosition();
+    }
+
+    private int getCurrentAnsweringArtistIndex(List<Artist> lineup)
+    {
+        if (lineup.isEmpty()) {
+            return -1;
+        }
+        return Math.floorMod(tourService.getCurrentLineupStaminaIndex(), lineup.size());
+    }
+
+    private void highlightArtistName(VBox card)
+    {
+        if (card.getChildren().isEmpty()) {
+            return;
+        }
+
+        Node container = card.getChildren().getFirst();
+        if (!(container instanceof HBox outerRow) || outerRow.getChildren().size() < 2) {
+            return;
+        }
+
+        Node detailsRowNode = outerRow.getChildren().get(1);
+        if (!(detailsRowNode instanceof HBox detailsRow) || detailsRow.getChildren().isEmpty()) {
+            return;
+        }
+
+        Node detailsBoxNode = detailsRow.getChildren().getFirst();
+        if (!(detailsBoxNode instanceof VBox detailsBox) || detailsBox.getChildren().isEmpty()) {
+            return;
+        }
+
+        Node nameNode = detailsBox.getChildren().getFirst();
+        if (nameNode instanceof Label nameLabel) {
+            nameLabel.setTextFill(Color.web("#32CD32"));
+        }
     }
 
     private void handleAnswer(Answer answer) {
@@ -274,7 +329,9 @@ public class MainConcertController {
 
     private void loadOutcome(Outcome outcome) throws IOException {
         eventBox.getChildren().clear();
-        viewLoader.loadInto(eventBox, "/fxml/events/OutcomeEvent.fxml", new OutcomeController(outcome, this::onOutcomeContinue));
+        viewLoader.loadInto(eventBox, "/fxml/events/OutcomeEvent.fxml",
+                new OutcomeController(gameEnvironment, tourService, outcome, this::onOutcomeContinue));
+        showDevOverlayIfVisible();
     }
 
     private void onOutcomeContinue() {
@@ -312,5 +369,99 @@ public class MainConcertController {
         }
 
         screenNavigator.navigate(eventBox, "/fxml/results/ConcertResults.fxml", new ResultsController(gameEnvironment, concertService));
+    }
+
+    private void attachDevToggleShortcut()
+    {
+        if (labelName.getScene() == null)
+        {
+            return;
+        }
+
+        labelName.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.getCode() == KeyCode.D)
+            {
+                toggleDevOverlay();
+                event.consume();
+            }
+        });
+    }
+
+    private void toggleDevOverlay()
+    {
+        devOverlayVisible = !devOverlayVisible;
+        if (devOverlayVisible)
+        {
+            showDevOverlayIfVisible();
+        }
+        else if (devOverlay != null)
+        {
+            eventBox.getChildren().remove(devOverlay);
+        }
+    }
+
+    private void showDevOverlayIfVisible()
+    {
+        if (!devOverlayVisible)
+        {
+            return;
+        }
+
+        if (devOverlay == null)
+        {
+            devOverlay = viewLoader.load("/fxml/devui/DevFunctionsInGame.fxml",
+                    new DevFunctionsInGameController(this));
+        }
+
+        if (!eventBox.getChildren().contains(devOverlay))
+        {
+            eventBox.getChildren().add(devOverlay);
+        }
+
+        AnchorPane.setTopAnchor(devOverlay, 0.0);
+        AnchorPane.setRightAnchor(devOverlay, 0.0);
+        AnchorPane.setBottomAnchor(devOverlay, 0.0);
+        AnchorPane.setLeftAnchor(devOverlay, 0.0);
+    }
+
+    public void debugSetCrowd(int crowd)
+    {
+        concertService.setCrowdEnergyForDebug(crowd);
+        refreshView();
+    }
+
+    public void debugSetAnsweredQuestions(int answeredQuestions)
+    {
+        concertService.setAnsweredQuestionCountForDebug(answeredQuestions);
+        refreshView();
+    }
+
+    public void debugForceGoodOutcome()
+    {
+        concertService.setLastEventWonForDebug(true);
+        concertService.setWinStreakForDebug(1);
+        refreshView();
+    }
+
+    public void debugSetWinStreak(int winStreak)
+    {
+        concertService.setWinStreakForDebug(winStreak);
+        concertService.setLastEventWonForDebug(winStreak > 0);
+        refreshView();
+    }
+
+    public void debugApplyItemConcertModifiers()
+    {
+        concertService.applyItemConcertModifiersForDebug();
+        refreshView();
+    }
+
+    public void debugSetRetirementRiskForAll(int retirementRisk)
+    {
+        for (Artist artist : gameEnvironment.getLabelService().getAllArtists())
+        {
+            artist.increaseRetirementChance(retirementRisk - artist.getRetirementChance());
+        }
+        refreshView();
     }
 }

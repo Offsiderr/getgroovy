@@ -3,9 +3,10 @@ package seng201.team67.services.management;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.Label;
-import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.Item;
+import seng201.team67.models.enums.TourType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,14 @@ public class LabelService {
         {
             return false;
         }
+
+        if (!label.addArtistToAll(artist))
+        {
+            return false;
+        }
+
         label.money = label.money - cost;
-
         artist.owned = true;
-
-        label.addArtistToAll(artist);
         return true;
     }
 
@@ -53,10 +57,14 @@ public class LabelService {
         {
             return false;
         }
-        label.money = label.money - artist.getCost();
 
+        if (!label.addArtistToAll(artist))
+        {
+            return false;
+        }
+
+        label.money = label.money - artist.getCost();
         artist.owned = true;
-        label.addArtistToAll(artist);
         return true;
     }
 
@@ -84,9 +92,13 @@ public class LabelService {
         }
 
 
+        if (!label.addItemToAll(item))
+        {
+            return false;
+        }
+
         label.money = label.money - cost;
         item.purchase();
-        label.addItemToAll(item);
         return true;
     }
 
@@ -98,10 +110,13 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money - item.getCost();
+        if (!label.addItemToAll(item))
+        {
+            return false;
+        }
 
+        label.money = label.money - item.getCost();
         item.purchase();
-        label.addItemToAll(item);
         return true;
     }
 
@@ -182,13 +197,20 @@ public class LabelService {
 
     public double getLineupTotalPay()
     {
+        return getLineupTotalPay(TourType.LOCAL);
+    }
+
+    public double getLineupTotalPay(TourType tourType)
+    {
         List<Artist> artists = gameEnvironment.getLabel().getLineUp();
 
         double totalCost = 0;
+        double difficultyMultiplier = gameEnvironment.getDifficulty().getPayMultiplier();
+        double tourMultiplier = gameEnvironment.getConfig().getArtistPayMultiplier(tourType);
 
         for (Artist artist : artists)
         {
-            totalCost += artist.getPay() * gameEnvironment.getDifficulty().getPayMultiplier();
+            totalCost += artist.getPay() * difficultyMultiplier * tourMultiplier;
         }
         return totalCost;
     }
@@ -291,16 +313,16 @@ public class LabelService {
         }
 
         ArrayList<String> effectMessages = new ArrayList<>();
-        for (Effect effect : item.getEffects())
+        for (ItemEffects itemEffects : item.getEffects())
         {
-            int effectValue = artist.getEffectValue(item, effect);
-            if (!artist.calculateEffect(item, effect))
+            int effectValue = artist.getEffectValue(item, itemEffects);
+            if (!artist.calculateEffect(item, itemEffects))
             {
                 continue;
             }
 
-            effectMessages.add(effect.getName() + " applied +" + effectValue + " "
-                    + effect.getTargetStat().toString().toLowerCase().replace('_', ' '));
+            effectMessages.add(itemEffects.getName() + " applied +" + effectValue + " "
+                    + itemEffects.getTargetStat().toString().toLowerCase().replace('_', ' '));
         }
 
         consumable.consumeUse();

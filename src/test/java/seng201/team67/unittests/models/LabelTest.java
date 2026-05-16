@@ -7,8 +7,8 @@ import seng201.team67.models.Label;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
 
@@ -161,7 +161,7 @@ public class LabelTest {
                 "Boosts confidence on stage",
                 100,
                 Rarity.RARE,
-                List.of(Effect.STAR_FUELLED)
+                List.of(ItemEffects.STAR_FUELLED)
         );
         label.addItemToAll(item);
 

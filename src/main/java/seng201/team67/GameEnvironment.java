@@ -4,7 +4,8 @@ import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.Difficulty;
-import seng201.team67.models.enums.PayoutTier;
+import seng201.team67.models.enums.questions.PayoutTier;
+import seng201.team67.models.enums.questions.StaminaTier;
 import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Question;
 import seng201.team67.services.audio.MusicService;
@@ -39,6 +40,7 @@ public class GameEnvironment {
 
     private GameConfig gameConfig;
     private PayoutTier payoutTier;
+    private StaminaTier staminaTier;
 
     private ArrayList<Question> commonQuestionPool = new ArrayList<>();
     private ArrayList<Question> localQuestionPool = new ArrayList<>();
@@ -211,6 +213,16 @@ public class GameEnvironment {
     public void setPayoutTier(PayoutTier payoutTier)
     {
         this.payoutTier = payoutTier;
+    }
+
+    public StaminaTier getStaminaTier()
+    {
+        return staminaTier == null ? StaminaTier.EASY : staminaTier;
+    }
+
+    public void setStaminaTier(StaminaTier staminaTier)
+    {
+        this.staminaTier = staminaTier;
     }
 
     public ArrayList<Question> getCommonQuestionPool()

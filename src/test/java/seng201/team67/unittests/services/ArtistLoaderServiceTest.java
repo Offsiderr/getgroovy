@@ -6,6 +6,7 @@ import seng201.team67.services.data.ArtistLoaderService;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,5 +21,18 @@ public class ArtistLoaderServiceTest {
         assertTrue(artists.stream().anyMatch(artist -> "Popstar".equals(artist.getType())));
         assertTrue(artists.stream().anyMatch(artist -> "Rapper".equals(artist.getType())));
         assertTrue(artists.stream().anyMatch(artist -> "Rockstar".equals(artist.getType())));
+        assertTrue(artists.stream().allMatch(artist -> artist.getSkillLevel().equals(artist.getBaseStarPowerValue())));
+    }
+
+    @Test
+    void importedArtistsStartWithSkillLevelMatchingStarPower() {
+        List<Artist> artists = new ArtistLoaderService().loadAll();
+
+        Artist highStarArtist = artists.stream()
+                .filter(artist -> artist.getBaseStarPowerValue() > 1)
+                .findFirst()
+                .orElseThrow();
+
+        assertEquals(highStarArtist.getBaseStarPowerValue(), highStarArtist.getSkillLevel());
     }
 }

@@ -50,7 +50,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Button>
-      <Label fx:id="lineupWarning" layoutX="152.0" layoutY="316.0" style="-fx-background-color: trans; -fx-effect: dropshadow(gaussian, red, 10, 0.7, 0, 0);" stylesheets="@../../Styles/Style.css" text="You must have a valid lineup.">
+      <Label fx:id="lineupWarning" layoutX="152.0" layoutY="316.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(gaussian, red, 10, 0.7, 0, 0);" stylesheets="@../../Styles/Style.css" text="You must have a valid lineup.">
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />

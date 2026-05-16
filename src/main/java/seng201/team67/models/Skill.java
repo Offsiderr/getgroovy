@@ -2,8 +2,8 @@ package seng201.team67.models;
 
 import seng201.team67.interfaces.PayoutModifier;
 import seng201.team67.interfaces.StatModifier;
+import seng201.team67.models.enums.GameplayEffect;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.SkillEffects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +18,20 @@ public class Skill {
     private String description;
     private String artistType;
     private Rarity rarity;
-    private List<SkillEffects> effects;
+    private double multiplier;
+    private List<GameplayEffect> effects;
     private StatModifier statModifier;
     private PayoutModifier payoutModifier;
 
     public Skill(String id, String name, String description, String artistType, Rarity rarity,
-                 List<SkillEffects> effects, StatModifier statModifier, PayoutModifier payoutModifier)
+                 double multiplier, List<GameplayEffect> effects, StatModifier statModifier, PayoutModifier payoutModifier)
     {
         this.id = id;
         this.name = name;
         this.description = description;
         this.artistType = artistType;
         this.rarity = rarity;
+        this.multiplier = multiplier;
         this.effects = effects == null ? new ArrayList<>() : new ArrayList<>(effects);
         this.statModifier = statModifier;
         this.payoutModifier = payoutModifier;
@@ -60,12 +62,17 @@ public class Skill {
         return rarity;
     }
 
-    public List<SkillEffects> getEffects()
+    public double getMultiplier()
+    {
+        return multiplier;
+    }
+
+    public List<GameplayEffect> getEffects()
     {
         return new ArrayList<>(effects);
     }
 
-    public boolean hasEffect(SkillEffects effect)
+    public boolean hasEffect(GameplayEffect effect)
     {
         return effects.contains(effect);
     }

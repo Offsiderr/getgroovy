@@ -5,6 +5,8 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.models.artists.Popstar;
+import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.enums.RandomEvent;
 import seng201.team67.services.gameplay.RandomEventService;
 
@@ -78,13 +80,38 @@ public class RandomEventServiceTest {
     }
 
     @Test
+    void starPowerEventSkipsArtistsAtMinimumAndMaximumStarPower() {
+        Artist minArtist = new seng201.team67.models.artists.Popstar("Min Pop", 1, "Pop");
+        Artist midArtist = new seng201.team67.models.artists.Rapper("Mid Rap", 3, "Rap");
+        Artist maxArtist = new seng201.team67.models.artists.Rockstar("Max Rock", 5, "Rock");
+
+        RandomEventService seededService = new RandomEventService(new Random(0));
+        Artist affectedArtist = seededService.getRandomAffectedArtist(RandomEvent.VIRAL_MOMENT,
+                List.of(minArtist, midArtist, maxArtist));
+
+        assertEquals(midArtist, affectedArtist);
+    }
+
+    @Test
+    void starPowerEventIsIneligibleWhenNoArtistCanGainOrLoseStarPower() {
+        Artist minArtist = new seng201.team67.models.artists.Popstar("Min Pop", 1, "Pop");
+        Artist maxArtist = new seng201.team67.models.artists.Rockstar("Max Rock", 5, "Rock");
+
+        RandomEvent weightedEvent = new RandomEventService(new Random(0))
+                .getWeightedRandomEvent(List.of(minArtist, maxArtist));
+
+        assertNotNull(weightedEvent);
+        assertFalse("star_power".equals(weightedEvent.getStat()));
+    }
+
+    @Test
     void skillEventChangesAffectedArtistSkillLevel() {
         Artist artist = new seng201.team67.models.artists.Rapper("Test Rap", 2, "Rap");
 
         boolean changed = service.applyRandomEvent(new GameEnvironment(), RandomEvent.FAN_INSPIRATION, artist);
 
         assertTrue(changed);
-        assertEquals(2, artist.getSkillLevel());
+        assertEquals(3, artist.getSkillLevel());
     }
 
     @Test

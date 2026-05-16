@@ -41,14 +41,33 @@ public class TourServiceTest {
     }
 
     @Test
-    void tourEndedAddsEarnedCreditsToLabel() {
+    void tourEndedDoesNotChangeLabelMoney() {
         TourService service = createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop")));
         double startingMoney = serviceEnvironment(service).getLabelService().getMoney();
 
         service.addCreditsEarned(125.5);
         service.tourEnded();
 
-        assertEquals(startingMoney + 125.5, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+        assertEquals(startingMoney, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void tourEndedSettlesAccruedArtistPayOnce() {
+        TourService service = createTourService(TourType.LOCAL, List.of(
+                new Popstar("One", 1, "Pop"),
+                new Rapper("Two", 2, "Rap")
+        ));
+        double startingMoney = serviceEnvironment(service).getLabelService().getMoney();
+        double accruedPay = serviceEnvironment(service).getLabelService().getLineupTotalPay() * 2;
+
+        service.addCreditsEarned(500.0);
+        service.addAccruedArtistPay(accruedPay);
+
+        service.tourEnded();
+        service.tourEnded();
+
+        assertEquals(500.0 - accruedPay, service.getCreditsEarned(), 0.0001);
+        assertEquals(startingMoney - accruedPay, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
     }
 
     @Test
@@ -64,6 +83,7 @@ public class TourServiceTest {
         assertEquals(artistOne.getBaseStamina(), artistOne.getStamina());
         assertEquals(artistTwo.getBaseStamina(), artistTwo.getStamina());
     }
+
 
     @Test
     void concertResultsCanBeAddedThroughService() {
@@ -83,7 +103,7 @@ public class TourServiceTest {
 
         Minigame minigame = service.rollMiniGameTrigger(50);
 
-        assertEquals(Minigame.SOUNDENGINEER, minigame);
+        assertTrue(minigame != null && minigame.isEligible(50));
     }
 
     @Test

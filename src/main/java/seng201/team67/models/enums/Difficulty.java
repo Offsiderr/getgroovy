@@ -1,5 +1,7 @@
 package seng201.team67.models.enums;
 
+import seng201.team67.models.enums.questions.PayoutTier;
+
 public enum Difficulty {
 
     EASY("Easy", 500, 1.0, 0.1, PayoutTier.EASY),

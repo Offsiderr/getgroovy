@@ -1,7 +1,7 @@
 package seng201.team67.services.gameplay;
 
 import seng201.team67.GameEnvironment;
-import seng201.team67.models.enums.PayoutType;
+import seng201.team67.models.enums.questions.PayoutType;
 
 public class PayoutService {
 

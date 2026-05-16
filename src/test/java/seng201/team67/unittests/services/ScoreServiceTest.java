@@ -9,7 +9,7 @@ import seng201.team67.models.Tour;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.enums.Difficulty;
-import seng201.team67.models.enums.PayoutType;
+import seng201.team67.models.enums.questions.PayoutType;
 import seng201.team67.models.enums.TourType;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;

@@ -4,32 +4,41 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.models.Concert;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.models.enums.SkillEffects;
+import seng201.team67.models.enums.GameplayEffect;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.MiniGameResult;
-import seng201.team67.models.enums.PayoutType;
-import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.enums.questions.PayoutType;
 import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.models.questionmodels.Question;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ConcertService {
-
     private Concert concert;
     private GameEnvironment gameEnvironment;
     private TourService tourService;
     private List<Question> concertQuestions;
-    private int count = 0;
+    private int answeredQuestionCount = 0;
     private Double income = 0.0;
+    private double incomeMultiplier = 1.0;
     private double staminaDrain;
+    private int winStreak = 0;
+    private boolean lastEventWon = false;
+    private boolean forceBestOutcomeNextEvent = false;
     private boolean isEnded = false;
     private boolean minigameCheckResolved = false;
+    private boolean concertModifierTriggered = false;
+    private final Set<String> consumedConditionalEffects = new HashSet<>();
     private final QuestionService questionService = new QuestionService();
     private final PayoutService payoutService = new PayoutService();
+    private final StaminaService staminaService = new StaminaService();
 
     public ConcertService(GameEnvironment gameEnvironment, TourService tourService)
     {
@@ -70,35 +79,53 @@ public class ConcertService {
     {
         if (isEnded) return;
         isEnded = true;
-        tourService.addCreditsEarned(calculateTicketRevenue());
+        double ticketRevenue = calculateTicketRevenue();
+        double artistPay = tourService.getTourArtistPay();
+
+        tourService.addCreditsEarned(ticketRevenue);
         tourService.addCreditsEarned(income);
-        tourService.addCreditsEarned(-gameEnvironment.getLabelService().getLineupTotalPay());
+        tourService.addAccruedArtistPay(artistPay);
+
+        gameEnvironment.getLabelService().giveMoney(ticketRevenue);
+
         int endConcertDrain = roundStaminaChange(calculateStaminaDrain());
         applySequentialLineupDrain(endConcertDrain);
     }
 
     public Question getNextQuestion()
     {
-        if(count == concertQuestions.size())
+        if(answeredQuestionCount == concertQuestions.size())
         {
             endConcert();
             return null;
         }
 
-        Question ques = concertQuestions.get(count);
-        count += 1;
+        Question ques = concertQuestions.get(answeredQuestionCount);
+        answeredQuestionCount += 1;
         return ques;
     }
 
     public Outcome handleAnswer(Answer answer)
     {
+        Artist answeringArtist = getCurrentAnsweringArtist();
         Outcome selectedOutcome = rollOutcomes(answer.getOutcomes());
-        applyOutcome(selectedOutcome);
+        applyOutcome(selectedOutcome, answeringArtist);
         return selectedOutcome;
     }
 
     private Outcome rollOutcomes(List<Outcome> outcomes)
     {
+        if (forceBestOutcomeNextEvent)
+        {
+            forceBestOutcomeNextEvent = false;
+            return outcomes.stream()
+                    .max(Comparator
+                            .comparingInt(this::scoreOutcomeForAutoWin)
+                            .thenComparingInt(Outcome::getCrowdEnergyChange)
+                            .thenComparingInt(Outcome::getWeight))
+                    .orElse(outcomes.getLast());
+        }
+
         int totalWeight = outcomes.stream().mapToInt(Outcome::getWeight).sum();
 
         int roll = (int) (Math.random() * totalWeight);
@@ -115,7 +142,7 @@ public class ConcertService {
         return  outcomes.getLast();
     }
 
-    private void applyOutcome(Outcome outcome)
+    private void applyOutcome(Outcome outcome, Artist answeringArtist)
     {
         if (outcome.getConcertEnds())
         {
@@ -126,10 +153,20 @@ public class ConcertService {
         if(outcome.getPayoutType() != PayoutType.NONE)
         {
             double basePayout = payoutService.getPayoutAmount(gameEnvironment, outcome.getPayoutType());
-            income += applySkillPayoutModifiers(basePayout);
+            double adjustedPayout = applySkillPayoutModifiers(basePayout, outcome, answeringArtist);
+            income += adjustedPayout;
+
+            if (adjustedPayout >= 0)
+            {
+                gameEnvironment.getLabelService().giveMoney(adjustedPayout);
+            }
+            else
+            {
+                gameEnvironment.getLabelService().takeMoney(-adjustedPayout);
+            }
         }
 
-        int staminaChange = roundStaminaChange(outcome.getStaminaChange());
+        int staminaChange = roundStaminaChange(resolveStaminaChange(outcome));
         if (staminaChange < 0)
         {
             applySequentialLineupDrain(-staminaChange);
@@ -140,6 +177,9 @@ public class ConcertService {
         }
 
         concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
+        applyAnsweringArtistOutcomeSkills(answeringArtist, outcome);
+        updateConcertWinState(outcome);
+        applyItemConcertModifiers();
         applyConditionalItemEffects();
     }
 
@@ -147,6 +187,14 @@ public class ConcertService {
     {
         concert.addEnergy(result.getCrowdMeterResult());
         income += result.getCreditResult();
+        if (result.getCreditResult() >= 0)
+        {
+            gameEnvironment.getLabelService().giveMoney(result.getCreditResult());
+        }
+        else
+        {
+            gameEnvironment.getLabelService().takeMoney(-result.getCreditResult());
+        }
     }
 
     public Minigame getConcertMinigame()
@@ -171,7 +219,7 @@ public class ConcertService {
         return isEnded;
     }
 
-    public int getCrowdEnergyChange()
+    public int getCrowdEnergy()
     {
         return concert.getEnergy();
     }
@@ -188,7 +236,32 @@ public class ConcertService {
 
     public int getAnsweredQuestionCount()
     {
-        return count;
+        return answeredQuestionCount;
+    }
+
+    public void setCrowdEnergyForDebug(int crowd)
+    {
+        concert.setEnergy(crowd);
+    }
+
+    public void setAnsweredQuestionCountForDebug(int answeredQuestionCount)
+    {
+        this.answeredQuestionCount = Math.max(0, answeredQuestionCount);
+    }
+
+    public void setWinStreakForDebug(int winStreak)
+    {
+        this.winStreak = Math.max(0, winStreak);
+    }
+
+    public void setLastEventWonForDebug(boolean lastEventWon)
+    {
+        this.lastEventWon = lastEventWon;
+    }
+
+    public void applyItemConcertModifiersForDebug()
+    {
+        applyItemConcertModifiers();
     }
 
     public ConcertResults createConcertResults()
@@ -196,8 +269,8 @@ public class ConcertService {
         double ticketSales = calculateTicketRevenue();
         double bonusMoney = getIncome();
         double drainedStamina = totalStaminaDrain();
-        int crowdHype = getCrowdEnergyChange();
-        double artistsPay = gameEnvironment.getLabelService().getLineupTotalPay();
+        int crowdHype = getCrowdEnergy();
+        double artistsPay = tourService.getTourArtistPay();
         double total = ticketSales + bonusMoney - artistsPay;
         return new ConcertResults(ticketSales, bonusMoney, drainedStamina, crowdHype, artistsPay, total);
     }
@@ -219,7 +292,8 @@ public class ConcertService {
         return (concert.getEnergy() / 100.0)
                 * gameEnvironment.getConfig().ticketSalesAmount
                 * tourService.getTourPayMultiplier()
-                * starPowerMultiplier;
+                * starPowerMultiplier
+                * incomeMultiplier;
     }
 
     public double calculateStaminaDrain()
@@ -237,6 +311,52 @@ public class ConcertService {
     private int roundStaminaChange(double staminaChange)
     {
         return (int) Math.round(staminaChange);
+    }
+
+    public double resolveStaminaChange(Outcome outcome)
+    {
+        if (outcome.hasExplicitStaminaChange())
+        {
+            return outcome.getStaminaChange();
+        }
+        return staminaService.getStaminaChangeAmount(gameEnvironment, outcome.getOutcomeType());
+    }
+
+    private void applyItemConcertModifiers()
+    {
+        concertModifierTriggered = false;
+
+        for (Artist artist : gameEnvironment.getLabelService().getLineup())
+        {
+            for (Item item : artist.getItems())
+            {
+                for (ItemEffects itemEffects : item.getEffects())
+                {
+                    if (isOneTimeConditionalEffect(itemEffects) && consumedConditionalEffects.contains(buildConsumedEffectKey(artist, item, itemEffects)))
+                    {
+                        continue;
+                    }
+
+                    if (itemEffects.getConcertModifier() != null)
+                    {
+                        itemEffects.getConcertModifier().apply(this);
+                        if (consumeConcertModifierTriggered() && isOneTimeConditionalEffect(itemEffects))
+                        {
+                            consumedConditionalEffects.add(buildConsumedEffectKey(artist, item, itemEffects));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateConcertWinState(Outcome outcome)
+    {
+        boolean isWin = outcome.getPayoutType() != PayoutType.NONE
+                && payoutService.getPayoutAmount(gameEnvironment, outcome.getPayoutType()) > 0;
+
+        lastEventWon = isWin;
+        winStreak = isWin ? winStreak + 1 : 0;
     }
 
     private void applySequentialLineupDrain(int drainAmount)
@@ -277,16 +397,16 @@ public class ConcertService {
                     continue;
                 }
 
-                for (Effect effect : item.getEffects())
+                for (ItemEffects itemEffects : item.getEffects())
                 {
-                    int effectValue = artist.getEffectValue(item, effect);
-                    if (!artist.calculateEffect(item, effect))
+                    int effectValue = artist.getEffectValue(item, itemEffects);
+                    if (!artist.calculateEffect(item, itemEffects))
                     {
                         continue;
                     }
 
-                    triggeredEffects.add(effect.getName() + " applied +" + effectValue
-                            + " " + formatStatName(effect) + " to " + artist.getName());
+                    triggeredEffects.add(itemEffects.getName() + " applied +" + effectValue
+                            + " " + formatStatName(itemEffects) + " to " + artist.getName());
                 }
             }
         }
@@ -294,38 +414,174 @@ public class ConcertService {
         tourService.setConditionalEffectText(String.join("\n", triggeredEffects));
     }
 
-    private String formatStatName(Effect effect)
+    private String formatStatName(ItemEffects itemEffects)
     {
-        return effect.getTargetStat().toString().toLowerCase().replace('_', ' ');
+        return itemEffects.getTargetStat().toString().toLowerCase().replace('_', ' ');
     }
 
-    private double applySkillPayoutModifiers(double basePayout)
+    private double applySkillPayoutModifiers(double basePayout, Outcome outcome, Artist answeringArtist)
     {
         int modifiedPayout = roundStaminaChange(basePayout);
+        int completedConcerts = tourService.getConcertResults().size();
+        int totalEvents = gameEnvironment.getConfig().concertQuestionsCount;
 
-        for (Artist artist : gameEnvironment.getLabelService().getLineup())
+        if (answeringArtist == null
+                || !answeringArtist.hasSkill()
+                || !answeringArtist.getSkill().hasPayoutModifier())
         {
-            if (!artist.hasSkill() || !artist.getSkill().hasPayoutModifier())
-            {
-                continue;
-            }
-
-            modifiedPayout = artist.getSkill().getPayoutModifier().apply(artist, modifiedPayout);
+            return modifiedPayout;
         }
 
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        modifiedPayout = answeringArtist.getSkill().getPayoutModifier().apply(
+                answeringArtist,
+                modifiedPayout,
+                outcome,
+                lineup,
+                concert.getEnergy(),
+                completedConcerts,
+                answeredQuestionCount,
+                totalEvents
+        );
+
         return modifiedPayout;
+    }
+
+    private Artist getCurrentAnsweringArtist()
+    {
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        if (lineup.isEmpty())
+        {
+            return null;
+        }
+
+        int answeringArtistIndex = Math.floorMod(tourService.getCurrentLineupStaminaIndex(), lineup.size());
+        return lineup.get(answeringArtistIndex);
+    }
+
+    private void applyAnsweringArtistOutcomeSkills(Artist answeringArtist, Outcome outcome)
+    {
+        if (answeringArtist == null || !answeringArtist.hasSkill() || outcome == null)
+        {
+            return;
+        }
+        if (answeringArtist.getSkill().hasEffect(GameplayEffect.FLAT_STAR_POWER_BOOST)
+                && outcome.getOutcomeType().name().equals("GREAT"))
+        {
+            int starPowerBoost = GameplayEffect.FLAT_STAR_POWER_BOOST
+                    .createStatModifier(answeringArtist.getSkill().getMultiplier())
+                    .apply(answeringArtist, 0);
+            answeringArtist.changeStarPower(starPowerBoost);
+        }
     }
 
     private int applySkillStaminaModifiers(Artist artist, int drainAmount)
     {
         if (!artist.hasSkill()
                 || !artist.getSkill().hasStatModifier()
-                || !artist.getSkill().hasEffect(SkillEffects.STAMINA_COST_REDUCTION))
+                || !artist.getSkill().hasEffect(GameplayEffect.STAMINA_COST_REDUCTION))
         {
             return drainAmount;
         }
 
-        int staminaPercent = artist.getSkill().getStatModifier().apply(artist, drainAmount);
+        int staminaPercent = GameplayEffect.STAMINA_COST_REDUCTION
+                .createStatModifier(artist.getSkill().getMultiplier())
+                .apply(artist, drainAmount);
         return Math.max(0, roundStaminaChange(drainAmount * (staminaPercent / 100.0)));
+    }
+
+    private int scoreOutcomeForAutoWin(Outcome outcome)
+    {
+        return switch (outcome.getOutcomeType()) {
+            case GREAT -> 5;
+            case GOOD -> 4;
+            case OK -> 3;
+            case BAD -> 2;
+            case TERRIBLE -> 1;
+            case NONE -> 0;
+        };
+    }
+
+    private boolean isOneTimeConditionalEffect(ItemEffects itemEffects)
+    {
+        return switch (itemEffects) {
+            case AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3,
+                 STAMINA_RECOVER_ALL_IF_LOWEST_BELOW_35 -> true;
+            default -> false;
+        };
+    }
+
+    private String buildConsumedEffectKey(Artist artist, Item item, ItemEffects itemEffects)
+    {
+        return artist.getName() + ":" + item.getName() + ":" + itemEffects.name();
+    }
+
+    public List<Artist> getLineup()
+    {
+        return gameEnvironment.getLabelService().getLineup();
+    }
+
+    public int getWinStreak()
+    {
+        return winStreak;
+    }
+
+    public boolean wasLastEventWon()
+    {
+        return lastEventWon;
+    }
+
+    public int getTotalConcertEvents()
+    {
+        return gameEnvironment.getConfig().concertQuestionsCount;
+    }
+
+    public boolean isFinalConcertEvent()
+    {
+        return getTotalConcertEvents() > 0 && answeredQuestionCount >= getTotalConcertEvents();
+    }
+
+    public void setCrowdEnergy(int crowd)
+    {
+        concert.setEnergy(crowd);
+    }
+
+    public void addCrowdEnergy(double amount)
+    {
+        concert.addEnergy((int) Math.round(amount));
+    }
+
+    public void multiplyIncomeMultiplier(double multiplier)
+    {
+        income *= multiplier;
+        incomeMultiplier *= multiplier;
+    }
+
+    public void requestBestOutcomeNextEvent()
+    {
+        forceBestOutcomeNextEvent = true;
+        concertModifierTriggered = true;
+    }
+
+    public void markConcertModifierTriggered()
+    {
+        concertModifierTriggered = true;
+    }
+
+    public boolean consumeConcertModifierTriggered()
+    {
+        boolean currentValue = concertModifierTriggered;
+        concertModifierTriggered = false;
+        return currentValue;
+    }
+
+    public boolean isForceBestOutcomeNextEventRequested()
+    {
+        return forceBestOutcomeNextEvent;
+    }
+
+    public double getCurrentIncomeMultiplier()
+    {
+        return incomeMultiplier;
     }
 }

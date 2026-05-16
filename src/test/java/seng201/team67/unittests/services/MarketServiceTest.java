@@ -2,8 +2,8 @@ package seng201.team67.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.items.Effect;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.services.management.MarketService;
@@ -34,10 +34,10 @@ public class MarketServiceTest {
     @Test
     void rerollingAfterPurchaseBuildsANewPoolWithoutOwnedItem() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
-        Item commonOne = new EquippedItem("Common One", "Common item", 10, Rarity.COMMON, List.of(Effect.SECOND_WIND));
-        Item commonTwo = new EquippedItem("Common Two", "Common item", 10, Rarity.COMMON, List.of(Effect.SECOND_WIND));
-        Item rareItem = new EquippedItem("Rare One", "Rare item", 20, Rarity.RARE, List.of(Effect.STAR_FUELLED));
-        Item veryRareItem = new EquippedItem("Very Rare One", "Very rare item", 30, Rarity.VERY_RARE, List.of(Effect.STAR_FUELLED));
+        Item commonOne = new EquippedItem("Common One", "Common item", 10, Rarity.COMMON, List.of(ItemEffects.SECOND_WIND));
+        Item commonTwo = new EquippedItem("Common Two", "Common item", 10, Rarity.COMMON, List.of(ItemEffects.SECOND_WIND));
+        Item rareItem = new EquippedItem("Rare One", "Rare item", 20, Rarity.RARE, List.of(ItemEffects.STAR_FUELLED));
+        Item veryRareItem = new EquippedItem("Very Rare One", "Very rare item", 30, Rarity.VERY_RARE, List.of(ItemEffects.STAR_FUELLED));
         gameEnvironment.setAllItems(List.of(commonOne, commonTwo, rareItem, veryRareItem));
         MarketService marketService = new MarketService(gameEnvironment);
 
@@ -67,9 +67,9 @@ public class MarketServiceTest {
     }
 
     private void setMarketItems(GameEnvironment gameEnvironment) {
-        Item commonItem = new EquippedItem("Common", "Common item", 10, Rarity.COMMON, List.of(Effect.SECOND_WIND));
-        Item rareItem = new EquippedItem("Rare", "Rare item", 20, Rarity.RARE, List.of(Effect.STAR_FUELLED));
-        Item veryRareItem = new EquippedItem("Very Rare", "Very rare item", 30, Rarity.VERY_RARE, List.of(Effect.STAR_FUELLED));
+        Item commonItem = new EquippedItem("Common", "Common item", 10, Rarity.COMMON, List.of(ItemEffects.SECOND_WIND));
+        Item rareItem = new EquippedItem("Rare", "Rare item", 20, Rarity.RARE, List.of(ItemEffects.STAR_FUELLED));
+        Item veryRareItem = new EquippedItem("Very Rare", "Very rare item", 30, Rarity.VERY_RARE, List.of(ItemEffects.STAR_FUELLED));
         gameEnvironment.setAllItems(new ArrayList<>(List.of(commonItem, rareItem, veryRareItem)));
     }
 }

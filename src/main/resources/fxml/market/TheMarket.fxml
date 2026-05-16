@@ -37,7 +37,7 @@
             <Font name="Javanese Text" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="moneyText" layoutX="1128.0" layoutY="59.0" style="-fx-effect: dropshadow(gaussian, green, 20, 0.5, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="moneyText" layoutX="1128.0" layoutY="59.0" style="-fx-itemEffects: dropshadow(gaussian, green, 20, 0.5, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
          <font>
             <Font size="37.0" />
          </font>
@@ -57,7 +57,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="387.0" layoutY="225.0" style="-fx-background-color: trans; -fx-effect: dropshadow(three-pass-box, white, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Bootleg Drop" textAlignment="CENTER">
+      <Label layoutX="387.0" layoutY="225.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(three-pass-box, white, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Bootleg Drop" textAlignment="CENTER">
          <font>
             <Font name="Javanese Text" size="23.0" />
          </font>
@@ -71,7 +71,7 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="593.0" layoutY="225.0" style="-fx-background-color: trans; -fx-effect: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Certified Drop" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="593.0" layoutY="225.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Certified Drop" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Javanese Text" size="23.0" />
          </font>
@@ -80,7 +80,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="798.0" layoutY="225.0" style="-fx-background-color: trans; -fx-effect: dropshadow(three-pass-box, silver, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Godlike Drop" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="798.0" layoutY="225.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(three-pass-box, silver, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Godlike Drop" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Javanese Text" size="23.0" />
          </font>
@@ -120,7 +120,7 @@
             <String fx:value="tiny-label" />
          </styleClass>
       </Button>
-      <Button layoutX="1014.0" layoutY="95.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="47.0" prefWidth="62.0" style="-fx-background-color: red; -fx-effect: dropshadow(three-pass-box, red, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Return" textFill="WHITE">
+      <Button layoutX="1014.0" layoutY="95.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="47.0" prefWidth="62.0" style="-fx-background-color: red; -fx-itemEffects: dropshadow(three-pass-box, red, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Return" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

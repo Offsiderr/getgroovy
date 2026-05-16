@@ -9,7 +9,7 @@
           {
             "weight": 100,
             "description": "You finish on time. The owner says you're welcome back anytime.",
-            "staminaChange": 0,
+            "outcomeType": "ok",
             "crowdEnergyChange": 0,
             "concertEnds": false,
             "payout": "none"
@@ -22,7 +22,7 @@
           {
             "weight": 40,
             "description": "The owner lets it slide. The crowd rewards you for going the extra mile.",
-            "staminaChange": 0,
+            "outcomeType": "good",
             "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "none"
@@ -30,7 +30,7 @@
           {
             "weight": 60,
             "description": "The owner pulls the plug mid-song. You're not welcome back.",
-            "staminaChange": 0,
+            "outcomeType": "terrible",
             "crowdEnergyChange": -25,
             "concertEnds": false,
             "payout": "none"
@@ -43,7 +43,7 @@
           {
             "weight": 70,
             "description": "The owner agrees to five more minutes. You make them count.",
-            "staminaChange": -5,
+            "outcomeType": "good",
             "crowdEnergyChange": 10,
             "concertEnds": false,
             "payout": "none"
@@ -51,7 +51,7 @@
           {
             "weight": 30,
             "description": "The owner says no. You end on a slightly flat note.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -5,
             "concertEnds": false,
             "payout": "none"
@@ -70,7 +70,7 @@
           {
             "weight": 60,
             "description": "The artist nails it from memory. The crowd sings along spontaneously.",
-            "staminaChange": -10,
+            "outcomeType": "great",
             "crowdEnergyChange": 20,
             "concertEnds": false,
             "payout": "none"
@@ -78,7 +78,7 @@
           {
             "weight": 40,
             "description": "A few fumbled chords, but the sentiment wins everyone over anyway.",
-            "staminaChange": -10,
+            "outcomeType": "good",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -91,7 +91,7 @@
           {
             "weight": 100,
             "description": "You wish them happy birthday over the mic. They smile and clap.",
-            "staminaChange": 0,
+            "outcomeType": "ok",
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
@@ -104,7 +104,7 @@
           {
             "weight": 70,
             "description": "They're a great sport. The crowd absolutely loves the chaos.",
-            "staminaChange": -5,
+            "outcomeType": "great",
             "crowdEnergyChange": 20,
             "concertEnds": false,
             "payout": "none"
@@ -112,7 +112,7 @@
           {
             "weight": 30,
             "description": "They freeze on stage. Awkward three minutes for everyone.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
             "payout": "none"
@@ -131,7 +131,7 @@
           {
             "weight": 65,
             "description": "You channel the room's energy perfectly. The crowd transfers their excitement to you.",
-            "staminaChange": -5,
+            "outcomeType": "good",
             "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "none"
@@ -139,6 +139,7 @@
           {
             "weight": 35,
             "description": "You come out swinging too hard and burn out early.",
+            "outcomeType": "bad",
             "staminaChange": -20,
             "crowdEnergyChange": -5,
             "concertEnds": false,
@@ -152,7 +153,7 @@
           {
             "weight": 70,
             "description": "A measured opening wins them over gradually.",
-            "staminaChange": 0,
+            "outcomeType": "good",
             "crowdEnergyChange": 10,
             "concertEnds": false,
             "payout": "none"
@@ -160,7 +161,7 @@
           {
             "weight": 30,
             "description": "Too slow. The crowd never fully transitions over.",
-            "staminaChange": 0,
+            "outcomeType": "bad",
             "crowdEnergyChange": -5,
             "concertEnds": false,
             "payout": "none"

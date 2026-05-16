@@ -13,9 +13,11 @@ public class Tour {
     public int currentStopIndex;
     public int currentLineupStaminaIndex;
     public double creditsEarned;
+    public double accruedArtistPay;
     public double totalStaminaDrained;
     public boolean concertFinished = false;
     public boolean endedByExhaustion = false;
+    public boolean artistPaySettled = false;
     public double exhaustionRefund = 0;
     public String conditionalEffectText = "";
 
@@ -64,6 +66,16 @@ public class Tour {
         this.creditsEarned += creditsEarned;
     }
 
+    public double getAccruedArtistPay()
+    {
+        return accruedArtistPay;
+    }
+
+    public void addAccruedArtistPay(double accruedArtistPay)
+    {
+        this.accruedArtistPay += accruedArtistPay;
+    }
+
     public double getPayMultiplier()
     {
         return type.getPayMultiplier();
@@ -87,6 +99,16 @@ public class Tour {
     public boolean isEndedByExhaustion()
     {
         return endedByExhaustion;
+    }
+
+    public boolean isArtistPaySettled()
+    {
+        return artistPaySettled;
+    }
+
+    public void setArtistPaySettled(boolean artistPaySettled)
+    {
+        this.artistPaySettled = artistPaySettled;
     }
 
     public void setExhaustionRefund(double exhaustionRefund)

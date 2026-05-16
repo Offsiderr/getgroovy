@@ -2,6 +2,7 @@ package seng201.team67.gui.util;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -9,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import seng201.team67.models.artists.Artist;
 import seng201.team67.models.items.Item;
 
 public class ItemDetailBoxFiller {
@@ -23,6 +23,14 @@ public class ItemDetailBoxFiller {
     }
 
     public static void populateArtistBox(VBox card, Item item) {
+        populateItemBox(card, item, false);
+    }
+
+    public static void populateMarketBox(VBox card, Item item) {
+        populateItemBox(card, item, true);
+    }
+
+    private static void populateItemBox(VBox card, Item item, boolean showPrice) {
         card.getChildren().clear();
 
         applyBaseStyle(card);
@@ -47,6 +55,7 @@ public class ItemDetailBoxFiller {
         textBox.getChildren().addAll(
                 createLabel(item.getName()),
                 createLabel(item.getDescription()),
+                createOptionalLabel(showPrice ? "Price: $" + item.getCost() : null),
                 createLabel(item.getRarity().toString()),
                 createLabel(item.getType()),
                 createOptionalLabel(ItemDisplayFormatter.getRemainingUsesText(item)),
@@ -57,6 +66,21 @@ public class ItemDetailBoxFiller {
         container.setMouseTransparent(true);
         card.getChildren().add(container);
 
+    }
+
+    public static void addActionButton(VBox card, String buttonText, Runnable action) {
+        card.getChildren().removeIf(node -> node instanceof Button button && Boolean.TRUE.equals(button.getUserData()));
+
+        Button actionButton = new Button(buttonText);
+        actionButton.setUserData(true);
+        actionButton.setMaxWidth(Double.MAX_VALUE);
+        actionButton.setOnAction(event -> {
+            event.consume();
+            action.run();
+        });
+
+        VBox.setVgrow(actionButton, Priority.NEVER);
+        card.getChildren().add(actionButton);
     }
 
     public static void applyBaseStyle(VBox card) {

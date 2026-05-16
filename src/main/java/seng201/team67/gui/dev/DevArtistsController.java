@@ -2,20 +2,19 @@ package seng201.team67.gui.dev;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
-import seng201.team67.gui.instantiable.ArtistCardController;
 import seng201.team67.gui.mainmenu.MainMenuController;
+import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
-import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
 
 import javafx.event.ActionEvent;
 
 public class DevArtistsController {
 
-    private GameEnvironment gameEnvironment;
+    private final GameEnvironment gameEnvironment;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
-    private final ViewLoader viewLoader = new ViewLoader();
 
 
     @FXML private FlowPane allArtistsContainer;
@@ -36,16 +35,23 @@ public class DevArtistsController {
         allArtistsContainer.getChildren().clear();
 
         for (Artist artist : gameEnvironment.getArtistPool()) {
-            allArtistsContainer.getChildren().add(loadCard(artist).getCardRoot());
+            allArtistsContainer.getChildren().add(createArtistDetailBox(artist));
         }
     }
 
-    private ArtistCardController loadCard(Artist artist)
+    private VBox createArtistDetailBox(Artist artist)
     {
-        ArtistCardController card = new ArtistCardController(gameEnvironment, null);
-        viewLoader.load("/fxml/components/ArtistCard.fxml", card);
-        card.setArtist(artist);
+        VBox card = ArtistDetailBoxFiller.createArtistBox(artist, null);
+        ArtistDetailBoxFiller.addActionButton(card, "Add to Lineup", () -> addArtistToLabel(artist));
         return card;
+    }
+
+    private void addArtistToLabel(Artist artist)
+    {
+        if (gameEnvironment.getLabelService().hireArtist(artist, 0))
+        {
+            populateAllArtists();
+        }
     }
 
     @FXML public void goBack(ActionEvent event)

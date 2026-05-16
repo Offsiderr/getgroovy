@@ -2,7 +2,6 @@ package seng201.team67.services.data;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import seng201.team67.behaviours.SkillBehaviours;
 import seng201.team67.interfaces.PayoutModifier;
 import seng201.team67.interfaces.StatModifier;
 import seng201.team67.models.Skill;
@@ -10,8 +9,8 @@ import seng201.team67.models.artists.Artist;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.artists.Rockstar;
+import seng201.team67.models.enums.GameplayEffect;
 import seng201.team67.models.enums.Rarity;
-import seng201.team67.models.enums.SkillEffects;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -80,33 +79,33 @@ public class SkillLoaderService {
         Rarity rarity = Rarity.valueOf(skillNode.path("rarity").asText());
         double multiplier = skillNode.path("multiplier").asDouble();
         JsonNode effectsNode = skillNode.path("effects");
-        List<SkillEffects> effects = buildEffects(effectsNode);
+        List<GameplayEffect> effects = buildEffects(effectsNode);
 
-        StatModifier statModifier = buildStatModifier(effectsNode, multiplier);
-        PayoutModifier payoutModifier = buildPayoutModifier(effectsNode, multiplier);
+        StatModifier statModifier = buildStatModifier(effects, multiplier);
+        PayoutModifier payoutModifier = buildPayoutModifier(effects, multiplier);
 
-        return new Skill(id, name, description, artistType, rarity, effects, statModifier, payoutModifier);
+        return new Skill(id, name, description, artistType, rarity, multiplier, effects, statModifier, payoutModifier);
     }
 
-    private List<SkillEffects> buildEffects(JsonNode effectsNode)
+    private List<GameplayEffect> buildEffects(JsonNode effectsNode)
     {
-        List<SkillEffects> effects = new ArrayList<>();
+        List<GameplayEffect> effects = new ArrayList<>();
 
         for (JsonNode effectNode : effectsNode)
         {
-            effects.add(SkillEffects.valueOf(effectNode.asText()));
+            effects.add(GameplayEffect.valueOf(effectNode.asText()));
         }
 
         return effects;
     }
 
-    private StatModifier buildStatModifier(JsonNode effectsNode, double multiplier)
+    private StatModifier buildStatModifier(List<GameplayEffect> effects, double multiplier)
     {
         StatModifier statModifier = null;
 
-        for (JsonNode effectNode : effectsNode)
+        for (GameplayEffect effect : effects)
         {
-            StatModifier nextModifier = mapStatModifier(effectNode.asText(), multiplier);
+            StatModifier nextModifier = effect.createStatModifier(multiplier);
             if (nextModifier == null)
             {
                 continue;
@@ -125,13 +124,13 @@ public class SkillLoaderService {
         return statModifier;
     }
 
-    private PayoutModifier buildPayoutModifier(JsonNode effectsNode, double multiplier)
+    private PayoutModifier buildPayoutModifier(List<GameplayEffect> effects, double multiplier)
     {
         PayoutModifier payoutModifier = null;
 
-        for (JsonNode effectNode : effectsNode)
+        for (GameplayEffect effect : effects)
         {
-            PayoutModifier nextModifier = mapPayoutModifier(effectNode.asText(), multiplier);
+            PayoutModifier nextModifier = effect.createPayoutModifier(multiplier);
             if (nextModifier == null)
             {
                 continue;
@@ -144,36 +143,29 @@ public class SkillLoaderService {
             }
 
             PayoutModifier currentModifier = payoutModifier;
-            payoutModifier = (artist, basePayout) -> nextModifier.apply(artist, currentModifier.apply(artist, basePayout));
+            payoutModifier = (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
+                    nextModifier.apply(
+                            artist,
+                            currentModifier.apply(
+                                    artist,
+                                    basePayout,
+                                    outcome,
+                                    lineup,
+                                    crowdEnergy,
+                                    completedConcerts,
+                                    eventNumber,
+                                    totalEvents
+                            ),
+                            outcome,
+                            lineup,
+                            crowdEnergy,
+                            completedConcerts,
+                            eventNumber,
+                            totalEvents
+                    );
         }
 
         return payoutModifier;
-    }
-
-    private StatModifier mapStatModifier(String effect, double multiplier)
-    {
-        return switch (effect) {
-            case "FLAT_STAMINA_BOOST" -> SkillBehaviours.flatStaminaBoost((int) multiplier);
-            case "FLAT_STAR_POWER_BOOST" -> SkillBehaviours.flatStarPowerBoost((int) multiplier);
-            case "STAMINA_COST_REDUCTION" -> SkillBehaviours.staminaCostReduction(multiplier);
-            case "RETIREMENT_RISK" -> SkillBehaviours.retirementRisk();
-            case "FLAT_CREDIT_BONUS", "PAYOUT_MULTIPLIER", "GREAT_PAYOUT_MULTIPLIER",
-                    "TERRIBLE_PAYOUT_REDUCTION" -> null;
-            default -> throw new IllegalArgumentException("Unknown skill effect: " + effect);
-        };
-    }
-
-    private PayoutModifier mapPayoutModifier(String effect, double multiplier)
-    {
-        return switch (effect) {
-            case "FLAT_CREDIT_BONUS" -> SkillBehaviours.flatCreditBonus((int) multiplier);
-            case "PAYOUT_MULTIPLIER" -> SkillBehaviours.payoutMultiplier(multiplier);
-            case "GREAT_PAYOUT_MULTIPLIER" -> SkillBehaviours.greatPayoutMultiplier(multiplier);
-            case "TERRIBLE_PAYOUT_REDUCTION" -> SkillBehaviours.terriblePayoutReduction(multiplier);
-            case "FLAT_STAMINA_BOOST", "FLAT_STAR_POWER_BOOST", "STAMINA_COST_REDUCTION",
-                    "RETIREMENT_RISK" -> null;
-            default -> throw new IllegalArgumentException("Unknown skill effect: " + effect);
-        };
     }
 
     private boolean isEligibleArtistType(Artist artist, String artistType)

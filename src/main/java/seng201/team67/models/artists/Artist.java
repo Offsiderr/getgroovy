@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
 import seng201.team67.models.Skill;
-import seng201.team67.models.enums.SkillEffects;
-import seng201.team67.models.enums.items.Effect;
+import seng201.team67.models.enums.GameplayEffect;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.items.StatType;
 import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.items.EquippedItem;
@@ -24,10 +24,14 @@ import java.util.ArrayList;
 
 public abstract class Artist implements Purchasable {
 
+    private static final int MIN_STAR_POWER = 1;
+    private static final int MAX_STAR_POWER = 5;
 
     private String name;
     private String description;
 
+    private int retirementChance;
+    private int consecutiveToursWithoutBreak;
     private int health;
     private int baseStamina;
     private int stamina;
@@ -46,7 +50,8 @@ public abstract class Artist implements Purchasable {
         this.description = description;
         this.health = health;
         this.stamina = stamina;
-        this.starPower = starPower;
+        this.starPower = clampBaseStarPower(starPower);
+        this.skillLevel = Math.max(MIN_STAR_POWER, this.starPower);
         this.baseStamina = stamina;
     }
 
@@ -108,6 +113,16 @@ public abstract class Artist implements Purchasable {
 
     public Integer getSkillLevel(){return skillLevel;}
 
+    public int getRetirementChance()
+    {
+        return retirementChance;
+    }
+
+    public int getConsecutiveToursWithoutBreak()
+    {
+        return consecutiveToursWithoutBreak;
+    }
+
     public String getImagePath()
     {
         return "/images/Artists/" + this.name + ".png";
@@ -135,6 +150,7 @@ public abstract class Artist implements Purchasable {
 
     public void setSkill(Skill skill)
     {
+        removeFlatSkillBonuses(this.skill);
         this.skill = skill;
         applyFlatSkillBonuses(skill);
     }
@@ -151,7 +167,7 @@ public abstract class Artist implements Purchasable {
 
     public void changeStarPower(int amount)
     {
-        starPower = Math.max(0, starPower + amount);
+        starPower = clampBaseStarPower(starPower + amount);
     }
 
     public void setHealth(int health)
@@ -178,17 +194,32 @@ public abstract class Artist implements Purchasable {
         this.stamina = baseStamina;
     }
 
-    public ArrayList<Effect> effectsToApply()
+    public void increaseRetirementChance(int amount)
     {
-        ArrayList<Effect> allEffects = new ArrayList<>();
+        retirementChance = Math.max(0, retirementChance + amount);
+    }
+
+    public void incrementConsecutiveToursWithoutBreak()
+    {
+        consecutiveToursWithoutBreak += 1;
+    }
+
+    public void resetConsecutiveToursWithoutBreak()
+    {
+        consecutiveToursWithoutBreak = 0;
+    }
+
+    public ArrayList<ItemEffects> effectsToApply()
+    {
+        ArrayList<ItemEffects> allItemEffects = new ArrayList<>();
         for (Item item : items)
         {
-            for (Effect effect : item.getEffects())
+            for (ItemEffects itemEffects : item.getEffects())
             {
-                allEffects.add(effect);
+                allItemEffects.add(itemEffects);
             }
         }
-        return allEffects;
+        return allItemEffects;
     }
 
     public void addItem(Item item)
@@ -202,32 +233,34 @@ public abstract class Artist implements Purchasable {
     }
 
     //Returns true if anything actually changed (so therefore true means yes trigger the UI event)
-    public Boolean calculateEffect(Effect effect)
+    public Boolean calculateEffect(ItemEffects itemEffects)
     {
-        return calculateEffect(null, effect);
+        return calculateEffect(null, itemEffects);
     }
 
-    public Boolean calculateEffect(Item item, Effect effect)
+    public Boolean calculateEffect(Item item, ItemEffects itemEffects)
     {
-        int value = getEffectValue(item, effect);
-        if (value == 0 || effect.getTargetStat() == null) return false;
+        int value = getEffectValue(item, itemEffects);
+        if (value == 0 || itemEffects.getTargetStat() == null) return false;
 
-        switch (effect.getTargetStat()) {
-            case STAR_POWER -> starPower += value;
+        switch (itemEffects.getTargetStat()) {
+            case STAR_POWER -> starPower = clampBaseStarPower(starPower + value);
             case STAMINA    -> setStamina(stamina + value);
             case HEALTH     -> health += value;
         }
         return true;
     }
 
-    public int getEffectValue(Effect effect)
+    public int getEffectValue(ItemEffects itemEffects)
     {
-        return getEffectValue(null, effect);
+        return getEffectValue(null, itemEffects);
     }
 
-    public int getEffectValue(Item item, Effect effect)
+    public int getEffectValue(Item item, ItemEffects itemEffects)
     {
-        return effect.getModifier().apply(this, resolveEffectValue(item, effect));
+        return itemEffects.getGameplayEffect()
+                .createStatModifier(resolveEffectValue(item, itemEffects))
+                .apply(this, resolveEffectValue(item, itemEffects));
     }
 
     public int getModifiedStarPower()
@@ -256,11 +289,11 @@ public abstract class Artist implements Purchasable {
                 continue;
             }
 
-            for (Effect effect : item.getEffects())
+            for (ItemEffects itemEffects : item.getEffects())
             {
-                if (effect.getTargetStat() == statType)
+                if (itemEffects.getTargetStat() == statType)
                 {
-                    value += getEffectValue(item, effect);
+                    value += getEffectValue(item, itemEffects);
                 }
             }
         }
@@ -276,8 +309,8 @@ public abstract class Artist implements Purchasable {
         }
 
         return switch (statType) {
-            case STAR_POWER -> skill.hasEffect(SkillEffects.FLAT_STAR_POWER_BOOST)
-                    ? skill.getStatModifier().apply(this, 0)
+            case STAR_POWER -> skill.hasEffect(GameplayEffect.FLAT_STAR_POWER_BOOST) && skill.getMultiplier() > 1.0
+                    ? GameplayEffect.FLAT_STAR_POWER_BOOST.createStatModifier(skill.getMultiplier()).apply(this, 0)
                     : 0;
             case STAMINA, HEALTH -> 0;
         };
@@ -290,20 +323,40 @@ public abstract class Artist implements Purchasable {
             return;
         }
 
-        if (skill.hasEffect(SkillEffects.FLAT_STAMINA_BOOST))
+        if (skill.hasEffect(GameplayEffect.FLAT_STAMINA_BOOST))
         {
-            int staminaBoost = skill.getStatModifier().apply(this, 0);
+            int staminaBoost = GameplayEffect.FLAT_STAMINA_BOOST.createStatModifier(skill.getMultiplier()).apply(this, 0);
             baseStamina += staminaBoost;
             stamina += staminaBoost;
         }
     }
 
-    private double resolveEffectValue(Item item, Effect effect)
+    private void removeFlatSkillBonuses(Skill skill)
+    {
+        if (skill == null || !skill.hasStatModifier())
+        {
+            return;
+        }
+
+        if (skill.hasEffect(GameplayEffect.FLAT_STAMINA_BOOST))
+        {
+            int staminaBoost = GameplayEffect.FLAT_STAMINA_BOOST.createStatModifier(skill.getMultiplier()).apply(this, 0);
+            baseStamina = Math.max(0, baseStamina - staminaBoost);
+            stamina = Math.min(stamina, baseStamina);
+        }
+    }
+
+    private double resolveEffectValue(Item item, ItemEffects itemEffects)
     {
         if (item != null && item.getMultiplier() != null)
         {
             return item.getMultiplier();
         }
-        return effect.getDefaultValue();
+        return itemEffects.getDefaultValue();
+    }
+
+    private int clampBaseStarPower(int value)
+    {
+        return Math.max(MIN_STAR_POWER, Math.min(MAX_STAR_POWER, value));
     }
 }

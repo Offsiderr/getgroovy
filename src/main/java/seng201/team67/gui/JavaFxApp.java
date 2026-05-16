@@ -17,7 +17,7 @@ public class JavaFxApp extends Application {
     {
         GameEnvironment gameEnvironment = new GameEnvironment();
 
-        primaryStage.setTitle("Twisted Fantasy");
+        primaryStage.setTitle("Get Groovy");
         primaryStage.getIcons().add(new Image("/images/GameIcon.png"));
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(viewLoader.load("/fxml/setup/startmenu.fxml", new StartController(gameEnvironment))));

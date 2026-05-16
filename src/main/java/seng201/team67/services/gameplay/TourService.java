@@ -83,9 +83,29 @@ public class TourService {
         return tour.getPayMultiplier();
     }
 
+    public double getTourArtistPay()
+    {
+        return gameEnvironment.getLabelService().getLineupTotalPay(tour.type);
+    }
+
+    public double getTourArtistPayMultiplier()
+    {
+        return gameEnvironment.getConfig().getArtistPayMultiplier(tour.type);
+    }
+
     public void addCreditsEarned(Double earned)
     {
         tour.addCreditsEarned(earned);
+    }
+
+    public double getAccruedArtistPay()
+    {
+        return tour.getAccruedArtistPay();
+    }
+
+    public void addAccruedArtistPay(double accruedArtistPay)
+    {
+        tour.addAccruedArtistPay(accruedArtistPay);
     }
 
     public void addConcertResult(ConcertResults concertResult)
@@ -100,9 +120,48 @@ public class TourService {
 
     public void tourEnded()
     {
-        gameEnvironment.getLabelService().giveMoney(tour.getCreditsEarned());
+        settleArtistPay();
+        updateRetirementChanceForArtistsWithoutABreak();
         gameEnvironment.getLabelService().resetLineupStamina();
+    }
 
+    private void updateRetirementChanceForArtistsWithoutABreak()
+    {
+        List<Artist> lineup = gameEnvironment.getLabelService().getLineup();
+        List<Artist> allArtists = gameEnvironment.getLabelService().getAllArtists();
+        int increaseAmount = gameEnvironment.getConfig().retirementChanceIncreasePerThreeToursWithoutBreak;
+
+        for (Artist artist : allArtists)
+        {
+            if (lineup.contains(artist))
+            {
+                artist.incrementConsecutiveToursWithoutBreak();
+                if (artist.getConsecutiveToursWithoutBreak() % 3 == 0)
+                {
+                    artist.increaseRetirementChance(increaseAmount);
+                }
+                continue;
+            }
+
+            artist.resetConsecutiveToursWithoutBreak();
+        }
+    }
+
+    public void settleArtistPay()
+    {
+        if (tour.isArtistPaySettled())
+        {
+            return;
+        }
+
+        double accruedArtistPay = tour.getAccruedArtistPay();
+        if (accruedArtistPay > 0)
+        {
+            tour.addCreditsEarned(-accruedArtistPay);
+            gameEnvironment.getLabelService().takeMoney(accruedArtistPay);
+        }
+
+        tour.setArtistPaySettled(true);
     }
 
     public Minigame rollMiniGameTrigger(int crowdMeter)
