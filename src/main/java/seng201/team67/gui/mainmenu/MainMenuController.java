@@ -17,6 +17,7 @@ import seng201.team67.gui.dev.DevFunctionsController;
 import seng201.team67.gui.instantiable.MainSettingsController;
 import seng201.team67.gui.market.TheMarketController;
 import seng201.team67.gui.results.LoseScreenController;
+import seng201.team67.gui.results.WinScreenController;
 import seng201.team67.gui.studio.TheStudioController;
 import seng201.team67.gui.tour.SelectTourController;
 import seng201.team67.gui.util.ArtistDetailBoxFiller;
@@ -76,6 +77,13 @@ public class MainMenuController {
                 }
             });
             return;
+        }
+
+        if (gameEnvironment.getTourCount() >= gameEnvironment.getSelectedNumTours())
+        {
+            Platform.runLater(() ->{
+                screenNavigator.navigate(labelName, "/fxml/results/WinScreen.fxml", new WinScreenController(gameEnvironment));
+            });
         }
 
         labelName.setText(gameEnvironment.getLabelService().getLabelName());

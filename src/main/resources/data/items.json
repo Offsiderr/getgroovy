@@ -147,7 +147,7 @@
     "cost": 300,
     "rarity": "RARE",
     "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Rare/autotune.png",
+    "imagePath": "/images/Items/Rare/Autotune.png",
     "multiplier": 1.1
   },
   {

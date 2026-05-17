@@ -77,7 +77,7 @@ public class ArtistDetailBoxFiller {
                 createLabel(artist.getType()),
                 createLabel("Star Power: " + artist.getStarPower()),
                 createLabel("Stamina: " + artist.getStamina()),
-                createLabel("Health: " + artist.getHealth()),
+                createLabel("Tolerance: " + artist.getHealth()),
                 createLabel("Hire: $" + (int) artist.getCost()),
                 createLabel("Pay : $" + (int) artist.getPay()),
                 createSkillLabel(artist)

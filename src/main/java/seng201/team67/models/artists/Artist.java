@@ -178,7 +178,7 @@ public abstract class Artist implements Purchasable {
         starPower = clampBaseStarPower(starPower + amount);
     }
 
-    public void setHealth(int health)
+    public void setTolerance(int health)
     {
         this.health = health;
     }
@@ -283,7 +283,7 @@ public abstract class Artist implements Purchasable {
 
     public int getModifiedHealth()
     {
-        return health + getEquipableEffectValue(StatType.HEALTH);
+        return 100 - getRetirementChance() + getEquipableEffectValue(StatType.HEALTH);
     }
 
     private int getEquipableEffectValue(StatType statType)

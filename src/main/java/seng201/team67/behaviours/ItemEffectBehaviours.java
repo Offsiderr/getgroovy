@@ -50,7 +50,7 @@ public class ItemEffectBehaviours {
     public static StatModifier staminaMultiplier()
     {
         // Converts a multiplier such as 1.15 into an additive bonus on base stamina.
-        return (artist, value) -> (int) Math.round(artist.getBaseStamina() * (value - 1.0));
+        return (artist, value) -> (int) Math.round(artist.getBaseStamina() * (value));
     }
 
     //Concert Modifiers

@@ -63,7 +63,7 @@ public enum ItemEffects {
             Rarity.RARE,
             StatType.STAMINA,
             ItemType.EQUIPPED,
-            1.1,
+            1.20,
             GameplayEffect.STAMINA_MULTIPLIER
     ),
 

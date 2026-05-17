@@ -5,11 +5,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.items.Item;
 
 public class ItemDetailBoxFiller {
@@ -52,6 +54,7 @@ public class ItemDetailBoxFiller {
         textBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(textBox, Priority.ALWAYS);
 
+        Label effectsLabel = createLabel("Effects(s): " + item.getEffects());
         textBox.getChildren().addAll(
                 createLabel(item.getName()),
                 createLabel(item.getDescription()),
@@ -59,8 +62,19 @@ public class ItemDetailBoxFiller {
                 createLabel(item.getRarity().toString()),
                 createLabel(item.getType()),
                 createOptionalLabel(ItemDisplayFormatter.getRemainingUsesText(item)),
-                createLabel("Effect(s): " + item.getEffects())
+                effectsLabel
         );
+
+
+        String tooltipText = "";
+        for (ItemEffects effect : item.getEffects())
+        {
+            tooltipText = tooltipText + effect.getDescription() + "/n";
+        }
+
+        Tooltip.install(effectsLabel, new Tooltip(tooltipText));
+
+
 
         container.getChildren().addAll(imageView, textBox);
         container.setMouseTransparent(true);

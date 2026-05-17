@@ -55,7 +55,7 @@
       </ImageView>
       <ImageView fitHeight="131.0" fitWidth="128.0" layoutX="572.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/Certified%20item.png" />
+            <Image url="@../../images/Certified%20Item.png" />
          </image>
       </ImageView>
       <Button layoutX="549.0" layoutY="241.0" mnemonicParsing="false" onAction="#buyGolden" opacity="0.0" prefHeight="172.0" prefWidth="175.0" stylesheets="@../../Styles/Style.css" />

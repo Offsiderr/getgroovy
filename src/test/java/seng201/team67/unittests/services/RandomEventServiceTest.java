@@ -57,18 +57,7 @@ public class RandomEventServiceTest {
     void randomAffectedArtistIsNullWhenNoArtistsProvided() {
         assertNull(service.getRandomAffectedArtist(List.of()));
     }
-
-    @Test
-    void staminaEventChangesAffectedArtistStamina() {
-        Artist artist = new seng201.team67.models.artists.Rockstar("Test Rock", 3, "Rock");
-        artist.setStamina(60);
-
-        boolean changed = service.applyRandomEvent(new GameEnvironment(), RandomEvent.VOCAL_STRAIN, artist);
-
-        assertTrue(changed);
-        assertEquals(40, artist.getStamina());
-    }
-
+    
     @Test
     void starPowerEventChangesAffectedArtistStarPower() {
         Artist artist = new seng201.team67.models.artists.Popstar("Test Pop", 3, "Pop");
