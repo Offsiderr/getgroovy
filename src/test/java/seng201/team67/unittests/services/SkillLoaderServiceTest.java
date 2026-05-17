@@ -35,7 +35,7 @@ public class SkillLoaderServiceTest {
         Outcome okOutcome = new Outcome(1, "Solid show", PayoutType.MINOR_REWARD, 0, 0, false);
         Outcome greatOutcome = new Outcome(1, "Huge show", PayoutType.MAJOR_REWARD, 0, 0, false);
 
-        assertEquals(110, skill.getPayoutModifier().apply(artist, 100, okOutcome, List.of(artist), 50, 0, 1, 5));
+        assertEquals(130, skill.getPayoutModifier().apply(artist, 100, okOutcome, List.of(artist), 50, 0, 1, 5));
         assertEquals(100, skill.getPayoutModifier().apply(artist, 100, greatOutcome, List.of(artist), 50, 0, 1, 5));
     }
 
@@ -47,16 +47,16 @@ public class SkillLoaderServiceTest {
         Outcome ongoingOutcome = new Outcome(1, "Solid show", PayoutType.MINOR_REWARD, 0, 0, false);
         Outcome finaleOutcome = new Outcome(1, "Finale", PayoutType.MINOR_REWARD, 0, 0, true);
 
-        assertEquals(115, findSkill(service, "HEADLINER")
+        assertEquals(145, findSkill(service, "HEADLINER")
                 .getPayoutModifier()
                 .apply(popstar, 100, ongoingOutcome, List.of(popstar), 50, 0, 1, 5));
-        assertEquals(115, findSkill(service, "COLLAB_KING")
+        assertEquals(145, findSkill(service, "COLLAB_KING")
                 .getPayoutModifier()
                 .apply(rapper, 100, ongoingOutcome, List.of(popstar, rapper), 50, 0, 1, 5));
-        assertEquals(125, findSkill(service, "ENCORE_MACHINE")
+        assertEquals(175, findSkill(service, "ENCORE_MACHINE")
                 .getPayoutModifier()
                 .apply(popstar, 100, finaleOutcome, List.of(popstar, rapper), 75, 0, 5, 5));
-        assertEquals(120, findSkill(service, "AMP_IT_UP")
+        assertEquals(160, findSkill(service, "AMP_IT_UP")
                 .getPayoutModifier()
                 .apply(popstar, 100, ongoingOutcome, List.of(popstar, rapper), 50, 2, 3, 5));
     }

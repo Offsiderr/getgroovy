@@ -26,8 +26,8 @@ public class ArtistTest {
         assertEquals(100, artist.getStamina());
         assertEquals("Pop artist", artist.getDescription());
         assertEquals("Popstar", artist.getType());
-        assertEquals(15.0, artist.getPay());
-        assertEquals(21.0, artist.getCost());
+        assertEquals(60.0, artist.getPay());
+        assertEquals(330.0, artist.getCost());
         assertEquals("/images/Artists/Dua Lipa.png", artist.getImagePath());
     }
 
@@ -43,8 +43,8 @@ public class ArtistTest {
         assertEquals(120, artist.getStamina());
         assertEquals("The author of these tests", artist.getDescription());
         assertEquals("Rapper", artist.getType());
-        assertEquals(25.0, artist.getPay());
-        assertEquals(35.0, artist.getCost());
+        assertEquals(100.0, artist.getPay());
+        assertEquals(550.0, artist.getCost());
         assertEquals("/images/Artists/Louie Campion.png", artist.getImagePath());
 
     }
@@ -122,7 +122,7 @@ public class ArtistTest {
 
         artist.setSkill(skill);
 
-        assertEquals(13, artist.getStarPower());
+        assertEquals(33, artist.getStarPower());
     }
 
     @Test
@@ -142,7 +142,29 @@ public class ArtistTest {
 
         artist.setSkill(skill);
 
-        assertEquals(130, artist.getBaseStamina());
-        assertEquals(130, artist.getStamina());
+        assertEquals(140, artist.getBaseStamina());
+        assertEquals(140, artist.getStamina());
+    }
+
+    @Test
+    void flatStaminaSkillBoostUpdatesWhenSkillLevelChanges() {
+        Rapper artist = new Rapper("Yeat", 2, "Rap artist");
+        Skill skill = new Skill(
+                "GRIND_MENTALITY",
+                "Grind Mentality",
+                "Boosts stamina",
+                "RAPPER",
+                Rarity.COMMON,
+                10,
+                List.of(GameplayEffect.FLAT_STAMINA_BOOST),
+                SkillEffectBehaviours.flatStaminaBoost(10),
+                null
+        );
+
+        artist.setSkill(skill);
+        artist.increaseSkillLevel();
+
+        assertEquals(150, artist.getBaseStamina());
+        assertEquals(150, artist.getStamina());
     }
 }

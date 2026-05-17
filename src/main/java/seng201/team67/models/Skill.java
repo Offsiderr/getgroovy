@@ -17,6 +17,7 @@ public class Skill {
     private String name;
     private String description;
     private String artistType;
+    private Rarity rarity;
     private double multiplier;
     private List<GameplayEffect> effects;
     private StatModifier statModifier;
@@ -25,10 +26,18 @@ public class Skill {
     public Skill(String id, String name, String description, String artistType,
                  double multiplier, List<GameplayEffect> effects, StatModifier statModifier, PayoutModifier payoutModifier)
     {
+        this(id, name, description, artistType, null, multiplier, effects, statModifier, payoutModifier);
+    }
+
+    public Skill(String id, String name, String description, String artistType,
+                 Rarity rarity, double multiplier, List<GameplayEffect> effects,
+                 StatModifier statModifier, PayoutModifier payoutModifier)
+    {
         this.id = id;
         this.name = name;
         this.description = description;
         this.artistType = artistType;
+        this.rarity = rarity;
         this.multiplier = multiplier;
         this.effects = effects == null ? new ArrayList<>() : new ArrayList<>(effects);
         this.statModifier = statModifier;
@@ -53,6 +62,11 @@ public class Skill {
     public String getArtistType()
     {
         return artistType;
+    }
+
+    public Rarity getRarity()
+    {
+        return rarity;
     }
 
     public double getMultiplier()

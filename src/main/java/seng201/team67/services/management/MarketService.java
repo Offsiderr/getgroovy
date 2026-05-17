@@ -35,9 +35,20 @@ public class MarketService {
             ArrayList<Item> candidates = new ArrayList<>();
             for (Item item : gameEnvironment.getAllItems())
             {
-                if (!item.getOwned() && item.getRarity() == rarity)
+                if (!item.getOwned() && item.getRarity() == rarity && !purchasePool.contains(item))
                 {
                     candidates.add(item);
+                }
+            }
+
+            if (candidates.isEmpty())
+            {
+                for (Item item : gameEnvironment.getAllItems())
+                {
+                    if (!item.getOwned() && !purchasePool.contains(item))
+                    {
+                        candidates.add(item);
+                    }
                 }
             }
 

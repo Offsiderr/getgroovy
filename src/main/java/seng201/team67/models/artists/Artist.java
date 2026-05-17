@@ -161,12 +161,16 @@ public abstract class Artist implements Purchasable {
 
     public void increaseSkillLevel()
     {
+        removeFlatSkillBonuses(this.skill);
         skillLevel += 1;
+        applyFlatSkillBonuses(this.skill);
     }
 
     public void changeSkillLevel(int amount)
     {
+        removeFlatSkillBonuses(this.skill);
         skillLevel = Math.max(1, skillLevel + amount);
+        applyFlatSkillBonuses(this.skill);
     }
 
     public void changeStarPower(int amount)

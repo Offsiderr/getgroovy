@@ -108,8 +108,8 @@ public class LabelServiceTest {
         LabelService easyService = createLabelService(createConfiguredEnvironment(0), artists);
         LabelService hardService = createLabelService(createConfiguredEnvironment(2), artists);
 
-        assertEquals(20.0, easyService.getLineupTotalPay(), 0.0001);
-        assertEquals(30.0, hardService.getLineupTotalPay(), 0.0001);
+        assertEquals(80.0, easyService.getLineupTotalPay(), 0.0001);
+        assertEquals(120.0, hardService.getLineupTotalPay(), 0.0001);
     }
 
     @Test
@@ -120,9 +120,9 @@ public class LabelServiceTest {
         );
         LabelService service = createLabelService(createConfiguredEnvironment(0), artists);
 
-        assertEquals(20.0, service.getLineupTotalPay(TourType.LOCAL), 0.0001);
-        assertEquals(30.0, service.getLineupTotalPay(TourType.COUNTRY), 0.0001);
-        assertEquals(40.0, service.getLineupTotalPay(TourType.WORLD), 0.0001);
+        assertEquals(80.0, service.getLineupTotalPay(TourType.LOCAL), 0.0001);
+        assertEquals(120.0, service.getLineupTotalPay(TourType.COUNTRY), 0.0001);
+        assertEquals(160.0, service.getLineupTotalPay(TourType.WORLD), 0.0001);
     }
 
     @Test

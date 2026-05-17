@@ -102,7 +102,7 @@ public class RandomEventService {
         return switch (randomEvent.getStat()) {
             case "stamina" -> {
                 int before = affectedArtist.getCurrentStaminaValue();
-                affectedArtist.setBaseStamina(before + randomEvent.getValue());
+                affectedArtist.setStamina(before + randomEvent.getValue());
                 yield affectedArtist.getCurrentStaminaValue() != before;
             }
             case "star_power" -> {

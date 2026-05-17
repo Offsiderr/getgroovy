@@ -11,17 +11,17 @@ public class SkillEffectBehaviours {
 
     public static StatModifier flatStaminaBoost(int amount)
     {
-        return (artist, value) -> amount;
+        return (artist, value) -> scaleFlatEffect(amount, artist.getSkillLevel());
     }
 
     public static StatModifier flatStarPowerBoost(int amount)
     {
-        return (artist, value) -> amount;
+        return (artist, value) -> scaleFlatEffect(amount, artist.getSkillLevel());
     }
 
     public static StatModifier staminaCostReduction(double multiplier)
     {
-        return (artist, value) -> (int) Math.round(multiplier * 100);
+        return (artist, value) -> (int) Math.round(scaleMultiplierEffect(multiplier, artist.getSkillLevel()) * 100);
     }
 
     public static StatModifier retirementRisk()
@@ -33,20 +33,20 @@ public class SkillEffectBehaviours {
     public static PayoutModifier flatCreditBonus(int amount)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
-                basePayout == 0 ? basePayout : basePayout + amount;
+                basePayout == 0 ? basePayout : basePayout + scaleFlatEffect(amount, artist.getSkillLevel());
     }
 
     public static PayoutModifier payoutMultiplier(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
-                basePayout == 0 ? basePayout : (int) Math.round(basePayout * multiplier);
+                basePayout == 0 ? basePayout : (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()));
     }
 
     public static PayoutModifier greatPayoutMultiplier(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 isOutcomeType(outcome, "GREAT") && basePayout > 0
-                ? (int) Math.round(basePayout * multiplier)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))
                 : basePayout;
     }
 
@@ -54,7 +54,7 @@ public class SkillEffectBehaviours {
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 isOutcomeType(outcome, "TERRIBLE") && basePayout < 0
-                ? (int) Math.round(basePayout * reduction)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(reduction, artist.getSkillLevel()))
                 : basePayout;
     }
 
@@ -62,7 +62,7 @@ public class SkillEffectBehaviours {
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 isOutcomeType(outcome, "OK") && basePayout > 0
-                ? (int) Math.round(basePayout * multiplier)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))
                 : basePayout;
     }
 
@@ -70,7 +70,7 @@ public class SkillEffectBehaviours {
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 lineup.size() == 1 && basePayout != 0
-                ? (int) Math.round(basePayout * multiplier)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))
                 : basePayout;
     }
 
@@ -78,7 +78,7 @@ public class SkillEffectBehaviours {
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 hasMultipleArtistTypes(lineup) && basePayout != 0
-                ? (int) Math.round(basePayout * multiplier)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))
                 : basePayout;
     }
 
@@ -89,7 +89,8 @@ public class SkillEffectBehaviours {
             {
                 return 0;
             }
-            double totalMultiplier = 1.0 + (completedConcerts * (multiplierStep - 1.0));
+            double effectiveStep = scaleMultiplierEffect(multiplierStep, artist.getSkillLevel());
+            double totalMultiplier = 1.0 + (completedConcerts * (effectiveStep - 1.0));
             return (int) Math.round(basePayout * totalMultiplier);
         };
     }
@@ -101,8 +102,19 @@ public class SkillEffectBehaviours {
                 && outcome.getConcertEnds()
                 && crowdEnergy >= 75
                 && basePayout > 0
-                ? (int) Math.round(basePayout * multiplier)
+                ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))
                 : basePayout;
+    }
+
+    private static int scaleFlatEffect(int amount, int skillLevel)
+    {
+        return amount * Math.max(1, skillLevel);
+    }
+
+    private static double scaleMultiplierEffect(double multiplier, int skillLevel)
+    {
+        double scaledMultiplier = 1.0 + ((multiplier - 1.0) * Math.max(1, skillLevel));
+        return Math.max(0.0, scaledMultiplier);
     }
 
     private static boolean isOutcomeType(Outcome outcome, String typeName)
