@@ -1,4 +1,4 @@
-package seng201.team67.gui.instantiable;
+package seng201.team67.gui.mainmenu;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

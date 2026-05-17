@@ -295,13 +295,13 @@ public class MainConcertController {
     private void refreshView()
     {
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
-        moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
-        payText.setText(Double.toString(tourService.getCreditsEarned()));
+        moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
+        payText.setText(String.format("$%.2f", tourService.getCreditsEarned()));
         loadLineup();
 
         crowdMeter.setValue(concertService.getCrowdEnergy());
 
-        payText.setText(Double.toString(concertService.getIncome()));
+        payText.setText(String.format("$%.2f", concertService.getIncome()));
 
         updateMicPosition();
     }

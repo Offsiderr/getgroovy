@@ -45,7 +45,7 @@
             <String fx:value="big-label" />
          </styleClass>
       </Label>
-      <Label fx:id="labelName11" alignment="CENTER" contentDisplay="CENTER" layoutX="394.0" layoutY="206.0" prefHeight="399.0" prefWidth="380.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Each Artist has 4 important statistics that you must keep an eye on. Star Power directly influences the amount of money you make from ticket sales, stamina is one of the most important stats if you don't want to lose a tour, tolerance decreases if an artist goes touring for too long, so be careful to not burn your artists out, and pay dictates how much of a bill you'll be footing at the end of the tour." textAlignment="CENTER" wrapText="true">
+      <Label fx:id="labelName11" alignment="CENTER" contentDisplay="CENTER" layoutX="394.0" layoutY="206.0" prefHeight="399.0" prefWidth="380.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Each Artist has 4 important statistics that you must keep an eye on. Star Power directly influences the amount of money you make from ticket sales, stamina is one of the most important stats if you don't want to lose a tour, tolerance decreases if an artist goes touring for too long, so be careful to not burn your artists out, and pay dictates how much of a bill you'll be footing at the end of the tour. Also keep an eye on the crowd meter! The higher it is, the more money you'll earn" textAlignment="CENTER" wrapText="true">
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />

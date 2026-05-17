@@ -43,7 +43,6 @@ public class ResultsController {
     @FXML private Label concertType;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     private final RandomEventService randomEventService = new RandomEventService();
-    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.##");
     private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
     public ResultsController(GameEnvironment gameEnvironment, ConcertService concertService)
@@ -64,8 +63,8 @@ public class ResultsController {
         configureDifficultyMultiplier();
         configureTourMultiplier();
 
-        int totalAmount = (int) Math.round(results.total);
-        totalMoney.setText("$0");
+        double totalAmount = results.total;
+        totalMoney.setText(String.format("$%.2f", 0.0));
         animateCount(totalMoney, totalAmount, 1.0);
     }
 
@@ -100,7 +99,7 @@ public class ResultsController {
 
     private String formatMoney(double amount)
     {
-        return "$" + MONEY_FORMAT.format(amount);
+        return String.format("$%.2f", amount);
     }
 
     private void loadLineup()
@@ -189,7 +188,7 @@ public class ResultsController {
                 new TourResultsController(gameEnvironment, concertService.getTourService(), staminaLoss));
     }
 
-    private void animateCount(Label label, int target, double seconds) {
+    private void animateCount(Label label, double target, double seconds) {
         long durationMs = (long) (seconds * 1000);
         long startTime = System.currentTimeMillis();
 
@@ -202,12 +201,12 @@ public class ResultsController {
                     // ease-out curve: feels snappier at start, settles at end
                     double eased = 1 - Math.pow(1 - progress, 3);
 
-                    int current = (int) Math.round(eased * target);
-                    label.setText("$" + current);
+                    double current = eased * target;
+                    label.setText(String.format("$%.2f", current));
                 })
         );
         timeline.setCycleCount((int) (durationMs / 16) + 1);
-        timeline.setOnFinished(e -> label.setText("$" + target));
+        timeline.setOnFinished(e -> label.setText(String.format("$%.2f", target)));
         timeline.play();
     }
 }

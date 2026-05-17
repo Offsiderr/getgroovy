@@ -52,7 +52,7 @@ public class TourResultsController {
     @FXML private Label payText;
 
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
-    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.##");
+    private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
     public TourResultsController(GameEnvironment gameEnvironment, TourService tourService, Boolean staminaLoss) {
         this.gameEnvironment = gameEnvironment;
@@ -100,24 +100,24 @@ public class TourResultsController {
         labelEventPenalties.setText("- " + formatMoneyValue(eventPenalties));
         labelGross.setText(formatMoney(gross));
         labelPayDescription.setText("Artist pay (" + gameEnvironment.getDifficulty().getDisplayName()
-                + " Difficulty x" + MONEY_FORMAT.format(gameEnvironment.getDifficulty().getPayMultiplier())
-                + ", " + formatTourName() + " Tour x" + MONEY_FORMAT.format(tourService.getTourArtistPayMultiplier()) + ")");
+                + " Difficulty x" + MULTIPLIER_FORMAT.format(gameEnvironment.getDifficulty().getPayMultiplier())
+                + ", " + formatTourName() + " Tour x" + MULTIPLIER_FORMAT.format(tourService.getTourArtistPayMultiplier()) + ")");
         labelArtistPay.setText("- " + formatMoneyValue(artistPay));
         labelNetEarned.setText(formatMoney(netEarned));
         labelCreditsBefore.setText(formatMoney(creditsBefore));
         labelCreditsAfter.setText(formatMoney(creditsAfter));
 
-        int totalAmount = (int) Math.round(netEarned);
-        payText.setText("$0");
+        double totalAmount = netEarned;
+        payText.setText(String.format("$%.2f", 0.0));
         animateCount(payText, totalAmount, 1.0);
     }
 
     private String formatMoney(double amount) {
-        return "$" + MONEY_FORMAT.format(amount);
+        return String.format("$%.2f", amount);
     }
 
     private String formatMoneyValue(double amount) {
-        return MONEY_FORMAT.format(amount);
+        return String.format("%.2f", amount);
     }
 
     private String formatTourName() {
@@ -125,7 +125,7 @@ public class TourResultsController {
         return Character.toUpperCase(tourName.charAt(0)) + tourName.substring(1);
     }
 
-    private void animateCount(Label label, int target, double seconds) {
+    private void animateCount(Label label, double target, double seconds) {
         long durationMs = (long) (seconds * 1000);
         long startTime = System.currentTimeMillis();
 
@@ -136,12 +136,12 @@ public class TourResultsController {
                     double progress = Math.min(1.0, (double) elapsed / durationMs);
                     double eased = 1 - Math.pow(1 - progress, 3);
 
-                    int current = (int) Math.round(eased * target);
-                    label.setText("$" + current);
+                    double current = eased * target;
+                    label.setText(String.format("$%.2f", current));
                 })
         );
         timeline.setCycleCount((int) (durationMs / 16) + 1);
-        timeline.setOnFinished(e -> label.setText("$" + target));
+        timeline.setOnFinished(e -> label.setText(String.format("$%.2f", target)));
         timeline.play();
     }
 

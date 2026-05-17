@@ -51,7 +51,7 @@ public class GachaService {
         for (int i = 0; i < slotCount; i++)
         {
             int z = i;
-            while (z < pool.size() && (pool.get(z).getOwned() || pool.get(z).getRarity() != rarity))
+            while (z < pool.size() && (picked.contains(pool.get(z)) || pool.get(z).getRarity().getIndex() > rarity.getIndex()))
             {
                 z += 1;
             }

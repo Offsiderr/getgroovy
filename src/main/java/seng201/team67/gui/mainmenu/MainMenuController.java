@@ -14,7 +14,6 @@ import seng201.team67.GameEnvironment;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import seng201.team67.gui.dev.DevFunctionsController;
-import seng201.team67.gui.instantiable.MainSettingsController;
 import seng201.team67.gui.market.TheMarketController;
 import seng201.team67.gui.results.LoseScreenController;
 import seng201.team67.gui.results.WinScreenController;
@@ -88,7 +87,7 @@ public class MainMenuController {
 
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
         gameDifficulty.setText(gameEnvironment.getDifficulty().name());
-        moneyText.setText("$" + Double.toString(gameEnvironment.getLabelService().getMoney()));
+        moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
         scoreLabel.setText(Integer.toString(gameEnvironment.getGameScore()));
 
@@ -208,5 +207,9 @@ public class MainMenuController {
 
     @FXML public void openHelp(ActionEvent event) throws IOException
     {
+        settingsHolder.setDisable(false);
+        settingsHolder.setVisible(true);
+        settingsHolder.setManaged(true);
+        viewLoader.loadInto(settingsHolder, "/fxml/mainmenu/MainHelp.fxml", new MainHelpController(settingsHolder));
     }
 }

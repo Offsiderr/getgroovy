@@ -72,8 +72,8 @@ public class MainGameController {
     @FXML public void initialize() throws IOException {
         cancelTourPane.setVisible(false);
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
-        moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
-        payText.setText(Double.toString(tourService.getCreditsEarned()));
+        moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
+        payText.setText(String.format("$%.2f", tourService.getCreditsEarned()));
 
         staminaText.setText(Integer.toString((int) Math.round(tourService.getTotalStamina())));
         effectText.setText(tourService.getConditionalEffectText());
@@ -214,7 +214,8 @@ public class MainGameController {
         }
 
         cancelTourPane.setVisible(true);
-        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $" + gameEnvironment.getConfig().cancelTourPenalty + " of tickets");
+        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $"
+                + String.format("%.2f", gameEnvironment.getConfig().cancelTourPenalty) + " of tickets");
     }
 
     @FXML private void notCancellingTour(ActionEvent event) throws IOException

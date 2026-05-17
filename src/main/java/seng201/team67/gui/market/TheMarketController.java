@@ -49,7 +49,7 @@ public class TheMarketController {
     @FXML public void initialize() throws IOException
     {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
-        this.moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+        this.moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         insufficientFundsWarning.setVisible(false);
 
         loadItemPool();
@@ -132,7 +132,7 @@ public class TheMarketController {
         if (gameEnvironment.getLabelService().buyItem(selectedItem))
         {
             gameEnvironment.removeItemFromPurchasePool(selectedItem);
-            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+            moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
             loadItemPool();
             return;
         }
@@ -193,7 +193,7 @@ public class TheMarketController {
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {
             gameEnvironment.setItemPoolGenerated(false);
-            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+            moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
             loadItemPool();
             return;
         }

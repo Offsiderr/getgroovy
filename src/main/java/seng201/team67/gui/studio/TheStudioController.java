@@ -44,7 +44,7 @@ public class TheStudioController {
     @FXML public void initialize() throws IOException
     {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
-        this.moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+        this.moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         insufficientFundsWarning.setVisible(false);
 
         loadArtistPool();
@@ -104,7 +104,7 @@ public class TheStudioController {
         if (gameEnvironment.getLabelService().hireArtist(selectedArtist))
         {
             gameEnvironment.removeArtistFromPurchasePool(selectedArtist);
-            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+            moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
             loadArtistPool();
             return;
         }
@@ -165,7 +165,7 @@ public class TheStudioController {
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {
             gameEnvironment.setArtistPoolGenerated(false);
-            moneyText.setText(Double.toString(gameEnvironment.getLabelService().getMoney()));
+            moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
             loadArtistPool();
             return;
         }

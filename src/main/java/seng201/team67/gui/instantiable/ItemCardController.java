@@ -57,7 +57,7 @@ public class ItemCardController {
         this.item = item;
         this.name.setText(item.getName());
         this.description.setText(item.getDescription());
-        this.itemCost.setText(String.valueOf(item.getCost()));
+        this.itemCost.setText(String.format("$%.2f", item.getCost()));
         this.rarity.setText(item.getRarity().toString());
         this.type.setText(item.getType());
         this.uses.setText(ItemDisplayFormatter.getRemainingUsesText(item));

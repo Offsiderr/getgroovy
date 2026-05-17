@@ -47,7 +47,7 @@
                   <String fx:value="root" />
                </styleClass>
             </Label>
-            <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="529.0" layoutY="61.0" text="000000000000" textAlignment="CENTER">
+            <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="61.0" maxWidth="1.7976931348623157E308" prefWidth="1298.0" text="000000000000" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="37.0" />
                </font>

@@ -62,7 +62,7 @@ public class ArtistCardController {
         this.artist = artist;
         this.name.setText(artist.getName());
         this.description.setText(artist.getDescription());
-        this.artistCost.setText(String.valueOf(artist.getCost()));
+        this.artistCost.setText(String.format("$%.2f", artist.getCost()));
         this.star_power.setText(String.valueOf(artist.getStarPower()));
         this.type.setText(artist.getType());
 
