@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -41,5 +42,14 @@
          </styleClass>
       </Button>
       <StackPane fx:id="gachaContainer" layoutX="515.0" layoutY="235.0" prefHeight="250.0" prefWidth="250.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="494.0" layoutY="19.0" opacity="0.4" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(gaussian, white, 40, 0.5, 0, 0);" stylesheets="@../../Styles/Style.css" text="Select Three:" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="big-label" />
+         </styleClass>
+      </Label>
    </children>
 </AnchorPane>

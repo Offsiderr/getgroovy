@@ -6,6 +6,8 @@ import seng201.team67.models.questionmodels.Question;
 import java.util.List;
 
 public class Concert {
+    private static final int MIN_ENERGY = 0;
+    private static final int MAX_ENERGY = 100;
 
     private List<Question> questions;
     private double maximumRewards;
@@ -24,12 +26,12 @@ public class Concert {
 
     public void addEnergy(int toAdd)
     {
-        energy = energy + toAdd;
+        setEnergy(energy + toAdd);
     }
 
     public void setEnergy(int energy)
     {
-        this.energy = energy;
+        this.energy = Math.max(MIN_ENERGY, Math.min(MAX_ENERGY, energy));
     }
 
     public double getTicketSales()

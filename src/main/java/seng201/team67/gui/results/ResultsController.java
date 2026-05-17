@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.tour.MainGameController;
@@ -23,6 +24,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class ResultsController {
+    private static final Paint POSITIVE_AMOUNT_COLOR = Paint.valueOf("#00ff4d");
+    private static final Paint NEGATIVE_AMOUNT_COLOR = Paint.valueOf("#ff4d4d");
 
     private GameEnvironment gameEnvironment;
     private ConcertService concertService;
@@ -60,11 +63,15 @@ public class ResultsController {
         ticketSales.setText(formatMoney(results.ticketSales));
         crowdHype.setText(Integer.toString(results.crowdHype));
         artistPay.setText("-" + formatMoney(results.artistsPay));
+        applyAmountColor(ticketSales, results.ticketSales);
+        applyAmountColor(payText, results.bonusMoney);
+        applyAmountColor(artistPay, -results.artistsPay);
         configureDifficultyMultiplier();
         configureTourMultiplier();
 
         double totalAmount = results.total;
         totalMoney.setText(String.format("$%.2f", 0.0));
+        applyAmountColor(totalMoney, totalAmount);
         animateCount(totalMoney, totalAmount, 1.0);
     }
 
@@ -203,10 +210,19 @@ public class ResultsController {
 
                     double current = eased * target;
                     label.setText(String.format("$%.2f", current));
+                    applyAmountColor(label, current);
                 })
         );
         timeline.setCycleCount((int) (durationMs / 16) + 1);
-        timeline.setOnFinished(e -> label.setText(String.format("$%.2f", target)));
+        timeline.setOnFinished(e -> {
+            label.setText(String.format("$%.2f", target));
+            applyAmountColor(label, target);
+        });
         timeline.play();
+    }
+
+    private void applyAmountColor(Label label, double amount)
+    {
+        label.setTextFill(amount < 0 ? NEGATIVE_AMOUNT_COLOR : POSITIVE_AMOUNT_COLOR);
     }
 }

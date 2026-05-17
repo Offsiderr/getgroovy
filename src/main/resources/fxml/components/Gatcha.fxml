@@ -8,9 +8,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" opacity="0.4" prefHeight="47.0" prefWidth="250.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Click to open!!" textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" opacity="0.4" prefHeight="47.0" prefWidth="250.0" style="-fx-background-color: trans;" stylesheets="@../../Styles/Style.css" text="Keep clicking the box to open it!" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font name="Cousine Regular" size="26.0" />
+            <Font size="16.0" />
          </font></Label>
       <ImageView fx:id="recordImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" smooth="false">
          <image>

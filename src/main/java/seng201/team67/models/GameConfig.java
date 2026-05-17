@@ -292,7 +292,7 @@ public class GameConfig {
                 // Economy
                 300,  // startingCredits
                 12, 3,
-                100, 500, 1000, 100,
+                150, 1500, 3000, 120,
                 0.7,
                 // Probabilities
                 0.15, 0.5, 0.30, 2,
@@ -318,7 +318,7 @@ public class GameConfig {
                 // Economy
                 150,  // startingCredits
                 12, 3,
-                100, 500, 1000, 100,
+                150, 1500, 3000, 150,
                 0.7,
                 // Probabilities
                 0.15, 0.5, 0.40, 1,

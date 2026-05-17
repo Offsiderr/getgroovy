@@ -78,6 +78,20 @@ public class ConcertServiceTest {
     }
 
     @Test
+    void crowdMeterIsClampedBetweenZeroAndOneHundred() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        ConcertService service = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment));
+
+        service.setCrowdEnergy(95);
+        service.applyMiniGameResult(new MiniGameResult(20, 0));
+        assertEquals(100, service.getCrowdEnergy());
+
+        service.setCrowdEnergy(5);
+        service.applyMiniGameResult(new MiniGameResult(-20, 0));
+        assertEquals(0, service.getCrowdEnergy());
+    }
+
+    @Test
     void concertOnlyOffersOneMinigameCheck() throws Exception {
         GameEnvironment gameEnvironment = createEnvironmentWithLabel();
         TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);

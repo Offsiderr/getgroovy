@@ -33,6 +33,9 @@ public class TheStudioController {
     @FXML private VBox artistCardThree;
     @FXML private Button buyArtistButton;
     @FXML private Label insufficientFundsWarning;
+    @FXML private Label standardRecordText;
+    @FXML private Label goldenRecordText;
+    @FXML private Label platinumRecordText;
 
 
     public TheStudioController(GameEnvironment gameEnvironment)
@@ -46,6 +49,11 @@ public class TheStudioController {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
         this.moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         insufficientFundsWarning.setVisible(false);
+
+        standardRecordText.setText(String.format("$%d", gameEnvironment.getConfig().gachaStandardCost));
+        goldenRecordText.setText(String.format("$%d", gameEnvironment.getConfig().gachaGoldenCost));
+        platinumRecordText.setText(String.format("$%d", gameEnvironment.getConfig().gachaPlatinumCost));
+
 
         loadArtistPool();
 

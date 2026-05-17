@@ -26,4 +26,26 @@ public class ConcertTest {
 
         assertEquals(7, concert.getEnergy());
     }
+
+    @Test
+    void checkCrowdEnergyCannotIncreaseAbove100() {
+        Concert concert = new Concert(new GameEnvironment());
+
+        concert.addEnergy(150);
+        assertEquals(100, concert.getEnergy());
+
+        concert.addEnergy(-250);
+        assertEquals(0, concert.getEnergy());
+    }
+
+    @Test
+    void checkCrowdEnergyCannotDecreaseBelow0() {
+        Concert concert = new Concert(new GameEnvironment());
+
+        concert.setEnergy(-10);
+        assertEquals(0, concert.getEnergy());
+
+        concert.setEnergy(120);
+        assertEquals(100, concert.getEnergy());
+    }
 }

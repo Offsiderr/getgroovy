@@ -39,6 +39,9 @@ public class TheMarketController {
     @FXML private Label insufficientFundsWarning;
     @FXML private ImageView bg1;
     @FXML private ImageView bg2;
+    @FXML private Label bootlegText;
+    @FXML private Label certifiedText;
+    @FXML private Label godlikeText;
 
     public TheMarketController(GameEnvironment gameEnvironment)
     {
@@ -51,6 +54,9 @@ public class TheMarketController {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
         this.moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         insufficientFundsWarning.setVisible(false);
+        bootlegText.setText(String.format("$%d", gameEnvironment.getConfig().gachaStandardCost));
+        certifiedText.setText(String.format("$%d", gameEnvironment.getConfig().gachaGoldenCost));
+        godlikeText.setText(String.format("$%d", gameEnvironment.getConfig().gachaPlatinumCost));
 
         loadItemPool();
 

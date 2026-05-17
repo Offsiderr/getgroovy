@@ -65,7 +65,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="330.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);" text="\$100" textAlignment="CENTER" textFill="#eeeeee">
+      <Label fx:id="standardRecordText" layoutX="330.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);" text="\$100" textAlignment="CENTER" textFill="#eeeeee">
          <font><Font size="23.0" /></font>
       </Label>
       <Label layoutX="560.0" layoutY="305.0" prefHeight="25.0" prefWidth="138.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Golden Record" textAlignment="CENTER">
@@ -82,10 +82,10 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label layoutX="599.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="goldenRecordText" layoutX="599.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
-      <Label layoutX="879.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="platinumRecordText" layoutX="879.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
       <Label layoutX="152.0" layoutY="376.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Hire an Artist:" textFill="WHITE">
@@ -108,7 +108,6 @@
          <font><Font size="20.0" /></font>
       </Button>
       <Button layoutX="103.0" layoutY="633.0" mnemonicParsing="false" onAction="#rerollArtists" prefHeight="50.0" prefWidth="207.0" stylesheets="@../../Styles/Style.css" text="Reroll Artists ($100)">
-         <font><Font size="18.0" /></font>
          <styleClass>
             <String fx:value="root" />
             <String fx:value="small-label" />
