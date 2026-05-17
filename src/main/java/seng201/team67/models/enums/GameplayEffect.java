@@ -163,6 +163,13 @@ public enum GameplayEffect {
             return SkillEffectBehaviours.staminaCostReduction(value);
         }
     },
+    BATTLE_HARDENED {
+        @Override
+        public StatModifier createStatModifier(double value)
+        {
+            return SkillEffectBehaviours.staminaCostReduction(value);
+        }
+    },
     RETIREMENT_RISK {
         @Override
         public StatModifier createStatModifier(double value)

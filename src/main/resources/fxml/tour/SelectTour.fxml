@@ -18,7 +18,10 @@
             <Image url="@../../images/gameBackground.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bg2" fitHeight="865.0" fitWidth="1430.0" pickOnBounds="true" />
+      <ImageView fx:id="bg2" fitHeight="865.0" fitWidth="1430.0" layoutX="1430.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/gameBackground2.png" />
+         </image></ImageView>
       <Button fx:id="goOnTour" layoutX="145.0" layoutY="80.0" mnemonicParsing="false" onAction="#startLocalTour" prefHeight="413.0" prefWidth="319.0" styleClass="big-label" text="Local Tour" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="53.0" />

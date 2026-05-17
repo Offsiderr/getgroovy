@@ -18,7 +18,7 @@
             <Image url="@../../images/MarketGatchaBackground.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bg2" fitHeight="720.0" fitWidth="1280.0" layoutX="1280.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bg2" fitHeight="720.0" fitWidth="1280.0" layoutX="1280.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/MarketGatchaBackground2.png" />
          </image>

@@ -65,7 +65,7 @@
   {
     "id": "BATTLE_HARDENED",
     "name": "Battle Hardened",
-    "description": "This artist has seen it all. Terrible outcomes hit a little less hard. Effect: −25% stamina loss from BAD and TERRIBLE outcomes.",
+    "description": "This artist has seen it all. Terrible outcomes hit a little less hard. Effect: −25% credit loss from BAD and TERRIBLE outcomes.",
     "artistType": "RAPPER",
     "rarity": "RARE",
     "effects": ["TERRIBLE_PAYOUT_REDUCTION"],

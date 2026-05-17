@@ -63,23 +63,31 @@ public class TheMarketController {
         gameEnvironment.getMusicService().playTheStudioMusic();
 
         AnimationTimer bgScroll = new AnimationTimer() {
+            private boolean initialized = false;
+
             @Override
             public void handle(long now) {
-                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
+                double width = bg1.getBoundsInParent().getWidth();
+
+                if (!initialized) {
                     bg1.setLayoutX(0);
-                    bg2.setLayoutX(785);
+                    bg2.setLayoutX(width);
+                    initialized = true;
+                }
+
+                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
                     return;
                 }
 
                 bg1.setLayoutX(bg1.getLayoutX() - 0.4);
                 bg2.setLayoutX(bg2.getLayoutX() - 0.4);
 
-                if (bg1.getLayoutX() <= -785) {
-                    bg1.setLayoutX(785);
+                if (bg1.getLayoutX() + width <= 0) {
+                    bg1.setLayoutX(bg1.getLayoutX() + width * 2);
                 }
 
-                if (bg2.getLayoutX() <= -785) {
-                    bg2.setLayoutX(785);
+                if (bg2.getLayoutX() + width <= 0) {
+                    bg2.setLayoutX(bg2.getLayoutX() + width * 2);
                 }
             }
         };

@@ -1,68 +1,44 @@
 [
   {
     "id": "common_heckler",
-    "prompt": "A loud heckler near the front is throwing off your artists. How do you handle it?",
+    "prompt": "WHAT RESULT DO YOU WANT?",
     "answers": [
       {
-        "label": "Engage them \u2014 turn it into a moment",
+        "label": "Test Great",
         "outcomes": [
           {
-            "weight": 60,
-            "description": "Your artist fires back with a perfect comeback. The crowd erupts.",
+            "weight": 100,
+            "description": "GREAT RESULT",
             "outcomeType": "great",
             "crowdEnergyChange": 20,
             "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 40,
-            "description": "The exchange falls flat. The heckler doubles down.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "none"
+            "payout": "majorReward"
           }
         ]
       },
       {
-        "label": "Signal security to remove them",
+        "label": "Test Good",
         "outcomes": [
           {
-            "weight": 75,
-            "description": "Security handles it quietly. The show continues without a hitch.",
+            "weight": 100,
+            "description": "GOOD RESULT",
             "outcomeType": "good",
-            "crowdEnergyChange": 5,
+            "crowdEnergyChange": 10,
             "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 25,
-            "description": "The removal causes a scene. Half the crowd sides with the heckler.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -20,
-            "concertEnds": false,
-            "payout": "none"
+            "payout": "minorReward"
           }
         ]
       },
       {
-        "label": "Ignore them and push through",
+        "label": "Test Bad",
         "outcomes": [
           {
-            "weight": 50,
-            "description": "The artist stays locked in. The heckler eventually gives up.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 50,
-            "description": "The distraction lingers. The performance suffers.",
+            "weight": 100,
+            "description": "BAD RESULT",
             "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
-            "payout": "none"
+            "payout": "minorPenalty"
           }
         ]
       }
@@ -70,41 +46,33 @@
   },
   {
     "id": "common_encore_demand",
-    "prompt": "The crowd is chanting for an encore. You're not sure if your artists have the energy.",
+    "prompt": "WHAT RESULT DO YOU WANT?",
     "answers": [
       {
-        "label": "Give them the encore",
+        "label": "Great",
         "outcomes": [
           {
-            "weight": 65,
-            "description": "They dig deep and deliver. The room ends on a high.",
+            "weight": 100,
+            "description": "GREAT RESULT",
             "outcomeType": "great",
-            "staminaChange": -15,
+            "staminaChange": -5,
             "crowdEnergyChange": 30,
             "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 35,
-            "description": "Fatigue shows. The encore feels like a formality.",
-            "outcomeType": "terrible",
-            "staminaChange": -20,
-            "crowdEnergyChange": -5,
-            "concertEnds": false,
-            "payout": "none"
+            "payout": "majorReward"
           }
         ]
       },
       {
-        "label": "End the show \u2014 leave them wanting more",
+        "label": "Terrible",
         "outcomes": [
           {
             "weight": 100,
-            "description": "Classic move. The buzz lasts all week.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 15,
+            "description": "TERRIBLE RESULT",
+            "outcomeType": "terrible",
+            "staminaChange": -20,
+            "crowdEnergyChange": -20,
             "concertEnds": false,
-            "payout": "none"
+            "payout": "majorPenalty"
           }
         ]
       }
@@ -112,47 +80,31 @@
   },
   {
     "id": "common_equipment_failure",
-    "prompt": "A guitar string snaps mid-song. There's a spare in the case but it'll take a minute.",
+    "prompt": "WHAT RESULT DO YOU WANT?",
     "answers": [
       {
-        "label": "Change it on stage \u2014 make it part of the show",
+        "label": "Okay",
         "outcomes": [
           {
-            "weight": 65,
-            "description": "The crowd cheers them on. An authentic moment captured on a dozen phones.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 10,
+            "weight": 100,
+            "description": "OK RESULT",
+            "outcomeType": "ok",
+            "crowdEnergyChange": 0,
             "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 35,
-            "description": "The pause kills the momentum. People start checking their phones.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "none"
+            "payout": "minorPenalty"
           }
         ]
       },
       {
-        "label": "Swap to a backup instrument",
+        "label": "Bad",
         "outcomes": [
           {
-            "weight": 90,
-            "description": "Seamless. Barely a hiccup.",
-            "outcomeType": "none",
-            "crowdEnergyChange": 0,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 10,
-            "description": "The backup is badly out of tune. The next song sounds rough.",
+            "weight": 100,
+            "description": "BAD RESULT",
             "outcomeType": "bad",
             "crowdEnergyChange": -15,
             "concertEnds": false,
-            "payout": "none"
+            "payout": "minorPenalty"
           }
         ]
       }
@@ -160,47 +112,31 @@
   },
   {
     "id": "common_set_change",
-    "prompt": "Halfway through, your artist wants to drop a planned song and freestyle instead.",
+    "prompt": "WHAT RESULT DO YOU WANT?",
     "answers": [
       {
-        "label": "Let them go for it",
+        "label": "Great",
         "outcomes": [
           {
-            "weight": 50,
-            "description": "A raw, electric moment. The crowd feels like they witnessed something real.",
+            "weight": 100,
+            "description": "GREAT RESULT",
             "outcomeType": "great",
             "crowdEnergyChange": 25,
             "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 35,
-            "description": "Rough around the edges but the crowd respects the effort.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 15,
-            "description": "They lose the flow completely. An awkward stumble mid-set.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -20,
-            "concertEnds": false,
-            "payout": "none"
+            "payout": "majorReward"
           }
         ]
       },
       {
-        "label": "Stick to the setlist",
+        "label": "Okay",
         "outcomes": [
           {
             "weight": 100,
-            "description": "Solid, professional performance. Everything goes to plan.",
+            "description": "OK RESULT",
             "outcomeType": "ok",
             "crowdEnergyChange": 0,
             "concertEnds": false,
-            "payout": "none"
+            "payout": "minorPenalty"
           }
         ]
       }

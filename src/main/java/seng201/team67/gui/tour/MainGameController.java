@@ -61,8 +61,6 @@ public class MainGameController {
     private final ViewLoader viewLoader = new ViewLoader();
     private final RandomEventService randomEventService = new RandomEventService();
 
-    private double scroll = 0;
-
     public MainGameController(GameEnvironment gameEnvironment, TourService tourService)
     {
         this.gameEnvironment = gameEnvironment;
@@ -100,19 +98,23 @@ public class MainGameController {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                double width = bg1.getBoundsInParent().getWidth();
+
                 if (!gameEnvironment.getConfig().movingBackgroundEnabled) {
-                    scroll = 0;
-                    bg1.setTranslateX(0);
-                    bg2.setTranslateX(bg1.getFitWidth());
+                    bg1.setLayoutX(0);
+                    bg2.setLayoutX(width);
                     return;
                 }
 
-                scroll += 0.3;
-                bg1.setTranslateX(-scroll);
-                bg2.setTranslateX(-scroll + bg1.getFitWidth());
+                bg1.setLayoutX(bg1.getLayoutX() - 0.3);
+                bg2.setLayoutX(bg2.getLayoutX() - 0.3);
 
-                if (scroll >= bg1.getFitWidth()) {
-                    scroll = 0;
+                if (bg1.getLayoutX() + width <= 0) {
+                    bg1.setLayoutX(bg1.getLayoutX() + width * 2);
+                }
+
+                if (bg2.getLayoutX() + width <= 0) {
+                    bg2.setLayoutX(bg2.getLayoutX() + width * 2);
                 }
             }
         };
