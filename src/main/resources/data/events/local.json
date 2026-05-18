@@ -1,142 +1,170 @@
 [
   {
-    "id": "common_heckler",
-    "prompt": "WHAT RESULT DO YOU WANT?",
+    "id": "local_venue_curfew",
+    "prompt": "The venue owner signals you're approaching the noise curfew. You have two songs left.",
     "answers": [
       {
-        "label": "Test Great",
+        "label": "Respect the curfew \u2014 wrap up gracefully",
         "outcomes": [
           {
             "weight": 100,
-            "description": "GREAT RESULT",
-            "outcomeType": "great",
-            "crowdEnergyChange": 20,
+            "description": "You finish on time. The owner says you're welcome back anytime.",
+            "outcomeType": "ok",
+            "crowdEnergyChange": 0,
             "concertEnds": false,
-            "payout": "majorReward"
+            "payout": "none"
           }
         ]
       },
       {
-        "label": "Test Good",
+        "label": "Play the last song anyway \u2014 beg forgiveness later",
         "outcomes": [
           {
-            "weight": 100,
-            "description": "GOOD RESULT",
+            "weight": 40,
+            "description": "The owner lets it slide. The crowd rewards you for going the extra mile.",
+            "outcomeType": "good",
+            "crowdEnergyChange": 15,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 60,
+            "description": "The owner pulls the plug mid-song. You're not welcome back.",
+            "outcomeType": "terrible",
+            "crowdEnergyChange": -25,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Negotiate for one more song",
+        "outcomes": [
+          {
+            "weight": 70,
+            "description": "The owner agrees to five more minutes. You make them count.",
             "outcomeType": "good",
             "crowdEnergyChange": 10,
             "concertEnds": false,
-            "payout": "minorReward"
+            "payout": "none"
+          },
+          {
+            "weight": 30,
+            "description": "The owner says no. You end on a slightly flat note.",
+            "outcomeType": "bad",
+            "crowdEnergyChange": -5,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "local_birthday_request",
+    "prompt": "Someone in the front row holds up a sign: 'It's my birthday \u2014 can you play my favourite song?' It's not on the setlist.",
+    "answers": [
+      {
+        "label": "Play the request \u2014 make their night",
+        "outcomes": [
+          {
+            "weight": 60,
+            "description": "The artist nails it from memory. The crowd sings along spontaneously.",
+            "outcomeType": "great",
+            "crowdEnergyChange": 20,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 40,
+            "description": "A few fumbled chords, but the sentiment wins everyone over anyway.",
+            "outcomeType": "good",
+            "crowdEnergyChange": 5,
+            "concertEnds": false,
+            "payout": "none"
           }
         ]
       },
       {
-        "label": "Test Bad",
+        "label": "Acknowledge them but stay on setlist",
         "outcomes": [
           {
             "weight": 100,
-            "description": "BAD RESULT",
+            "description": "You wish them happy birthday over the mic. They smile and clap.",
+            "outcomeType": "ok",
+            "crowdEnergyChange": 5,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Invite them on stage for a shoutout",
+        "outcomes": [
+          {
+            "weight": 70,
+            "description": "They're a great sport. The crowd absolutely loves the chaos.",
+            "outcomeType": "great",
+            "crowdEnergyChange": 20,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 30,
+            "description": "They freeze on stage. Awkward three minutes for everyone.",
             "outcomeType": "bad",
             "crowdEnergyChange": -10,
             "concertEnds": false,
-            "payout": "minorPenalty"
+            "payout": "none"
           }
         ]
       }
     ]
   },
   {
-    "id": "common_encore_demand",
-    "prompt": "WHAT RESULT DO YOU WANT?",
+    "id": "local_open_mic_rival",
+    "prompt": "The open mic act before you kills it and the crowd is hyped for them, not you. How do you respond?",
     "answers": [
       {
-        "label": "Great",
+        "label": "Feed off their energy and match the hype",
         "outcomes": [
           {
-            "weight": 100,
-            "description": "GREAT RESULT",
-            "outcomeType": "great",
-            "staminaChange": -5,
-            "crowdEnergyChange": 30,
+            "weight": 65,
+            "description": "You channel the room's energy perfectly. The crowd transfers their excitement to you.",
+            "outcomeType": "good",
+            "crowdEnergyChange": 15,
             "concertEnds": false,
-            "payout": "majorReward"
-          }
-        ]
-      },
-      {
-        "label": "Terrible",
-        "outcomes": [
+            "payout": "none"
+          },
           {
-            "weight": 100,
-            "description": "TERRIBLE RESULT",
-            "outcomeType": "terrible",
-            "staminaChange": -20,
-            "crowdEnergyChange": -20,
-            "concertEnds": false,
-            "payout": "majorPenalty"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "common_equipment_failure",
-    "prompt": "WHAT RESULT DO YOU WANT?",
-    "answers": [
-      {
-        "label": "Okay",
-        "outcomes": [
-          {
-            "weight": 100,
-            "description": "OK RESULT",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 0,
-            "concertEnds": false,
-            "payout": "minorPenalty"
-          }
-        ]
-      },
-      {
-        "label": "Bad",
-        "outcomes": [
-          {
-            "weight": 100,
-            "description": "BAD RESULT",
+            "weight": 35,
+            "description": "You come out swinging too hard and burn out early.",
             "outcomeType": "bad",
-            "crowdEnergyChange": -15,
+            "staminaChange": -20,
+            "crowdEnergyChange": -5,
             "concertEnds": false,
-            "payout": "minorPenalty"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "common_set_change",
-    "prompt": "WHAT RESULT DO YOU WANT?",
-    "answers": [
-      {
-        "label": "Great",
-        "outcomes": [
-          {
-            "weight": 100,
-            "description": "GREAT RESULT",
-            "outcomeType": "great",
-            "crowdEnergyChange": 25,
-            "concertEnds": false,
-            "payout": "majorReward"
+            "payout": "none"
           }
         ]
       },
       {
-        "label": "Okay",
+        "label": "Start slow and build \u2014 let the crowd come to you",
         "outcomes": [
           {
-            "weight": 100,
-            "description": "OK RESULT",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 0,
+            "weight": 70,
+            "description": "A measured opening wins them over gradually.",
+            "outcomeType": "good",
+            "crowdEnergyChange": 10,
             "concertEnds": false,
-            "payout": "minorPenalty"
+            "payout": "none"
+          },
+          {
+            "weight": 30,
+            "description": "Too slow. The crowd never fully transitions over.",
+            "outcomeType": "bad",
+            "crowdEnergyChange": -5,
+            "concertEnds": false,
+            "payout": "none"
           }
         ]
       }
