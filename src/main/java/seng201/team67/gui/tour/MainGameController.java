@@ -92,6 +92,11 @@ public class MainGameController {
         tourProgressBar.setProgress((double) tourService.getStopIndex() / tourService.getTourType().getStops());
 
         startBackgroundAnimation();
+
+        if (tourService.getTourType() == TourType.LOCAL)
+        {
+            gameEnvironment.getMusicService().playLocalTourMusic();
+        }
     }
 
     private void startBackgroundAnimation() {

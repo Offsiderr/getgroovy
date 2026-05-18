@@ -12,6 +12,7 @@ public class MusicService {
     private final GameEnvironment gameEnvironment;
 
     private final String studioMusicPath = "/sound/Music/MarketThemePlaceholder.wav";
+    private final String localTourMusicPath = "/sound/Music/Local_tour.wav";
 
     private Boolean currentlyPlaying = false;
 
@@ -30,6 +31,13 @@ public class MusicService {
             currentlyPlaying = true;
             play(studioMusicPath);
         }
+    }
+
+    public void playLocalTourMusic()
+    {
+        stop();
+        currentlyPlaying = true;
+        play(localTourMusicPath);
     }
 
     public static void stop()
