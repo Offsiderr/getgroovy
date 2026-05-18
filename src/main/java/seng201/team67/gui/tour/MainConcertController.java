@@ -392,7 +392,13 @@ public class MainConcertController {
             concertService.getTourService().endTourDueToExhaustion();
         }
 
-        screenNavigator.navigate(eventBox, "/fxml/results/ConcertResults.fxml", new ResultsController(gameEnvironment, concertService));
+        String fxmlPath = switch (tourService.getTourType()) {
+            case COUNTRY -> "/fxml/results/ConcertResults2.fxml";
+            case WORLD   -> "/fxml/results/ConcertResults3.fxml";
+            default      -> "/fxml/results/ConcertResults.fxml";
+        };
+
+        screenNavigator.navigate(eventBox, fxmlPath, new ResultsController(gameEnvironment, concertService));
     }
 
     private void attachDevToggleShortcut()
