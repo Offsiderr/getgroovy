@@ -1,8 +1,11 @@
 package seng201.team67.gui.results;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.tour.MainGameController;
@@ -32,6 +35,8 @@ public class RandomEventResultController {
     @FXML private Label labelName;
     @FXML private Label labelName1;
     @FXML private VBox artistCardTwo;
+    @FXML private ImageView bg1;
+    @FXML private ImageView bg2;
 
     public RandomEventResultController(GameEnvironment gameEnvironment, TourService tourService, RandomEvent randomEvent) {
         this(gameEnvironment, tourService, randomEvent, null, null, null, null);
@@ -79,6 +84,8 @@ public class RandomEventResultController {
 
     @FXML
     private void initialize() {
+        startBackgroundAnimation();
+
         if (randomEvent != null) {
             randomEventService.applyRandomEvent(gameEnvironment, randomEvent, affectedArtist);
             labelName.setText(randomEvent.getName());
@@ -88,6 +95,27 @@ public class RandomEventResultController {
 
         labelName1.setText(buildEventDescription());
         loadArtistCard();
+    }
+
+    private void startBackgroundAnimation() {
+        bg1.setImage(new Image(getClass().getResourceAsStream("/images/gameBackground.png")));
+        bg2.setImage(new Image(getClass().getResourceAsStream("/images/gameBackground.png")));
+
+        AnimationTimer bgTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                bg1.setLayoutX(bg1.getLayoutX() - 0.5);
+                bg2.setLayoutX(bg2.getLayoutX() - 0.5);
+
+                if (bg1.getLayoutX() <= -bg1.getFitWidth()) {
+                    bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());
+                }
+                if (bg2.getLayoutX() <= -bg2.getFitWidth()) {
+                    bg2.setLayoutX(bg1.getLayoutX() + bg1.getFitWidth());
+                }
+            }
+        };
+        bgTimer.start();
     }
 
     private String buildEventDescription() {

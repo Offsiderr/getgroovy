@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="bg1" fitHeight="720.0" fitWidth="1280.0" opacity="0.7" pickOnBounds="true">
          <image>
@@ -68,7 +65,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Slider fx:id="crowdMeter" layoutX="1158.0" layoutY="94.0" orientation="VERTICAL" prefHeight="604.0" prefWidth="56.0" showTickLabels="true" showTickMarks="true" style="-fx-itemEffects: dropshadow(gaussian, #F1B601, 30, 0.5, 0, 0);" stylesheets="@../../Styles/Style.css" />
+      <Slider fx:id="crowdMeter" layoutX="1158.0" layoutY="94.0" orientation="VERTICAL" prefHeight="604.0" prefWidth="56.0" showTickLabels="true" showTickMarks="true" style="-fx-itemEffects: dropshadow(gaussian, #F1B601, 30, 0.5, 0, 0); -fx-effect: dropshadow(gaussian, #F1B601, 30, 0.5, 0, 0);" stylesheets="@../../Styles/Style.css" />
       <Label layoutX="1106.0" layoutY="29.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Crowd Meter">
          <font>
             <Font name="System Bold" size="17.0" />
