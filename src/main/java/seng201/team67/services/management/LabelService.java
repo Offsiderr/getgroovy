@@ -340,4 +340,9 @@ public class LabelService {
         return item.getName() + ": " + String.join(", ", effectMessages)
                 + " (" + consumable.getUses() + " use(s) left)";
     }
+
+    public void saveGame()
+    {
+
+    }
 }
