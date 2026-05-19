@@ -20,14 +20,13 @@ public class StartController {
     private final SoundEffectsService soundEffectsService;
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
-    private final GameEnvironment gameEnvironment;
 
     @FXML private ImageView startPhoto;
 
-    public StartController(GameEnvironment gameEnvironment)
+    public StartController()
     {
-        this.gameEnvironment = gameEnvironment;
-        this.soundEffectsService = new SoundEffectsService(gameEnvironment);
+        GameEnvironment gameEnvironment = new GameEnvironment();
+        this.soundEffectsService = new SoundEffectsService(gameEnvironment); //Fix to not rely on game enviroment
     }
 
     @FXML public void initialize()
@@ -55,7 +54,7 @@ public class StartController {
         fadeOut.setToValue(0.0);
 
         fadeOut.setOnFinished(e -> {
-            screenNavigator.navigate(event, "/fxml/setup/PlayerSelections.fxml", new SetupController(gameEnvironment));
+            screenNavigator.navigate(event, "/fxml/setup/PlayerSaveSelection.fxml", new SelectSaveController());
         });
 
         fadeOut.play();

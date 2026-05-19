@@ -37,6 +37,6 @@ public class LoseScreenController {
     @FXML public void startNewGame(ActionEvent event) throws IOException {
 
         GameEnvironment gameEnvironment = new GameEnvironment();
-        screenNavigator.navigate(event, "/fxml/setup/startmenu.fxml", new StartController(gameEnvironment));
+        screenNavigator.navigate(event, "/fxml/setup/startmenu.fxml", new StartController());
     }
 }

@@ -1,5 +1,6 @@
 package seng201.team67.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.items.Item;
@@ -7,6 +8,7 @@ import seng201.team67.models.items.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Label {
 
     private GameEnvironment gameEnvironment;
@@ -25,6 +27,10 @@ public class Label {
 
     //This is a list of artists from the player's line up.
     private List<Artist> lineUp = new ArrayList<Artist>();
+
+    public Label()
+    {
+    }
 
     public Label(String name, List<Artist> selected_artists, GameEnvironment gameEnvironment)
     {

@@ -7,11 +7,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Slider;
 import seng201.team67.GameEnvironment;
+import seng201.team67.gui.util.ViewLoader;
 
 public class MainSettingsController {
 
     private final GameEnvironment gameEnvironment;
     private final Pane settingsHolder;
+    private final ViewLoader viewLoader = new ViewLoader();
 
     @FXML private Slider mainVolumeSlider;
     @FXML private Slider musicVolumeSlider;
@@ -47,6 +49,12 @@ public class MainSettingsController {
         settingsHolder.setDisable(true);
         settingsHolder.setVisible(false);
         settingsHolder.setManaged(false);
+    }
+
+    @FXML public void saveGame(ActionEvent event)
+    {
+        viewLoader.loadInto(settingsHolder, "/fxml/mainmenu/MainGameSave.fxml",
+                new MainGameSaveController(gameEnvironment, settingsHolder));
     }
 
     @FXML public void quitGame(ActionEvent event)

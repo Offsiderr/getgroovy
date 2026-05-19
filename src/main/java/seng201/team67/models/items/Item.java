@@ -1,6 +1,9 @@
 package seng201.team67.models.items;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
 import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
@@ -8,6 +11,15 @@ import seng201.team67.models.enums.Rarity;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = CosumableItem.class, name = "Consumable"),
+        @JsonSubTypes.Type(value = CosumableItem.class, name = "CONSUMABLE"),
+        @JsonSubTypes.Type(value = EquippedItem.class, name = "Equipable"),
+        @JsonSubTypes.Type(value = EquippedItem.class, name = "EQUIPPED"),
+        @JsonSubTypes.Type(value = ConditionalItem.class, name = "Conditional")
+        ,@JsonSubTypes.Type(value = ConditionalItem.class, name = "CONDITIONAL")
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Item implements Purchasable {
 
@@ -69,6 +81,7 @@ public abstract class Item implements Purchasable {
         return cost;
     }
 
+    @JsonIgnore
     public String getType()
     {
         return "error";

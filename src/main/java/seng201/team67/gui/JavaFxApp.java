@@ -15,12 +15,11 @@ public class JavaFxApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        GameEnvironment gameEnvironment = new GameEnvironment();
 
         primaryStage.setTitle("Get Groovy");
         primaryStage.getIcons().add(new Image("/images/GameIcon.png"));
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(viewLoader.load("/fxml/setup/startmenu.fxml", new StartController(gameEnvironment))));
+        primaryStage.setScene(new Scene(viewLoader.load("/fxml/setup/startmenu.fxml", new StartController())));
         primaryStage.show();
     }
 }

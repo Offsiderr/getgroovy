@@ -1,5 +1,7 @@
 package seng201.team67.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import seng201.team67.interfaces.PayoutModifier;
 import seng201.team67.interfaces.StatModifier;
 import seng201.team67.models.enums.GameplayEffect;
@@ -11,6 +13,7 @@ import java.util.List;
 /**
  * Represents a skill that can modify an artist's stats or payout behaviour.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Skill {
 
     private String id;
@@ -22,6 +25,10 @@ public class Skill {
     private List<GameplayEffect> effects;
     private StatModifier statModifier;
     private PayoutModifier payoutModifier;
+
+    public Skill()
+    {
+    }
 
     public Skill(String id, String name, String description, String artistType,
                  double multiplier, List<GameplayEffect> effects, StatModifier statModifier, PayoutModifier payoutModifier)
@@ -84,23 +91,25 @@ public class Skill {
         return effects.contains(effect);
     }
 
+    @JsonIgnore
     public StatModifier getStatModifier()
     {
         return statModifier;
     }
 
-
+    @JsonIgnore
     public PayoutModifier getPayoutModifier()
     {
         return payoutModifier;
     }
 
+    @JsonIgnore
     public boolean hasStatModifier()
     {
         return statModifier != null;
     }
 
-
+    @JsonIgnore
     public boolean hasPayoutModifier()
     {
         return payoutModifier != null;

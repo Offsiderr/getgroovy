@@ -62,7 +62,7 @@
             <String fx:value="root" />
             <String fx:value="small-label" />
          </styleClass></CheckBox>
-      <Button fx:id="goOnTour12" layoutX="372.0" layoutY="605.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="238.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Save">
+      <Button fx:id="goOnTour12" layoutX="372.0" layoutY="605.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="54.0" prefWidth="238.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Save">
          <font>
             <Font size="11.0" />
          </font>

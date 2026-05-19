@@ -1,5 +1,8 @@
 package seng201.team67;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
 import seng201.team67.models.artists.Artist;
@@ -17,6 +20,7 @@ import seng201.team67.services.setup.SetupService;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GameEnvironment {
 
     private Label label;
@@ -109,11 +113,13 @@ public class GameEnvironment {
         this.label = label;
     }
 
+    @JsonIgnore
     public LabelService getLabelService()
     {
         return new LabelService(this);
     }
 
+    @JsonIgnore
     public MusicService getMusicService()
     {
         return musicService;
@@ -191,6 +197,7 @@ public class GameEnvironment {
         this.itemPoolGenerated = itemPoolGenerated;
     }
 
+    @JsonProperty("config")
     public GameConfig getConfig()
     {
         if(gameConfig == null)
@@ -200,6 +207,7 @@ public class GameEnvironment {
         return gameConfig;
     }
 
+    @JsonProperty("config")
     public void setGameConfig(GameConfig gameConfig)
     {
         this.gameConfig = gameConfig;

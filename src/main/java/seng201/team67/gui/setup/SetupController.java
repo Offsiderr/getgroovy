@@ -15,7 +15,7 @@ import seng201.team67.services.setup.SetupService;
 
 import java.io.IOException;
 
-public class SetupController {
+public class  SetupController {
     //PlayerSelections.fxml logic
 
     @FXML private TextField labelNameField;
