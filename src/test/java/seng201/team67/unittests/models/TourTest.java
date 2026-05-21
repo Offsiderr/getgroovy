@@ -87,8 +87,10 @@ public class TourTest {
 
         tour.setEndedByExhaustion(true);
         tour.setExhaustionRefund(87.5);
+        tour.setCancellationRefund(25.0);
 
         assertTrue(tour.isEndedByExhaustion());
         assertEquals(87.5, tour.getExhaustionRefund());
+        assertEquals(25.0, tour.getCancellationRefund());
     }
 }

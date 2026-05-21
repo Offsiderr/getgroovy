@@ -16,6 +16,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Label {
 
+    /** Hard cap for the label's all-artists roster. */
+    private static final int ALL_ARTISTS_LIMIT = 5;
+
     /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
 
@@ -60,7 +63,7 @@ public class Label {
         this.name = name;
 
         this.money = gameEnvironment.getConfig().startingCredits;
-        this.artistsLimit = gameEnvironment.getConfig().artistsRosterLimit;
+        this.artistsLimit = ALL_ARTISTS_LIMIT;
         this.lineUpLimit = gameEnvironment.getConfig().lineUpLimit;
     }
 
@@ -98,7 +101,7 @@ public class Label {
      */
     public int getArtistsLimit()
     {
-        return artistsLimit;
+        return ALL_ARTISTS_LIMIT;
     }
 
     /**
@@ -139,7 +142,7 @@ public class Label {
             return false;
         }
 
-        if(allArtists.size() < artistsLimit)
+        if(allArtists.size() < getArtistsLimit())
         {
             allArtists.add(artist);
             return true;

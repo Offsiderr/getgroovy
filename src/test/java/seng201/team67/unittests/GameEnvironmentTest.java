@@ -47,4 +47,18 @@ public class GameEnvironmentTest {
         assertEquals(originalOccurrences - 1, updatedOccurrences);
         assertFalse(updatedPool.isEmpty());
     }
+
+    @Test
+    void totalMoneyTrackingStartsAtZeroAndAccumulates() {
+        GameEnvironment gameEnvironment = new GameEnvironment();
+
+        assertEquals(0.0, gameEnvironment.getTotalMoneySpent(), 0.0001);
+        assertEquals(0.0, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
+
+        gameEnvironment.addTotalMoneySpent(125.5);
+        gameEnvironment.addTotalMoneyEarnt(300.25);
+
+        assertEquals(125.5, gameEnvironment.getTotalMoneySpent(), 0.0001);
+        assertEquals(300.25, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
+    }
 }

@@ -58,6 +58,7 @@ public class ConcertServiceTest {
 
         assertEquals(payout, service.getIncome(), 0.0001);
         assertEquals(startingMoney + payout, gameEnvironment.getLabelService().getMoney(), 0.0001);
+        assertEquals(payout, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
         assertEquals(95, firstLineupArtist.getStamina());
         assertEquals(1, tourService.getCurrentLineupStaminaIndex());
         assertEquals(11, service.getCrowdEnergy());
@@ -75,6 +76,7 @@ public class ConcertServiceTest {
         assertEquals(15, service.getCrowdEnergy());
         assertEquals(200.0, service.getIncome(), 0.0001);
         assertEquals(startingMoney + 200.0, gameEnvironment.getLabelService().getMoney(), 0.0001);
+        assertEquals(200.0, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
     }
 
     @Test

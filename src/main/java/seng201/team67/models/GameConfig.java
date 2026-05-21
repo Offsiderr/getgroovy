@@ -104,8 +104,14 @@ public class GameConfig {
     /** Numeric value for the label name max length. */
     public final int labelNameMaxLength;
 
-    /** Numeric value for the cancel tour penalty. */
-    public final int cancelTourPenalty;
+    /** Numeric value for the local tour cancel penalty. */
+    public final int localTourCancelPenalty;
+
+    /** Numeric value for the country tour cancel penalty. */
+    public final int countryTourCancelPenalty;
+
+    /** Numeric value for the world tour cancel penalty. */
+    public final int worldTourCancelPenalty;
 
     /** Numeric value for the ticket sales amount. */
     public final double ticketSalesAmount;
@@ -194,7 +200,9 @@ public class GameConfig {
      * @param soundEngineerSliderDefault the numeric value for the sound engineer slider default
      * @param labelNameMinLength the numeric value for the label name min length
      * @param labelNameMaxLength the numeric value for the label name max length
-     * @param cancelTourPenalty the numeric value for the cancel tour penalty
+     * @param localTourCancelPenalty the numeric value for the local tour cancel penalty
+     * @param countryTourCancelPenalty the numeric value for the country tour cancel penalty
+     * @param worldTourCancelPenalty the numeric value for the world tour cancel penalty
      * @param ticketSalesAmount the numeric value for the ticket sales amount
      * @param localTourArtistPayMultiplier the numeric value for the local tour artist pay multiplier
      * @param countryTourArtistPayMultiplier the numeric value for the country tour artist pay multiplier
@@ -251,7 +259,10 @@ public class GameConfig {
             // UI / Validation
             @JsonProperty("labelNameMinLength") int labelNameMinLength,
             @JsonProperty("labelNameMaxLength") int labelNameMaxLength,
-            @JsonProperty("cancelTourPenalty") int cancelTourPenalty,
+            @JsonProperty("localTourCancelPenalty") Integer localTourCancelPenalty,
+            @JsonProperty("countryTourCancelPenalty") Integer countryTourCancelPenalty,
+            @JsonProperty("worldTourCancelPenalty") Integer worldTourCancelPenalty,
+            @JsonProperty("cancelTourPenalty") Integer cancelTourPenalty,
             @JsonProperty("ticketSalesAmount") double ticketSalesAmount,
             @JsonProperty("localTourArtistPayMultiplier") double localTourArtistPayMultiplier,
             @JsonProperty("countryTourArtistPayMultiplier") double countryTourArtistPayMultiplier,
@@ -304,7 +315,10 @@ public class GameConfig {
         this.soundEngineerSliderDefault       = soundEngineerSliderDefault;
         this.labelNameMinLength               = labelNameMinLength;
         this.labelNameMaxLength               = labelNameMaxLength;
-        this.cancelTourPenalty                = cancelTourPenalty;
+        int fallbackCancelPenalty = cancelTourPenalty == null ? 0 : cancelTourPenalty;
+        this.localTourCancelPenalty           = localTourCancelPenalty == null ? fallbackCancelPenalty : localTourCancelPenalty;
+        this.countryTourCancelPenalty         = countryTourCancelPenalty == null ? fallbackCancelPenalty : countryTourCancelPenalty;
+        this.worldTourCancelPenalty           = worldTourCancelPenalty == null ? fallbackCancelPenalty : worldTourCancelPenalty;
         this.ticketSalesAmount                = ticketSalesAmount;
         this.localTourArtistPayMultiplier     = localTourArtistPayMultiplier;
         this.countryTourArtistPayMultiplier   = countryTourArtistPayMultiplier;
@@ -340,6 +354,21 @@ public class GameConfig {
     }
 
     /**
+     * Returns the cancellation refund amount for the given tour type.
+     * @param tourType the tour type
+     * @return The cancellation refund amount.
+     */
+    public int getCancelTourPenalty(TourType tourType)
+    {
+        return switch (tourType)
+        {
+            case LOCAL -> localTourCancelPenalty;
+            case COUNTRY -> countryTourCancelPenalty;
+            case WORLD -> worldTourCancelPenalty;
+        };
+    }
+
+    /**
      * Stores the easy difficulty.
      * It updates related state as needed while performing the operation.
      * @return The game config.
@@ -356,11 +385,11 @@ public class GameConfig {
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
-                5,          // concertQuestionsCount (EASY)
+                5,
                 7, 10, 4,
                 20.0, 60.0, 1.0, 15.0, 50.0,
                 // UI
-                3, 15, 100, 250,
+                3, 15, 100, 200, 300, 300, 250,
                 1.0, 1.5, 2.0, 5,
                 // Score tuning
                 25, 5, 0.5, 20.0, 40, 90, 150, 50,
@@ -386,11 +415,11 @@ public class GameConfig {
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
-                7,          // concertQuestionsCount (A_CHALLENGE)
+                7,
                 7, 10, 4,
                 20.0, 60.0, 1.0, 10.0, 50.0,
                 // UI
-                3, 15, 300, 250,
+                3, 15, 300, 450, 600, 300, 250,
                 1.0, 1.5, 2.0, 5,
                 // Score tuning
                 30, 5, 0.6, 18.0, 50, 110, 180, 75,
@@ -416,11 +445,11 @@ public class GameConfig {
                 // Expedition
                 5, 15, 5,
                 5, 3, 1, 3, 1,
-                9,          // concertQuestionsCount (HEARTLESS)
+                9,
                 7, 10, 4,
                 20.0, 60.0, 1.0, 7.0, 50.0,
                 // UI
-                3, 15, 500, 250,
+                3, 15, 500, 700, 900, 300, 250,
                 1.0, 1.5, 2.0, 5,
                 // Score tuning
                 35, 6, 0.75, 15.0, 60, 130, 220, 100,

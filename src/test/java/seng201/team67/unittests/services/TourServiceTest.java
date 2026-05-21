@@ -128,6 +128,7 @@ public class TourServiceTest {
     @Test
     void endTourDueToExhaustionFlagsTourAndAppliesRefundPenalty() {
         TourService service = createTourService(TourType.COUNTRY, List.of(new Popstar("One", 1, "Pop")));
+        double startingMoney = serviceEnvironment(service).getLabelService().getMoney();
         service.addCreditsEarned(500.0);
         service.increaseStopIndex();
         service.increaseStopIndex();
@@ -135,8 +136,61 @@ public class TourServiceTest {
         service.endTourDueToExhaustion();
 
         assertTrue(service.isEndedByExhaustion());
-        assertEquals(4 * serviceEnvironment(service).getConfig().cancelTourPenalty, service.getExhaustionRefund(), 0.0001);
+        assertEquals(4 * serviceEnvironment(service).getConfig().getCancelTourPenalty(TourType.COUNTRY),
+                service.getExhaustionRefund(), 0.0001);
         assertEquals(500.0 - service.getExhaustionRefund(), service.getCreditsEarned(), 0.0001);
+        assertEquals(startingMoney - service.getExhaustionRefund(),
+                serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void cancelTourEarlyAppliesRefundToTourAndLabelMoneyOnce() {
+        TourService service = createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop")));
+        double startingMoney = serviceEnvironment(service).getLabelService().getMoney();
+        double refund = serviceEnvironment(service).getConfig().getCancelTourPenalty(TourType.LOCAL);
+
+        service.addCreditsEarned(250.0);
+        assertTrue(service.cancelTourEarly());
+        assertTrue(service.cancelTourEarly());
+
+        assertEquals(refund, service.getCancellationRefund(), 0.0001);
+        assertEquals(250.0 - refund, service.getCreditsEarned(), 0.0001);
+        assertEquals(startingMoney - refund, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
+    }
+
+    @Test
+    void cancellationRefundVariesByTourType() {
+        assertEquals(
+                serviceEnvironment(createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop"))))
+                        .getConfig().getCancelTourPenalty(TourType.LOCAL),
+                applyCancellationRefundAndGetAmount(TourType.LOCAL),
+                0.0001
+        );
+        assertEquals(
+                serviceEnvironment(createTourService(TourType.COUNTRY, List.of(new Popstar("One", 1, "Pop"))))
+                        .getConfig().getCancelTourPenalty(TourType.COUNTRY),
+                applyCancellationRefundAndGetAmount(TourType.COUNTRY),
+                0.0001
+        );
+        assertEquals(
+                serviceEnvironment(createTourService(TourType.WORLD, List.of(new Popstar("One", 1, "Pop"))))
+                        .getConfig().getCancelTourPenalty(TourType.WORLD),
+                applyCancellationRefundAndGetAmount(TourType.WORLD),
+                0.0001
+        );
+    }
+
+    @Test
+    void cancelTourEarlyFailsWhenLabelCannotAffordRefund() {
+        TourService service = createTourService(TourType.LOCAL, List.of(new Popstar("One", 1, "Pop")));
+        double startingMoney = serviceEnvironment(service).getLabelService().getMoney();
+
+        serviceEnvironment(service).getLabelService().takeMoney(startingMoney - 50.0);
+
+        assertFalse(service.canCancelTourEarly());
+        assertFalse(service.cancelTourEarly());
+        assertEquals(0.0, service.getCancellationRefund(), 0.0001);
+        assertEquals(50.0, serviceEnvironment(service).getLabelService().getMoney(), 0.0001);
     }
 
     private TourService createTourService(TourType tourType, List<Artist> artists) {
@@ -161,5 +215,11 @@ public class TourServiceTest {
         Field field = TourService.class.getDeclaredField("miniGameTriggerChance");
         field.setAccessible(true);
         field.set(null, value);
+    }
+
+    private double applyCancellationRefundAndGetAmount(TourType tourType) {
+        TourService service = createTourService(tourType, List.of(new Popstar("One", 1, "Pop")));
+        assertTrue(service.cancelTourEarly());
+        return service.getCancellationRefund();
     }
 }

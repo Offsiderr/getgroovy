@@ -54,7 +54,7 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money - cost;
+        spendMoney(cost);
         artist.owned = true;
         return true;
     }
@@ -82,7 +82,7 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money - artist.getCost();
+        spendMoney(artist.getCost());
         artist.owned = true;
         return true;
     }
@@ -101,7 +101,7 @@ public class LabelService {
         }
         else
         {
-            label.money = label.money - cost;
+            spendMoney(cost);
             return true;
         }
     }
@@ -128,7 +128,7 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money - cost;
+        spendMoney(cost);
         item.purchase();
         return true;
     }
@@ -152,7 +152,7 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money - item.getCost();
+        spendMoney(item.getCost());
         item.purchase();
         return true;
     }
@@ -253,7 +253,7 @@ public class LabelService {
             return false;
         }
 
-        label.money = label.money + getItemSellPrice(item);
+        earnMoney(getItemSellPrice(item));
         label.removeItem(item);
         item.dispose();
         return true;
@@ -265,8 +265,7 @@ public class LabelService {
      */
     public void takeMoney(double money)
     {
-        Label label = gameEnvironment.getLabel();
-        label.money = label.getMoney() - money;
+        spendMoney(money);
     }
 
     /**
@@ -275,8 +274,31 @@ public class LabelService {
      */
     public void giveMoney(double money)
     {
+        earnMoney(money);
+    }
+
+    private void spendMoney(double money)
+    {
+        if (money <= 0)
+        {
+            return;
+        }
+
+        Label label = gameEnvironment.getLabel();
+        label.money = label.getMoney() - money;
+        gameEnvironment.addTotalMoneySpent(money);
+    }
+
+    private void earnMoney(double money)
+    {
+        if (money <= 0)
+        {
+            return;
+        }
+
         Label label = gameEnvironment.getLabel();
         label.money = label.getMoney() + money;
+        gameEnvironment.addTotalMoneyEarnt(money);
     }
 
     /**

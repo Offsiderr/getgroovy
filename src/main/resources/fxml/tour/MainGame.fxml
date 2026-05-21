@@ -138,7 +138,7 @@
                   <Image url="@../../images/Color-white.jpg" />
                </image>
             </ImageView>
-            <Button layoutX="665.0" layoutY="308.0" mnemonicParsing="false" onAction="#finishTour" prefHeight="92.0" prefWidth="272.0" stylesheets="@../../Styles/Style.css" text="Yes" textAlignment="CENTER">
+            <Button fx:id="confirmCancelTourButton" layoutX="665.0" layoutY="308.0" mnemonicParsing="false" onAction="#finishTour" prefHeight="92.0" prefWidth="272.0" stylesheets="@../../Styles/Style.css" text="Yes" textAlignment="CENTER">
                <font>
                   <Font size="43.0" />
                </font>
@@ -147,7 +147,7 @@
                   <String fx:value="small-label" />
                </styleClass>
             </Button>
-            <Label fx:id="cancelTourLabel" layoutX="355.0" layoutY="138.0" prefHeight="154.0" prefWidth="619.0" style="-fx-background-color: transperant; -fx-itemEffects: dropshadow(three-pass-box, red, 10, 0.9, 0, 0);;" stylesheets="@../../Styles/Style.css" text="Are you sure you want to end the tour early? You will have to refund five-hundered of tickets" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="cancelTourLabel" layoutX="355.0" layoutY="138.0" prefHeight="154.0" prefWidth="619.0" style="-fx-background-color: transperant; -fx-itemEffects: dropshadow(three-pass-box, red, 10, 0.9, 0, 0);;" stylesheets="@../../Styles/Style.css" text="Are you sure you want to end the tour early?" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>

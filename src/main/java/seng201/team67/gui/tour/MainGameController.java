@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seng201.team67.GameEnvironment;
@@ -72,6 +73,11 @@ public class MainGameController {
     @FXML private Button startConcertButton;
     /** FXML reference for the end tour early button control. */
     @FXML private Button endTourEarlyButton;
+    /** FXML reference for the confirm cancellation button control. */
+    @FXML private Button confirmCancelTourButton;
+    /** Tooltip shown when the player cannot afford to cancel the tour. */
+    private final Tooltip insufficientCancelFundsTooltip =
+            new Tooltip("You don't have enough money to cancel the tour!");
 
     /** FXML reference for the map anchor pane control. */
     @FXML private AnchorPane mapAnchorPane;
@@ -111,6 +117,7 @@ public class MainGameController {
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
         moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         payText.setText(String.format("$%.2f", tourService.getCreditsEarned()));
+        updateCancelTourLabel();
 
         staminaText.setText(Integer.toString((int) Math.round(tourService.getTotalStamina())));
         effectText.setText(tourService.getConditionalEffectText());
@@ -121,7 +128,6 @@ public class MainGameController {
         if(tourService.getConcertStatus())
         {
             initStops = true;
-            concertFinished();
         }
 
         loadMap(tourService.getTourType());
@@ -168,8 +174,11 @@ public class MainGameController {
     private void refreshTourActionButtons()
     {
         boolean isTourComplete = tourService.isTourComplete();
+        boolean canCancelTourEarly = tourService.canCancelTourEarly();
+
         startConcertButton.setText(isTourComplete ? "Finish Tour" : "Start Concert");
         endTourEarlyButton.setDisable(isTourComplete);
+        endTourEarlyButton.setTooltip(!isTourComplete && !canCancelTourEarly ? insufficientCancelFundsTooltip : null);
     }
 
     private void loadLineup()
@@ -179,6 +188,7 @@ public class MainGameController {
 
         for (int i = 0; i < cards.length; i++) {
             if (i < pool.size()) {
+                cards[i].setDisable(false);
                 cards[i].setDisable(false);
                 Artist artist = pool.get(i);
                 ArtistDetailBoxFiller.populateArtistBox(cards[i], artist, null);
@@ -243,11 +253,6 @@ public class MainGameController {
         screenNavigator.navigate(event, "/fxml/tour/MainConcert.fxml", new MainConcertController(gameEnvironment, tourService));
     }
 
-    private boolean concertFinished()
-    {
-        return true;
-    }
-
     private void returnToMainMenu(ActionEvent event) throws IOException
     {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
@@ -259,18 +264,27 @@ public class MainGameController {
             return;
         }
 
+        if (!tourService.canCancelTourEarly()) {
+            return;
+        }
+
         cancelTourPane.setVisible(true);
-        cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $"
-                + String.format("%.2f", gameEnvironment.getConfig().cancelTourPenalty) + " of tickets");
+        updateCancelTourLabel();
     }
 
     @FXML private void finishTour(ActionEvent event) throws IOException {
         if (cancelTourPane.isVisible() && !tourService.isTourComplete()) {
-            tourService.addCreditsEarned((double) -gameEnvironment.getConfig().cancelTourPenalty);
+            if (!tourService.cancelTourEarly()) {
+                updateCancelTourLabel();
+                refreshTourActionButtons();
+                moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
+                return;
+            }
         }
 
         tourService.tourEnded();
         gameEnvironment.setArtistPoolGenerated(false);
+        gameEnvironment.setItemPoolGenerated(false);
         navigateAfterTourEnd(event, tourService.isEndedByExhaustion());
     }
 
@@ -317,5 +331,21 @@ public class MainGameController {
     @FXML private void closePane(ActionEvent event) throws IOException
     {
         cancelTourPane.setVisible(false);
+    }
+
+    private void updateCancelTourLabel() {
+        double refund = tourService.getEarlyCancellationCost();
+        boolean canAffordCancellation = tourService.canCancelTourEarly();
+
+        cancelTourLabel.setText(canAffordCancellation
+                ? "Are you sure you want to end the tour early? You will have to refund $"
+                + String.format("%.2f", refund) + " of tickets"
+                : "You cannot end the tour early because the refund costs $"
+                + String.format("%.2f", refund) + " and you only have "
+                + String.format("$%.2f", gameEnvironment.getLabelService().getMoney()) + ".");
+
+        if (confirmCancelTourButton != null) {
+            confirmCancelTourButton.setDisable(!canAffordCancellation);
+        }
     }
 }

@@ -62,4 +62,26 @@ public class ArtistTest {
         assertEquals(1, artist.getBaseStarPowerValue());
     }
 
+    @Test
+    void retirementRiskSkillReducesEffectiveToleranceByFortyPercent() {
+        Rockstar artist = new Rockstar("Muse", 1, "Rock artist");
+        Skill burnoutProne = new Skill(
+                "BURNOUT_PRONE",
+                "Burnout Prone",
+                "Reduces tolerance.",
+                "ROCKSTAR",
+                Rarity.RARE,
+                20,
+                List.of(GameplayEffect.RETIREMENT_RISK),
+                null,
+                null
+        );
+
+        artist.setSkill(burnoutProne);
+
+        assertEquals(60, artist.getTolerance());
+        assertEquals(60, artist.getHealth());
+        assertEquals(100, artist.getBaseHealthValue());
+    }
+
 }

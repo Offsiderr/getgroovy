@@ -50,7 +50,7 @@ public class SkillEffectBehaviours {
      */
     public static StatModifier retirementRisk()
     {
-        return (artist, value) -> 1;
+        return (artist, value) -> (int) Math.round(artist.getTolerance() * 0.6);
     }
 
 

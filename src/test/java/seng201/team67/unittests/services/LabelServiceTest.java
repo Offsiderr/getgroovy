@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LabelServiceTest {
 
+    private static final int ALL_ARTISTS_LIMIT = 5;
+
     @Test
     void hireArtistDeductsMoneyMarksArtistOwnedAndAddsToRoster() {
         GameEnvironment gameEnvironment = createConfiguredEnvironment();
@@ -37,6 +39,7 @@ public class LabelServiceTest {
         assertTrue(hired);
         assertTrue(artist.owned);
         assertEquals(startingMoney - artist.getCost(), service.getMoney(), 0.0001);
+        assertEquals(artist.getCost(), gameEnvironment.getTotalMoneySpent(), 0.0001);
         assertTrue(service.getAllArtists().contains(artist));
     }
 
@@ -55,19 +58,39 @@ public class LabelServiceTest {
     }
 
     @Test
+    void hireArtistReturnsFalseWhenAllArtistsPoolAlreadyHasFiveArtists() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        List<Artist> roster = new ArrayList<>();
+        for (int i = 0; i < ALL_ARTISTS_LIMIT; i++) {
+            roster.add(new Popstar("Artist " + i, 1, "Pop"));
+        }
+        LabelService service = createLabelService(gameEnvironment, roster);
+        Artist extraArtist = new Rapper("Overflow", 2, "Rap");
+
+        boolean hired = service.hireArtist(extraArtist);
+
+        assertFalse(hired);
+        assertFalse(extraArtist.owned);
+        assertEquals(ALL_ARTISTS_LIMIT, service.getAllArtists().size());
+    }
+
+    @Test
     void buyItemDeductsCreditsWhenAffordable() {
-        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>());
         double startingMoney = service.getMoney();
 
         boolean result = service.buyItem(50);
 
         assertTrue(result);
         assertEquals(startingMoney - 50, service.getMoney(), 0.0001);
+        assertEquals(50.0, gameEnvironment.getTotalMoneySpent(), 0.0001);
     }
 
     @Test
     void buyItemAddsPurchasedItemToRosterItems() {
-        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>());
         Item item = new EquippedItem(
                 "Lucky Microphone",
                 "Boosts confidence on stage",
@@ -84,6 +107,7 @@ public class LabelServiceTest {
         assertTrue(service.getAllItems().contains(item));
         assertEquals(1, service.getAllItems().size());
         assertEquals(startingMoney - item.getCost(), service.getMoney(), 0.0001);
+        assertEquals(item.getCost(), gameEnvironment.getTotalMoneySpent(), 0.0001);
     }
 
     @Test
@@ -312,7 +336,8 @@ public class LabelServiceTest {
 
     @Test
     void sellItemAddsCreditsAndRemovesItemFromInventory() {
-        LabelService service = createLabelService(createConfiguredEnvironment(), new ArrayList<>());
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>());
         Item item = new EquippedItem(
                 "Lucky Microphone",
                 "Boosts confidence on stage",
@@ -327,8 +352,21 @@ public class LabelServiceTest {
 
         assertTrue(sold);
         assertEquals(startingMoney + 70, service.getMoney(), 0.0001);
+        assertEquals(70.0, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
         assertFalse(service.getAllItems().contains(item));
         assertFalse(item.getOwned());
+    }
+
+    @Test
+    void directMoneyAdjustmentsUpdateTrackedTotals() {
+        GameEnvironment gameEnvironment = createConfiguredEnvironment();
+        LabelService service = createLabelService(gameEnvironment, new ArrayList<>());
+
+        service.takeMoney(40);
+        service.giveMoney(90);
+
+        assertEquals(40.0, gameEnvironment.getTotalMoneySpent(), 0.0001);
+        assertEquals(90.0, gameEnvironment.getTotalMoneyEarnt(), 0.0001);
     }
 
     private GameEnvironment createConfiguredEnvironment() {

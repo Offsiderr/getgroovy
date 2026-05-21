@@ -33,12 +33,12 @@
                   <String fx:value="small-label" />
                </styleClass>
             </Label>
-            <Label fx:id="moneyText" layoutX="1158.0" layoutY="61.0" text="\$1000">
+            <Label fx:id="moneyText" layoutX="1120.0" layoutY="61.0" text="\$1000">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Label layoutX="1158.0" layoutY="14.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
+            <Label layoutX="1120.0" layoutY="14.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT">
                <font>
                   <Font size="17.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Font size="37.0" />
                </font>
             </Label>
-            <Label fx:id="labelName11" layoutX="585.0" layoutY="17.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Score:">
+            <Label fx:id="labelName11" alignment="CENTER" layoutY="17.0" prefHeight="47.0" prefWidth="1289.0" style="-fx-background-color: TRANS;" stylesheets="@../../Styles/Style.css" text="Score:" textAlignment="CENTER">
                <font>
                   <Font size="21.0" />
                </font>

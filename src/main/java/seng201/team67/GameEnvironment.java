@@ -45,6 +45,10 @@ public class GameEnvironment {
     private Difficulty difficulty;
     /** Numeric value for the game score. */
     private int gameScore = 0;
+    /** Numeric value for the total money spent. */
+    private double totalMoneySpent = 0;
+    /** Numeric value for the total money earnt. */
+    private double totalMoneyEarnt = 0;
 
     /** Service used to manage music behaviour. */
     private final MusicService musicService;
@@ -496,5 +500,41 @@ public class GameEnvironment {
     public void addGameScore(int score)
     {
         gameScore += score;
+    }
+
+    /**
+     * Returns the total money spent.
+     * @return The total money spent.
+     */
+    public double getTotalMoneySpent()
+    {
+        return totalMoneySpent;
+    }
+
+    /**
+     * Adds to the total money spent.
+     * @param amount the amount to add
+     */
+    public void addTotalMoneySpent(double amount)
+    {
+        totalMoneySpent += amount;
+    }
+
+    /**
+     * Returns the total money earnt.
+     * @return The total money earnt.
+     */
+    public double getTotalMoneyEarnt()
+    {
+        return totalMoneyEarnt;
+    }
+
+    /**
+     * Adds to the total money earnt.
+     * @param amount the amount to add
+     */
+    public void addTotalMoneyEarnt(double amount)
+    {
+        totalMoneyEarnt += amount;
     }
 }

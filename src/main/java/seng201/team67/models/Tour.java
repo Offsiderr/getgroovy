@@ -36,6 +36,8 @@ public class Tour {
     public boolean artistPaySettled = false;
     /** Numeric value for the exhaustion refund. */
     public double exhaustionRefund = 0;
+    /** Numeric value for the early cancellation refund. */
+    public double cancellationRefund = 0;
     /** Text value for the conditional effect text. */
     public String conditionalEffectText = "";
 
@@ -217,6 +219,24 @@ public class Tour {
     public double getExhaustionRefund()
     {
         return exhaustionRefund;
+    }
+
+    /**
+     * Sets the cancellation refund.
+     * @param cancellationRefund the numeric value for the cancellation refund
+     */
+    public void setCancellationRefund(double cancellationRefund)
+    {
+        this.cancellationRefund = cancellationRefund;
+    }
+
+    /**
+     * Returns the cancellation refund.
+     * @return The cancellation refund.
+     */
+    public double getCancellationRefund()
+    {
+        return cancellationRefund;
     }
 
     /**

@@ -43,13 +43,13 @@ public abstract class Artist implements Purchasable {
     private int retirementChance;
     /** Numeric value for the consecutive tours without break. */
     private int consecutiveToursWithoutBreak;
-    /** Numeric value for the health. */
+    /** Numeric value for tolerance (called health internally). */
     private int health;
-    /** Numeric value for the base stamina. */
+    /** Numeric value for the base stamina. this is the artists base stamina, not to be confused with their actual stamina */
     private int baseStamina;
     /** Numeric value for the stamina. */
     private int stamina;
-    /** Numeric value for the star power. */
+    /** Numeric value for star power. Perception is star power in our game. */
     private int starPower;
     /** Numeric value for the skill level. */
     private int skillLevel = 1;
@@ -182,6 +182,16 @@ public abstract class Artist implements Purchasable {
      * @return The description.
      */
     public String getDescription(){return description;}
+
+    /**
+     * Returns the tolerance. Heath was the original name, so it appears on the artist class
+     * as such.
+     * @return
+     */
+    public int getTolerance()
+    {
+        return getModifiedTolerance();
+    }
 
     /**
      * Returns the type.
@@ -428,7 +438,7 @@ public abstract class Artist implements Purchasable {
         switch (itemEffects.getTargetStat()) {
             case STAR_POWER -> starPower = clampBaseStarPower(starPower + value);
             case STAMINA    -> setStamina(stamina + value);
-            case HEALTH     -> health += value;
+            case TOLERANCE -> health += value;
         }
         return true;
     }
@@ -480,7 +490,17 @@ public abstract class Artist implements Purchasable {
      */
     public int getModifiedHealth()
     {
-        return 100 - getRetirementChance() + getEquipableEffectValue(StatType.HEALTH);
+        return getModifiedTolerance();
+    }
+
+    private int getModifiedTolerance()
+    {
+        int tolerance = health;
+        if (hasSkill() && skill.hasEffect(GameplayEffect.RETIREMENT_RISK))
+        {
+            tolerance = Math.max(0, (int) Math.round(tolerance * 0.6));
+        }
+        return tolerance + getEquipableEffectValue(StatType.HEALTH);
     }
 
     private int getEquipableEffectValue(StatType statType)
@@ -517,7 +537,7 @@ public abstract class Artist implements Purchasable {
             case STAR_POWER -> skill.hasEffect(GameplayEffect.FLAT_STAR_POWER_BOOST) && skill.getMultiplier() > 1.0
                     ? GameplayEffect.FLAT_STAR_POWER_BOOST.createStatModifier(skill.getMultiplier()).apply(this, 0)
                     : 0;
-            case STAMINA, HEALTH -> 0;
+            case STAMINA, HEALTH, TOLERANCE -> 0;
         };
     }
 

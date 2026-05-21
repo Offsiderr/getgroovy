@@ -23,8 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LabelTest {
 
+    private static final int ALL_ARTISTS_LIMIT = 5;
+
     @Test
-    void constructorCopiesSelectedArtistsAndConfigValues() {
+    void constructorCopiesSelectedArtistsAndUsesHardCodedArtistLimit() {
         GameEnvironment gameEnvironment = new GameEnvironment();
         Artist artistOne = new Popstar("Ariana Grande", 3, "Pop artist");
         Artist artistTwo = new Rapper("Rod Wave", 2, "Rap artist");
@@ -34,7 +36,7 @@ public class LabelTest {
 
         assertEquals("Moonlight Records", label.getName());
         assertEquals(gameEnvironment.getConfig().startingCredits, label.getMoney());
-        assertEquals(gameEnvironment.getConfig().artistsRosterLimit, label.getArtistsLimit());
+        assertEquals(ALL_ARTISTS_LIMIT, label.getArtistsLimit());
         assertEquals(gameEnvironment.getConfig().lineUpLimit, label.getLineUpLimit());
         assertIterableEquals(selectedArtists, label.getAllArtists());
         assertIterableEquals(selectedArtists, label.getLineUp());
@@ -55,7 +57,7 @@ public class LabelTest {
     void addArtistToAllReturnsFalseWhenRosterIsFull() {
         GameEnvironment gameEnvironment = new GameEnvironment();
         List<Artist> selectedArtists = new ArrayList<>();
-        for (int i = 0; i < gameEnvironment.getConfig().artistsRosterLimit; i++) {
+        for (int i = 0; i < ALL_ARTISTS_LIMIT; i++) {
             selectedArtists.add(new Popstar("Artist" + i, 1, "Artist"));
         }
         Label label = new Label("Label", selectedArtists, gameEnvironment);
@@ -63,7 +65,7 @@ public class LabelTest {
         boolean result = label.addArtistToAll(new Rapper("Late Artist", 2, "Rap artist"));
 
         assertFalse(result);
-        assertEquals(gameEnvironment.getConfig().artistsRosterLimit, label.getAllArtists().size());
+        assertEquals(ALL_ARTISTS_LIMIT, label.getAllArtists().size());
     }
 
     @Test

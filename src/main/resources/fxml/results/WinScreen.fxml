@@ -52,21 +52,12 @@
             <String fx:value="big-label" />
          </styleClass>
       </Label>
-      <Label layoutX="336.0" layoutY="127.0" prefHeight="205.0" prefWidth="606.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Congratulations, the record label&#10;&#10;&#10;Will be remembered forever.&#10;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label layoutX="343.0" layoutY="76.0" prefHeight="205.0" prefWidth="606.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Congratulations, the record label&#10;Will be remembered forever.&#10;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="tourCount" layoutX="364.0" layoutY="317.0" prefHeight="108.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Total Tours:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="28.0" />
-         </font>
-         <styleClass>
-            <String fx:value="root" />
-            <String fx:value="small-label" />
-         </styleClass>
-      </Label>
-      <Label fx:id="concertCount" layoutX="364.0" layoutY="413.0" prefHeight="108.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Total Concerts:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="tourCount" layoutX="364.0" layoutY="330.0" prefHeight="32.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Completed Tours:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>
@@ -75,7 +66,52 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label fx:id="finalScore" layoutX="364.0" layoutY="477.0" prefHeight="72.0" prefWidth="551.0" style="-fx-background-color: transperant; -fx-itemEffects: dropshadow(gaussian, Gold, 40, 0.7, 0, 0);};" stylesheets="@../../Styles/Style.css" text="Final Score:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="concertCount" layoutX="364.0" layoutY="362.0" prefHeight="25.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Total Concerts:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="finalScore" layoutX="364.0" layoutY="521.0" prefHeight="24.0" prefWidth="551.0" style="-fx-background-color: transperant; -fx-itemEffects: dropshadow(gaussian, Gold, 40, 0.7, 0, 0);};" stylesheets="@../../Styles/Style.css" text="Final Score:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="selectedTours" layoutX="364.0" layoutY="298.0" prefHeight="32.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Selected Tours:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="finishingBalance" layoutX="364.0" layoutY="464.0" prefHeight="25.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Finishing Balance:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="totalMoneySpent" layoutX="364.0" layoutY="408.0" prefHeight="25.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Total Money Spent" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <styleClass>
+            <String fx:value="root" />
+            <String fx:value="small-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="totalMoneyEarnt" layoutX="364.0" layoutY="433.0" prefHeight="25.0" prefWidth="551.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Total Money Earnt" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>

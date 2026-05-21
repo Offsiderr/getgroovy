@@ -47,6 +47,11 @@ public enum RandomEvent {
             "A legendary industry figure has taken notice and offered personal mentorship. +2 to a skill.",
             10, EventType.SKILL, 2, null),
 
+    /** The breakthrough session. */
+    BREAKTHROUGH_SESSION("Breakthrough Session",
+            "Something clicks after the tour, and the artist comes away with an entirely new skill.",
+            2, EventType.SKILL, 0, null),
+
     /** The amicable exit. */
     AMICABLE_EXIT("Amicable Exit",
             "The artist has decided to step back from touring to focus on their personal life. They leave on good terms.",

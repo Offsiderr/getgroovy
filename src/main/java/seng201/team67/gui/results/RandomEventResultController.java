@@ -180,12 +180,16 @@ public class RandomEventResultController {
             return "Payout: $" + randomEvent.getValue();
         }
 
-        String valuePrefix = randomEvent.getValue() > 0 ? "+" : "";
-
         if (randomEvent.getType() == EventType.SKILL) {
+            if (randomEvent == RandomEvent.BREAKTHROUGH_SESSION && affectedArtist != null && affectedArtist.getSkill() != null) {
+                return "New Skill: " + affectedArtist.getSkill().getName();
+            }
+
+            String valuePrefix = randomEvent.getValue() > 0 ? "+" : "";
             return "Skill Change: " + valuePrefix + randomEvent.getValue();
         }
 
+        String valuePrefix = randomEvent.getValue() > 0 ? "+" : "";
         return "Stat Change: " + valuePrefix + randomEvent.getValue();
     }
 

@@ -16,10 +16,22 @@ import java.io.IOException;
  */
 public class LoseScreenController {
 
+    /** FXML reference for the label name control. */
+    @FXML private Label labelName;
+    /** FXML reference for the selected tours control. */
+    @FXML private Label selectedTours;
     /** FXML reference for the tour count control. */
     @FXML private Label tourCount;
     /** FXML reference for the concert count control. */
     @FXML private Label concertCount;
+    /** FXML reference for the total money spent control. */
+    @FXML private Label totalMoneySpent;
+    /** FXML reference for the total money earnt control. */
+    @FXML private Label totalMoneyEarnt;
+    /** FXML reference for the finishing balance control. */
+    @FXML private Label finishingBalance;
+    /** FXML reference for the final score control. */
+    @FXML private Label finalScore;
 
     /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
@@ -42,8 +54,19 @@ public class LoseScreenController {
      */
     @FXML
     public void initialize() {
+        labelName.setText(gameEnvironment.getLabelService().getLabelName());
+        selectedTours.setText("Selected Tours: " + gameEnvironment.getSelectedNumTours());
         tourCount.setText("Total Tours: " + gameEnvironment.getTourCount());
         concertCount.setText("Total Concerts: " + gameEnvironment.getConcertCount());
+        totalMoneySpent.setText("Total Money Spent: " + formatMoney(gameEnvironment.getTotalMoneySpent()));
+        totalMoneyEarnt.setText("Total Money Earnt: " + formatMoney(gameEnvironment.getTotalMoneyEarnt()));
+        finishingBalance.setText("Finishing Balance: " + formatMoney(gameEnvironment.getLabelService().getMoney()));
+        finalScore.setText("Final Score: " + gameEnvironment.getGameScore());
+    }
+
+    private String formatMoney(double amount)
+    {
+        return String.format("$%.2f", amount);
     }
 
     /**

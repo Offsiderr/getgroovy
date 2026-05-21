@@ -338,14 +338,56 @@ public class TourService {
      */
     public void endTourDueToExhaustion()
     {
+        if (tour.isEndedByExhaustion())
+        {
+            return;
+        }
+
         int remainingConcerts = getRemainingConcerts();
-        double refund = remainingConcerts * gameEnvironment.getConfig().cancelTourPenalty;
+        double refund = remainingConcerts * gameEnvironment.getConfig().getCancelTourPenalty(tour.type);
         tour.setEndedByExhaustion(true);
         tour.setExhaustionRefund(refund);
-        if (refund > 0)
+        applyRefund(refund);
+    }
+
+    /**
+     * Returns the early cancellation refund for the current tour.
+     * @return The refund amount required to cancel the tour early.
+     */
+    public double getEarlyCancellationCost()
+    {
+        return gameEnvironment.getConfig().getCancelTourPenalty(tour.type);
+    }
+
+    /**
+     * Returns whether the label can afford to cancel the current tour early.
+     * @return True if the cancellation refund can be paid, otherwise false.
+     */
+    public boolean canCancelTourEarly()
+    {
+        return gameEnvironment.getLabelService().getMoney() >= getEarlyCancellationCost();
+    }
+
+    /**
+     * Processes the end tour early cancellation refund.
+     * @return True if the cancellation was applied, otherwise false.
+     */
+    public boolean cancelTourEarly()
+    {
+        if (tour.getCancellationRefund() > 0)
         {
-            tour.addCreditsEarned(-refund);
+            return true;
         }
+
+        if (!canCancelTourEarly())
+        {
+            return false;
+        }
+
+        double refund = getEarlyCancellationCost();
+        tour.setCancellationRefund(refund);
+        applyRefund(refund);
+        return true;
     }
 
     /**
@@ -367,6 +409,15 @@ public class TourService {
     }
 
     /**
+     * Returns the cancellation refund.
+     * @return The cancellation refund.
+     */
+    public double getCancellationRefund()
+    {
+        return tour.getCancellationRefund();
+    }
+
+    /**
      * Returns the conditional effect text.
      * @return The conditional effect text.
      */
@@ -382,5 +433,16 @@ public class TourService {
     public void setConditionalEffectText(String conditionalEffectText)
     {
         tour.setConditionalEffectText(conditionalEffectText);
+    }
+
+    private void applyRefund(double refund)
+    {
+        if (refund <= 0)
+        {
+            return;
+        }
+
+        tour.addCreditsEarned(-refund);
+        gameEnvironment.getLabelService().takeMoney(refund);
     }
 }

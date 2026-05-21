@@ -98,7 +98,7 @@ public class TourResultsController {
     @FXML private void initialize() {
         populateTourResults();
 
-        if (staminaLoss) {
+        if (!tourService.isTourComplete() || staminaLoss) {
             labelTourName.setText(formatTourName() + " Tour - Ended Early");
         } else {
             labelTourName.setText(formatTourName() + " Tour - Finished");
@@ -120,6 +120,9 @@ public class TourResultsController {
 
         if (tourService.getExhaustionRefund() > 0) {
             eventPenalties += tourService.getExhaustionRefund();
+        }
+        if (tourService.getCancellationRefund() > 0) {
+            eventPenalties += tourService.getCancellationRefund();
         }
 
         double gross = baseRevenue + eventPayouts - eventPenalties;

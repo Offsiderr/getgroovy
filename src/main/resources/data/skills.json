@@ -123,7 +123,7 @@
     "artistType": "ROCKSTAR",
     "rarity": "RARE",
     "effects": ["FLAT_STAMINA_BOOST", "RETIREMENT_RISK"],
-    "multiplier": 1.2
+    "multiplier": 20
   },
   {
     "id": "AMP_IT_UP",

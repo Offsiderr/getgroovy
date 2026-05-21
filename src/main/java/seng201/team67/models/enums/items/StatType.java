@@ -11,5 +11,7 @@ public enum StatType {
     /** The stamina. */
     STAMINA,
     /** The health. */
-    HEALTH
+    HEALTH,
+    /** The tolerance */
+    TOLERANCE
 }

@@ -175,6 +175,7 @@ public class ResultsController {
         if (concertService.getTourService().isEndedByExhaustion()) {
             concertService.getTourService().tourEnded();
             gameEnvironment.setArtistPoolGenerated(false);
+            gameEnvironment.setItemPoolGenerated(false);
             navigateToPostTourScreen(event, true);
             return;
         }

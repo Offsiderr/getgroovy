@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.Label;
+import seng201.team67.models.Skill;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.enums.RandomEvent;
+import seng201.team67.services.data.SkillLoaderService;
 import seng201.team67.services.gameplay.RandomEventService;
 
 import java.util.List;
@@ -104,6 +106,24 @@ public class RandomEventServiceTest {
     }
 
     @Test
+    void breakthroughSessionGivesArtistANewEligibleSkill() {
+        Artist artist = new Rapper("Test Rap", 2, "Rap");
+        SkillLoaderService skillLoaderService = new SkillLoaderService();
+        Skill startingSkill = skillLoaderService.getEligibleSkills(artist).stream()
+                .filter(skill -> "SIDE_HUSTLE".equals(skill.getId()))
+                .findFirst()
+                .orElseThrow();
+        artist.setSkill(startingSkill);
+
+        boolean changed = new RandomEventService(new Random(0))
+                .applyRandomEvent(new GameEnvironment(), RandomEvent.BREAKTHROUGH_SESSION, artist);
+
+        assertTrue(changed);
+        assertNotNull(artist.getSkill());
+        assertFalse("SIDE_HUSTLE".equals(artist.getSkill().getId()));
+    }
+
+    @Test
     void retirementEventPaysOutAndRemovesArtistWhenPossible() {
         GameEnvironment gameEnvironment = new GameEnvironment();
         Artist retiringArtist = new seng201.team67.models.artists.Popstar("Retiring Artist", 2, "Pop");
@@ -116,6 +136,7 @@ public class RandomEventServiceTest {
         assertTrue(changed);
         assertFalse(gameEnvironment.getLabelService().getAllArtists().contains(retiringArtist));
         assertEquals(startingMoney + RandomEvent.AMICABLE_EXIT.getValue(), gameEnvironment.getLabelService().getMoney(), 0.0001);
+        assertEquals(RandomEvent.AMICABLE_EXIT.getValue(), gameEnvironment.getTotalMoneyEarnt(), 0.0001);
     }
 
     @Test

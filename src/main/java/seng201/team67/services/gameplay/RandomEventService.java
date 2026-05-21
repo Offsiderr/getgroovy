@@ -2,9 +2,11 @@ package seng201.team67.services.gameplay;
 
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.GameConfig;
+import seng201.team67.models.Skill;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.enums.EventType;
 import seng201.team67.models.enums.RandomEvent;
+import seng201.team67.services.data.SkillLoaderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ public class RandomEventService {
 
     /** The random. */
     private final Random random;
+    /** Service used to load eligible skills. */
+    private final SkillLoaderService skillLoaderService = new SkillLoaderService();
 
     /**
      * Creates a new random event service.
@@ -147,6 +151,10 @@ public class RandomEventService {
         }
 
         if (randomEvent.getType() == EventType.SKILL) {
+            if (randomEvent == RandomEvent.BREAKTHROUGH_SESSION) {
+                return applyNewSkillEvent(affectedArtist);
+            }
+
             affectedArtist.changeSkillLevel(randomEvent.getValue());
             return true;
         }
@@ -272,8 +280,22 @@ public class RandomEventService {
         return switch (randomEvent.getType()) {
             case RETIREMENT -> artists.size() > 1 ? new ArrayList<>(artists) : List.of();
             case STAT -> getEligibleArtistsForStatEvent(randomEvent, artists);
-            case SKILL -> new ArrayList<>(artists);
+            case SKILL -> getEligibleArtistsForSkillEvent(randomEvent, artists);
         };
+    }
+
+    private List<Artist> getEligibleArtistsForSkillEvent(RandomEvent randomEvent, List<Artist> artists) {
+        if (randomEvent != RandomEvent.BREAKTHROUGH_SESSION) {
+            return new ArrayList<>(artists);
+        }
+
+        List<Artist> eligibleArtists = new ArrayList<>();
+        for (Artist artist : artists) {
+            if (canArtistLearnNewSkill(artist)) {
+                eligibleArtists.add(artist);
+            }
+        }
+        return eligibleArtists;
     }
 
     private List<Artist> getEligibleArtistsForStatEvent(RandomEvent randomEvent, List<Artist> artists) {
@@ -289,5 +311,37 @@ public class RandomEventService {
             }
         }
         return eligibleArtists;
+    }
+
+    private boolean applyNewSkillEvent(Artist affectedArtist) {
+        Skill learnedSkill = getRandomLearnableSkill(affectedArtist);
+        if (learnedSkill == null) {
+            return false;
+        }
+
+        affectedArtist.setSkill(learnedSkill);
+        return true;
+    }
+
+    private boolean canArtistLearnNewSkill(Artist artist) {
+        return getRandomLearnableSkill(artist) != null;
+    }
+
+    private Skill getRandomLearnableSkill(Artist artist) {
+        if (artist == null) {
+            return null;
+        }
+
+        List<Skill> eligibleSkills = new ArrayList<>(skillLoaderService.getEligibleSkills(artist));
+        Skill currentSkill = artist.getSkill();
+        if (currentSkill != null) {
+            eligibleSkills.removeIf(skill -> skill.getId().equals(currentSkill.getId()));
+        }
+
+        if (eligibleSkills.isEmpty()) {
+            return null;
+        }
+
+        return eligibleSkills.get(random.nextInt(eligibleSkills.size()));
     }
 }
