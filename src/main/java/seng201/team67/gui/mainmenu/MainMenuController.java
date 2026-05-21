@@ -212,6 +212,7 @@ public class MainMenuController {
      */
     @FXML public void startTour(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().stopAndReset();
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/tour/SelectTour.fxml", new SelectTourController(gameEnvironment));
     }
@@ -223,6 +224,7 @@ public class MainMenuController {
      */
     @FXML public void startRoster(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().stopAndReset();
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/mainmenu/ArtistRoster.fxml", new RosterController(gameEnvironment));
     }
@@ -234,6 +236,7 @@ public class MainMenuController {
      */
     @FXML public void startMarket(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().stopAndReset();
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/market/TheMarket.fxml", new TheMarketController(gameEnvironment));
     }
@@ -245,6 +248,7 @@ public class MainMenuController {
      */
     @FXML public void startStudio(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().stopAndReset();
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/studio/TheStudio.fxml", new TheStudioController(gameEnvironment));
     }

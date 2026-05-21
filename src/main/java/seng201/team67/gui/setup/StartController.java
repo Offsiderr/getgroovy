@@ -64,7 +64,6 @@ public class StartController {
      */
     @FXML
     public void onStartGame(ActionEvent event) throws IOException {
-        MusicService.stop();
         soundEffectsService.playYes();
 
         Node currentRoot = ((Node) event.getSource()).getScene().getRoot();
