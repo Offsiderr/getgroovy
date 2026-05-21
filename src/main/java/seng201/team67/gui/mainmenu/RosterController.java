@@ -261,7 +261,7 @@ public class RosterController {
             if (unequipped) {
                 refreshView();
             }
-        }, null);
+        }, null, true);
 
         ArtistDetailBoxFiller.addFireButton(root, "Fire", () -> {
             boolean retired = gameEnvironment.getLabelService().retireArtist(artist);

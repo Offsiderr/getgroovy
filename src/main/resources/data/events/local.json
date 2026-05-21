@@ -1,119 +1,101 @@
 [
   {
-    "id": "local_venue_curfew",
-    "prompt": "The venue owner signals you're approaching the noise curfew. You have two songs left.",
+    "id": "local_small_town_radio_visit",
+    "prompt": "A local radio host is in the audience and offers to interview the artist between songs. It could help build a following in the area.",
     "answers": [
       {
-        "label": "Respect the curfew \u2014 wrap up gracefully",
+        "label": "Do interview",
         "outcomes": [
           {
-            "weight": 100,
-            "description": "You finish on time. The owner says you're welcome back anytime.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 0,
-            "concertEnds": false,
-            "payout": "none"
-          }
-        ]
-      },
-      {
-        "label": "Play the last song anyway \u2014 beg forgiveness later",
-        "outcomes": [
-          {
-            "weight": 40,
-            "description": "The owner lets it slide. The crowd rewards you for going the extra mile.",
+            "weight": 70,
+            "description": "The interview goes well and local interest in the artist grows.",
             "outcomeType": "good",
-            "crowdEnergyChange": 15,
+            "staminaChange": -8,
+            "crowdEnergyChange": 8,
             "concertEnds": false,
             "payout": "none"
           },
           {
-            "weight": 60,
-            "description": "The owner pulls the plug mid-song. You're not welcome back.",
-            "outcomeType": "terrible",
-            "crowdEnergyChange": -25,
+            "weight": 30,
+            "description": "The conversation drags on and some audience members lose focus.",
+            "outcomeType": "ok",
+            "staminaChange": -10,
+            "crowdEnergyChange": -4,
             "concertEnds": false,
             "payout": "none"
           }
         ]
       },
       {
-        "label": "Negotiate for one more song",
+        "label": "Keep performing",
         "outcomes": [
           {
-            "weight": 70,
-            "description": "The owner agrees to five more minutes. You make them count.",
+            "weight": 80,
+            "description": "The performance stays focused and consistent.",
+            "outcomeType": "ok",
+            "staminaChange": -5,
+            "crowdEnergyChange": 2,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "A chance for local publicity slips away.",
+            "outcomeType": "none",
+            "staminaChange": -5,
+            "crowdEnergyChange": -2,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "local_friend_in_crowd",
+    "prompt": "The artist spots a close friend in the crowd who has been loudly supporting them all night. The audience notices the reaction.",
+    "answers": [
+      {
+        "label": "Give shoutout",
+        "outcomes": [
+          {
+            "weight": 75,
+            "description": "The personal moment feels genuine and the crowd responds warmly.",
             "outcomeType": "good",
+            "staminaChange": -6,
             "crowdEnergyChange": 10,
             "concertEnds": false,
             "payout": "none"
           },
           {
-            "weight": 30,
-            "description": "The owner says no. You end on a slightly flat note.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -5,
-            "concertEnds": false,
-            "payout": "none"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "local_birthday_request",
-    "prompt": "Someone in the front row holds up a sign: 'It's my birthday \u2014 can you play my favourite song?' It's not on the setlist.",
-    "answers": [
-      {
-        "label": "Play the request \u2014 make their night",
-        "outcomes": [
-          {
-            "weight": 60,
-            "description": "The artist nails it from memory. The crowd sings along spontaneously.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 20,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 40,
-            "description": "A few fumbled chords, but the sentiment wins everyone over anyway.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          }
-        ]
-      },
-      {
-        "label": "Acknowledge them but stay on setlist",
-        "outcomes": [
-          {
-            "weight": 100,
-            "description": "You wish them happy birthday over the mic. They smile and clap.",
+            "weight": 25,
+            "description": "The moment feels awkward and interrupts the flow.",
             "outcomeType": "ok",
-            "crowdEnergyChange": 5,
+            "staminaChange": -6,
+            "crowdEnergyChange": -3,
             "concertEnds": false,
             "payout": "none"
           }
         ]
       },
       {
-        "label": "Invite them on stage for a shoutout",
+        "label": "Stay professional",
         "outcomes": [
           {
-            "weight": 70,
-            "description": "They're a great sport. The crowd absolutely loves the chaos.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 20,
+            "weight": 85,
+            "description": "The performance continues without interruption.",
+            "outcomeType": "ok",
+            "staminaChange": -4,
+            "crowdEnergyChange": 1,
             "concertEnds": false,
             "payout": "none"
           },
           {
-            "weight": 30,
-            "description": "They freeze on stage. Awkward three minutes for everyone.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
+            "weight": 15,
+            "description": "The friend seems disappointed and some fans notice.",
+            "outcomeType": "none",
+            "staminaChange": -4,
+            "crowdEnergyChange": -2,
             "concertEnds": false,
             "payout": "none"
           }
@@ -122,47 +104,206 @@
     ]
   },
   {
-    "id": "local_open_mic_rival",
-    "prompt": "The open mic act before you kills it and the crowd is hyped for them, not you. How do you respond?",
+    "id": "local_bar_tab_offer",
+    "prompt": "The venue owner offers free drinks for the artist and crew during the performance. The atmosphere is relaxed and tempting.",
     "answers": [
       {
-        "label": "Feed off their energy and match the hype",
+        "label": "Accept drinks",
         "outcomes": [
           {
             "weight": 65,
-            "description": "You channel the room's energy perfectly. The crowd transfers their excitement to you.",
+            "description": "Everyone enjoys the gesture and spirits improve.",
             "outcomeType": "good",
-            "crowdEnergyChange": 15,
+            "staminaChange": -4,
+            "crowdEnergyChange": 6,
             "concertEnds": false,
             "payout": "none"
           },
           {
             "weight": 35,
-            "description": "You come out swinging too hard and burn out early.",
+            "description": "The artist becomes slightly less focused and performance quality slips.",
             "outcomeType": "bad",
-            "staminaChange": -20,
-            "crowdEnergyChange": -5,
+            "staminaChange": -8,
+            "crowdEnergyChange": -6,
             "concertEnds": false,
             "payout": "none"
           }
         ]
       },
       {
-        "label": "Start slow and build \u2014 let the crowd come to you",
+        "label": "Decline politely",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The artist remains sharp and professional.",
+            "outcomeType": "good",
+            "staminaChange": -5,
+            "crowdEnergyChange": 2,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "The venue owner seems slightly offended.",
+            "outcomeType": "none",
+            "staminaChange": -5,
+            "crowdEnergyChange": -2,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "local_high_school_fans",
+    "prompt": "A group of enthusiastic local students has gathered near the stage and knows every lyric. Their energy is contagious.",
+    "answers": [
+      {
+        "label": "Interact with them",
         "outcomes": [
           {
             "weight": 70,
-            "description": "A measured opening wins them over gradually.",
+            "description": "The crowd feeds off their excitement and energy rises across the venue.",
             "outcomeType": "good",
-            "crowdEnergyChange": 10,
+            "staminaChange": -10,
+            "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "none"
           },
           {
             "weight": 30,
-            "description": "Too slow. The crowd never fully transitions over.",
+            "description": "The interaction drags on and loses momentum.",
+            "outcomeType": "ok",
+            "staminaChange": -10,
+            "crowdEnergyChange": -2,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Keep moving",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The performance remains smooth and focused.",
+            "outcomeType": "ok",
+            "staminaChange": -5,
+            "crowdEnergyChange": 3,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "Some excitement is left untapped.",
+            "outcomeType": "none",
+            "staminaChange": -5,
+            "crowdEnergyChange": -3,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "local_business_sponsorship",
+    "prompt": "A nearby business owner offers to sponsor future appearances if the artist gives them a mention. The crowd seems interested.",
+    "answers": [
+      {
+        "label": "Give mention",
+        "outcomes": [
+          {
+            "weight": 60,
+            "description": "The owner is impressed and discusses future opportunities afterward.",
+            "outcomeType": "good",
+            "staminaChange": -6,
+            "crowdEnergyChange": 4,
+            "concertEnds": false,
+            "payout": "minorReward"
+          },
+          {
+            "weight": 40,
+            "description": "The audience dislikes the obvious promotion.",
             "outcomeType": "bad",
-            "crowdEnergyChange": -5,
+            "staminaChange": -6,
+            "crowdEnergyChange": -8,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Decline offer",
+        "outcomes": [
+          {
+            "weight": 85,
+            "description": "The focus remains entirely on the performance.",
+            "outcomeType": "ok",
+            "staminaChange": -4,
+            "crowdEnergyChange": 2,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 15,
+            "description": "The potential sponsorship opportunity disappears.",
+            "outcomeType": "none",
+            "staminaChange": -4,
+            "crowdEnergyChange": -1,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "local_birthday_celebration",
+    "prompt": "A fan's friends reveal that it is their birthday and begin encouraging the artist to acknowledge it. Nearby audience members join in.",
+    "answers": [
+      {
+        "label": "Celebrate birthday",
+        "outcomes": [
+          {
+            "weight": 75,
+            "description": "The crowd enjoys the wholesome moment and cheers loudly.",
+            "outcomeType": "good",
+            "staminaChange": -6,
+            "crowdEnergyChange": 10,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 25,
+            "description": "The celebration feels forced and slows the atmosphere.",
+            "outcomeType": "ok",
+            "staminaChange": -6,
+            "crowdEnergyChange": -2,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Continue show",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The performance remains uninterrupted.",
+            "outcomeType": "ok",
+            "staminaChange": -4,
+            "crowdEnergyChange": 1,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "A few fans feel disappointed by the decision.",
+            "outcomeType": "none",
+            "staminaChange": -4,
+            "crowdEnergyChange": -3,
             "concertEnds": false,
             "payout": "none"
           }

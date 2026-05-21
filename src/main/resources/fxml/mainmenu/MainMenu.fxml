@@ -141,7 +141,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Button layoutX="1150.0" layoutY="665.0" mnemonicParsing="false" onAction="#openHelp" prefHeight="11.0" prefWidth="36.0">
+      <Button layoutX="1150.0" layoutY="665.0" mnemonicParsing="false" onAction="#openHelp" prefHeight="11.0" prefWidth="36.0" stylesheets="@../../Styles/Style.css">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
@@ -150,7 +150,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="1217.0" layoutY="665.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="11.0" prefWidth="36.0">
+      <Button layoutX="1217.0" layoutY="665.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="11.0" prefWidth="36.0" stylesheets="@../../Styles/Style.css">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
@@ -159,6 +159,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane fx:id="settingsHolder" disable="true" prefHeight="737.0" prefWidth="1298.0" />
+      <AnchorPane fx:id="settingsHolder" disable="true" prefHeight="737.0" prefWidth="1298.0" stylesheets="@../../Styles/Style.css" />
    </children>
 </AnchorPane>

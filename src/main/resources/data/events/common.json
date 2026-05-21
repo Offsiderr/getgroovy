@@ -1,206 +1,779 @@
 [
   {
-    "id": "common_heckler",
-    "prompt": "A loud heckler near the front is throwing off your artists. How do you handle it?",
-    "answers": [
+    "id":"common_microphone_cutout",
+    "prompt":"The lead microphone suddenly starts cutting in and out. The crowd has noticed and the artist is looking for direction.",
+    "answers":[
       {
-        "label": "Engage them \u2014 turn it into a moment",
-        "outcomes": [
+        "label":"Swap microphones",
+        "outcomes":[
           {
-            "weight": 60,
-            "description": "Your artist fires back with a perfect comeback. The crowd erupts.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 20,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":75,
+            "description":"A replacement microphone is brought out quickly and the performance continues smoothly.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":6,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 40,
-            "description": "The exchange falls flat. The heckler doubles down.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":25,
+            "description":"The replacement takes longer than expected and the audience becomes impatient.",
+            "outcomeType":"bad",
+            "staminaChange":-12,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       },
       {
-        "label": "Signal security to remove them",
-        "outcomes": [
+        "label":"Power through",
+        "outcomes":[
           {
-            "weight": 75,
-            "description": "Security handles it quietly. The show continues without a hitch.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":60,
+            "description":"The artist projects loudly enough to keep the audience engaged.",
+            "outcomeType":"good",
+            "staminaChange":-18,
+            "crowdEnergyChange":10,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 25,
-            "description": "The removal causes a scene. Half the crowd sides with the heckler.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -20,
-            "concertEnds": false,
-            "payout": "none"
-          }
-        ]
-      },
-      {
-        "label": "Ignore them and push through",
-        "outcomes": [
-          {
-            "weight": 50,
-            "description": "The artist stays locked in. The heckler eventually gives up.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 50,
-            "description": "The distraction lingers. The performance suffers.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":40,
+            "description":"The missing audio hurts the performance and the crowd loses interest.",
+            "outcomeType":"bad",
+            "staminaChange":-18,
+            "crowdEnergyChange":-12,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       }
     ]
   },
   {
-    "id": "common_encore_demand",
-    "prompt": "The crowd is chanting for an encore. You're not sure if your artists have the energy.",
-    "answers": [
+    "id":"common_fan_sign_request",
+    "prompt":"A fan near the front is holding a sign asking the artist to acknowledge them. More audience members are starting to point it out.",
+    "answers":[
       {
-        "label": "Give them the encore",
-        "outcomes": [
+        "label":"Acknowledge fan",
+        "outcomes":[
           {
-            "weight": 65,
-            "description": "They dig deep and deliver. The room ends on a high.",
-            "outcomeType": "great",
-            "staminaChange": -15,
-            "crowdEnergyChange": 30,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":70,
+            "description":"The crowd enjoys the interaction and cheers loudly.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":12,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 35,
-            "description": "Fatigue shows. The encore feels like a formality.",
-            "outcomeType": "terrible",
-            "staminaChange": -20,
-            "crowdEnergyChange": -5,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":30,
+            "description":"Other fans begin competing for attention and create a distraction.",
+            "outcomeType":"ok",
+            "staminaChange":-10,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       },
       {
-        "label": "End the show \u2014 leave them wanting more",
-        "outcomes": [
+        "label":"Stay focused",
+        "outcomes":[
           {
-            "weight": 100,
-            "description": "Classic move. The buzz lasts all week.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 15,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":80,
+            "description":"The performance remains consistent and on schedule.",
+            "outcomeType":"ok",
+            "staminaChange":-5,
+            "crowdEnergyChange":2,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":20,
+            "description":"Some fans feel ignored and enthusiasm dips.",
+            "outcomeType":"bad",
+            "staminaChange":-5,
+            "crowdEnergyChange":-6,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       }
     ]
   },
   {
-    "id": "common_equipment_failure",
-    "prompt": "A guitar string snaps mid-song. There's a spare in the case but it'll take a minute.",
-    "answers": [
+    "id":"common_stage_camera_focus",
+    "prompt":"Venue cameras accidentally focus on a crew member instead of the artist. The audience laughs as the mistake continues.",
+    "answers":[
       {
-        "label": "Change it on stage \u2014 make it part of the show",
-        "outcomes": [
+        "label":"Make a joke",
+        "outcomes":[
           {
-            "weight": 65,
-            "description": "The crowd cheers them on. An authentic moment captured on a dozen phones.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 10,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":65,
+            "description":"The artist turns the error into a fun moment and wins over the crowd.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":10,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 35,
-            "description": "The pause kills the momentum. People start checking their phones.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":35,
+            "description":"The joke lands awkwardly and momentum slows.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":-3,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       },
       {
-        "label": "Swap to a backup instrument",
-        "outcomes": [
+        "label":"Fix immediately",
+        "outcomes":[
           {
-            "weight": 90,
-            "description": "Seamless. Barely a hiccup.",
-            "outcomeType": "none",
-            "crowdEnergyChange": 0,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":80,
+            "description":"The camera feed is corrected quickly and attention returns to the performance.",
+            "outcomeType":"good",
+            "staminaChange":-5,
+            "crowdEnergyChange":4,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 10,
-            "description": "The backup is badly out of tune. The next song sounds rough.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -15,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":20,
+            "description":"The correction process becomes more distracting than the original mistake.",
+            "outcomeType":"bad",
+            "staminaChange":-8,
+            "crowdEnergyChange":-6,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       }
     ]
   },
   {
-    "id": "common_set_change",
-    "prompt": "Halfway through, your artist wants to drop a planned song and freestyle instead.",
-    "answers": [
+    "id":"common_monitor_problem",
+    "prompt":"The artist signals they can barely hear the monitor mix. Timing mistakes are starting to creep in.",
+    "answers":[
       {
-        "label": "Let them go for it",
-        "outcomes": [
+        "label":"Request adjustment",
+        "outcomes":[
           {
-            "weight": 50,
-            "description": "A raw, electric moment. The crowd feels like they witnessed something real.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 25,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":80,
+            "description":"The sound crew fixes the mix and confidence returns.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":5,
+            "concertEnds":false,
+            "payout":"none"
           },
           {
-            "weight": 35,
-            "description": "Rough around the edges but the crowd respects the effort.",
-            "outcomeType": "good",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          },
-          {
-            "weight": 15,
-            "description": "They lose the flow completely. An awkward stumble mid-set.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -20,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":20,
+            "description":"The adjustment only partly solves the issue.",
+            "outcomeType":"ok",
+            "staminaChange":-10,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       },
       {
-        "label": "Stick to the setlist",
-        "outcomes": [
+        "label":"Keep going",
+        "outcomes":[
           {
-            "weight": 100,
-            "description": "Solid, professional performance. Everything goes to plan.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 0,
-            "concertEnds": false,
-            "payout": "none"
+            "weight":55,
+            "description":"The artist adapts and maintains a strong performance.",
+            "outcomeType":"good",
+            "staminaChange":-18,
+            "crowdEnergyChange":10,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":45,
+            "description":"Mistakes become noticeable and crowd energy falls.",
+            "outcomeType":"bad",
+            "staminaChange":-18,
+            "crowdEnergyChange":-10,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_crowd_singalong",
+    "prompt":"A section of the audience unexpectedly starts singing every lyric louder than the artist. The moment could become something special.",
+    "answers":[
+      {
+        "label":"Encourage it",
+        "outcomes":[
+          {
+            "weight":65,
+            "description":"The singalong spreads through the venue and creates an unforgettable atmosphere.",
+            "outcomeType":"great",
+            "staminaChange":-10,
+            "crowdEnergyChange":20,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":35,
+            "description":"The crowd loses rhythm and the performance becomes messy.",
+            "outcomeType":"ok",
+            "staminaChange":-12,
+            "crowdEnergyChange":3,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Take control",
+        "outcomes":[
+          {
+            "weight":75,
+            "description":"The artist regains focus and keeps the performance polished.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":5,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":25,
+            "description":"Fans feel shut down and excitement drops.",
+            "outcomeType":"bad",
+            "staminaChange":-8,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_viral_clip",
+    "prompt":"A spontaneous moment on stage is rapidly spreading across social media. Staff think it could become a viral clip.",
+    "answers":[
+      {
+        "label":"Lean into it",
+        "outcomes":[
+          {
+            "weight":40,
+            "description":"The moment explodes online and attracts a wave of new attention.",
+            "outcomeType":"great",
+            "staminaChange":-12,
+            "crowdEnergyChange":18,
+            "concertEnds":false,
+            "payout":"minorReward"
+          },
+          {
+            "weight":60,
+            "description":"Fans enjoy the moment and engagement rises.",
+            "outcomeType":"good",
+            "staminaChange":-10,
+            "crowdEnergyChange":8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Ignore it",
+        "outcomes":[
+          {
+            "weight":80,
+            "description":"The performance remains steady and professional.",
+            "outcomeType":"ok",
+            "staminaChange":-6,
+            "crowdEnergyChange":2,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":20,
+            "description":"The opportunity passes without much impact.",
+            "outcomeType":"none",
+            "staminaChange":-6,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_lighting_failure",
+    "prompt":"Part of the lighting rig suddenly shuts off, leaving sections of the stage unusually dark.",
+    "answers":[
+      {
+        "label":"Wait for repair",
+        "outcomes":[
+          {
+            "weight":75,
+            "description":"Technicians restore the lighting quickly.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":5,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":25,
+            "description":"The delay hurts the atmosphere and audience engagement falls.",
+            "outcomeType":"bad",
+            "staminaChange":-10,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Use darkness creatively",
+        "outcomes":[
+          {
+            "weight":50,
+            "description":"The unexpected mood creates a memorable visual moment.",
+            "outcomeType":"great",
+            "staminaChange":-15,
+            "crowdEnergyChange":18,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":50,
+            "description":"The idea fails to connect and the audience remains distracted.",
+            "outcomeType":"bad",
+            "staminaChange":-15,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_artist_argument",
+    "prompt":"Two artists on the tour are arguing backstage and the tension is beginning to affect morale.",
+    "answers":[
+      {
+        "label":"Step in",
+        "outcomes":[
+          {
+            "weight":70,
+            "description":"The disagreement is resolved before it grows.",
+            "outcomeType":"good",
+            "staminaChange":-10,
+            "crowdEnergyChange":4,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":30,
+            "description":"The discussion drags on and nobody leaves satisfied.",
+            "outcomeType":"ok",
+            "staminaChange":-15,
+            "crowdEnergyChange":-4,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Let it play out",
+        "outcomes":[
+          {
+            "weight":45,
+            "description":"The rivalry sharpens everyone's focus and performance quality improves.",
+            "outcomeType":"good",
+            "staminaChange":-12,
+            "crowdEnergyChange":8,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":55,
+            "description":"The conflict escalates and affects concentration.",
+            "outcomeType":"bad",
+            "staminaChange":-18,
+            "crowdEnergyChange":-10,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_security_concern",
+    "prompt":"Security reports a disturbance elsewhere in the venue. The audience nearby seems unaware for now.",
+    "answers":[
+      {
+        "label":"Pause briefly",
+        "outcomes":[
+          {
+            "weight":85,
+            "description":"The issue is handled safely and operations return to normal.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":15,
+            "description":"The interruption annoys some attendees.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Continue performing",
+        "outcomes":[
+          {
+            "weight":60,
+            "description":"Security resolves the issue without affecting the crowd.",
+            "outcomeType":"good",
+            "staminaChange":-10,
+            "crowdEnergyChange":4,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":40,
+            "description":"The situation worsens and the event must be stopped.",
+            "outcomeType":"terrible",
+            "staminaChange":-15,
+            "crowdEnergyChange":-20,
+            "concertEnds":true,
+            "payout":"majorPenalty"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_drink_spill",
+    "prompt":"A drink has been spilled near important stage equipment. Crew members rush over to assess the risk.",
+    "answers":[
+      {
+        "label":"Stop and clean",
+        "outcomes":[
+          {
+            "weight":80,
+            "description":"The area is secured before any damage occurs.",
+            "outcomeType":"good",
+            "staminaChange":-6,
+            "crowdEnergyChange":2,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":20,
+            "description":"The cleanup takes longer than expected and slows momentum.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":-4,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Keep performing",
+        "outcomes":[
+          {
+            "weight":55,
+            "description":"Nothing goes wrong and the audience barely notices.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":4,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":45,
+            "description":"Equipment is affected and technical quality suffers.",
+            "outcomeType":"bad",
+            "staminaChange":-12,
+            "crowdEnergyChange":-10,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_unplanned_request",
+    "prompt":"Fans are loudly requesting a popular song that was not scheduled for this point in the performance.",
+    "answers":[
+      {
+        "label":"Play it now",
+        "outcomes":[
+          {
+            "weight":65,
+            "description":"The crowd erupts with excitement and energy surges.",
+            "outcomeType":"good",
+            "staminaChange":-18,
+            "crowdEnergyChange":15,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":35,
+            "description":"The sudden change disrupts flow and causes confusion.",
+            "outcomeType":"ok",
+            "staminaChange":-18,
+            "crowdEnergyChange":3,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Stick to plan",
+        "outcomes":[
+          {
+            "weight":75,
+            "description":"The performance remains organized and professional.",
+            "outcomeType":"ok",
+            "staminaChange":-6,
+            "crowdEnergyChange":1,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":25,
+            "description":"Some audience members lose enthusiasm.",
+            "outcomeType":"bad",
+            "staminaChange":-6,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_backstage_guest",
+    "prompt":"A local celebrity has arrived backstage and wants a quick appearance on stage. The audience may recognize them.",
+    "answers":[
+      {
+        "label":"Invite them out",
+        "outcomes":[
+          {
+            "weight":55,
+            "description":"The appearance excites the crowd and creates buzz.",
+            "outcomeType":"good",
+            "staminaChange":-10,
+            "crowdEnergyChange":12,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":45,
+            "description":"The guest overshadows the performance and distracts fans.",
+            "outcomeType":"bad",
+            "staminaChange":-10,
+            "crowdEnergyChange":-6,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Decline politely",
+        "outcomes":[
+          {
+            "weight":80,
+            "description":"The focus stays on the performance.",
+            "outcomeType":"ok",
+            "staminaChange":-5,
+            "crowdEnergyChange":2,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":20,
+            "description":"A missed opportunity disappoints some attendees.",
+            "outcomeType":"none",
+            "staminaChange":-5,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_feedback_burst",
+    "prompt":"A loud burst of audio feedback suddenly rings through the venue. Several audience members visibly react.",
+    "answers":[
+      {
+        "label":"Pause briefly",
+        "outcomes":[
+          {
+            "weight":75,
+            "description":"The source is identified and fixed quickly.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":4,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":25,
+            "description":"The interruption drags on and audience patience wears thin.",
+            "outcomeType":"bad",
+            "staminaChange":-10,
+            "crowdEnergyChange":-8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Laugh it off",
+        "outcomes":[
+          {
+            "weight":50,
+            "description":"The crowd appreciates the humor and moves on.",
+            "outcomeType":"good",
+            "staminaChange":-8,
+            "crowdEnergyChange":8,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":50,
+            "description":"The joke falls flat and momentum slips.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":-3,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_crowd_energy_drop",
+    "prompt":"The audience seems noticeably less engaged than earlier. Conversations are beginning to compete with the performance.",
+    "answers":[
+      {
+        "label":"Raise intensity",
+        "outcomes":[
+          {
+            "weight":65,
+            "description":"The extra effort reconnects with the crowd and restores excitement.",
+            "outcomeType":"good",
+            "staminaChange":-20,
+            "crowdEnergyChange":18,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":35,
+            "description":"The push drains energy without changing the atmosphere.",
+            "outcomeType":"bad",
+            "staminaChange":-22,
+            "crowdEnergyChange":-5,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Address audience",
+        "outcomes":[
+          {
+            "weight":60,
+            "description":"The crowd responds warmly and engagement improves.",
+            "outcomeType":"good",
+            "staminaChange":-10,
+            "crowdEnergyChange":10,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":40,
+            "description":"The speech slows momentum and fails to excite fans.",
+            "outcomeType":"ok",
+            "staminaChange":-10,
+            "crowdEnergyChange":-4,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id":"common_reporter_spotted",
+    "prompt":"A well-known entertainment reporter has been spotted in the audience and is posting live updates online.",
+    "answers":[
+      {
+        "label":"Put on a show",
+        "outcomes":[
+          {
+            "weight":45,
+            "description":"The performance earns glowing coverage and new attention.",
+            "outcomeType":"great",
+            "staminaChange":-18,
+            "crowdEnergyChange":15,
+            "concertEnds":false,
+            "payout":"minorReward"
+          },
+          {
+            "weight":55,
+            "description":"The crowd enjoys the extra effort and energy rises.",
+            "outcomeType":"good",
+            "staminaChange":-15,
+            "crowdEnergyChange":8,
+            "concertEnds":false,
+            "payout":"none"
+          }
+        ]
+      },
+      {
+        "label":"Stay consistent",
+        "outcomes":[
+          {
+            "weight":80,
+            "description":"A reliable performance avoids unnecessary risks.",
+            "outcomeType":"ok",
+            "staminaChange":-8,
+            "crowdEnergyChange":3,
+            "concertEnds":false,
+            "payout":"none"
+          },
+          {
+            "weight":20,
+            "description":"The reporter finds little worth mentioning.",
+            "outcomeType":"none",
+            "staminaChange":-8,
+            "crowdEnergyChange":-2,
+            "concertEnds":false,
+            "payout":"none"
           }
         ]
       }

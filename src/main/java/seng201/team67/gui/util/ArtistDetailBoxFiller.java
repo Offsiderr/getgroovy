@@ -57,7 +57,7 @@ public class ArtistDetailBoxFiller {
      * @param onItemDropped the on item dropped
      */
     public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped) {
-        populateArtistBox(card, artist, onItemDropped, null, null, null);
+        populateArtistBox(card, artist, onItemDropped, null, null, null, false);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ArtistDetailBoxFiller {
      * @param onItemClicked the on item clicked
      */
     public static void populateArtistBox(VBox card, Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
-        populateArtistBox(card, artist, onItemDropped, null, null, onItemClicked);
+        populateArtistBox(card, artist, onItemDropped, null, null, onItemClicked, false);
     }
 
     /**
@@ -86,6 +86,26 @@ public class ArtistDetailBoxFiller {
                                          Consumer<Item> onItemDragged,
                                          Consumer<Item> onItemDragReleasedOutside,
                                          Consumer<Item> onItemClicked) {
+        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, false);
+    }
+
+    /**
+     * Populates the artist box.
+     * @param card the card
+     * @param artist the artist
+     * @param onItemDropped the on item dropped
+     * @param onItemDragged the on item dragged
+     * @param onItemDragReleasedOutside the on item drag released outside
+     * @param onItemClicked the on item clicked
+     * @param showEmptyItemSlots whether empty item slots should be shown
+     */
+    public static void populateArtistBox(VBox card,
+                                         Artist artist,
+                                         Consumer<String> onItemDropped,
+                                         Consumer<Item> onItemDragged,
+                                         Consumer<Item> onItemDragReleasedOutside,
+                                         Consumer<Item> onItemClicked,
+                                         boolean showEmptyItemSlots) {
         card.getChildren().clear();
 
         applyBaseStyle(card);
@@ -117,7 +137,7 @@ public class ArtistDetailBoxFiller {
                 createSkillLabel(artist)
         );
 
-        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
+        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, showEmptyItemSlots);
 
         HBox detailsRow = new HBox(10);
         detailsRow.setAlignment(Pos.TOP_LEFT);
@@ -137,7 +157,7 @@ public class ArtistDetailBoxFiller {
      * @return The resulting v box.
      */
     public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped) {
-        return createArtistBox(artist, onItemDropped, null, null, null);
+        return createArtistBox(artist, onItemDropped, null, null, null, false);
     }
 
     /**
@@ -148,7 +168,7 @@ public class ArtistDetailBoxFiller {
      * @return The resulting v box.
      */
     public static VBox createArtistBox(Artist artist, Consumer<String> onItemDropped, Consumer<Item> onItemClicked) {
-        return createArtistBox(artist, onItemDropped, null, null, onItemClicked);
+        return createArtistBox(artist, onItemDropped, null, null, onItemClicked, false);
     }
 
     /**
@@ -166,6 +186,26 @@ public class ArtistDetailBoxFiller {
                                        Consumer<Item> onItemDragged,
                                        Consumer<Item> onItemDragReleasedOutside,
                                        Consumer<Item> onItemClicked) {
+        return createArtistBox(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, false);
+    }
+
+    /**
+     * Creates the artist box.
+     * It updates related state as needed while performing the operation.
+     * @param artist the artist
+     * @param onItemDropped the on item dropped
+     * @param onItemDragged the on item dragged
+     * @param onItemDragReleasedOutside the on item drag released outside
+     * @param onItemClicked the on item clicked
+     * @param showEmptyItemSlots whether empty item slots should be shown
+     * @return The resulting v box.
+     */
+    public static VBox createArtistBox(Artist artist,
+                                       Consumer<String> onItemDropped,
+                                       Consumer<Item> onItemDragged,
+                                       Consumer<Item> onItemDragReleasedOutside,
+                                       Consumer<Item> onItemClicked,
+                                       boolean showEmptyItemSlots) {
         VBox card = new VBox(8);
         card.setPrefWidth(CARD_WIDTH);
         card.setMinWidth(CARD_WIDTH);
@@ -173,7 +213,7 @@ public class ArtistDetailBoxFiller {
         card.setMinHeight(CARD_HEIGHT);
         card.setAlignment(Pos.TOP_CENTER);
 
-        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked);
+        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, showEmptyItemSlots);
         return card;
     }
 
@@ -267,7 +307,8 @@ public class ArtistDetailBoxFiller {
                                         Consumer<String> onItemDropped,
                                         Consumer<Item> onItemDragged,
                                         Consumer<Item> onItemDragReleasedOutside,
-                                        Consumer<Item> onItemClicked) {
+                                        Consumer<Item> onItemClicked,
+                                        boolean showEmptyItemSlots) {
         VBox itemSlots = new VBox(6);
         itemSlots.setAlignment(Pos.TOP_CENTER);
         itemSlots.setMinWidth(ITEM_SLOT_SIZE);
@@ -276,7 +317,9 @@ public class ArtistDetailBoxFiller {
         List<Item> items = artist.getItems();
         for (int i = 0; i < 3; i++) {
             Item item = i < items.size() ? items.get(i) : null;
-            itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked));
+            if (item != null || showEmptyItemSlots) {
+                itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked));
+            }
         }
 
         return itemSlots;

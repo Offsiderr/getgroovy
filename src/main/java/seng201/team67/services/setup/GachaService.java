@@ -37,26 +37,42 @@ public class GachaService {
      */
     public List<Artist> getPickedArtists(int slotCount, Rarity rarity)
     {
-        List<Artist> pool = gameEnvironment.getArtistPool();
+        List<Artist> pool = new ArrayList<>(gameEnvironment.getArtistPool());
         Collections.shuffle(pool);
 
         List<Artist> picked = new ArrayList<>();
         for (int i = 0; i < slotCount; i++)
         {
             int selectedStarpower = rarity.get_starpower();
-            int z = i;
-            while (z < pool.size() && (pool.get(z).owned || pool.get(z).getStarPower() != selectedStarpower))
+            Artist artist = findArtistForStarPower(pool, picked, selectedStarpower);
+            if (artist != null)
             {
-                z += 1;
-            }
-
-            if (z < pool.size())
-            {
-                picked.add(pool.get(z));
+                picked.add(artist);
             }
         }
 
         return picked;
+    }
+
+    private Artist findArtistForStarPower(List<Artist> pool, List<Artist> picked, int selectedStarpower)
+    {
+        for (Artist artist : pool)
+        {
+            if (!artist.owned && !picked.contains(artist) && artist.getStarPower() == selectedStarpower)
+            {
+                return artist;
+            }
+        }
+
+        for (Artist artist : pool)
+        {
+            if (!artist.owned && !picked.contains(artist) && artist.getStarPower() < selectedStarpower)
+            {
+                return artist;
+            }
+        }
+
+        return null;
     }
 
     /**

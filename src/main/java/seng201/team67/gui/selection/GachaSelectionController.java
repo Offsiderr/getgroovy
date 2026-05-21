@@ -150,6 +150,7 @@ public class GachaSelectionController extends ArtistSelectionController {
 
         List<VBox> slots = List.of(itemOne, itemTwo, itemThree);
         List<Item> picked = gachaService.getPickedItems(slots.size(), rarity);
+        List<VBox> animatedCards = new java.util.ArrayList<>();
 
         for (int i = 0; i < slots.size(); i++) {
             VBox slot = slots.get(i);
@@ -166,7 +167,10 @@ public class GachaSelectionController extends ArtistSelectionController {
             slot.setDisable(false);
             setItemSelected(slot, false);
             slot.setOnMouseClicked(e -> toggleItemSelection(slot));
+            animatedCards.add(slot);
         }
+
+        animateCardsIn(animatedCards);
     }
 
     /**

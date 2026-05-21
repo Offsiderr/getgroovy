@@ -35,4 +35,23 @@ public class GachaServiceTest {
         assertEquals(3, picked.size());
         assertTrue(picked.stream().allMatch(pool::contains));
     }
+
+    @Test
+    void getPickedArtistsDoesNotDuplicateArtistsWhenOnlyOnePerStarPowerIsEligible() {
+        GameEnvironment gameEnvironment = new GameEnvironment();
+        List<Artist> pool = List.of(
+                new Popstar("One", 4, "Pop"),
+                new Rapper("Two", 5, "Rap")
+        );
+        gameEnvironment.setArtistPool(pool);
+
+        List<Artist> picked = new GachaService(gameEnvironment).getPickedArtists(
+                3,
+                Rarity.MYTHIC
+        );
+
+        assertEquals(picked.size(), picked.stream().distinct().count());
+        assertTrue(picked.stream().allMatch(pool::contains));
+        assertTrue(picked.size() <= pool.size());
+    }
 }

@@ -119,7 +119,7 @@ public class MainMenuController {
 
         //Set the labels at the top of the screen
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
-        gameDifficulty.setText(gameEnvironment.getDifficulty().name());
+        gameDifficulty.setText(gameEnvironment.getDifficulty().getDisplayName());
         moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
         scoreLabel.setText(Integer.toString(gameEnvironment.getGameScore()));

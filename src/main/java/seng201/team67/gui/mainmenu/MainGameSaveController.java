@@ -101,6 +101,18 @@ public class MainGameSaveController {
     }
 
     /**
+     * Returns the player to the main menu by closing the save overlay.
+     * @param event the action event that triggered the request
+     */
+    @FXML
+    public void goBack(ActionEvent event) {
+        settingsHolder.getChildren().clear();
+        settingsHolder.setDisable(true);
+        settingsHolder.setVisible(false);
+        settingsHolder.setManaged(false);
+    }
+
+    /**
      * If you select a save, then the save game button is adjusted accordingly in this method
      */
     private void refreshSaveButtonText() {

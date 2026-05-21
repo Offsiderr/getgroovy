@@ -27,7 +27,7 @@
             <String fx:value="root" />
             <String fx:value="big-label" />
          </styleClass></Label>
-      <Button fx:id="goOnTour1" layoutX="1009.0" layoutY="27.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="238.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Go Back" />
+      <Button fx:id="goOnTour1" layoutX="29.0" layoutY="606.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="238.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Go Back" />
       <Button fx:id="goOnTour11" layoutX="711.0" layoutY="606.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="54.0" prefWidth="238.0" styleClass="root" stylesheets="@../../Styles/Style.css" text="Quit Game" />
       <Slider fx:id="musicVolumeSlider" layoutX="478.0" layoutY="291.0" prefHeight="94.0" prefWidth="355.0" />
       <Slider fx:id="sfxVolumeSlider" layoutX="478.0" layoutY="372.0" prefHeight="94.0" prefWidth="355.0" />

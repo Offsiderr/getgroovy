@@ -19,32 +19,16 @@
          </image>
       </ImageView>
 
-      <ImageView fitHeight="185.0" fitWidth="193.0" layoutX="531.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0);;">
-         <image>
-            <Image url="@../../images/Market/golden_record.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="188.0" fitWidth="185.0" layoutX="817.0" layoutY="117.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);;">
-         <image>
-            <Image url="@../../images/Market/platinum_record.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="227.0" fitWidth="337.0" layoutX="187.0" layoutY="112.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
-         <image>
-            <Image url="@../../images/Market/record.png" />
-         </image>
-      </ImageView>
-
       <Label fx:id="labelName" layoutX="23.0" layoutY="14.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="label_name" textFill="WHITE">
          <font><Font size="37.0" /></font>
       </Label>
       <Label fx:id="gameDifficulty" layoutX="537.0" layoutY="23.0" prefHeight="63.0" prefWidth="194.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="The Studio" textAlignment="CENTER" textFill="WHITE">
          <font><Font name="Javanese Text" size="36.0" /></font>
       </Label>
-      <Label fx:id="moneyText" layoutX="1084.0" layoutY="79.0" style="-fx-itemEffects: dropshadow(three-pass-box, green, 15, 0.9, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="moneyText" layoutX="1129.0" layoutY="59.0" style="-fx-itemEffects: dropshadow(three-pass-box, green, 15, 0.9, 0, 0);" text="\$1000" textAlignment="RIGHT" textFill="WHITE">
          <font><Font size="37.0" /></font>
       </Label>
-      <Label layoutX="1072.0" layoutY="30.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT" textFill="WHITE">
+      <Label layoutX="1119.0" layoutY="14.0" style="-fx-background-color: transperant;" styleClass="root" stylesheets="@../../Styles/Style.css" text="Money" textAlignment="RIGHT" textFill="WHITE">
          <font><Font size="17.0" /></font>
       </Label>
       <Label layoutX="488.0" layoutY="86.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Try your luck by buying a record company!" textAlignment="CENTER" textFill="WHITE">
@@ -54,9 +38,31 @@
             <String fx:value="tiny-label" />
          </styleClass>
       </Label>
-      <Button layoutX="254.0" layoutY="119.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="185.0" prefWidth="171.0" style="-fx-background-color: transparent;" />
-      <Button layoutX="539.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyGolden" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
-      <Button layoutX="817.0" layoutY="131.0" mnemonicParsing="false" onAction="#buyPlatinum" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="255.0" layoutY="117.0" mnemonicParsing="false" onAction="#buyStandard" prefHeight="102.0" prefWidth="148.0" style="-fx-background-color: transparent;" stylesheets="@../../Styles/Style.css">
+         <graphic>
+            <ImageView fitHeight="188.0" fitWidth="185.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, black, 5, 0.9, 0, 0);">
+               <image>
+                  <Image url="@../../images/Market/record.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="520.0" layoutY="117.0" mnemonicParsing="false" onAction="#buyGolden" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" stylesheets="@../../Styles/Style.css">
+         <graphic>
+      
+            <ImageView fitHeight="185.0" fitWidth="193.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 15, 0.9, 0, 0);;">
+               <image>
+                  <Image url="@../../images/Market/golden_record.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="812.0" layoutY="117.0" mnemonicParsing="false" onAction="#buyPlatinum" prefHeight="156.0" prefWidth="203.0" style="-fx-background-color: transparent;" stylesheets="@../../Styles/Style.css">
+         <graphic>
+            <ImageView fitHeight="188.0" fitWidth="185.0" pickOnBounds="false" preserveRatio="true" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);;">
+               <image>
+                  <Image url="@../../images/Market/platinum_record.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
 
       <Label layoutX="278.0" layoutY="305.0" style="-fx-itemEffects: dropshadow(three-pass-box, white, 5, 0.9, 0, 0); -fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="Standard Record" textAlignment="CENTER">
          <font><Font size="23.0" /></font>
@@ -82,7 +88,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
-      <Label fx:id="goldenRecordText" layoutX="599.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$500" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="goldenRecordText" layoutX="593.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, gold, 5, 0.9, 0, 0);" text="\$1500" textAlignment="CENTER" textFill="WHITE">
          <font><Font size="23.0" /></font>
       </Label>
       <Label fx:id="platinumRecordText" layoutX="879.0" layoutY="334.0" style="-fx-itemEffects: dropshadow(three-pass-box, silver, 15, 0.9, 0, 0);" text="\$1000" textAlignment="CENTER" textFill="WHITE">
@@ -113,7 +119,7 @@
             <String fx:value="small-label" />
          </styleClass>
       </Button>
-      <Button layoutX="1074.0" layoutY="637.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="51.0" prefWidth="186.0" stylesheets="@../../Styles/Style.css" text="Return">
+      <Button layoutX="1074.0" layoutY="633.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="51.0" prefWidth="186.0" stylesheets="@../../Styles/Style.css" text="Return">
          <font><Font size="21.0" /></font>
          <styleClass>
             <String fx:value="root" />

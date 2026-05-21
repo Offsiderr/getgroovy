@@ -111,22 +111,20 @@ public class ArtistSelectionController {
             setSelected(slot, false);
             slot.setOnMouseClicked(e -> toggleSelected(slot));
             artistCards.add(slot);
-
-            slot.setOpacity(0);
-            slot.setScaleX(0);
-            slot.setScaleY(0);
         }
 
-        animateCardsIn();
+        animateCardsIn(artistCards);
     }
 
     /**
      * We animate the gacha cards in on the artists selection screen.
      */
-    private void animateCardsIn() {
+    protected void animateCardsIn(List<VBox> cards) {
         SequentialTransition sequence = new SequentialTransition();
 
-        for (VBox card : artistCards) {
+        for (VBox card : cards) {
+            resetCardEntranceState(card);
+
             ScaleTransition growTransition = new ScaleTransition(Duration.millis(200), card);
             growTransition.setToX(1.15);
             growTransition.setToY(1.15);
@@ -154,6 +152,12 @@ public class ArtistSelectionController {
         }
 
         sequence.play();
+    }
+
+    protected void resetCardEntranceState(VBox card) {
+        card.setOpacity(0);
+        card.setScaleX(0);
+        card.setScaleY(0);
     }
 
     /**

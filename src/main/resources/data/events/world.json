@@ -1,128 +1,101 @@
 [
   {
-    "id": "world_visa_delay",
-    "prompt": "Customs has flagged one of your artists' visas at the airport. The show is in six hours.",
+    "id": "world_international_press_row",
+    "prompt": "A section of international journalists has arrived unexpectedly and is documenting every moment of the performance. Coverage from multiple countries could follow.",
     "answers": [
       {
-        "label": "Call your legal team immediately",
+        "label": "Put on spectacle",
         "outcomes": [
           {
-            "weight": 65,
-            "description": "The lawyers sort it out. Everyone makes the show with time to spare.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": 0,
+            "weight": 45,
+            "description": "The performance becomes a highlight in several major publications and online outlets.",
+            "outcomeType": "great",
+            "staminaChange": -22,
+            "crowdEnergyChange": 18,
             "concertEnds": false,
-            "payout": "majorPenalty"
+            "payout": "majorReward"
           },
           {
-            "weight": 35,
-            "description": "Legal can't resolve it in time. The artist misses the show entirely.",
-            "outcomeType": "terrible",
-            "crowdEnergyChange": -20,
+            "weight": 55,
+            "description": "The extra pressure causes mistakes that receive unwanted attention.",
+            "outcomeType": "bad",
+            "staminaChange": -22,
+            "crowdEnergyChange": -8,
             "concertEnds": false,
-            "payout": "majorPenalty"
+            "payout": "none"
           }
         ]
       },
       {
-        "label": "Swap in a backup artist",
+        "label": "Stay composed",
         "outcomes": [
           {
-            "weight": 75,
-            "description": "The backup steps up brilliantly. The audience never knows.",
+            "weight": 85,
+            "description": "A polished performance earns respectable coverage.",
             "outcomeType": "good",
+            "staminaChange": -10,
             "crowdEnergyChange": 5,
             "concertEnds": false,
             "payout": "none"
           },
           {
-            "weight": 25,
-            "description": "Local fans specifically came for the detained artist. Disappointment spreads.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": -20,
+            "weight": 15,
+            "description": "Nothing particularly stands out to the media.",
+            "outcomeType": "none",
+            "staminaChange": -10,
+            "crowdEnergyChange": -1,
             "concertEnds": false,
             "payout": "none"
-          }
-        ]
-      },
-      {
-        "label": "Cancel and issue a public apology",
-        "outcomes": [
-          {
-            "weight": 100,
-            "description": "Professional and transparent. It costs you tonight but protects the tour's reputation.",
-            "outcomeType": "ok",
-            "crowdEnergyChange": -10,
-            "concertEnds": false,
-            "payout": "majorPenalty"
           }
         ]
       }
     ]
   },
   {
-    "id": "world_major_label_scout",
-    "prompt": "You've been told a major international label A&R scout is in the audience tonight.",
+    "id": "world_global_trending_moment",
+    "prompt": "Social media staff report that clips from the performance are trending internationally. Millions of people are watching reactions online.",
     "answers": [
       {
-        "label": "Tailor the set to showcase commercial appeal",
+        "label": "Lean into trend",
         "outcomes": [
           {
             "weight": 55,
-            "description": "The scout is impressed. A meeting is requested for tomorrow morning.",
+            "description": "The moment explodes across multiple countries and dramatically boosts visibility.",
             "outcomeType": "great",
-            "crowdEnergyChange": 10,
+            "staminaChange": -15,
+            "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "majorReward"
           },
           {
             "weight": 45,
-            "description": "The crowd can feel the set is being performed for someone. The energy dips.",
+            "description": "The attempt feels forced and online sentiment cools.",
             "outcomeType": "bad",
-            "crowdEnergyChange": -10,
+            "staminaChange": -15,
+            "crowdEnergyChange": -6,
             "concertEnds": false,
             "payout": "none"
           }
         ]
       },
       {
-        "label": "Play your most authentic fan-favourite set",
-        "outcomes": [
-          {
-            "weight": 70,
-            "description": "The scout loves the authenticity. They want to sign without compromising the sound.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 15,
-            "concertEnds": false,
-            "payout": "majorReward"
-          },
-          {
-            "weight": 30,
-            "description": "The scout wanted something more radio-friendly. They leave after four songs.",
-            "outcomeType": "bad",
-            "crowdEnergyChange": 5,
-            "concertEnds": false,
-            "payout": "none"
-          }
-        ]
-      },
-      {
-        "label": "Don't tell your artists the scout is there",
+        "label": "Ignore it",
         "outcomes": [
           {
             "weight": 80,
-            "description": "Natural performance wins the scout over completely. No nerves, just talent.",
-            "outcomeType": "great",
-            "crowdEnergyChange": 20,
+            "description": "The artist stays focused and delivers a reliable performance.",
+            "outcomeType": "good",
+            "staminaChange": -8,
+            "crowdEnergyChange": 4,
             "concertEnds": false,
-            "payout": "majorReward"
+            "payout": "none"
           },
           {
             "weight": 20,
-            "description": "Your artist finds out and is furious. Pre-show blow-up.",
-            "outcomeType": "terrible",
-            "staminaChange": -15,
-            "crowdEnergyChange": -15,
+            "description": "The viral opportunity fades without much impact.",
+            "outcomeType": "none",
+            "staminaChange": -8,
+            "crowdEnergyChange": -2,
             "concertEnds": false,
             "payout": "none"
           }
@@ -131,50 +104,312 @@
     ]
   },
   {
-    "id": "world_festival_slot",
-    "prompt": "Another act drops out of a festival. You're offered their headline slot \u2014 two hours from now.",
+    "id": "world_language_barrier",
+    "prompt": "The crowd is enthusiastic, but many audience members do not share the artist's primary language. Communication from the stage is becoming difficult.",
     "answers": [
       {
-        "label": "Take it \u2014 this is the opportunity of a lifetime",
+        "label": "Try local phrases",
         "outcomes": [
           {
-            "weight": 60,
-            "description": "Your artists rise to the occasion. A genuinely career-defining performance.",
-            "outcomeType": "great",
-            "staminaChange": -25,
-            "crowdEnergyChange": 30,
+            "weight": 70,
+            "description": "The audience appreciates the effort and responds warmly.",
+            "outcomeType": "good",
+            "staminaChange": -8,
+            "crowdEnergyChange": 12,
             "concertEnds": false,
-            "payout": "majorReward"
+            "payout": "none"
           },
           {
-            "weight": 40,
-            "description": "Underprepared for the scale. Visible stumbles in front of ten times your usual crowd.",
-            "outcomeType": "bad",
-            "staminaChange": -25,
-            "crowdEnergyChange": -5,
+            "weight": 30,
+            "description": "A pronunciation mistake creates awkward laughter.",
+            "outcomeType": "ok",
+            "staminaChange": -8,
+            "crowdEnergyChange": -2,
             "concertEnds": false,
-            "payout": "minorReward"
+            "payout": "none"
           }
         ]
       },
       {
-        "label": "Negotiate a mid-bill slot instead",
+        "label": "Let music speak",
         "outcomes": [
           {
             "weight": 85,
-            "description": "A perfectly timed mid-bill set to a primed crowd. Solid win.",
+            "description": "The performance itself carries the connection with the audience.",
             "outcomeType": "good",
+            "staminaChange": -6,
+            "crowdEnergyChange": 6,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 15,
+            "description": "The crowd remains enthusiastic but somewhat distant.",
+            "outcomeType": "none",
+            "staminaChange": -6,
+            "crowdEnergyChange": -1,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world_celebrity_in_attendance",
+    "prompt": "Screens around the venue reveal a globally recognized celebrity enjoying the performance. Audience attention immediately shifts toward them.",
+    "answers": [
+      {
+        "label": "Acknowledge celebrity",
+        "outcomes": [
+          {
+            "weight": 65,
+            "description": "The interaction delights the crowd and creates memorable headlines.",
+            "outcomeType": "good",
+            "staminaChange": -10,
+            "crowdEnergyChange": 12,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 35,
+            "description": "The spotlight shifts too heavily away from the artist.",
+            "outcomeType": "bad",
+            "staminaChange": -10,
+            "crowdEnergyChange": -5,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Stay focused",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The audience quickly returns its attention to the performance.",
+            "outcomeType": "ok",
+            "staminaChange": -6,
+            "crowdEnergyChange": 3,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "Fans continue talking about the celebrity instead of the show.",
+            "outcomeType": "bad",
+            "staminaChange": -6,
+            "crowdEnergyChange": -4,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world_massive_crowd_chant",
+    "prompt": "A chant begins in one section of the stadium and rapidly spreads through the entire crowd. The noise is becoming impossible to ignore.",
+    "answers": [
+      {
+        "label": "Join the chant",
+        "outcomes": [
+          {
+            "weight": 70,
+            "description": "The entire venue erupts and the atmosphere becomes electric.",
+            "outcomeType": "great",
+            "staminaChange": -18,
+            "crowdEnergyChange": 22,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 30,
+            "description": "The momentum stalls when the chant loses rhythm.",
+            "outcomeType": "ok",
+            "staminaChange": -18,
+            "crowdEnergyChange": 2,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Continue performance",
+        "outcomes": [
+          {
+            "weight": 75,
+            "description": "The chant fades naturally and the show continues smoothly.",
+            "outcomeType": "ok",
+            "staminaChange": -8,
+            "crowdEnergyChange": 4,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 25,
+            "description": "The crowd feels ignored and enthusiasm drops.",
+            "outcomeType": "bad",
+            "staminaChange": -8,
+            "crowdEnergyChange": -8,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world_broadcast_drone_issue",
+    "prompt": "A broadcast drone covering the performance begins behaving unpredictably above the stage. Production staff request immediate guidance.",
+    "answers": [
+      {
+        "label": "Ground drone",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The issue is resolved safely and coverage continues using other cameras.",
+            "outcomeType": "good",
+            "staminaChange": -8,
+            "crowdEnergyChange": 3,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "The interruption briefly disrupts the atmosphere.",
+            "outcomeType": "ok",
+            "staminaChange": -8,
+            "crowdEnergyChange": -3,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Keep filming",
+        "outcomes": [
+          {
+            "weight": 50,
+            "description": "The drone stabilizes and captures spectacular footage.",
+            "outcomeType": "great",
+            "staminaChange": -10,
+            "crowdEnergyChange": 10,
+            "concertEnds": false,
+            "payout": "minorReward"
+          },
+          {
+            "weight": 50,
+            "description": "The drone malfunctions completely and creates a major distraction.",
+            "outcomeType": "bad",
+            "staminaChange": -12,
+            "crowdEnergyChange": -10,
+            "concertEnds": false,
+            "payout": "minorPenalty"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world_headline_festival_offer",
+    "prompt": "Management receives a message that a major international festival organizer is watching the performance remotely. A strong impression could lead to future opportunities.",
+    "answers": [
+      {
+        "label": "Push harder",
+        "outcomes": [
+          {
+            "weight": 45,
+            "description": "The organizer is impressed and serious discussions begin immediately.",
+            "outcomeType": "great",
+            "staminaChange": -22,
             "crowdEnergyChange": 15,
             "concertEnds": false,
             "payout": "majorReward"
           },
           {
-            "weight": 15,
-            "description": "The festival gives the slot to someone else. You stay where you were.",
-            "outcomeType": "none",
-            "crowdEnergyChange": 0,
+            "weight": 55,
+            "description": "The pressure causes visible mistakes and hurts the performance.",
+            "outcomeType": "bad",
+            "staminaChange": -22,
+            "crowdEnergyChange": -8,
             "concertEnds": false,
             "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Trust routine",
+        "outcomes": [
+          {
+            "weight": 85,
+            "description": "The artist delivers a confident and professional show.",
+            "outcomeType": "good",
+            "staminaChange": -10,
+            "crowdEnergyChange": 6,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 15,
+            "description": "The organizer remains interested but unconvinced.",
+            "outcomeType": "none",
+            "staminaChange": -10,
+            "crowdEnergyChange": -1,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world_exhaustion_warning",
+    "prompt": "Medical staff quietly warn that the artist is showing signs of severe fatigue after weeks on the road. Continuing at full intensity carries risks.",
+    "answers": [
+      {
+        "label": "Slow things down",
+        "outcomes": [
+          {
+            "weight": 80,
+            "description": "The artist regains control and safely finishes the performance.",
+            "outcomeType": "good",
+            "staminaChange": -8,
+            "crowdEnergyChange": -2,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 20,
+            "description": "The crowd notices the reduced intensity and energy dips.",
+            "outcomeType": "bad",
+            "staminaChange": -8,
+            "crowdEnergyChange": -8,
+            "concertEnds": false,
+            "payout": "none"
+          }
+        ]
+      },
+      {
+        "label": "Keep pushing",
+        "outcomes": [
+          {
+            "weight": 55,
+            "description": "The artist delivers an unforgettable performance despite the exhaustion.",
+            "outcomeType": "great",
+            "staminaChange": -30,
+            "crowdEnergyChange": 20,
+            "concertEnds": false,
+            "payout": "none"
+          },
+          {
+            "weight": 45,
+            "description": "The artist becomes unable to continue and the event is stopped early.",
+            "outcomeType": "terrible",
+            "staminaChange": -30,
+            "crowdEnergyChange": -20,
+            "concertEnds": true,
+            "payout": "majorPenalty"
           }
         ]
       }
