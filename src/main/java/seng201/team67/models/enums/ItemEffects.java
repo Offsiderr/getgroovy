@@ -154,7 +154,7 @@ public enum ItemEffects {
             GameplayEffect.STAMINA_RECOVER_IF_BELOW_25
     ),
 
-    /** The auto win if crowd below 20 after event 3. */
+    /** Auto win if crowd below 20 after event 3. */
     AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3(
             "Auto Win If Crowd Below 20 After Event 3",
             "Auto-wins the next event if the crowd is struggling.",
@@ -165,7 +165,7 @@ public enum ItemEffects {
             GameplayEffect.AUTO_WIN_IF_CROWD_BELOW_20_AFTER_EVENT_3
     ),
 
-    /** The stamina recover all if lowest below 35. */
+    /** Stamina recover all if lowest below 35. */
     STAMINA_RECOVER_ALL_IF_LOWEST_BELOW_35(
             "Stamina Recover All If Lowest Below 35",
             "Restores stamina to the full lineup when one artist is struggling.",

@@ -54,6 +54,7 @@ public class MainSettingsController {
         sfxVolumeSlider.setValue(gameEnvironment.getConfig().soundEffectsVolume);
         fullscreen.setSelected(gameEnvironment.getConfig().movingBackgroundEnabled);
 
+
         //Add listeners so that the volume slider updates the volume when moved.
         mainVolumeSlider.valueProperty().addListener((observable, oldValue, newValue) ->
                 gameEnvironment.getConfig().mainVolume = newValue.doubleValue());
