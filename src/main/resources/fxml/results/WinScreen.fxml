@@ -120,5 +120,10 @@
             <String fx:value="small-label" />
          </styleClass>
       </Label>
+      <ImageView fitHeight="868.0" fitWidth="1368.0" layoutX="-19.0" layoutY="-38.0" opacity="0.4" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/4d68cd156b67ed38303691834e7a9628.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
