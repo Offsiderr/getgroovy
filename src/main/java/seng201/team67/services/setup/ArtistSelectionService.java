@@ -8,15 +8,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Provides artist selection operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ArtistSelectionService {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
 
+    /**
+     * Creates a new artist selection service.
+     * @param gameEnvironment the active game environment
+     */
     public ArtistSelectionService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Processes the artists that the player has picked and sets them as their label's lineup
+     * @return A list containing the pick artists.
+     */
     public List<Artist> pickArtists()
     {
         List<Artist> pool = gameEnvironment.getArtistPool();

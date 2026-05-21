@@ -13,10 +13,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides item loader operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ItemLoaderService {
 
+    /** Text value for the resource path. */
     private static final String resourcePath = "/data/items.json";
 
+    /**
+     * Loads the all.
+     * It updates related state as needed while performing the operation.
+     * @return A list containing the all.
+     */
     public List<Item> loadAll() {
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream is = getClass().getResourceAsStream(resourcePath)) {

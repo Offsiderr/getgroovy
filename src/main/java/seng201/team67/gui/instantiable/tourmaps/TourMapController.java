@@ -13,76 +13,111 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Controls the tour map view and coordinates its user interactions.
+ * No decisions are made about checking or unchecking stops in this class.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class TourMapController {
 
-    //This controller handles the map checkpoints, visibility and checked state.
-    //no decisions are made about checking or unchecking stops in this class.
-
-    //TODO: this is awful, find a better way to handle this later
+    /** The stop1. */
     @FXML
     private CheckBox stop1;
+    /** The stop2. */
     @FXML
     private CheckBox stop2;
+    /** The stop3. */
     @FXML
     private CheckBox stop3;
+    /** The stop4. */
     @FXML
     private CheckBox stop4;
+    /** The stop5. */
     @FXML
     private CheckBox stop5;
+    /** The stop6. */
     @FXML
     private CheckBox stop6;
+    /** The stop7. */
     @FXML
     private CheckBox stop7;
+    /** The stop8. */
     @FXML
     private CheckBox stop8;
+    /** The stop9. */
     @FXML
     private CheckBox stop9;
+    /** The stop10. */
     @FXML
     private CheckBox stop10;
+    /** The stop11. */
     @FXML
     private CheckBox stop11;
+    /** The stop12. */
     @FXML
     private CheckBox stop12;
+    /** The stop13. */
     @FXML
     private CheckBox stop13;
+    /** The stop14. */
     @FXML
     private CheckBox stop14;
+    /** The stop15. */
     @FXML
     private CheckBox stop15;
+    /** The stop16. */
     @FXML
     private CheckBox stop16;
+    /** The stop17. */
     @FXML
     private CheckBox stop17;
+    /** The stop18. */
     @FXML
     private CheckBox stop18;
+    /** The stop19. */
     @FXML
     private CheckBox stop19;
+    /** The stop20. */
     @FXML
     private CheckBox stop20;
+    /** The stop21. */
     @FXML
     private CheckBox stop21;
+    /** The stop22. */
     @FXML
     private CheckBox stop22;
+    /** The stop23. */
     @FXML
     private CheckBox stop23;
+    /** The stop24. */
     @FXML
     private CheckBox stop24;
+    /** The stop25. */
     @FXML
     private CheckBox stop25;
+    /** The stop26. */
     @FXML
     private CheckBox stop26;
 
+    /** Service used to manage tour behaviour. */
     private TourService tourService;
 
-    //not sure what I am really doing with timelines
-    //TODO: make improvements to the pulsing anim.
+    /** The pulse timeline. */
     private Timeline pulseTimeline;
 
+    /** Collection that stores the all stops. */
     private ArrayList<CheckBox> allStops;
 
+    /** Collection that stores the stop order. */
     private List<Integer> stopOrder;
+    /** Numeric value for the current stop. */
     private Integer currentStop = 0;
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize()
     {
@@ -98,11 +133,18 @@ public class TourMapController {
 
     }
 
+    /**
+     * Applies the stop order.
+     * @param order the list of order
+     */
     public void applyStopOrder(List<Integer> order)
     {
         this.stopOrder = new ArrayList<>(order);
     }
 
+    /**
+     * Applies the random order.
+     */
     public void applyRandomOrder()
     {
         stopOrder = IntStream.range(0, allStops.size()).boxed().collect(Collectors.toCollection(ArrayList::new));
@@ -110,11 +152,20 @@ public class TourMapController {
         Collections.shuffle(stopOrder);
     }
 
+    /**
+     * Returns the stop order.
+     * @return The stop order.
+     */
     public List<Integer> getStopOrder()
     {
         return stopOrder;
     }
 
+    /**
+     * Processes the initialise stops.
+     * It updates related state as needed while performing the operation.
+     * @param count the numeric value for the count
+     */
     public void initialiseStops(int count)
     {
         if(count < 1 || count > allStops.size())
@@ -131,6 +182,11 @@ public class TourMapController {
         pulseCheckBox(0);
     }
 
+    /**
+     * Processes the mark stop completed.
+     * It updates related state as needed while performing the operation.
+     * @param index the numeric value for the index
+     */
     public void markStopCompleted(int index)
     {
         allStops.get(index).setSelected(true);
@@ -145,6 +201,10 @@ public class TourMapController {
         }
     }
 
+    /**
+     * Returns the completed count.
+     * @return The completed count.
+     */
     public int getCompletedCount()
     {
         //Don't need this really
@@ -156,6 +216,11 @@ public class TourMapController {
 
     //Animation stuff
 
+    /**
+     * Processes the pulse check box.
+     * It updates related state as needed while performing the operation.
+     * @param index the numeric value for the index
+     */
     public void pulseCheckBox(int index) {
         stopPulse(); //cancel any existing pulse. this makes sure that only one checkbox can pulse at a time.
 
@@ -169,6 +234,9 @@ public class TourMapController {
         pulseTimeline.play();
     }
 
+    /**
+     * Processes the stop pulse.
+     */
     public void stopPulse() {
         if (pulseTimeline != null) {
             pulseTimeline.stop();

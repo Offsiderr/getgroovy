@@ -45,44 +45,82 @@ import seng201.team67.services.gameplay.TourService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controls the main concert view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MainConcertController {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private TourService tourService;
+    /** Service used to manage concert behaviour. */
     private ConcertService concertService;
+    /** Service used to manage score behaviour. */
     private final ScoreService scoreService = new ScoreService();
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The view loader. */
     private final ViewLoader viewLoader = new ViewLoader();
 
+    /** FXML reference for the label name control. */
     @FXML private Label labelName;
+    /** FXML reference for the money text control. */
     @FXML private Label moneyText;
+    /** FXML reference for the expedition count control. */
     @FXML private Label expeditionCount;
+    /** FXML reference for the pay text control. */
     @FXML private Label payText;
+    /** FXML reference for the stamina text control. */
     @FXML private Label staminaText;
+    /** FXML reference for the effect text control. */
     @FXML private Label effectText;
 
+    /** The crowd meter. */
     @FXML private Slider crowdMeter;
+    /** FXML reference for the mic thumb image.  */
     @FXML private ImageView micThumb;
 
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
 
+    /** FXML reference for the event box control. */
     @FXML private AnchorPane eventBox;
 
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
 
+    /** Numeric value for the bg speed. */
     private double bgSpeed = 0.5;
+    /** The dev overlay. */
     private Parent devOverlay;
+    /** Whether dev overlay visible. */
     private boolean devOverlayVisible = false;
 
+    /**
+     * Creates a new main concert controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     */
     public MainConcertController(GameEnvironment gameEnvironment, TourService tourService)
     {
         this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void initialize() throws IOException {
 
         setTourBackground();
@@ -105,6 +143,9 @@ public class MainConcertController {
         });
     }
 
+    /**
+     * Updates the position of the microphone image that is replacement of the slider knob.
+     */
     private void updateMicPosition() {
         double min = crowdMeter.getMin();
         double max = crowdMeter.getMax();
@@ -454,18 +495,29 @@ public class MainConcertController {
         AnchorPane.setLeftAnchor(devOverlay, 0.0);
     }
 
+    /**
+     * Sets the crowd energy. Used in the dev/cheat menu
+     * @param crowd the numeric value for the crowd
+     */
     public void debugSetCrowd(int crowd)
     {
         concertService.setCrowdEnergyForDebug(crowd);
         refreshView();
     }
 
+    /**
+     * Processes the debug set answered questions.
+     * @param answeredQuestions the numeric value for the answered questions
+     */
     public void debugSetAnsweredQuestions(int answeredQuestions)
     {
         concertService.setAnsweredQuestionCountForDebug(answeredQuestions);
         refreshView();
     }
 
+    /**
+     * Processes the debug force good outcome.
+     */
     public void debugForceGoodOutcome()
     {
         concertService.setLastEventWonForDebug(true);
@@ -473,6 +525,10 @@ public class MainConcertController {
         refreshView();
     }
 
+    /**
+     * Processes the debug set win streak.
+     * @param winStreak the numeric value for the win streak
+     */
     public void debugSetWinStreak(int winStreak)
     {
         concertService.setWinStreakForDebug(winStreak);
@@ -480,12 +536,19 @@ public class MainConcertController {
         refreshView();
     }
 
+    /**
+     * Processes the debug apply item concert modifiers.
+     */
     public void debugApplyItemConcertModifiers()
     {
         concertService.applyItemConcertModifiersForDebug();
         refreshView();
     }
 
+    /**
+     * Processes the debug set retirement risk for all.
+     * @param retirementRisk the numeric value for the retirement risk
+     */
     public void debugSetRetirementRiskForAll(int retirementRisk)
     {
         for (Artist artist : gameEnvironment.getLabelService().getAllArtists())

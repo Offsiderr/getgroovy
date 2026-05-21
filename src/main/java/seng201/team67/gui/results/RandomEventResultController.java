@@ -20,28 +20,60 @@ import seng201.team67.services.gameplay.TourService;
 
 import java.io.IOException;
 
+/**
+ * Controls the random event result view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class RandomEventResultController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private final TourService tourService;
+    /** The affected artist. */
     private final Artist affectedArtist;
+    /** Whether stamina loss. */
     private final Boolean staminaLoss;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** Service used to manage random event behaviour. */
     private final RandomEventService randomEventService = new RandomEventService();
+    /** The random event. */
     private final RandomEvent randomEvent;
+    /** Text value for the custom title. */
     private final String customTitle;
+    /** Text value for the custom description. */
     private final String customDescription;
 
+    /** FXML reference for the label name control. */
     @FXML private Label labelName;
+    /** FXML reference for the label name1 control. */
     @FXML private Label labelName1;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
 
+    /**
+     * Creates a new random event result controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param randomEvent the random event
+     */
     public RandomEventResultController(GameEnvironment gameEnvironment, TourService tourService, RandomEvent randomEvent) {
         this(gameEnvironment, tourService, randomEvent, null, null, null, null);
     }
 
+    /**
+     * Creates a new random event result controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param randomEvent the random event
+     * @param affectedArtist the affected artist
+     */
     public RandomEventResultController(GameEnvironment gameEnvironment,
                                        TourService tourService,
                                        RandomEvent randomEvent,
@@ -49,6 +81,14 @@ public class RandomEventResultController {
         this(gameEnvironment, tourService, randomEvent, affectedArtist, null, null, null);
     }
 
+    /**
+     * Creates a new random event result controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param randomEvent the random event
+     * @param affectedArtist the affected artist
+     * @param staminaLoss whether stamina loss
+     */
     public RandomEventResultController(GameEnvironment gameEnvironment,
                                        TourService tourService,
                                        RandomEvent randomEvent,
@@ -57,6 +97,15 @@ public class RandomEventResultController {
         this(gameEnvironment, tourService, randomEvent, affectedArtist, staminaLoss, null, null);
     }
 
+    /**
+     * Creates a new random event result controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param customTitle the text value for the custom title
+     * @param customDescription the text value for the custom description
+     * @param affectedArtist the affected artist
+     * @param staminaLoss whether stamina loss
+     */
     public RandomEventResultController(GameEnvironment gameEnvironment,
                                        TourService tourService,
                                        String customTitle,

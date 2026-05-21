@@ -23,31 +23,59 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+/**
+ * Controls the results view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ResultsController {
+    /** The positive amount color. */
     private static final Paint POSITIVE_AMOUNT_COLOR = Paint.valueOf("#00ff4d");
+    /** The negative amount color. */
     private static final Paint NEGATIVE_AMOUNT_COLOR = Paint.valueOf("#ff4d4d");
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage concert behaviour. */
     private ConcertService concertService;
 
     //FXML stuff
+    /** FXML reference for the artist pane control. */
     @FXML
     private SplitPane artistPane;
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
 
+    /** FXML reference for the ticket sales control. */
     @FXML private Label ticketSales;
+    /** FXML reference for the pay text control. */
     @FXML private Label payText; //bonus money
+    /** FXML reference for the crowd hype control. */
     @FXML private Label crowdHype;
+    /** FXML reference for the artist pay control. */
     @FXML private Label artistPay;
+    /** FXML reference for the total money control. */
     @FXML private Label totalMoney;
+    /** FXML reference for the difficulty type control. */
     @FXML private Label difficultyType;
+    /** FXML reference for the concert type control. */
     @FXML private Label concertType;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** Service used to manage random event behaviour. */
     private final RandomEventService randomEventService = new RandomEventService();
+    /** The multiplier format. */
     private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
+    /**
+     * Creates a new results controller.
+     * @param gameEnvironment the active game environment
+     * @param concertService the concert service to use
+     */
     public ResultsController(GameEnvironment gameEnvironment, ConcertService concertService)
     {
         this.gameEnvironment = gameEnvironment;
@@ -155,6 +183,14 @@ public class ResultsController {
                 new MainGameController(gameEnvironment, concertService.getTourService()));
     }
 
+    /**
+     * At the end of a tour, we have to roll to see if an artist retires based on their tolerance
+     * and then roll for a random event
+     * and if either of these pass, you get sent to them, then to the tour results screen.
+     * @param event
+     * @param staminaLoss
+     * @throws IOException
+     */
     private void navigateToPostTourScreen(ActionEvent event, boolean staminaLoss) throws IOException {
         Artist retiredArtist = randomEventService.rollRetirementArtist(gameEnvironment);
         if (retiredArtist != null) {

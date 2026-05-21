@@ -6,36 +6,70 @@ import seng201.team67.models.questionmodels.Outcome;
 
 import java.util.List;
 
+/**
+ * Provides reusable skill effect behaviours behaviour definitions for the game systems.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class SkillEffectBehaviours {
 
 
+    /**
+     * Processes the flat stamina boost.
+     * @param amount the amount to apply
+     * @return The stat modifier.
+     */
     public static StatModifier flatStaminaBoost(int amount)
     {
         return (artist, value) -> scaleFlatEffect(amount, artist.getSkillLevel());
     }
 
+    /**
+     * Processes the flat star power boost.
+     * @param amount the amount to apply
+     * @return The stat modifier.
+     */
     public static StatModifier flatStarPowerBoost(int amount)
     {
         return (artist, value) -> scaleFlatEffect(amount, artist.getSkillLevel());
     }
 
+    /**
+     * Processes the stamina cost reduction.
+     * @param multiplier the multiplier used by the calculation
+     * @return The stat modifier.
+     */
     public static StatModifier staminaCostReduction(double multiplier)
     {
         return (artist, value) -> (int) Math.round(scaleMultiplierEffect(multiplier, artist.getSkillLevel()) * 100);
     }
 
+    /**
+     * Processes the retirement risk.
+     * @return The stat modifier.
+     */
     public static StatModifier retirementRisk()
     {
         return (artist, value) -> 1;
     }
 
 
+    /**
+     * Processes the flat credit bonus.
+     * @param amount the amount to apply
+     * @return The payout modifier.
+     */
     public static PayoutModifier flatCreditBonus(int amount)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
                 basePayout == 0 ? basePayout : basePayout + amount;
     }
 
+    /**
+     * Processes the payout multiplier.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier payoutMultiplier(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
@@ -43,6 +77,12 @@ public class SkillEffectBehaviours {
                         : basePayout;
     }
 
+    /**
+     * Processes the great payout multiplier.
+     * It updates related state as needed while performing the operation.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier greatPayoutMultiplier(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -> {
@@ -54,6 +94,11 @@ public class SkillEffectBehaviours {
         };
     }
 
+    /**
+     * Processes the terrible payout reduction.
+     * @param reduction the numeric value for the reduction
+     * @return The payout modifier.
+     */
     public static PayoutModifier terriblePayoutReduction(double reduction)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -> {
@@ -64,6 +109,11 @@ public class SkillEffectBehaviours {
         };
     }
 
+    /**
+     * Processes the ok payout multiplier.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier okPayoutMultiplier(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
@@ -72,6 +122,11 @@ public class SkillEffectBehaviours {
                         : basePayout;
     }
 
+    /**
+     * Processes the headliner bonus.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier headlinerBonus(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
@@ -80,6 +135,11 @@ public class SkillEffectBehaviours {
                         : basePayout;
     }
 
+    /**
+     * Processes the collab bonus.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier collabBonus(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->
@@ -88,6 +148,12 @@ public class SkillEffectBehaviours {
                         : basePayout;
     }
 
+    /**
+     * Processes the amp it up bonus.
+     * It updates related state as needed while performing the operation.
+     * @param multiplierStep the numeric value for the multiplier step
+     * @return The payout modifier.
+     */
     public static PayoutModifier ampItUpBonus(double multiplierStep)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -> {
@@ -101,6 +167,12 @@ public class SkillEffectBehaviours {
         };
     }
 
+    /**
+     * Processes the encore machine bonus.
+     * It updates related state as needed while performing the operation.
+     * @param multiplier the multiplier used by the calculation
+     * @return The payout modifier.
+     */
     public static PayoutModifier encoreMachineBonus(double multiplier)
     {
         return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) ->

@@ -19,31 +19,59 @@ import java.util.ArrayList;
 
 import static seng201.team67.models.enums.Rarity.*;
 
+/**
+ * Controls the the studio view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class TheStudioController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** The selected artist. */
     private Artist selectedArtist;
+    /** Service used to manage studio behaviour. */
     private final StudioService studioService;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
+    /** The label name. */
     @FXML public javafx.scene.control.Label labelName;
+    /** FXML reference for the money text control. */
     @FXML public Label moneyText;
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
+    /** FXML reference for the buy artist button control. */
     @FXML private Button buyArtistButton;
+    /** FXML reference for the insufficient funds warning control. */
     @FXML private Label insufficientFundsWarning;
+    /** FXML reference for the standard record text control. */
     @FXML private Label standardRecordText;
+    /** FXML reference for the golden record text control. */
     @FXML private Label goldenRecordText;
+    /** FXML reference for the platinum record text control. */
     @FXML private Label platinumRecordText;
 
 
+    /**
+     * Creates a new the studio controller.
+     * @param gameEnvironment the active game environment
+     */
     public TheStudioController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
         this.studioService = new StudioService(gameEnvironment);
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void initialize() throws IOException
     {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
@@ -103,6 +131,9 @@ public class TheStudioController {
         hideInsufficientFundsWarning();
     }
 
+    /**
+     * Handles hiring an artist from the purchasable artists
+     */
     @FXML public void handleHireArtist()
     {
         if (selectedArtist == null) {
@@ -120,11 +151,21 @@ public class TheStudioController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Returns the player to the main menu
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
         gameEnvironment.getMusicService().stopAndReset();
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
+    /**
+     * Processes buying a standard gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyStandard(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))
@@ -138,6 +179,11 @@ public class TheStudioController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Processes buying a golden gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyGolden(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))
@@ -151,6 +197,11 @@ public class TheStudioController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Processes buying a platinum gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyPlatinum(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))
@@ -169,6 +220,9 @@ public class TheStudioController {
         return studioService.getArtistPurchasePool();
     }
 
+    /**
+     * Rerolls the purchasable artists
+     */
     @FXML public void rerollArtists()
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {

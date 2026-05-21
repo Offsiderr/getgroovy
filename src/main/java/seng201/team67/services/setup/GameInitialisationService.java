@@ -14,10 +14,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Provides game initialisation operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class GameInitialisationService {
 
+    /** The random. */
     private static final Random random = new Random();
 
+    /**
+     * Initialises the game by loading in all the skills, artists, items and questions.
+     * It updates related state as needed while performing the operation.
+     * @param gameEnvironment the active game environment
+     */
     public void initialise(GameEnvironment gameEnvironment)
     {
         List<Artist> allArtists = new ArtistLoaderService().loadAll();
@@ -43,7 +54,11 @@ public class GameInitialisationService {
 
     }
 
-
+    /**
+     * Picks a random skill. Used for the artist's random assignment of skills at startup.
+     * @param array
+     * @return Random Skill
+     */
     private Skill pickRandom(List<Skill> array) {
         if (array == null || array.size() == 0) {
             throw new IllegalArgumentException("Array must not be null or empty");

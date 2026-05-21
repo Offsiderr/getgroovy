@@ -12,13 +12,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Provides game save operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class GameSaveService {
 
+    /** The save directory. */
     private static final Path SAVE_DIRECTORY =
             Paths.get(System.getProperty("user.home"), "get_groovy");
+    /** The mapper. */
     private final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    /**
+     * Saves the game.
+     * It updates related state as needed while performing the operation.
+     * @param gameEnvironment the active game environment
+     * @param gameSave the numeric value for the game save
+     */
     public void saveGame(GameEnvironment gameEnvironment, int gameSave)
     {
         try
@@ -36,6 +49,12 @@ public class GameSaveService {
         }
     }
 
+    /**
+     * Loads the game.
+     * It updates related state as needed while performing the operation.
+     * @param gameSave the numeric value for the game save
+     * @return The resolved game environment, or `null` if no value is available.
+     */
     public GameEnvironment loadGame(int gameSave)
     {
         try
@@ -50,6 +69,11 @@ public class GameSaveService {
         }
     }
 
+    /**
+     * Returns whether save.
+     * @param gameSave the numeric value for the game save
+     * @return True if save, otherwise false.
+     */
     public boolean hasSave(int gameSave)
     {
         return getSaveFile(gameSave).exists();

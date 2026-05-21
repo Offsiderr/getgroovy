@@ -14,7 +14,6 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
-import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.setup.ArtistSelectionService;
 import seng201.team67.services.setup.GameSetupService;
 
@@ -22,25 +21,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controls the artist selection view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ArtistSelectionController {
 
+    /** Shared game state for the current session. */
     public final GameEnvironment gameEnvironment;
+    /** Service used to manage artist selection behaviour. */
     private final ArtistSelectionService artistSelectionService;
+    /** Service used to manage game setup behaviour. */
     private final GameSetupService gameSetupService;
     private final SoundEffectsService soundEffectsService;
 
+    /** FXML reference for the artist one control. */
     @FXML private VBox artistOne;
+    /** FXML reference for the artist two control. */
     @FXML private VBox artistTwo;
+    /** FXML reference for the artist three control. */
     @FXML private VBox artistThree;
+    /** FXML reference for the artist four control. */
     @FXML private VBox artistFour;
+    /** FXML reference for the artist five control. */
     @FXML private VBox artistFive;
+    /** The gacha container. */
     @FXML private StackPane gachaContainer;
+    /** FXML reference for the select artists control. */
     @FXML private Button selectArtists;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The view loader. */
     private final ViewLoader viewLoader = new ViewLoader();
 
+    /** Collection that stores the artist cards. */
     protected final List<VBox> artistCards = new ArrayList<>();
 
+    /**
+     * Creates a new artist selection controller.
+     * @param gameEnvironment the active game environment
+     */
     public ArtistSelectionController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
         this.artistSelectionService = new ArtistSelectionService(gameEnvironment);
@@ -48,6 +69,11 @@ public class ArtistSelectionController {
         this.soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void initialize() throws IOException {
         selectArtists.setDisable(true);
@@ -65,6 +91,11 @@ public class ArtistSelectionController {
         populateArtistCards(slots, picked);
     }
 
+    /**
+     * Populates the artist cards.
+     * @param slots the list of slots
+     * @param picked the list of picked
+     */
     protected void populateArtistCards(List<VBox> slots, List<Artist> picked) {
         artistCards.clear();
 
@@ -88,7 +119,11 @@ public class ArtistSelectionController {
         animateCardsIn();
     }
 
-    private void animateCardsIn() {
+    /**
+     * We animate the gacha cards in on the artists selection screen.
+     */
+    private void animateCardsIn()
+    {
         SequentialTransition sequence = new SequentialTransition();
 
         for (VBox card : artistCards) {
@@ -105,11 +140,13 @@ public class ArtistSelectionController {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(200), card);
             fadeTransition.setToValue(1.0);
 
-            PauseTransition pause = new PauseTransition(Duration.millis(150));
-            pause.setOnFinished(e -> soundEffectsService.playCard());
+            ParallelTransition popIn = new ParallelTransition(
+                    new ParallelTransition(growTransition, fadeTransition),
+                    new SequentialTransition(growTransition, settleTransition)
+            );
 
             sequence.getChildren().addAll(
-                    pause,
+                    new PauseTransition(Duration.millis(150)),
                     new ParallelTransition(
                             fadeTransition,
                             new SequentialTransition(growTransition, settleTransition)
@@ -120,11 +157,18 @@ public class ArtistSelectionController {
         sequence.play();
     }
 
+    /**
+     * Processes the on selection changed.
+     */
     public void onSelectionChanged() {
         long selectedCount = updateArtistSelectionAvailability(getMaxArtistSelections());
         selectArtists.setDisable(selectedCount != gameEnvironment.getConfig().maxStartingArtists);
     }
 
+    /**
+     * Returns the selected artists.
+     * @return The selected artists.
+     */
     public List<Artist> getSelectedArtists() {
         return artistCards.stream()
                 .filter(this::isSelected)
@@ -132,6 +176,12 @@ public class ArtistSelectionController {
                 .toList();
     }
 
+    /**
+     * Updates the artist selection availability. If the artists cards selected are over the select limit,
+     * the reset get greyed out.
+     * @param selectionLimit the numeric value for the selection limit
+     * @return The artist selection availability.
+     */
     protected long updateArtistSelectionAvailability(int selectionLimit) {
         long selectedCount = artistCards.stream()
                 .filter(this::isSelected)
@@ -153,6 +203,10 @@ public class ArtistSelectionController {
         return selectedCount;
     }
 
+    /**
+     * Returns the max artist selections.
+     * @return The max artist selections.
+     */
     protected int getMaxArtistSelections() {
         return gameEnvironment.getConfig().maxStartingArtists;
     }
@@ -179,17 +233,25 @@ public class ArtistSelectionController {
         }
     }
 
+    /**
+     * Processes the artists selected.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
-    public void artistsSelected(ActionEvent event) throws IOException {
+    public void artistsSelected(ActionEvent event) throws IOException
+    {
         gameSetupService.createLabel(gameEnvironment, getSelectedArtists());
         gameEnvironment.getLabelService().getAllArtists().forEach(artist -> {
             artist.owned = true;
         });
+
         moveScene(event);
     }
 
     @FXML
-    private void moveScene(ActionEvent event) throws IOException {
+    private void moveScene(ActionEvent event) throws IOException
+    {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }

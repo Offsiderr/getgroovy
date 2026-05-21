@@ -14,10 +14,17 @@ import seng201.team67.models.artists.Artist;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Controls the artist card view and coordinates its user interactions. Depreciated
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ArtistCardController {
 
-    //The artist cards are instanciatable representations of artists. These can be placed anywhere, and just
-    //created by passing in the artist object.
+    //NOT IN USE
+
+    //The artist cards are instantiatable representations of artists. These can be placed anywhere, and just
+    //created by passing in the artist object. As of 20/05/26 we do not use these in the game anymore.
 
     private GameEnvironment gameEnvironment;
     private RosterController rosterController;
@@ -41,7 +48,6 @@ public class ArtistCardController {
         this.rosterController = rosterController;
     }
 
-    //In the artist seleciton controller, we need to notify the parent controller when an artist is selected.
     public void setSelectionController(ArtistSelectionController parentController)
     {
         this.parentController = parentController;
@@ -49,12 +55,10 @@ public class ArtistCardController {
         CardRoot.setStyle("-fx-cursor: hand;");
     }
 
-
     public boolean isSelected()
     {
         return selected;
     }
-
 
 
     public void setArtist(Artist artist)

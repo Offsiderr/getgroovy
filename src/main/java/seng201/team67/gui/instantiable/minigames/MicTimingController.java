@@ -13,28 +13,53 @@ import seng201.team67.models.minigames.MiniGameResult;
 
 import java.util.function.Consumer;
 
+/**
+ * Controls the mic timing view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MicTimingController {
 
+    /** The timing slider. */
     @FXML private Slider timingSlider;
+    /** FXML reference for the result label control. */
     @FXML private Label resultLabel;
+    /** FXML reference for the hit button control. */
     @FXML private Button hitButton;
 
+    /** FXML reference for the miss left control. */
     @FXML private Label missLeft;
+    /** FXML reference for the good left control. */
     @FXML private Label goodLeft;
+    /** FXML reference for the perfect control. */
     @FXML private Label perfect;
+    /** FXML reference for the good right control. */
     @FXML private Label goodRight;
+    /** FXML reference for the miss right control. */
     @FXML private Label missRight;
 
+    /** FXML reference for the mic thumb control. */
     @FXML private ImageView micThumb;
 
+    /** Numeric value for the direction. */
     private double direction = 1;
+    /** The on complete. */
     private Consumer<MiniGameResult> onComplete;
+    /** The timer. */
     private AnimationTimer timer;
 
+    /**
+     * Creates a new mic timing controller.
+     * @param onComplete the on complete
+     */
     public MicTimingController(Consumer<MiniGameResult> onComplete) {
         this.onComplete = onComplete;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize() {
         timingSlider.setMin(0);
@@ -47,6 +72,11 @@ public class MicTimingController {
         positionMarkers();
 
         timer = new AnimationTimer() {
+            /**
+             * Processes the handle.
+             * It updates related state as needed while performing the operation.
+             * @param now the numeric value for the now
+             */
             @Override
             public void handle(long now) {
                 double value = timingSlider.getValue();

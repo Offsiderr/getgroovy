@@ -5,8 +5,20 @@ import seng201.team67.models.ConcertResults;
 import seng201.team67.models.GameConfig;
 import seng201.team67.models.enums.TourType;
 
+/**
+ * Provides score operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ScoreService {
 
+    /**
+     * Calculates the concert score.
+     * @param gameEnvironment the active game environment
+     * @param concertService the concert service to use
+     * @param results the results
+     * @return The concert score.
+     */
     public int calculateConcertScore(GameEnvironment gameEnvironment, ConcertService concertService, ConcertResults results)
     {
         GameConfig config = gameEnvironment.getConfig();
@@ -16,6 +28,12 @@ public class ScoreService {
         return config.concertCompletionScore + questionScore + crowdScore + earningsScore;
     }
 
+    /**
+     * Calculates the tour score.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @return The tour score.
+     */
     public int calculateTourScore(GameEnvironment gameEnvironment, TourService tourService)
     {
         int score = getTourCompletionBonus(gameEnvironment.getConfig(), tourService.getTourType());
@@ -26,6 +44,13 @@ public class ScoreService {
         return score;
     }
 
+    /**
+     * Applies the concert score.
+     * @param gameEnvironment the active game environment
+     * @param concertService the concert service to use
+     * @param results the results
+     * @return The concert score.
+     */
     public int applyConcertScore(GameEnvironment gameEnvironment, ConcertService concertService, ConcertResults results)
     {
         int score = calculateConcertScore(gameEnvironment, concertService, results);
@@ -33,6 +58,12 @@ public class ScoreService {
         return score;
     }
 
+    /**
+     * Applies the tour score.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @return The tour score.
+     */
     public int applyTourScore(GameEnvironment gameEnvironment, TourService tourService)
     {
         int score = calculateTourScore(gameEnvironment, tourService);

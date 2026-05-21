@@ -10,34 +10,75 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Provides random event operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class RandomEventService {
 
+    /** The random. */
     private final Random random;
 
+    /**
+     * Creates a new random event service.
+     */
     public RandomEventService() {
         this(new Random());
     }
 
+    /**
+     * Creates a new random event service.
+     * @param random the random
+     */
     public RandomEventService(Random random) {
         this.random = random;
     }
 
+    /**
+     * Processes the trigger random event.
+     * @param gameEnvironment the active game environment
+     * @return True if trigger random event, otherwise false.
+     */
     public boolean shouldTriggerRandomEvent(GameEnvironment gameEnvironment) {
         return shouldTriggerRandomEvent(gameEnvironment.getConfig(), Math.random());
     }
 
+    /**
+     * Processes the trigger random event.
+     * @param gameConfig the game config
+     * @param roll the numeric value for the roll
+     * @return True if trigger random event, otherwise false.
+     */
     public boolean shouldTriggerRandomEvent(GameConfig gameConfig, double roll) {
         return roll < gameConfig.randomEventTriggerChance;
     }
 
+    /**
+     * Returns the random affected artist.
+     * @param gameEnvironment the active game environment
+     * @return The random affected artist.
+     */
     public Artist getRandomAffectedArtist(GameEnvironment gameEnvironment) {
         return getRandomAffectedArtist(gameEnvironment.getLabelService().getAllArtists());
     }
 
+    /**
+     * Returns the random affected artist.
+     * @param gameEnvironment the active game environment
+     * @param randomEvent the random event
+     * @return The random affected artist.
+     */
     public Artist getRandomAffectedArtist(GameEnvironment gameEnvironment, RandomEvent randomEvent) {
         return getRandomAffectedArtist(randomEvent, gameEnvironment.getLabelService().getAllArtists());
     }
 
+    /**
+     * Rolls the retirement artist.
+     * It uses the current game state and supplied context when producing the result.
+     * @param gameEnvironment the active game environment
+     * @return The resulting artist, or `null` if no value is available.
+     */
     public Artist rollRetirementArtist(GameEnvironment gameEnvironment) {
         List<Artist> artists = new ArrayList<>(gameEnvironment.getLabelService().getAllArtists());
 
@@ -54,6 +95,11 @@ public class RandomEventService {
         return null;
     }
 
+    /**
+     * Returns the random affected artist.
+     * @param artists the list of artists
+     * @return The resolved random affected artist, or `null` if no value is available.
+     */
     public Artist getRandomAffectedArtist(List<Artist> artists) {
         if (artists == null || artists.isEmpty()) {
             return null;
@@ -62,6 +108,12 @@ public class RandomEventService {
         return artists.get(random.nextInt(artists.size()));
     }
 
+    /**
+     * Returns the random affected artist.
+     * @param randomEvent the random event
+     * @param artists the list of artists
+     * @return The resolved random affected artist, or `null` if no value is available.
+     */
     public Artist getRandomAffectedArtist(RandomEvent randomEvent, List<Artist> artists) {
         List<Artist> eligibleArtists = getEligibleArtists(randomEvent, artists);
         if (eligibleArtists.isEmpty()) {
@@ -71,6 +123,14 @@ public class RandomEventService {
         return eligibleArtists.get(random.nextInt(eligibleArtists.size()));
     }
 
+    /**
+     * Applies the random event.
+     * It updates related state as needed while performing the operation.
+     * @param gameEnvironment the active game environment
+     * @param randomEvent the random event
+     * @param affectedArtist the affected artist
+     * @return True if random event, otherwise false.
+     */
     public boolean applyRandomEvent(GameEnvironment gameEnvironment, RandomEvent randomEvent, Artist affectedArtist) {
         if (randomEvent == null || affectedArtist == null) {
             return false;
@@ -131,6 +191,11 @@ public class RandomEventService {
         return random.nextInt(100) < retirementChance;
     }
 
+    /**
+     * Returns the weighted random event.
+     * It derives the value from the current state before returning it.
+     * @return The weighted random event.
+     */
     public RandomEvent getWeightedRandomEvent() {
         RandomEvent[] events = RandomEvent.values();
         int totalWeight = 0;
@@ -151,10 +216,20 @@ public class RandomEventService {
         return events[events.length - 1];
     }
 
+    /**
+     * Returns a weighted random event.
+     * @param gameEnvironment the active game environment
+     * @return The weighted random event.
+     */
     public RandomEvent getWeightedRandomEvent(GameEnvironment gameEnvironment) {
         return getWeightedRandomEvent(gameEnvironment.getLabelService().getAllArtists());
     }
 
+    /**
+     * Returns a weighted random event.
+     * @param artists the list of artists
+     * @return The resolved weighted random event, or `null` if no value is available.
+     */
     public RandomEvent getWeightedRandomEvent(List<Artist> artists) {
         RandomEvent[] events = RandomEvent.values();
         List<RandomEvent> eligibleEvents = new ArrayList<>();

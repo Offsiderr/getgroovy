@@ -8,11 +8,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+/**
+ * Represents the view loader used by the game. This class is used for loading an fxml file into an existing fxml screen.
+ * the fxml screen can be loaded into a pre-existing pane that is passed in as a parameter
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ViewLoader {
 
-    //Refactored for classes to use the view loader to load fxml into existing view containers
-    //gacha, artist selection etc
 
+    /**
+     * Processes the load.
+     * @param fxmlPath the text value for the fxml path
+     * @param controller the controller that manages the loaded view
+     * @return The parent.
+     */
     public Parent load(String fxmlPath, Object controller) {
         try {
             FXMLLoader loader = new FXMLLoader(getResource(fxmlPath));
@@ -23,6 +33,13 @@ public class ViewLoader {
         }
     }
 
+    /**
+     * Loads the fxml view into a entered Pane
+     * @param container the container
+     * @param fxmlPath the text value for the fxml path
+     * @param controller the controller that manages the loaded view
+     * @return The parent.
+     */
     public Parent loadInto(Pane container, String fxmlPath, Object controller) {
         Parent view = load(fxmlPath, controller);
         container.getChildren().setAll(view);

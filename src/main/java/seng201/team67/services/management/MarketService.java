@@ -9,16 +9,31 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Provides market operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MarketService {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** The random. */
     private final Random random = new Random();
 
+    /**
+     * Creates a new market service.
+     * @param gameEnvironment the active game environment
+     */
     public MarketService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Returns the item purchase pool.
+     * @return The item purchase pool.
+     */
     public ArrayList<Item> getItemPurchasePool()
     {
         if (gameEnvironment.isItemPoolGenerated())

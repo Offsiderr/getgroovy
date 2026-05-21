@@ -9,16 +9,34 @@ import seng201.team67.models.enums.ItemEffects;
 
 import java.util.List;
 
+/**
+ * The consumable item type. This means it can be used a limited amount of times by the artist but whenever they'd like during a concert
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class CosumableItem extends Item implements Usable {
-    //Consumable items are not equiped, but used once as a temporary boost.
 
-    private int concert_uses; //How many concerts this item will last for.
+    /** Numeric value for the concert uses. How many times it can be used. */
+    private int concert_uses;
+    /** Numeric value for the initial uses. */
     private int initialUses;
 
+    /**
+     * Creates a new cosumable item.
+     */
     public CosumableItem() {
         super();
     }
 
+    /**
+     * Creates a new cosumable item.
+     * @param name the name value to use
+     * @param description the description text to use
+     * @param uses the numeric value for the uses
+     * @param cost the numeric value for the cost
+     * @param rarity the rarity
+     * @param itemEffects the list of item effects
+     */
     @JsonCreator
     public CosumableItem(@JsonProperty("name") String name,
                          @JsonProperty("description") String description,
@@ -31,25 +49,44 @@ public class CosumableItem extends Item implements Usable {
         this.initialUses = uses;
     }
 
+    /**
+     * Returns the uses.
+     * @return The uses.
+     */
     @Override
     public int getUses() {
         return concert_uses;
     }
 
+    /**
+     * Returns the use amount.
+     * @return The use amount.
+     */
     @Override
     public int getUseAmount() {
         return 1;
     }
 
+    /**
+     * Returns the initial uses.
+     * @return The initial uses.
+     */
     public int getInitialUses() {
         return initialUses;
     }
 
+    /**
+     * Processes the consume use.
+     */
     public void consumeUse()
     {
         concert_uses = Math.max(0, concert_uses - getUseAmount());
     }
 
+    /**
+     * Returns the type.
+     * @return The type.
+     */
     public String getType()
     {
         return "Consumable";

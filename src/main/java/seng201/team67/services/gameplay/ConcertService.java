@@ -20,26 +20,54 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Provides concert operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ConcertService {
+    /** The concert. */
     private Concert concert;
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private TourService tourService;
+    /** Collection that stores the concert questions. */
     private List<Question> concertQuestions;
+    /** Numeric value for the answered question count. */
     private int answeredQuestionCount = 0;
+    /** Numeric value for the income. */
     private Double income = 0.0;
+    /** Numeric value for the income multiplier. */
     private double incomeMultiplier = 1.0;
+    /** Numeric value for the stamina drain. */
     private double staminaDrain;
+    /** Numeric value for the win streak. */
     private int winStreak = 0;
+    /** Whether last event won. */
     private boolean lastEventWon = false;
+    /** Whether force best outcome next event. */
     private boolean forceBestOutcomeNextEvent = false;
+    /** Whether ended. */
     private boolean isEnded = false;
+    /** Whether minigame check resolved. */
     private boolean minigameCheckResolved = false;
+    /** Whether concert modifier triggered. */
     private boolean concertModifierTriggered = false;
+    /** Collection that stores the consumed conditional effects. */
     private final Set<String> consumedConditionalEffects = new HashSet<>();
+    /** Service used to manage question behaviour. */
     private final QuestionService questionService = new QuestionService();
+    /** Service used to manage payout behaviour. */
     private final PayoutService payoutService = new PayoutService();
+    /** Service used to manage stamina behaviour. */
     private final StaminaService staminaService = new StaminaService();
 
+    /**
+     * Creates a new concert service.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     */
     public ConcertService(GameEnvironment gameEnvironment, TourService tourService)
     {
         this.gameEnvironment = gameEnvironment;
@@ -92,6 +120,10 @@ public class ConcertService {
         applySequentialLineupDrain(endConcertDrain);
     }
 
+    /**
+     * Returns the next question.
+     * @return The resolved next question, or `null` if no value is available.
+     */
     public Question getNextQuestion()
     {
         if(answeredQuestionCount == concertQuestions.size())
@@ -105,6 +137,12 @@ public class ConcertService {
         return ques;
     }
 
+    /**
+     * Resolves the selected answer for the current concert event.
+     * It applies the chosen outcome and updates the concert state accordingly.
+     * @param answer the selected answer to resolve
+     * @return The resulting outcome.
+     */
     public Outcome handleAnswer(Answer answer)
     {
         Artist answeringArtist = getCurrentAnsweringArtist();
@@ -183,6 +221,11 @@ public class ConcertService {
         applyConditionalItemEffects();
     }
 
+    /**
+     * Applies the result of a completed minigame to the concert state.
+     * It updates both crowd energy and label money based on the minigame outcome.
+     * @param result the result
+     */
     public void applyMiniGameResult(MiniGameResult result)
     {
         concert.addEnergy(result.getCrowdMeterResult());
@@ -197,6 +240,10 @@ public class ConcertService {
         }
     }
 
+    /**
+     * Returns the concert minigame.
+     * @return The resolved concert minigame, or `null` if no value is available.
+     */
     public Minigame getConcertMinigame()
     {
         if (minigameCheckResolved)
@@ -214,56 +261,100 @@ public class ConcertService {
         return result;
     }
 
+    /**
+     * Returns whether ended.
+     * @return True if ended, otherwise false.
+     */
     public boolean isEnded()
     {
         return isEnded;
     }
 
+    /**
+     * Returns the crowd energy.
+     * @return The crowd energy.
+     */
     public int getCrowdEnergy()
     {
         return concert.getEnergy();
     }
 
+    /**
+     * Returns the income.
+     * @return The income.
+     */
     public Double getIncome()
     {
         return income;
     }
 
+    /**
+     * Returns the tour service.
+     * @return The tour service.
+     */
     public TourService getTourService()
     {
         return tourService;
     }
 
+    /**
+     * Returns the answered question count.
+     * @return The answered question count.
+     */
     public int getAnsweredQuestionCount()
     {
         return answeredQuestionCount;
     }
 
+    /**
+     * Sets the crowd energy for debug.
+     * @param crowd the numeric value for the crowd
+     */
     public void setCrowdEnergyForDebug(int crowd)
     {
         concert.setEnergy(crowd);
     }
 
+    /**
+     * Sets the answered question count for debug.
+     * @param answeredQuestionCount the numeric value for the answered question count
+     */
     public void setAnsweredQuestionCountForDebug(int answeredQuestionCount)
     {
         this.answeredQuestionCount = Math.max(0, answeredQuestionCount);
     }
 
+    /**
+     * Sets the win streak for debug.
+     * @param winStreak the numeric value for the win streak
+     */
     public void setWinStreakForDebug(int winStreak)
     {
         this.winStreak = Math.max(0, winStreak);
     }
 
+    /**
+     * Sets the last event won for debug.
+     * @param lastEventWon whether last event won
+     */
     public void setLastEventWonForDebug(boolean lastEventWon)
     {
         this.lastEventWon = lastEventWon;
     }
 
+    /**
+     * Applies the item concert modifiers for debug.
+     */
     public void applyItemConcertModifiersForDebug()
     {
         applyItemConcertModifiers();
     }
 
+    /**
+     * Creates the concert results.
+     * It updates related state as needed while performing the operation.
+     * @return The resulting concert results.
+     */
     public ConcertResults createConcertResults()
     {
         double ticketSales = calculateTicketRevenue();
@@ -275,6 +366,11 @@ public class ConcertService {
         return new ConcertResults(ticketSales, bonusMoney, drainedStamina, crowdHype, artistsPay, total);
     }
 
+    /**
+     * Calculates the crowd gain.
+     * @param baseGain the numeric value for the base gain
+     * @return The crowd gain.
+     */
     public double calculateCrowdGain(double baseGain)
     {
         double maxSp = gameEnvironment.getLabelService().getMaxSP();
@@ -285,6 +381,11 @@ public class ConcertService {
         return baseGain * (0.5 + gameEnvironment.getLabelService().getAverageSP() / maxSp);
     }
 
+    /**
+     * Calculates the ticket revenue.
+     * It uses the current game state and supplied context when producing the result.
+     * @return The ticket revenue.
+     */
     public double calculateTicketRevenue()
     {
         double maxSp = gameEnvironment.getLabelService().getMaxSP();
@@ -296,6 +397,10 @@ public class ConcertService {
                 * incomeMultiplier;
     }
 
+    /**
+     * Calculates the stamina drain.
+     * @return The stamina drain.
+     */
     public double calculateStaminaDrain()
     {
         int baseDrain = tourService.getTourType().getBaseStaminaDrain();
@@ -303,6 +408,10 @@ public class ConcertService {
         return baseDrain + crowdPenalty;
     }
 
+    /**
+     * Processes the total stamina drain.
+     * @return The total stamina drain.
+     */
     public double totalStaminaDrain()
     {
         return staminaDrain;
@@ -313,6 +422,11 @@ public class ConcertService {
         return (int) Math.round(staminaChange);
     }
 
+    /**
+     * Resolves the stamina change.
+     * @param outcome the outcome to apply
+     * @return The stamina change.
+     */
     public double resolveStaminaChange(Outcome outcome)
     {
         if (outcome.hasExplicitStaminaChange())
@@ -516,58 +630,100 @@ public class ConcertService {
         return artist.getName() + ":" + item.getName() + ":" + itemEffects.name();
     }
 
+    /**
+     * Returns the lineup.
+     * @return The lineup.
+     */
     public List<Artist> getLineup()
     {
         return gameEnvironment.getLabelService().getLineup();
     }
 
+    /**
+     * Returns the win streak.
+     * @return The win streak.
+     */
     public int getWinStreak()
     {
         return winStreak;
     }
 
+    /**
+     * Processes the was last event won.
+     * @return True if was last event won, otherwise false.
+     */
     public boolean wasLastEventWon()
     {
         return lastEventWon;
     }
 
+    /**
+     * Returns the total concert events.
+     * @return The total concert events.
+     */
     public int getTotalConcertEvents()
     {
         return gameEnvironment.getConfig().concertQuestionsCount;
     }
 
+    /**
+     * Returns whether final concert event.
+     * @return True if final concert event, otherwise false.
+     */
     public boolean isFinalConcertEvent()
     {
         return getTotalConcertEvents() > 0 && answeredQuestionCount >= getTotalConcertEvents();
     }
 
+    /**
+     * Sets the crowd energy.
+     * @param crowd the numeric value for the crowd
+     */
     public void setCrowdEnergy(int crowd)
     {
         concert.setEnergy(crowd);
     }
 
+    /**
+     * Adds the crowd energy.
+     * @param amount the amount to apply
+     */
     public void addCrowdEnergy(double amount)
     {
         concert.addEnergy((int) Math.round(amount));
     }
 
+    /**
+     * Processes the multiply income multiplier.
+     * @param multiplier the multiplier used by the calculation
+     */
     public void multiplyIncomeMultiplier(double multiplier)
     {
         income *= multiplier;
         incomeMultiplier *= multiplier;
     }
 
+    /**
+     * Processes the request best outcome next event.
+     */
     public void requestBestOutcomeNextEvent()
     {
         forceBestOutcomeNextEvent = true;
         concertModifierTriggered = true;
     }
 
+    /**
+     * Processes the mark concert modifier triggered.
+     */
     public void markConcertModifierTriggered()
     {
         concertModifierTriggered = true;
     }
 
+    /**
+     * Processes the consume concert modifier triggered.
+     * @return True if consume concert modifier triggered, otherwise false.
+     */
     public boolean consumeConcertModifierTriggered()
     {
         boolean currentValue = concertModifierTriggered;
@@ -575,11 +731,19 @@ public class ConcertService {
         return currentValue;
     }
 
+    /**
+     * Returns whether force best outcome next event requested.
+     * @return True if force best outcome next event requested, otherwise false.
+     */
     public boolean isForceBestOutcomeNextEventRequested()
     {
         return forceBestOutcomeNextEvent;
     }
 
+    /**
+     * Returns the current income multiplier.
+     * @return The current income multiplier.
+     */
     public double getCurrentIncomeMultiplier()
     {
         return incomeMultiplier;

@@ -11,18 +11,31 @@ import seng201.team67.models.enums.TourType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides label operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class LabelService {
 
-    //This class needs a considerable amount of work along with the actual Label class to bring it inline with our
-    //standards
-
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
 
+    /**
+     * Creates a new label service.
+     * @param gameEnvironment the active game environment
+     */
     public LabelService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Hires an artist, with a cost override
+     * @param artist the artist
+     * @param cost the numeric value for the cost
+     * @return True if hire artist, otherwise false.
+     */
     public boolean hireArtist(Artist artist, int cost)
     {
         Label label = gameEnvironment.getLabel();
@@ -46,6 +59,12 @@ public class LabelService {
         return true;
     }
 
+    /**
+     * Hires an artist, based on the cost of the artist
+     * It updates related state as needed while performing the operation.
+     * @param artist the artist
+     * @return True if hire artist, otherwise false.
+     */
     public boolean hireArtist(Artist artist)
     {
         Label label = gameEnvironment.getLabel();
@@ -68,6 +87,11 @@ public class LabelService {
         return true;
     }
 
+    /**
+     * Buys an item, based on the cost. Just takes money away and doesn't add anything to the artist or label.
+     * @param cost the numeric value for the cost
+     * @return True if buy item, otherwise false.
+     */
     public boolean buyItem(int cost)
     {
         Label label = gameEnvironment.getLabel();
@@ -83,6 +107,13 @@ public class LabelService {
     }
 
 
+    /**
+     * Buys an item, using the cost override
+     * It updates related state as needed while performing the operation.
+     * @param item the item involved in the operation
+     * @param cost the numeric value for the cost
+     * @return True if buy item, otherwise false.
+     */
     public boolean buyItem(Item item, int cost)
     {
         Label label = gameEnvironment.getLabel();
@@ -102,6 +133,12 @@ public class LabelService {
         return true;
     }
 
+    /**
+     * Buys an item, based on the cost of the item
+     * It updates related state as needed while performing the operation.
+     * @param item the item involved in the operation
+     * @return True if buy item, otherwise false.
+     */
     public boolean buyItem(Item item)
     {
         Label label = gameEnvironment.getLabel();
@@ -120,41 +157,74 @@ public class LabelService {
         return true;
     }
 
+    /**
+     * Sets the label's line up.
+     * @param artist_lineup the list of artist lineup
+     */
     public void setLineUp(List<Artist> artist_lineup)
     {
         gameEnvironment.getLabel().setLineUp(artist_lineup);
     }
 
+    /**
+     * Returns the label name.
+     * @return The label name.
+     */
     public String getLabelName()
     {
         return gameEnvironment.getLabel().getName();
     }
 
+    /**
+     * Returns the lineup.
+     * @return The lineup.
+     */
     public List<Artist> getLineup()
     {
         return gameEnvironment.getLabel().getLineUp();
     }
 
+    /**
+     * Returns the lineup limit.
+     * @return The lineup limit.
+     */
     public int getLineupLimit()
     {
         return gameEnvironment.getLabel().getLineUpLimit();
     }
 
+    /**
+     * Returns the all artists.
+     * @return The all artists.
+     */
     public List<Artist> getAllArtists()
     {
         return gameEnvironment.getLabel().getAllArtists();
     }
 
+    /**
+     * Returns the all items.
+     * @return The all items.
+     */
     public List<Item> getAllItems()
     {
         return gameEnvironment.getLabel().getItems();
     }
 
+    /**
+     * Returns the money.
+     * @return The money.
+     */
     public Double getMoney()
     {
         return gameEnvironment.getLabel().getMoney();
     }
 
+    /**
+     * Returns the item sell price.
+     * @param item the item involved in the operation
+     * @return The item sell price.
+     */
     public int getItemSellPrice(Item item)
     {
         double sellbackRate = gameEnvironment.getConfig().itemSellbackRate;
@@ -169,6 +239,12 @@ public class LabelService {
         return Math.max(0, (int) Math.round(item.getCost() * sellbackRate * remainingUseFraction));
     }
 
+    /**
+     * Processes the sell item.
+     * It updates related state as needed while performing the operation.
+     * @param item the item involved in the operation
+     * @return True if sell item, otherwise false.
+     */
     public boolean sellItem(Item item)
     {
         Label label = gameEnvironment.getLabel();
@@ -183,23 +259,41 @@ public class LabelService {
         return true;
     }
 
+    /**
+     * Takes the money.
+     * @param money the numeric value for the money
+     */
     public void takeMoney(double money)
     {
         Label label = gameEnvironment.getLabel();
         label.money = label.getMoney() - money;
     }
 
+    /**
+     * Gives the money.
+     * @param money the numeric value for the money
+     */
     public void giveMoney(double money)
     {
         Label label = gameEnvironment.getLabel();
         label.money = label.getMoney() + money;
     }
 
+    /**
+     * Returns the lineup total pay.
+     * @return The lineup total pay.
+     */
     public double getLineupTotalPay()
     {
         return getLineupTotalPay(TourType.LOCAL);
     }
 
+    /**
+     * Returns the lineup total pay.
+     * It derives the value from the current state before returning it.
+     * @param tourType the tour type
+     * @return The lineup total pay.
+     */
     public double getLineupTotalPay(TourType tourType)
     {
         List<Artist> artists = gameEnvironment.getLabel().getLineUp();
@@ -215,6 +309,11 @@ public class LabelService {
         return totalCost;
     }
 
+    /**
+     * Returns the average sp.
+     * It derives the value from the current state before returning it.
+     * @return The average sp.
+     */
     public double getAverageSP()
     {
         List<Artist> artists = gameEnvironment.getLabel().getLineUp();
@@ -231,6 +330,10 @@ public class LabelService {
         return sp / artists.size();
     }
 
+    /**
+     * Returns the max sp.
+     * @return The max sp.
+     */
     public double getMaxSP()
     {
         List<Artist> artists = gameEnvironment.getLabel().getLineUp();
@@ -246,6 +349,11 @@ public class LabelService {
         return sp;
     }
 
+    /**
+     * Returns the min sp.
+     * It derives the value from the current state before returning it.
+     * @return The min sp.
+     */
     public double getMinSP()
     {
         List<Artist> artists = gameEnvironment.getLabel().getLineUp();
@@ -265,21 +373,38 @@ public class LabelService {
         return sp;
     }
 
+    /**
+     * Applies the stamina change.
+     * @param staminaChange the numeric value for the stamina change
+     */
     public void applyStaminaChange(double staminaChange)
     {
         gameEnvironment.getLabel().applyStaminaToLineup((int) Math.round(staminaChange));
     }
 
+    /**
+     * Applies the stamina change to lineup artist.
+     * @param lineupIndex the numeric value for the lineup index
+     * @param staminaChange the numeric value for the stamina change
+     */
     public void applyStaminaChangeToLineupArtist(int lineupIndex, double staminaChange)
     {
         gameEnvironment.getLabel().applyStaminaToLineupArtist(lineupIndex, (int) Math.round(staminaChange));
     }
 
+    /**
+     * Resets the lineup stamina.
+     */
     public void resetLineupStamina()
     {
         gameEnvironment.getLabel().resetLineupStamina();
     }
 
+    /**
+     * Processes the retire artist.
+     * @param artist the artist
+     * @return True if retire artist, otherwise false.
+     */
     public boolean retireArtist(Artist artist)
     {
         return gameEnvironment.getLabel().removeArtist(artist);
@@ -295,16 +420,35 @@ public class LabelService {
         artist.removeItem(item);
     }
 
+    /**
+     * Equips an item to an artist
+     * @param artist the artist
+     * @param item the item involved in the operation
+     * @return True if equip item, otherwise false.
+     */
     public Boolean equipItem(Artist artist, Item item)
     {
         return gameEnvironment.getLabel().equipItem(artist, item);
     }
 
+    /**
+     * Unequips an item from an artist
+     * @param artist the artist
+     * @param item the item involved in the operation
+     * @return True if unequip item, otherwise false.
+     */
     public Boolean unequipItem(Artist artist, Item item)
     {
         return gameEnvironment.getLabel().unequipItem(artist, item);
     }
 
+    /**
+     * Uses a consumable item
+     * It updates related state as needed while performing the operation.
+     * @param artist the artist
+     * @param item the item involved in the operation
+     * @return The use consumable.
+     */
     public String useConsumable(Artist artist, Item item)
     {
         if (!(item instanceof CosumableItem consumable) || !artist.getItems().contains(item))
@@ -341,8 +485,4 @@ public class LabelService {
                 + " (" + consumable.getUses() + " use(s) left)";
     }
 
-    public void saveGame()
-    {
-
-    }
 }

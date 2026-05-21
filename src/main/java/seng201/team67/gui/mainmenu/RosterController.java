@@ -24,27 +24,51 @@ import seng201.team67.models.items.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controls the roster view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class RosterController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
 
+    /** FXML reference for the lineup pane control. */
     @FXML private HBox lineupPane;
+    /** The all artists container. */
     @FXML private FlowPane allArtistsContainer;
+    /** The all items container. */
     @FXML private FlowPane allItemsContainer;
+    /** FXML reference for the lineup warning control. */
     @FXML private Label lineupWarning;
 
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
 
+    /** Collection that stores the lineup slots. */
     private final List<AnchorPane> lineupSlots = new ArrayList<>();
+    /** Collection that stores the lineup cards. */
     private final List<VBox> lineupCards = new ArrayList<>();
+    /** Collection that stores the pool cards. */
     private final List<VBox> poolCards = new ArrayList<>();
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
+    /**
+     * Creates a new roster controller.
+     * @param gameEnvironment the active game environment
+     */
     public RosterController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize() {
         refreshView();
@@ -77,6 +101,9 @@ public class RosterController {
         bgTimer.start();
     }
 
+    /**
+     * Refreshes the lineup slots, populates the lineup, all artists and all items.
+     */
     public void refreshView() {
         buildLineupSlots();
         populateLineup();
