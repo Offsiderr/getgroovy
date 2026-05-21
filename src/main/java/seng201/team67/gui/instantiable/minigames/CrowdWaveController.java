@@ -8,24 +8,45 @@ import seng201.team67.models.minigames.MiniGameResult;
 
 import java.util.function.Consumer;
 
+/**
+ * Controls the crowd wave view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class CrowdWaveController {
 
+    /** FXML reference for the tap button control. */
     @FXML private Button tapButton;
+    /** FXML reference for the result label control. */
     @FXML private Label resultLabel;
 
+    /** Numeric value for the start time. */
     private long startTime;
+    /** Numeric value for the beat interval. */
     private long beatInterval = 1000;
+    /** Whether game ended. */
     private boolean gameEnded = false;
 
+    /** Numeric value for the perfect count. */
     private int perfectCount = 0;
+    /** Numeric value for the fail count. */
     private int failCount = 0;
 
+    /** The on complete. */
     private Consumer<MiniGameResult> onComplete;
 
+    /**
+     * Creates a new crowd wave controller.
+     * @param onComplete the on complete
+     */
     public CrowdWaveController(Consumer<MiniGameResult> onComplete) {
         this.onComplete = onComplete;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize() {
         startTime = System.currentTimeMillis();

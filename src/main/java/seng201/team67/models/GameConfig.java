@@ -4,142 +4,215 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team67.models.enums.TourType;
 
+/**
+ * Stores configuration values that control game setup and balance.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class GameConfig {
 
-    // ── 1. Economy ────────────────────────────────────────────────────────────
-
-    //Per-star-power multiplier applied to an artist's pay
-    //public final double artistBasePay; removed as the Json importing means we cannot use this structure w the game config
-
-    //Per-star-power multiplier applied to an artist's hiring cost
-    //public final double artistBaseHiringCost;
-
-    //Credits the label starts with
+    /** Numeric value for the starting credits. */
     public final int startingCredits;
 
-    //Maximum number of artists the label roster can hold
+    /** Numeric value for the artists roster limit. */
     public final int artistsRosterLimit;
 
-    //Maximum number of artists that may be in the active line-up
+    /** Numeric value for the line up limit. */
     public final int lineUpLimit;
 
-    //Cost of a Standard gacha pull
+    /** Numeric value for the gacha standard cost. */
     public final int gachaStandardCost;
 
-    //Cost of a Golden gacha pull
+    /** Numeric value for the gacha golden cost. */
     public final int gachaGoldenCost;
 
-    //Cost of a Platinum gacha pull
+    /** Numeric value for the gacha platinum cost. */
     public final int gachaPlatinumCost;
 
-    //Cost to reroll the studio artist pool
+    /** Numeric value for the artist reroll cost. */
     public final int artistRerollCost;
 
-    //Fraction of an item's original price returned when sold unused
+    /** Numeric value for the item sellback rate. */
     public final double itemSellbackRate;
 
-    // ── 2. Probabilities & RNG ────────────────────────────────────────────────
-
-    //Probability that a minigame triggers at each concert stop
+    /** Numeric value for the mini game trigger chance. */
     public final double miniGameTriggerChance;
 
-    //Probability that a generated question is a generic "common" question vs tour-type
+    /** Numeric value for the question common chance. */
     public final double questionCommonChance;
 
-    //Probability that a random event occurs after a tour ends
+    /** Numeric value for the random event trigger chance. */
     public final double randomEventTriggerChance;
 
-    //Maximum star power that an artist from the starting selection can be
+    /** Numeric value for the max sp in starting selection. */
     public final int maxSPInStartingSelection;
 
-    // ── 4. Expedition Parameters ──────────────────────────────────────────────
-
-    //Minimum number of tours selectable at setup
+    /** Numeric value for the min tour count. */
     public final int minTourCount;
 
-    //Maximum number of tours selectable at setup
+    /** Numeric value for the max tour count. */
     public final int maxTourCount;
 
-    //Default spinner value for tour count at setup
+    /** Numeric value for the default tour count. */
     public final int defaultTourCount;
 
-    //Number of artist cards shown during the starting selection
+    /** Numeric value for the starting artist pool size. */
     public final int startingArtistPoolSize;
 
-    //Number of artists the player must pick at game start
+    /** Numeric value for the max starting artists. */
     public final int maxStartingArtists;
 
-    //Number of artist slots in the active concert lineup
+    /** Numeric value for the required lineup size. */
     public final int requiredLineupSize;
 
-    //Number of artists shown per gacha pull
+    /** Numeric value for the gacha pool size. */
     public final int gachaPoolSize;
 
-    //Maximum artists the player may select from a single gacha pull
+    /** Numeric value for the max gacha picks. */
     public final int maxGachaPicks;
 
-    //Number of questions generated per concert
+    /** Numeric value for the concert questions count. */
     public final int concertQuestionsCount;
 
-    //Minimum clicks required to open a gacha record
+    /** Numeric value for the gacha min clicks. */
     public final int gachaMinClicks;
 
-    //Maximum clicks required to open a gacha record
+    /** Numeric value for the gacha max clicks. */
     public final int gachaMaxClicks;
 
-    //Number of visual stages the gacha record animates through
+    /** Numeric value for the gacha stage count. */
     public final int gachaStageCount;
 
-    //Lower bound of the randomly generated target slider values
+    /** Numeric value for the sound engineer target min. */
     public final double soundEngineerTargetMin;
 
-    //Width of the random range above soundEngineerTargetMin
+    /** Numeric value for the sound engineer target range. */
     public final double soundEngineerTargetRange;
 
-    //Seconds the target slider values are displayed before fading
+    /** Numeric value for the sound engineer flash duration seconds. */
     public final double soundEngineerFlashDurationSeconds;
 
-    //Maximum distance (±units) a slider may be from target and still count as a match
+    /** Numeric value for the sound engineer match tolerance. */
     public final double soundEngineerMatchTolerance;
 
-    //Value all sliders reset to after the flash phase
+    /** Numeric value for the sound engineer slider default. */
     public final double soundEngineerSliderDefault;
 
-
-    // ── 5. UI / Validation Limits ─────────────────────────────────────────────
-
-    //Minimum character count for the label name
+    /** Numeric value for the label name min length. */
     public final int labelNameMinLength;
 
-    //Maximum character count for the label name
+    /** Numeric value for the label name max length. */
     public final int labelNameMaxLength;
 
+    /** Numeric value for the cancel tour penalty. */
     public final int cancelTourPenalty;
 
+    /** Numeric value for the ticket sales amount. */
     public final double ticketSalesAmount;
+
+    /** Numeric value for the local tour artist pay multiplier. */
     public final double localTourArtistPayMultiplier;
+
+    /** Numeric value for the country tour artist pay multiplier. */
     public final double countryTourArtistPayMultiplier;
+
+    /** Numeric value for the world tour artist pay multiplier. */
     public final double worldTourArtistPayMultiplier;
+
+    /** Numeric value for the retirement chance increase per three tours without break. */
     public final int retirementChanceIncreasePerThreeToursWithoutBreak;
 
     //Score tuning
+    /** Numeric value for the concert completion score. */
     public final int concertCompletionScore;
+
+    /** Numeric value for the question answered score. */
     public final int questionAnsweredScore;
+
+    /** Numeric value for the crowd hype score multiplier. */
     public final double crowdHypeScoreMultiplier;
+
+    /** Numeric value for the net earnings score divisor. */
     public final double netEarningsScoreDivisor;
+
+    /** Numeric value for the local tour completion score. */
     public final int localTourCompletionScore;
+
+    /** Numeric value for the country tour completion score. */
     public final int countryTourCompletionScore;
+
+    /** Numeric value for the world tour completion score. */
     public final int worldTourCompletionScore;
+
+    /** Numeric value for the exhaustion score penalty. */
     public final int exhaustionScorePenalty;
 
-    // - 6. Game Config (sound etc) ─────────────────────────────────────────────
-
+    /** Numeric value for the main volume. */
     public double mainVolume;
+
+    /** Numeric value for the music volume. */
     public double musicVolume;
+
+    /** Numeric value for the sound effects volume. */
     public double soundEffectsVolume;
+
+    /** Whether moving background enabled. */
     public boolean movingBackgroundEnabled;
 
 
+    /**
+     * Creates a new game config.
+     * It initializes the state needed for the surrounding game flow.
+     * @param startingCredits the numeric value for the starting credits
+     * @param artistsRosterLimit the numeric value for the artists roster limit
+     * @param lineUpLimit the numeric value for the line up limit
+     * @param gachaStandardCost the numeric value for the gacha standard cost
+     * @param gachaGoldenCost the numeric value for the gacha golden cost
+     * @param gachaPlatinumCost the numeric value for the gacha platinum cost
+     * @param artistRerollCost the numeric value for the artist reroll cost
+     * @param itemSellbackRate the numeric value for the item sellback rate
+     * @param miniGameTriggerChance the numeric value for the mini game trigger chance
+     * @param questionCommonChance the numeric value for the question common chance
+     * @param randomEventTriggerChance the numeric value for the random event trigger chance
+     * @param maxSPInStartingSelection the numeric value for the max sp in starting selection
+     * @param minTourCount the numeric value for the min tour count
+     * @param maxTourCount the numeric value for the max tour count
+     * @param defaultTourCount the numeric value for the default tour count
+     * @param startingArtistPoolSize the numeric value for the starting artist pool size
+     * @param maxStartingArtists the numeric value for the max starting artists
+     * @param requiredLineupSize the numeric value for the required lineup size
+     * @param gachaPoolSize the numeric value for the gacha pool size
+     * @param maxGachaPicks the numeric value for the max gacha picks
+     * @param concertQuestionsCount the numeric value for the concert questions count
+     * @param gachaMinClicks the numeric value for the gacha min clicks
+     * @param gachaMaxClicks the numeric value for the gacha max clicks
+     * @param gachaStageCount the numeric value for the gacha stage count
+     * @param soundEngineerTargetMin the numeric value for the sound engineer target min
+     * @param soundEngineerTargetRange the numeric value for the sound engineer target range
+     * @param soundEngineerFlashDurationSeconds the numeric value for the sound engineer flash duration seconds
+     * @param soundEngineerMatchTolerance the numeric value for the sound engineer match tolerance
+     * @param soundEngineerSliderDefault the numeric value for the sound engineer slider default
+     * @param labelNameMinLength the numeric value for the label name min length
+     * @param labelNameMaxLength the numeric value for the label name max length
+     * @param cancelTourPenalty the numeric value for the cancel tour penalty
+     * @param ticketSalesAmount the numeric value for the ticket sales amount
+     * @param localTourArtistPayMultiplier the numeric value for the local tour artist pay multiplier
+     * @param countryTourArtistPayMultiplier the numeric value for the country tour artist pay multiplier
+     * @param worldTourArtistPayMultiplier the numeric value for the world tour artist pay multiplier
+     * @param retirementChanceIncreasePerThreeToursWithoutBreak the numeric value for the retirement chance increase per three tours without break
+     * @param concertCompletionScore the numeric value for the concert completion score
+     * @param questionAnsweredScore the numeric value for the question answered score
+     * @param crowdHypeScoreMultiplier the numeric value for the crowd hype score multiplier
+     * @param netEarningsScoreDivisor the numeric value for the net earnings score divisor
+     * @param localTourCompletionScore the numeric value for the local tour completion score
+     * @param countryTourCompletionScore the numeric value for the country tour completion score
+     * @param worldTourCompletionScore the numeric value for the world tour completion score
+     * @param exhaustionScorePenalty the numeric value for the exhaustion score penalty
+     * @param mainVolume the numeric value for the main volume
+     * @param musicVolume the numeric value for the music volume
+     * @param soundEffectsVolume the numeric value for the sound effects volume
+     * @param movingBackgroundEnabled whether moving background enabled
+     */
     @JsonCreator
     public GameConfig(
             // Economy
@@ -251,6 +324,11 @@ public class GameConfig {
         this.movingBackgroundEnabled          = movingBackgroundEnabled;
     }
 
+    /**
+     * Returns the artist pay multiplier.
+     * @param tourType the tour type
+     * @return The artist pay multiplier.
+     */
     public double getArtistPayMultiplier(TourType tourType)
     {
         return switch (tourType)
@@ -261,9 +339,11 @@ public class GameConfig {
         };
     }
 
-    // ── Difficulty presets ────────────────────────────────────────────────────
-
-    //Easy Values
+    /**
+     * Stores the easy difficulty.
+     * It updates related state as needed while performing the operation.
+     * @return The game config.
+     */
     public static GameConfig easy() {
         return new GameConfig(
                 // Economy
@@ -289,7 +369,11 @@ public class GameConfig {
         );
     }
 
-    //Medium values ('A challenge')
+    /**
+     * Stores the A challenge difficulty.
+     * It updates related state as needed while performing the operation.
+     * @return The game config.
+     */
     public static GameConfig aChallenge() {
         return new GameConfig(
                 // Economy
@@ -315,7 +399,11 @@ public class GameConfig {
         );
     }
 
-    //Hard values
+    /**
+     * Stores the hard difficulty.
+     * It updates related state as needed while performing the operation.
+     * @return The game config.
+     */
     public static GameConfig hard() {
         return new GameConfig(
                 // Economy

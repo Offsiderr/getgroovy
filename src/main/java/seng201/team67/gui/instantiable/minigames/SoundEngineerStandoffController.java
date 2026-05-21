@@ -16,27 +16,50 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Controls the sound engineer standoff view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class SoundEngineerStandoffController {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage minigames behaviour. */
     private MinigamesService minigamesService;
 
+    /** The game result. */
     private Consumer<MiniGameResult> gameResult;
 
+    /** The slider one. */
     @FXML private Slider sliderOne;
+    /** The slider two. */
     @FXML private Slider sliderTwo;
+    /** The slider three. */
     @FXML private Slider sliderThree;
+    /** The slider four. */
     @FXML private Slider sliderFour;
 
+    /** FXML reference for the button one control. */
     @FXML private Button buttonOne;
 
+    /** FXML reference for the results pane control. */
     @FXML private Pane resultsPane;
+    /** FXML reference for the results text control. */
     @FXML private Label resultsText;
 
+    /** Collection that stores the target values. */
     private List<Double> targetValues;
 
+    /** Whether shown. */
     private Boolean shown = false;
 
+    /**
+     * Creates a new sound engineer standoff controller.
+     * @param minigamesService the minigames service to use
+     * @param gameResult the game result
+     * @param gameEnvironment the active game environment
+     */
     public SoundEngineerStandoffController(MinigamesService minigamesService, Consumer<MiniGameResult> gameResult, GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
@@ -66,7 +89,7 @@ public class SoundEngineerStandoffController {
 
     private void showValues()
     {
-        //target values the player must recall — generated randomly
+        //target values the player must recall â€” generated randomly
         targetValues = List.of(
                 gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange,
                 gameEnvironment.getConfig().soundEngineerTargetMin + Math.random() * gameEnvironment.getConfig().soundEngineerTargetRange,

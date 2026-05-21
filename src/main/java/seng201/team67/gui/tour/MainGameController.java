@@ -26,47 +26,86 @@ import seng201.team67.services.gameplay.TourService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controls the main game view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MainGameController {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private TourService tourService;
+    /** Service used to manage sound effects behaviour. */
     private SoundEffectsService sfx;
 
+    /** Whether init stops. */
     private Boolean initStops = false;
 
+    /** FXML reference for the label name control. */
     @FXML private Label labelName;
+    /** FXML reference for the money text control. */
     @FXML private Label moneyText;
+    /** FXML reference for the expedition count control. */
     @FXML private Label expeditionCount;
+    /** FXML reference for the pay text control. */
     @FXML private Label payText;
+    /** FXML reference for the cancel tour label control. */
     @FXML private Label cancelTourLabel;
+    /** FXML reference for the stamina text control. */
     @FXML private Label staminaText;
+    /** FXML reference for the effect text control. */
     @FXML private Label effectText;
 
+    /** The tour progress bar. */
     @FXML private ProgressBar tourProgressBar;
 
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
 
+    /** FXML reference for the start concert button control. */
     @FXML private Button startConcertButton;
+    /** FXML reference for the end tour early button control. */
     @FXML private Button endTourEarlyButton;
 
+    /** FXML reference for the map anchor pane control. */
     @FXML private AnchorPane mapAnchorPane;
+    /** FXML reference for the cancel tour pane control. */
     @FXML private AnchorPane cancelTourPane;
 
+    /** The bg1. */
     @FXML private javafx.scene.image.ImageView bg1;
+    /** The bg2. */
     @FXML private javafx.scene.image.ImageView bg2;
 
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The view loader. */
     private final ViewLoader viewLoader = new ViewLoader();
+    /** Service used to manage random event behaviour. */
     private final RandomEventService randomEventService = new RandomEventService();
 
+    /**
+     * Creates a new main game controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     */
     public MainGameController(GameEnvironment gameEnvironment, TourService tourService)
     {
         this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void initialize() throws IOException {
         cancelTourPane.setVisible(false);
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
@@ -188,11 +227,11 @@ public class MainGameController {
         }
     }
 
-    public void endTourEarly()
-    {
-
-    }
-
+    /**
+     * Starts the concert.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void startConcert(ActionEvent event) throws IOException
     {
         if(tourService.isTourComplete())
@@ -223,10 +262,6 @@ public class MainGameController {
         cancelTourPane.setVisible(true);
         cancelTourLabel.setText("Are you sure you want to end the tour early? You will have to refund $"
                 + String.format("%.2f", gameEnvironment.getConfig().cancelTourPenalty) + " of tickets");
-    }
-
-    @FXML private void notCancellingTour(ActionEvent event) throws IOException
-    {
     }
 
     @FXML private void finishTour(ActionEvent event) throws IOException {

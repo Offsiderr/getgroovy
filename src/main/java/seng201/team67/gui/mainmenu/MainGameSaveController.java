@@ -7,23 +7,46 @@ import javafx.scene.layout.Pane;
 import seng201.team67.GameEnvironment;
 import seng201.team67.services.data.GameSaveService;
 
+/**
+ * Controls the main game save view and coordinates its user interactions.
+ * This handles saving the game from the settings menu
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MainGameSaveController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** FXML reference for the settings holder control. */
     private final Pane settingsHolder;
+    /** Service used to manage game save behaviour. */
     private final GameSaveService gameSaveService = new GameSaveService();
+    /** Numeric value for the selected save slot. */
     private int selectedSaveSlot = 1;
 
-    @FXML private Button startButton;
-    @FXML private Button startButton1;
-    @FXML private Button startButton11;
-    @FXML private Button startButton111;
+    /** FXML reference for the first save control. */
+    @FXML private Button saveButton1;
+    /** FXML reference for the second save control. */
+    @FXML private Button saveButton2;
+    /** FXML reference for the third save control. */
+    @FXML private Button saveButton3;
+    /** FXML reference for the new game control. */
+    @FXML private Button newGame;
 
+    /**
+     * Creates a new main game save controller.
+     * @param gameEnvironment the active game environment
+     * @param settingsHolder the settings holder
+     */
     public MainGameSaveController(GameEnvironment gameEnvironment, Pane settingsHolder) {
         this.gameEnvironment = gameEnvironment;
         this.settingsHolder = settingsHolder;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize() {
         refreshSaveSlotTexts();
@@ -31,6 +54,10 @@ public class MainGameSaveController {
         refreshSaveButtonText();
     }
 
+    /**
+     * Processes the player selecting the first save.
+     * @param event the action event that triggered the request
+     */
     @FXML
     public void onSave1(ActionEvent event) {
         selectedSaveSlot = 1;
@@ -38,6 +65,10 @@ public class MainGameSaveController {
         refreshSaveButtonText();
     }
 
+    /**
+     * Processes the player selecting the second save.
+     * @param event the action event that triggered the request
+     */
     @FXML
     public void onSave2(ActionEvent event) {
         selectedSaveSlot = 2;
@@ -45,6 +76,10 @@ public class MainGameSaveController {
         refreshSaveButtonText();
     }
 
+    /**
+     * Processes the player selecting the third save.
+     * @param event the action event that triggered the request
+     */
     @FXML
     public void onSave3(ActionEvent event) {
         selectedSaveSlot = 3;
@@ -52,6 +87,10 @@ public class MainGameSaveController {
         refreshSaveButtonText();
     }
 
+    /**
+     * Processes the player selecting to start a new game
+     * @param event the action event that triggered the request
+     */
     @FXML
     public void onStartGame(ActionEvent event) {
         gameSaveService.saveGame(gameEnvironment, selectedSaveSlot);
@@ -61,18 +100,27 @@ public class MainGameSaveController {
         settingsHolder.setManaged(false);
     }
 
+    /**
+     * If you select a save, then the save game button is adjusted accordingly in this method
+     */
     private void refreshSaveButtonText() {
-        if (startButton != null) {
-            startButton.setText("Save Game (Slot " + selectedSaveSlot + ")");
+        if (newGame != null) {
+            newGame.setText("Save Game (Slot " + selectedSaveSlot + ")");
         }
     }
 
     private void refreshSaveSlotTexts() {
-        setSaveSlotText(startButton1, 1);
-        setSaveSlotText(startButton11, 2);
-        setSaveSlotText(startButton111, 3);
+        setSaveSlotText(saveButton1, 1);
+        setSaveSlotText(saveButton2, 2);
+        setSaveSlotText(saveButton3, 3);
     }
 
+    /**
+     * Pass in the button and the slot to check if a save exists for that slots, and if so,
+     * then the game changes the text to the label name and number of expeditions
+     * @param button the save button to change
+     * @param slot the save slot to check
+     */
     private void setSaveSlotText(Button button, int slot) {
         if (button == null) {
             return;
@@ -94,9 +142,9 @@ public class MainGameSaveController {
     }
 
     private void updateSelectedButtonStyle() {
-        applySlotStyle(startButton1, selectedSaveSlot == 1);
-        applySlotStyle(startButton11, selectedSaveSlot == 2);
-        applySlotStyle(startButton111, selectedSaveSlot == 3);
+        applySlotStyle(saveButton1, selectedSaveSlot == 1);
+        applySlotStyle(saveButton2, selectedSaveSlot == 2);
+        applySlotStyle(saveButton3, selectedSaveSlot == 3);
     }
 
     private void applySlotStyle(Button button, boolean selected) {

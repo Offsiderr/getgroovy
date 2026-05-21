@@ -5,8 +5,19 @@ import seng201.team67.models.questionmodels.Question;
 
 import java.util.List;
 
+/**
+ * Provides question operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class QuestionService {
 
+    /**
+     * Returns a random question.
+     * @param gameEnvironment the active game environment
+     * @param type the text value for the type
+     * @return The question.
+     */
     public Question getQuestion(GameEnvironment gameEnvironment, String type)
     {
         return switch (type) {

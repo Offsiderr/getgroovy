@@ -7,24 +7,42 @@ import java.io.IOException;
 import java.net.URL;
 
 
+/**
+ * Provides the music for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MusicService {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
 
+    /** Text value for the studio music path. */
     private final String studioMusicPath = "/sound/Music/MarketThemePlaceholder.wav";
+    /** Text value for the local tour music path. */
     private final String localTourMusicPath = "/sound/Music/Local_tour.wav";
 
+    /** Whether currently playing. */
     private Boolean currentlyPlaying = false;
 
+    /** Constant that defines the max volume percent. */
     private static final double MAX_VOLUME_PERCENT = 100.0;
 
+    /** The current clip. */
     private static Clip currentClip = null;
 
+    /**
+     * Creates a new music service.
+     * @param gameEnvironment the active game environment
+     */
     public MusicService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Plays the the studio music.
+     */
     public void playTheStudioMusic()
     {
         if (!currentlyPlaying) {
@@ -33,6 +51,9 @@ public class MusicService {
         }
     }
 
+    /**
+     * Plays the local tour music.
+     */
     public void playLocalTourMusic()
     {
         stop();
@@ -40,6 +61,9 @@ public class MusicService {
         play(localTourMusicPath, getConfiguredMusicVolume());
     }
 
+    /**
+     * Stops the music.
+     */
     public static void stop()
     {
         if (currentClip != null && currentClip.isRunning())
@@ -50,16 +74,29 @@ public class MusicService {
         }
     }
 
+    /**
+     * Stops the music and sets currentlyPlaying to false
+     */
     public void stopAndReset()
     {
         stop();
         currentlyPlaying = false;
     }
 
+    /**
+     * Plays music
+     * @param resourcePath the text value for the resource path
+     */
     public static void play(String resourcePath) {
         play(resourcePath, MAX_VOLUME_PERCENT);
     }
 
+    /**
+     * Calculates the effective volume.
+     * @param mainVolume the numeric value for the main volume
+     * @param soundEffectsVolume the numeric value for the sound effects volume
+     * @return The effective volume.
+     */
     public static double calculateEffectiveVolume(double mainVolume, double soundEffectsVolume) {
         double clampedMainVolume = clampVolume(mainVolume);
         double clampedEffectsVolume = clampVolume(soundEffectsVolume);
@@ -84,6 +121,11 @@ public class MusicService {
         return Math.max(0.0, Math.min(MAX_VOLUME_PERCENT, volume));
     }
 
+    /**
+     * Plays music
+     * @param resourcePath the text value for the resource path
+     * @param volumePercent the numeric value for the volume percent
+     */
     public static void play(String resourcePath, double volumePercent) {
         if (clampVolume(volumePercent) <= 0.0) {
             return;
@@ -111,6 +153,11 @@ public class MusicService {
         }
     }
 
+    /**
+     * Applies the selected volume settings set by the player to the music
+     * @param clip
+     * @param volumePercent
+     */
     private static void applyVolume(Clip clip, double volumePercent) {
         if (!clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
             return;

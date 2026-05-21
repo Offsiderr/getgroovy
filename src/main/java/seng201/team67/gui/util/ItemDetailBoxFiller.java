@@ -14,20 +14,37 @@ import javafx.scene.layout.VBox;
 import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.items.Item;
 
+/**
+ * Represents the item detail box filler used by the game. This class fills the item details in a VBox
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ItemDetailBoxFiller {
+    /** Text value for the base style. */
     private static final String BASE_STYLE =
             "-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;";
 
+    /** Text value for the selected style. */
     private static final String SELECTED_STYLE =
             "-fx-border-color: #0078d7; -fx-border-width: 3; -fx-background-color: #dce9f7;";
 
     private ItemDetailBoxFiller() {
     }
 
+    /**
+     * Populates the artist box.
+     * @param card the card
+     * @param item the item involved in the operation
+     */
     public static void populateArtistBox(VBox card, Item item) {
         populateItemBox(card, item, false);
     }
 
+    /**
+     * Populates the market box.
+     * @param card the card
+     * @param item the item involved in the operation
+     */
     public static void populateMarketBox(VBox card, Item item) {
         populateItemBox(card, item, true);
     }
@@ -97,10 +114,18 @@ public class ItemDetailBoxFiller {
         card.getChildren().add(actionButton);
     }
 
+    /**
+     * Applies the base style.
+     * @param card the card
+     */
     public static void applyBaseStyle(VBox card) {
         card.setStyle(BASE_STYLE);
     }
 
+    /**
+     * Applies the selected style.
+     * @param card the card
+     */
     public static void applySelectedStyle(VBox card) {
         card.setStyle(SELECTED_STYLE);
     }

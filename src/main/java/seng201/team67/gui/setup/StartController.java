@@ -15,20 +15,35 @@ import seng201.team67.services.audio.SoundEffectsService;
 
 import java.io.IOException;
 
+/**
+ * Controls the start view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class StartController {
 
+    /** Service used to manage sound effects behaviour. */
     private final SoundEffectsService soundEffectsService;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
 
+    /** FXML reference for the start photo control. */
     @FXML private ImageView startPhoto;
 
+    /**
+     * Creates a new start controller.
+     */
     public StartController()
     {
         GameEnvironment gameEnvironment = new GameEnvironment();
         this.soundEffectsService = new SoundEffectsService(gameEnvironment); //Fix to not rely on game enviroment
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML public void initialize()
     {
         ScaleTransition zoomIn = new ScaleTransition(Duration.seconds(6), startPhoto);
@@ -42,6 +57,11 @@ public class StartController {
         MusicService.play("/sound/Music/Title_Screen_Placeholder.wav", 15.0);
     }
 
+    /**
+     * Processes starting the game and bringing the player to the setup screen
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void onStartGame(ActionEvent event) throws IOException {
         MusicService.stop();

@@ -13,22 +13,43 @@ import seng201.team67.models.minigames.MiniGameResult;
 
 import java.util.function.Consumer;
 
+/**
+ * Controls the crowd hype view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class CrowdHypeController {
 
+    /** The hype bar. */
     @FXML private ProgressBar hypeBar;
+    /** FXML reference for the result label control. */
     @FXML private Label resultLabel;
+    /** FXML reference for the hype button control. */
     @FXML private Button hypeButton;
+    /** FXML reference for the crowd image control. */
     @FXML private ImageView crowdImage;
 
+    /** Numeric value for the hype. */
     private double hype = 0.5;
+    /** The on complete. */
     private Consumer<MiniGameResult> onComplete;
+    /** The timer. */
     private AnimationTimer timer;
+    /** Whether game ended. */
     private boolean gameEnded = false;
 
+    /**
+     * Creates a new crowd hype controller.
+     * @param onComplete the on complete
+     */
     public CrowdHypeController(Consumer<MiniGameResult> onComplete) {
         this.onComplete = onComplete;
     }
 
+    /**
+     * Initialises the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize() {
 
@@ -42,6 +63,11 @@ public class CrowdHypeController {
         pulse.play();
 
         timer = new AnimationTimer() {
+            /**
+             * Processes the handle.
+             * It updates related state as needed while performing the operation.
+             * @param now the numeric value for the now
+             */
             @Override
             public void handle(long now) {
                 if (gameEnded) return;

@@ -8,14 +8,28 @@ import seng201.team67.models.enums.ItemEffects;
 
 import java.util.List;
 
+/**
+ * The conditional. This means that it is equipped to an artist and is triggered whenever the item's conditions are met.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ConditionalItem extends EquippedItem {
 
-    //Conditional items are context sensitive. eg. you get a bonus if you end a concert with 2 artist's combined stamina over 150
-
+    /**
+     * Creates a new conditional item.
+     */
     public ConditionalItem() {
         super();
     }
 
+    /**
+     * Creates a new conditional item.
+     * @param name the name value to use
+     * @param description the description text to use
+     * @param cost the numeric value for the cost
+     * @param rarity the rarity
+     * @param itemEffects the list of item effects
+     */
     @JsonCreator
     public ConditionalItem(@JsonProperty("name") String name,
                            @JsonProperty("description") String description,
@@ -25,6 +39,10 @@ public class ConditionalItem extends EquippedItem {
         super(name, description, cost, rarity, itemEffects);
     }
 
+    /**
+     * Returns the type.
+     * @return The type.
+     */
     public String getType()
     {
         return "Conditional";

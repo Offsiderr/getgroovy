@@ -21,34 +21,57 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controls the artist selection view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ArtistSelectionController {
 
-    //This class stores the artist selection for the start of the game,
-    //but will be split out into a basic selection interface super class
-    //that other classes can inherit from in the future.
-
+    /** Shared game state for the current session. */
     public final GameEnvironment gameEnvironment;
+    /** Service used to manage artist selection behaviour. */
     private final ArtistSelectionService artistSelectionService;
+    /** Service used to manage game setup behaviour. */
     private final GameSetupService gameSetupService;
 
+    /** FXML reference for the artist one control. */
     @FXML private VBox artistOne;
+    /** FXML reference for the artist two control. */
     @FXML private VBox artistTwo;
+    /** FXML reference for the artist three control. */
     @FXML private VBox artistThree;
+    /** FXML reference for the artist four control. */
     @FXML private VBox artistFour;
+    /** FXML reference for the artist five control. */
     @FXML private VBox artistFive;
+    /** The gacha container. */
     @FXML private StackPane gachaContainer;
+    /** FXML reference for the select artists control. */
     @FXML private Button selectArtists;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The view loader. */
     private final ViewLoader viewLoader = new ViewLoader();
 
+    /** Collection that stores the artist cards. */
     protected final List<VBox> artistCards = new ArrayList<>();
 
+    /**
+     * Creates a new artist selection controller.
+     * @param gameEnvironment the active game environment
+     */
     public ArtistSelectionController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
         this.artistSelectionService = new ArtistSelectionService(gameEnvironment);
         this.gameSetupService = new GameSetupService();
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void initialize() throws IOException {
         selectArtists.setDisable(true);
@@ -66,6 +89,11 @@ public class ArtistSelectionController {
         populateArtistCards(slots, picked);
     }
 
+    /**
+     * Populates the artist cards.
+     * @param slots the list of slots
+     * @param picked the list of picked
+     */
     protected void populateArtistCards(List<VBox> slots, List<Artist> picked) {
         artistCards.clear();
 
@@ -89,6 +117,9 @@ public class ArtistSelectionController {
         animateCardsIn();
     }
 
+    /**
+     * We animate the gacha cards in on the artists selection screen.
+     */
     private void animateCardsIn()
     {
         SequentialTransition sequence = new SequentialTransition();
@@ -124,11 +155,18 @@ public class ArtistSelectionController {
         sequence.play();
     }
 
+    /**
+     * Processes the on selection changed.
+     */
     public void onSelectionChanged() {
         long selectedCount = updateArtistSelectionAvailability(getMaxArtistSelections());
         selectArtists.setDisable(selectedCount != gameEnvironment.getConfig().maxStartingArtists);
     }
 
+    /**
+     * Returns the selected artists.
+     * @return The selected artists.
+     */
     public List<Artist> getSelectedArtists() {
         return artistCards.stream()
                 .filter(this::isSelected)
@@ -136,6 +174,12 @@ public class ArtistSelectionController {
                 .toList();
     }
 
+    /**
+     * Updates the artist selection availability. If the artists cards selected are over the select limit,
+     * the reset get greyed out.
+     * @param selectionLimit the numeric value for the selection limit
+     * @return The artist selection availability.
+     */
     protected long updateArtistSelectionAvailability(int selectionLimit) {
         long selectedCount = artistCards.stream()
                 .filter(this::isSelected)
@@ -157,6 +201,10 @@ public class ArtistSelectionController {
         return selectedCount;
     }
 
+    /**
+     * Returns the max artist selections.
+     * @return The max artist selections.
+     */
     protected int getMaxArtistSelections() {
         return gameEnvironment.getConfig().maxStartingArtists;
     }
@@ -183,6 +231,11 @@ public class ArtistSelectionController {
         }
     }
 
+    /**
+     * Processes the artists selected.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void artistsSelected(ActionEvent event) throws IOException
     {

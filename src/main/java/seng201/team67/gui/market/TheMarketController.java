@@ -22,33 +22,63 @@ import java.util.ArrayList;
 
 import static seng201.team67.models.enums.Rarity.*;
 
+/**
+ * Controls the the market view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class TheMarketController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** The selected item. */
     private Item selectedItem;
+    /** Service used to manage market behaviour. */
     private final MarketService marketService;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
+    /** The label name. */
     @FXML
     public javafx.scene.control.Label labelName;
+    /** FXML reference for the money text control. */
     @FXML public Label moneyText;
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
+    /** FXML reference for the buy item button control. */
     @FXML private Button buyItemButton;
+    /** FXML reference for the insufficient funds warning control. */
     @FXML private Label insufficientFundsWarning;
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
+    /** FXML reference for the bootleg text control. */
     @FXML private Label bootlegText;
+    /** FXML reference for the certified text control. */
     @FXML private Label certifiedText;
+    /** FXML reference for the godlike text control. */
     @FXML private Label godlikeText;
 
+    /**
+     * Creates a new the market controller.
+     * @param gameEnvironment the active game environment
+     */
     public TheMarketController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
         this.marketService = new MarketService(gameEnvironment);
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void initialize() throws IOException
     {
         this.labelName.setText(gameEnvironment.getLabelService().getLabelName());
@@ -137,6 +167,10 @@ public class TheMarketController {
         hideInsufficientFundsWarning();
     }
 
+    /**
+     * Handles the buy item.
+     * It updates related state as needed while performing the operation.
+     */
     @FXML public void handleBuyItem()
     {
         if (selectedItem == null) {
@@ -154,11 +188,21 @@ public class TheMarketController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Returns the player to the main menu
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
         gameEnvironment.getMusicService().stopAndReset();
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 
+    /**
+     * Buys a standard item gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyStandard(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))
@@ -172,6 +216,11 @@ public class TheMarketController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Buys a golden item gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyGolden(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))
@@ -185,6 +234,11 @@ public class TheMarketController {
         showInsufficientFundsWarning();
     }
 
+    /**
+     * Buys a platinum item gacha
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void buyPlatinum(ActionEvent event) throws IOException
     {
         if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))
@@ -203,6 +257,9 @@ public class TheMarketController {
         return marketService.getItemPurchasePool();
     }
 
+    /**
+     * Rerolls the purcahsable items
+     */
     @FXML public void rerollItems()
     {
         if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {

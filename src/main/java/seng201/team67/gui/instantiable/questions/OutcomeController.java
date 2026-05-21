@@ -18,21 +18,43 @@ import seng201.team67.services.gameplay.TourService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controls the outcome view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class OutcomeController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private final TourService tourService;
+    /** The outcome. */
     private final Outcome outcome;
+    /** The on continue. */
     private final Runnable onContinue;
 
+    /** FXML reference for the outcome description control. */
     @FXML private Label outcomeDescription;
+    /** FXML reference for the stat change box control. */
     @FXML private HBox statChangeBox;
+    /** FXML reference for the credits change label control. */
     @FXML private Label creditsChangeLabel;
+    /** FXML reference for the stamina change label control. */
     @FXML private Label staminaChangeLabel;
+    /** FXML reference for the crowd energy change label control. */
     @FXML private Label crowdEnergyChangeLabel;
+    /** FXML reference for the continue button control. */
     @FXML
     private Button continueButton;
 
+    /**
+     * Creates a new outcome controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param outcome the outcome to apply
+     * @param onContinue the on continue
+     */
     public OutcomeController(GameEnvironment gameEnvironment, TourService tourService, Outcome outcome, Runnable onContinue) {
         this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
@@ -58,6 +80,10 @@ public class OutcomeController {
         crowdEnergyChangeLabel.setTextFill(getCrowdEnergyColor(outcome.getCrowdEnergyChange()));
     }
 
+    /**
+     * Takes the payout type and returns the name.
+     * @return Payout name
+     */
     private String formatPayoutType()
     {
         return switch (outcome.getPayoutType()) {
@@ -69,11 +95,15 @@ public class OutcomeController {
         };
     }
 
+    /**
+     * Takes the payout type and returns the payout amount, formatting into a string ready for UI
+     * @return Payout Amount
+     */
     private String formatPayoutText()
     {
         if (outcome.getPayoutType() == PayoutType.NONE)
         {
-            return "Credits: " + formatPayoutType();
+            return "Money: " + formatPayoutType();
         }
 
         PayoutService payoutService = new PayoutService();
@@ -120,6 +150,10 @@ public class OutcomeController {
         return payoutText;
     }
 
+    /**
+     * Takes the payout modifier, if it exists, formatting into a string ready for UI
+     * @return Payout modifier
+     */
     private String formatPayoutModifierText(Artist artist, Skill skill, int originalPayout, int modifiedPayout)
     {
         int delta = modifiedPayout - originalPayout;

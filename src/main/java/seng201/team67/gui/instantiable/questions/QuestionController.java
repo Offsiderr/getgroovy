@@ -14,24 +14,44 @@ import seng201.team67.services.gameplay.TourService;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Controls the question view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class QuestionController {
 
     //TODO: impltement .setManaged to allow collapsing of layout space in the future.
 
+    /** The question. */
     private final Question question;
+    /** FXML reference for the question title control. */
     @FXML private Label questionTitle;
 
+    /** FXML reference for the answer one control. */
     @FXML private Button answerOne;
+    /** FXML reference for the answer two control. */
     @FXML private Button answerTwo;
+    /** FXML reference for the answer three control. */
     @FXML private Button answerThree;
+    /** FXML reference for the answer four control. */
     @FXML private Button answerFour;
 
+    /** FXML reference for the event background control. */
     @FXML private ImageView eventBackground;
 
+    /** The on answer. */
     private final Consumer<Answer> onAnswer;
+    /** Service used to manage tour behaviour. */
     private final TourService tourService;
 
 
+    /**
+     * Creates a new question controller.
+     * @param question the question being processed
+     * @param onAnswer the on answer
+     * @param tourService the tour service for the current run
+     */
     public QuestionController(Question question, Consumer<Answer> onAnswer, TourService tourService)
     {
         this.question = question;

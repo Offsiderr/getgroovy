@@ -30,36 +30,68 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controls the main menu view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class MainMenuController {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** Service used to manage sound effects behaviour. */
     private final SoundEffectsService soundEffectsService;
+    /** Service used to manage game status behaviour. */
     private final GameStatusService gameStatusService;
 
+    /** Collection that stores the lineup. */
     private List<Artist> lineup;
 
+    /** FXML reference for the label name control. */
     @FXML private Label labelName;
+    /** FXML reference for the game difficulty control. */
     @FXML private Label gameDifficulty;
+    /** FXML reference for the money text control. */
     @FXML private Label moneyText;
+    /** FXML reference for the game tours control. */
     @FXML private Label gameTours;
+    /** FXML reference for the score label control. */
     @FXML private Label scoreLabel;
+    /** FXML reference for the artist pane control. */
     @FXML private SplitPane artistPane;
+    /** FXML reference for the artist one control. */
     @FXML private VBox artistOne;
+    /** FXML reference for the artist two control. */
     @FXML private VBox artistTwo;
+    /** FXML reference for the artist three control. */
     @FXML private VBox artistThree;
+    /** FXML reference for the settings holder control. */
     @FXML private AnchorPane settingsHolder;
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
 
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The view loader. */
     private final ViewLoader viewLoader = new ViewLoader();
 
+    /**
+     * Creates a new main menu controller.
+     * @param gameEnvironment the active game environment
+     */
     public MainMenuController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
         this.soundEffectsService = new SoundEffectsService(gameEnvironment);
         this.gameStatusService = new GameStatusService();
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void initialize() throws IOException
     {
@@ -85,12 +117,14 @@ public class MainMenuController {
             });
         }
 
+        //Set the labels at the top of the screen
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
         gameDifficulty.setText(gameEnvironment.getDifficulty().name());
         moneyText.setText(String.format("$%.2f", gameEnvironment.getLabelService().getMoney()));
         gameTours.setText(gameEnvironment.getTourCount() + "/" + gameEnvironment.getSelectedNumTours() + " Tours");
         scoreLabel.setText(Integer.toString(gameEnvironment.getGameScore()));
 
+        //Set up a runnable to check for control D, which opens the dev menu
         Platform.runLater(() -> {
             Scene scene = labelName.getScene();
             if (scene != null) {
@@ -107,6 +141,7 @@ public class MainMenuController {
             }
         });
 
+        //Set the artist detail boxes up
         lineup = gameEnvironment.getLabelService().getLineup();
 
         List<VBox> slots = List.of(artistOne, artistTwo, artistThree);
@@ -146,6 +181,9 @@ public class MainMenuController {
         timer.start();
     }
 
+    /**
+     * Adjusts the artist detail boxes pane to account for the amount of artists in the lineup
+     */
     private void configureArtistPane(List<VBox> slots, int artistCount) {
         int visibleCount = Math.max(0, Math.min(artistCount, slots.size()));
         artistPane.getItems().setAll(slots.subList(0, visibleCount).toArray(Node[]::new));
@@ -167,24 +205,44 @@ public class MainMenuController {
         screenNavigator.navigate(labelName, "/fxml/results/LoseScreen.fxml", new LoseScreenController(gameEnvironment));
     }
 
+    /**
+     * Opens the tour selection menu.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void startTour(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/tour/SelectTour.fxml", new SelectTourController(gameEnvironment));
     }
 
+    /**
+     * Opens the roster menu
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void startRoster(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/mainmenu/ArtistRoster.fxml", new RosterController(gameEnvironment));
     }
 
+    /**
+     * Opens the market
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void startMarket(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
         screenNavigator.navigate(event, "/fxml/market/TheMarket.fxml", new TheMarketController(gameEnvironment));
     }
 
+    /**
+     * Opens the studio
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void startStudio(ActionEvent event) throws IOException
     {
         soundEffectsService.playYes();
@@ -196,6 +254,11 @@ public class MainMenuController {
         screenNavigator.navigate(labelName, "/fxml/devui/DevFunctions.fxml", new DevFunctionsController(gameEnvironment));
     }
 
+    /**
+     * Opens the settings menu.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void openSettings(ActionEvent event) throws IOException
     {
         settingsHolder.setDisable(false);
@@ -205,6 +268,11 @@ public class MainMenuController {
                 new MainSettingsController(gameEnvironment, settingsHolder));
     }
 
+    /**
+     * Opens the help menu.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void openHelp(ActionEvent event) throws IOException
     {
         settingsHolder.setDisable(false);

@@ -6,8 +6,18 @@ import seng201.team67.models.enums.Difficulty;
 import seng201.team67.models.enums.questions.PayoutTier;
 import seng201.team67.models.enums.questions.StaminaTier;
 
+/**
+ * Provides difficulty operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class DifficultyService {
 
+    /**
+     * Applies the difficulty for all the enums that rely on difficulty to provide values.
+     * @param gameEnvironment the active game environment
+     * @param difficultyIndex the numeric value for the difficulty index
+     */
     public void applyDifficulty(GameEnvironment gameEnvironment, int difficultyIndex)
     {
         switch (difficultyIndex)
@@ -19,16 +29,16 @@ public class DifficultyService {
                 gameEnvironment.setStaminaTier(StaminaTier.EASY);
             }
             case 1 -> {
-                gameEnvironment.setDifficulty(Difficulty.ACHALLENGE);
+                gameEnvironment.setDifficulty(Difficulty.A_CHALLENGE);
                 gameEnvironment.setGameConfig(GameConfig.aChallenge());
-                gameEnvironment.setPayoutTier(PayoutTier.MEDIUM);
-                gameEnvironment.setStaminaTier(StaminaTier.MEDIUM);
+                gameEnvironment.setPayoutTier(PayoutTier.A_CHALLENGE);
+                gameEnvironment.setStaminaTier(StaminaTier.A_CHALLENGE);
             }
             case 2 -> {
                 gameEnvironment.setDifficulty(Difficulty.HEARTLESS);
                 gameEnvironment.setGameConfig(GameConfig.hard());
-                gameEnvironment.setPayoutTier(PayoutTier.HARD);
-                gameEnvironment.setStaminaTier(StaminaTier.HARD);
+                gameEnvironment.setPayoutTier(PayoutTier.HEARTLESS);
+                gameEnvironment.setStaminaTier(StaminaTier.HEARTLESS);
             }
             default -> throw new IllegalArgumentException("Unknown difficulty index: " + difficultyIndex);
         }

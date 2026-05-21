@@ -9,16 +9,31 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Provides studio operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class StudioService {
 
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** The random. */
     private final Random random = new Random();
 
+    /**
+     * Creates a new studio service.
+     * @param gameEnvironment the active game environment
+     */
     public StudioService(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Returns the artist purchase pool.
+     * @return The artist purchase pool.
+     */
     public ArrayList<Artist> getArtistPurchasePool()
     {
         if (gameEnvironment.isArtistPoolGenerated())

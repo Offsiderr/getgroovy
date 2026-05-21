@@ -16,16 +16,31 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides skill loader operations for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class SkillLoaderService {
 
+    /** Text value for the resource path. */
     private static final String resourcePath = "/data/skills.json";
+    /** Collection that stores the all skills. */
     private final List<Skill> allSkills;
 
+    /**
+     * Creates a new skill loader service.
+     */
     public SkillLoaderService()
     {
         this.allSkills = loadAll();
     }
 
+    /**
+     * Returns the eligible skills.
+     * @param artist the artist
+     * @return The eligible skills.
+     */
     public List<Skill> getEligibleSkills(Artist artist)
     {
         List<Skill> eligibleSkills = new ArrayList<>();
@@ -41,6 +56,10 @@ public class SkillLoaderService {
         return eligibleSkills;
     }
 
+    /**
+     * Returns the all skills.
+     * @return The all skills.
+     */
     public List<Skill> getAllSkills()
     {
         return new ArrayList<>(allSkills);

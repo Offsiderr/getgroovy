@@ -2,12 +2,17 @@ package seng201.team67;
 
 import javafx.scene.text.Font;
 /**
- * Default entry point class
- * @author seng201 teaching team
+ * Launches the JavaFX application for the game.
+ * @author Louie Campion
+ * @author Keenan Aubrey
  */
 
 public class App {
 
+    /**
+     * Launches the JavaFX application entry point for the game.
+     * @param args the command-line arguments passed to the application
+     */
     public static void main(String[] args) {
         var stream = App.class.getResourceAsStream("/fonts/Game_Paused.ttf");
         Font f = Font.loadFont(stream, 14);

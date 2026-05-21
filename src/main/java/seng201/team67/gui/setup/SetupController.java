@@ -15,20 +15,38 @@ import seng201.team67.services.setup.SetupService;
 
 import java.io.IOException;
 
+/**
+ * Controls the setup view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class  SetupController {
     //PlayerSelections.fxml logic
 
+    /** FXML reference for the label name field control. */
     @FXML private TextField labelNameField;
+    /** The expedition count spinner. */
     @FXML private Spinner<Integer> expeditionCountSpinner;
+    /** The difficulty group. */
     @FXML private ToggleGroup difficultyGroup; //Difficulty toggles are grouped together in a toggle group in SceneBuilder
+    /** The start button. */
     @FXML private javafx.scene.control.Button startButton;
 
+    /** Shared game state for the current session. */
     public final GameEnvironment gameEnvironment;
+    /** Service used to manage setup behaviour. */
     private final SetupService setupService;
+    /** Service used to manage difficulty behaviour. */
     private final DifficultyService difficultyService;
+    /** Service used to manage sound effects behaviour. */
     private SoundEffectsService soundEffectsService;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
+    /**
+     * Creates a new setup controller.
+     * @param gameEnvironment the active game environment
+     */
     public SetupController(GameEnvironment gameEnvironment)
     {
         this.gameEnvironment = gameEnvironment;
@@ -37,14 +55,13 @@ public class  SetupController {
         soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
-    public void handleNext(ActionEvent event) throws IOException {
-
-    }
-
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     */
     @FXML
     public void initialize()
     {
-
         //Is disabled anyway in the scene builder but doesn't hurt to make sure it is
         startButton.setDisable(true);
 
@@ -71,6 +88,11 @@ public class  SetupController {
     }
 
 
+    /**
+     * Starts the game. Sets the starting settings in the game enviroment
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void onStartGame(ActionEvent event) throws IOException
     {

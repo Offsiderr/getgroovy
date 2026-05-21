@@ -24,33 +24,59 @@ import java.util.List;
 import static seng201.team67.models.enums.TourType.COUNTRY;
 import static seng201.team67.models.enums.TourType.WORLD;
 
+/**
+ * Controls the select tour view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class SelectTourController {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
 
+    /** Collection that stores the lineup. */
     private List<Artist> lineup;
 
 
-    //FXML stuff
+    /** FXML reference for the artist pane control. */
     @FXML private SplitPane artistPane;
+    /** FXML reference for the artist one control. */
     @FXML private VBox artistOne;
+    /** FXML reference for the artist two control. */
     @FXML private VBox artistTwo;
+    /** FXML reference for the artist three control. */
     @FXML private VBox artistThree;
 
+    /** FXML reference for the country tour text control. */
     @FXML private Label countryTourText;
+    /** FXML reference for the world tour text control. */
     @FXML private Label worldTourText;
 
+    /** FXML reference for the country tour pane control. */
     @FXML private Pane countryTourPane;
+    /** FXML reference for the world tour pane control. */
     @FXML private Pane worldTourPane;
+    /** FXML reference for the bg1 control. */
     @FXML private ImageView bg1;
+    /** FXML reference for the bg2 control. */
     @FXML private ImageView bg2;
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
 
 
+    /**
+     * Creates a new select tour controller.
+     * @param gameEnvironment the active game environment
+     */
     public SelectTourController(GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
     }
 
+    /**
+     * Initializes the controller state and populates the initial view data.
+     * It also attaches any required event handlers for the screen.
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void initialize() throws IOException
     {
@@ -129,8 +155,12 @@ public class SelectTourController {
         }
     }
 
-    //All the buttons
 
+    /**
+     * Starts the local tour.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void startLocalTour(ActionEvent event) throws IOException
     {
@@ -138,6 +168,11 @@ public class SelectTourController {
                 new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
     }
 
+    /**
+     * Starts the country tour.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void startCountryTour(ActionEvent event) throws IOException
     {
@@ -145,6 +180,11 @@ public class SelectTourController {
                 new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
     }
 
+    /**
+     * Starts the world tour.
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML
     public void startWorldTour(ActionEvent event) throws IOException
     {
@@ -152,6 +192,11 @@ public class SelectTourController {
                 new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
     }
 
+    /**
+     * Returns the player back to the main menu
+     * @param event the action event that triggered the request
+     * @throws IOException if an input or output error occurs
+     */
     @FXML public void cancelTour(ActionEvent event) throws IOException {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }

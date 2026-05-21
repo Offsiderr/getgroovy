@@ -14,32 +14,63 @@ import seng201.team67.models.items.Item;
 import java.net.URL;
 import java.util.stream.Collectors;
 
+/**
+ * Controls the item card view and coordinates its user interactions. Depreciated in favour of the item detail card
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class ItemCardController {
 
+    //This class is no longer in use.
+
+    /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
+    /** The roster controller. */
     private final RosterController rosterController;
 
+    /** The item. */
     public Item item;
+    /** Whether selected. */
     private boolean selected = false;
+    /** The on selection changed. */
     private Runnable onSelectionChanged;
 
+    /** FXML reference for the card root control. */
     @FXML private VBox CardRoot;
+    /** FXML reference for the name control. */
     @FXML private Label name;
+    /** FXML reference for the description control. */
     @FXML private Label description;
+    /** FXML reference for the item cost control. */
     @FXML private Label itemCost;
+    /** FXML reference for the rarity control. */
     @FXML private Label rarity;
+    /** FXML reference for the type control. */
     @FXML private Label type;
+    /** FXML reference for the uses control. */
     @FXML private Label uses;
+    /** FXML reference for the effects control. */
     @FXML private Label effects;
+    /** FXML reference for the item image control. */
     @FXML private ImageView itemImage;
+    /** FXML reference for the action button control. */
     @FXML private Button actionButton;
 
+    /**
+     * Creates a new item card controller.
+     * @param gameEnvironment the active game environment
+     * @param rosterController the roster controller to use
+     */
     public ItemCardController(GameEnvironment gameEnvironment, RosterController rosterController)
     {
         this.gameEnvironment = gameEnvironment;
         this.rosterController = rosterController;
     }
 
+    /**
+     * Sets the selection handler.
+     * @param onSelectionChanged the on selection changed
+     */
     public void setSelectionHandler(Runnable onSelectionChanged)
     {
         this.onSelectionChanged = onSelectionChanged;
@@ -47,11 +78,20 @@ public class ItemCardController {
         CardRoot.setStyle("-fx-cursor: hand;");
     }
 
+    /**
+     * Returns whether the item card is selected.
+     * @return True if selected, otherwise false.
+     */
     public boolean isSelected()
     {
         return selected;
     }
 
+    /**
+     * Sets the item.
+     * It normalizes the stored value to keep the state consistent.
+     * @param item the item involved in the operation
+     */
     public void setItem(Item item)
     {
         this.item = item;
@@ -78,6 +118,11 @@ public class ItemCardController {
         }
     }
 
+    /**
+     * Loads the item image.
+     * @param item the item involved in the operation
+     * @return The image.
+     */
     public Image loadItemImage(Item item)
     {
         URL resource = getClass().getResource(item.getImagePath());
@@ -112,6 +157,10 @@ public class ItemCardController {
         }
     }
 
+    /**
+     * If the card is selected, then we give it a border and make it slightly transparent
+     * to make it obvious to the player they have selected this item
+     */
     private void updateStyle()
     {
         if (selected)
@@ -124,6 +173,10 @@ public class ItemCardController {
         }
     }
 
+    /**
+     * Sets the selectable.
+     * @param selectable whether selectable
+     */
     public void setSelectable(boolean selectable)
     {
         if (selectable)
@@ -138,11 +191,18 @@ public class ItemCardController {
         }
     }
 
+    /**
+     * Returns the card root.
+     * @return The card root.
+     */
     public VBox getCardRoot()
     {
         return CardRoot;
     }
 
+    /**
+     * Processes the use button.
+     */
     @FXML public void actionButton()
     {
         if (rosterController != null)

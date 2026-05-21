@@ -1,6 +1,14 @@
 package seng201.team67.interfaces;
-//This interface is applied to anything that can be purchased by the player.
+/**
+ * Defines behaviour for objects that are purchasable.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public interface Purchasable {
 
+    /**
+     * Returns the cost.
+     * @return The cost.
+     */
     public double getCost();
 }

@@ -24,36 +24,71 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+/**
+ * Controls the tour results view and coordinates its user interactions.
+ * @author Louie Campion
+ * @author Keenan Aubrey
+ */
 public class TourResultsController {
 
+    /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
+    /** Service used to manage tour behaviour. */
     private TourService tourService;
+    /** Service used to manage score behaviour. */
     private final ScoreService scoreService = new ScoreService();
+    /** Whether stamina loss. */
     private Boolean staminaLoss;
 
+    /** FXML reference for the artist pane control. */
     @FXML private SplitPane artistPane;
+    /** FXML reference for the artist card one control. */
     @FXML private VBox artistCardOne;
+    /** FXML reference for the artist card two control. */
     @FXML private VBox artistCardTwo;
+    /** FXML reference for the artist card three control. */
     @FXML private VBox artistCardThree;
+    /** FXML reference for the artist card one1 control. */
     @FXML private VBox artistCardOne1;
+    /** FXML reference for the artist card two1 control. */
     @FXML private VBox artistCardTwo1;
+    /** FXML reference for the artist card three1 control. */
     @FXML private VBox artistCardThree1;
 
+    /** FXML reference for the label tour name control. */
     @FXML private Label labelTourName;
+    /** FXML reference for the label base revenue control. */
     @FXML private Label labelBaseRevenue;
+    /** FXML reference for the label event payouts control. */
     @FXML private Label labelEventPayouts;
+    /** FXML reference for the label event penalties control. */
     @FXML private Label labelEventPenalties;
+    /** FXML reference for the label gross control. */
     @FXML private Label labelGross;
+    /** FXML reference for the label pay description control. */
     @FXML private Label labelPayDescription;
+    /** FXML reference for the label artist pay control. */
     @FXML private Label labelArtistPay;
+    /** FXML reference for the label net earned control. */
     @FXML private Label labelNetEarned;
+    /** FXML reference for the label credits before control. */
     @FXML private Label labelCreditsBefore;
+    /** FXML reference for the label credits after control. */
     @FXML private Label labelCreditsAfter;
+    /** FXML reference for the pay text control. */
     @FXML private Label payText;
 
+    /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
+    /** The multiplier format. */
     private static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("0.##");
 
+    /**
+     * Creates a new tour results controller.
+     * @param gameEnvironment the active game environment
+     * @param tourService the tour service for the current run
+     * @param staminaLoss whether stamina loss
+     */
     public TourResultsController(GameEnvironment gameEnvironment, TourService tourService, Boolean staminaLoss) {
         this.gameEnvironment = gameEnvironment;
         this.tourService = tourService;
