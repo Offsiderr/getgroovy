@@ -285,7 +285,7 @@ public class GameConfig {
                 // Score tuning
                 25, 5, 0.5, 20.0, 40, 90, 150, 50,
                 //Game config
-                100.0, 100.0, 100.0, true
+                30.0, 30.0, 30.0, true
         );
     }
 
@@ -311,7 +311,7 @@ public class GameConfig {
                 // Score tuning
                 30, 5, 0.6, 18.0, 50, 110, 180, 75,
                 //Game config
-                100.0, 100.0, 100.0, true
+                30.0, 30.0, 30.0, true
         );
     }
 
@@ -337,7 +337,7 @@ public class GameConfig {
                 // Score tuning
                 35, 6, 0.75, 15.0, 60, 130, 220, 100,
                 //Game config
-                100.0, 100.0, 100.0, true
+                30.0, 30.0, 30.0, true
         );
     }
 }

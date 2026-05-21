@@ -29,7 +29,7 @@ public class MusicService {
     {
         if (!currentlyPlaying) {
             currentlyPlaying = true;
-            play(studioMusicPath);
+            play(studioMusicPath, getConfiguredMusicVolume());
         }
     }
 
@@ -37,7 +37,7 @@ public class MusicService {
     {
         stop();
         currentlyPlaying = true;
-        play(localTourMusicPath);
+        play(localTourMusicPath, getConfiguredMusicVolume());
     }
 
     public static void stop()
@@ -64,6 +64,13 @@ public class MusicService {
         double clampedMainVolume = clampVolume(mainVolume);
         double clampedEffectsVolume = clampVolume(soundEffectsVolume);
         return (clampedMainVolume * clampedEffectsVolume) / MAX_VOLUME_PERCENT;
+    }
+
+    private double getConfiguredMusicVolume() {
+        return calculateEffectiveVolume(
+                gameEnvironment.getConfig().mainVolume,
+                gameEnvironment.getConfig().musicVolume
+        );
     }
 
     private double getConfiguredEffectsVolume() {
