@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import seng201.team67.GameEnvironment;
+import seng201.team67.services.audio.SoundEffectsService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class GachaController {
     private static final int SHAKE_CYCLES = 4;
 
     private GameEnvironment gameEnvironment;
+    private SoundEffectsService soundEffectsService;
 
     @FXML private ImageView recordImage;
 
@@ -44,6 +46,7 @@ public class GachaController {
     {
         this.gameEnvironment = gameEnvironment;
         this.source = source;
+        this.soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     @FXML
@@ -79,6 +82,8 @@ public class GachaController {
 
     private void onRecordClicked() {
         playShakeAnimation();
+        // Plays open crate sound on each click //
+        soundEffectsService.playOpenCrate();
         clicksSoFar++;
 
         int stageIndex = (int) Math.floor((double) clicksSoFar / clicksRequired * (recordStages.size() - 1));

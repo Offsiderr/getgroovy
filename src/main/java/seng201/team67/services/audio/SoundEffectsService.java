@@ -14,6 +14,9 @@ public class SoundEffectsService {
 
     private final String yesPath = "/sound/sfx/YES.wav";
     private final String noPath = "/sound/sfx/NO.wav";
+    private final String cardPath = "/sound/sfx/card.wav";
+    // Added sound effect for opening the gacha crate //
+    private final String openCratePath = "/sound/sfx/opencrate.wav";
 
     public SoundEffectsService(GameEnvironment gameEnvironment)
     {
@@ -22,6 +25,16 @@ public class SoundEffectsService {
 
     public void playYes() {
         play(yesPath, getConfiguredEffectsVolume());
+    }
+
+    public void playCard() {
+        System.out.println("playing card sound");
+        play(cardPath, getConfiguredEffectsVolume());
+    }
+
+    // Plays when the gacha crate is clicked //
+    public void playOpenCrate() {
+        play(openCratePath, getConfiguredEffectsVolume());
     }
 
     public void playNo() {

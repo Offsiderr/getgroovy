@@ -14,6 +14,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.setup.ArtistSelectionService;
 import seng201.team67.services.setup.GameSetupService;
 
@@ -23,13 +24,10 @@ import java.util.List;
 
 public class ArtistSelectionController {
 
-    //This class stores the artist selection for the start of the game,
-    //but will be split out into a basic selection interface super class
-    //that other classes can inherit from in the future.
-
     public final GameEnvironment gameEnvironment;
     private final ArtistSelectionService artistSelectionService;
     private final GameSetupService gameSetupService;
+    private final SoundEffectsService soundEffectsService;
 
     @FXML private VBox artistOne;
     @FXML private VBox artistTwo;
@@ -47,6 +45,7 @@ public class ArtistSelectionController {
         this.gameEnvironment = gameEnvironment;
         this.artistSelectionService = new ArtistSelectionService(gameEnvironment);
         this.gameSetupService = new GameSetupService();
+        this.soundEffectsService = new SoundEffectsService(gameEnvironment);
     }
 
     @FXML
@@ -89,8 +88,7 @@ public class ArtistSelectionController {
         animateCardsIn();
     }
 
-    private void animateCardsIn()
-    {
+    private void animateCardsIn() {
         SequentialTransition sequence = new SequentialTransition();
 
         for (VBox card : artistCards) {
@@ -107,13 +105,11 @@ public class ArtistSelectionController {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(200), card);
             fadeTransition.setToValue(1.0);
 
-            ParallelTransition popIn = new ParallelTransition(
-                    new ParallelTransition(growTransition, fadeTransition),
-                    new SequentialTransition(growTransition, settleTransition)
-            );
+            PauseTransition pause = new PauseTransition(Duration.millis(150));
+            pause.setOnFinished(e -> soundEffectsService.playCard());
 
             sequence.getChildren().addAll(
-                    new PauseTransition(Duration.millis(150)),
+                    pause,
                     new ParallelTransition(
                             fadeTransition,
                             new SequentialTransition(growTransition, settleTransition)
@@ -184,19 +180,16 @@ public class ArtistSelectionController {
     }
 
     @FXML
-    public void artistsSelected(ActionEvent event) throws IOException
-    {
+    public void artistsSelected(ActionEvent event) throws IOException {
         gameSetupService.createLabel(gameEnvironment, getSelectedArtists());
         gameEnvironment.getLabelService().getAllArtists().forEach(artist -> {
             artist.owned = true;
         });
-
         moveScene(event);
     }
 
     @FXML
-    private void moveScene(ActionEvent event) throws IOException
-    {
+    private void moveScene(ActionEvent event) throws IOException {
         screenNavigator.navigate(event, "/fxml/mainmenu/MainMenu.fxml", new MainMenuController(gameEnvironment));
     }
 }
