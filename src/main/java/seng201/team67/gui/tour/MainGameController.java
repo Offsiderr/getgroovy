@@ -282,6 +282,7 @@ public class MainGameController {
             }
         }
 
+        gameEnvironment.getMusicService().stopAndReset();
         tourService.tourEnded();
         gameEnvironment.setArtistPoolGenerated(false);
         gameEnvironment.setItemPoolGenerated(false);
