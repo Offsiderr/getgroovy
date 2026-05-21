@@ -164,6 +164,7 @@ public class SelectTourController {
     @FXML
     public void startLocalTour(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().playLocalTourMusic();
         screenNavigator.navigate(event, "/fxml/tour/MainGame.fxml",
                 new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
     }
@@ -176,6 +177,7 @@ public class SelectTourController {
     @FXML
     public void startCountryTour(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().playCountryTourMusic();
         screenNavigator.navigate(event, "/fxml/tour/MainGame.fxml",
                 new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
     }
@@ -188,6 +190,7 @@ public class SelectTourController {
     @FXML
     public void startWorldTour(ActionEvent event) throws IOException
     {
+        gameEnvironment.getMusicService().playWorldTourMusic();
         screenNavigator.navigate(event, "/fxml/tour/MainGame.fxml",
                 new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
     }

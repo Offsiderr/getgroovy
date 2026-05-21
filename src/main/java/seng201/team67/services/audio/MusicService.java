@@ -21,6 +21,10 @@ public class MusicService {
     private final String studioMusicPath = "/sound/Music/MarketThemePlaceholder.wav";
     /** Text value for the local tour music path. */
     private final String localTourMusicPath = "/sound/Music/Local_tour.wav";
+    /** Text value for the country tour music path. */
+    private final String countryTourMusicPath = "/sound/Music/Country_tour.wav";
+    /** Text value for the world tour music path. */
+    private final String worldTourMusicPath = "/sound/Music/World_Tour.wav";
 
     /** Whether currently playing. */
     private Boolean currentlyPlaying = false;
@@ -59,6 +63,26 @@ public class MusicService {
         stop();
         currentlyPlaying = true;
         play(localTourMusicPath, getConfiguredMusicVolume());
+    }
+
+    /**
+     * Plays the country tour music.
+     */
+    public void playCountryTourMusic()
+    {
+        stop();
+        currentlyPlaying = true;
+        play(countryTourMusicPath, getConfiguredMusicVolume());
+    }
+
+    /**
+     * Plays the world tour music.
+     */
+    public void playWorldTourMusic()
+    {
+        stop();
+        currentlyPlaying = true;
+        play(worldTourMusicPath, getConfiguredMusicVolume());
     }
 
     /**
