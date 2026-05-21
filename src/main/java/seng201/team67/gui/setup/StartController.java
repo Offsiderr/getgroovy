@@ -39,7 +39,7 @@ public class StartController {
         zoomIn.setCycleCount(Animation.INDEFINITE);
         zoomIn.setAutoReverse(true);
         zoomIn.play();
-        MusicService.play("/sound/Music/Title_Screen_Placeholder.wav");
+        MusicService.play("/sound/Music/Title_Screen_Placeholder.wav", 15.0);
     }
 
     @FXML
