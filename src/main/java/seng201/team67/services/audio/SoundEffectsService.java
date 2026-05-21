@@ -25,7 +25,7 @@ public class SoundEffectsService {
     private final String noPath = "/sound/sfx/NO.wav";
     private final String cardPath = "/sound/sfx/card.wav";
     // Added sound effect for opening the gacha crate //
-    private final String openCratePath = "/sound/sfx/opencrate.wav";
+    private static final String openCratePath = "/sound/sfx/opencrate.wav";
 
     /**
      * Creates a new sound effects service.
@@ -63,7 +63,6 @@ public class SoundEffectsService {
      */
     public static void play(String resourcePath) {
         play(resourcePath, MAX_VOLUME_PERCENT);
-        public void playOpenCrate() {
     }
 
     /**

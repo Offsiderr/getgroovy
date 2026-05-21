@@ -14,6 +14,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.gui.util.ViewLoader;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.services.audio.SoundEffectsService;
 import seng201.team67.services.setup.ArtistSelectionService;
 import seng201.team67.services.setup.GameSetupService;
 
@@ -122,8 +123,7 @@ public class ArtistSelectionController {
     /**
      * We animate the gacha cards in on the artists selection screen.
      */
-    private void animateCardsIn()
-    {
+    private void animateCardsIn() {
         SequentialTransition sequence = new SequentialTransition();
 
         for (VBox card : artistCards) {
@@ -140,13 +140,12 @@ public class ArtistSelectionController {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(200), card);
             fadeTransition.setToValue(1.0);
 
-            ParallelTransition popIn = new ParallelTransition(
-                    new ParallelTransition(growTransition, fadeTransition),
-                    new SequentialTransition(growTransition, settleTransition)
-            );
+            // added artist card fx //
+            PauseTransition pause = new PauseTransition(Duration.millis(150));
+            pause.setOnFinished(e -> soundEffectsService.playCard());
 
             sequence.getChildren().addAll(
-                    new PauseTransition(Duration.millis(150)),
+                    pause,
                     new ParallelTransition(
                             fadeTransition,
                             new SequentialTransition(growTransition, settleTransition)
