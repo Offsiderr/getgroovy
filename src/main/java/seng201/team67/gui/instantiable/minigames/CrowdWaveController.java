@@ -35,6 +35,8 @@ public class CrowdWaveController {
     /** The on complete. */
     private Consumer<MiniGameResult> onComplete;
 
+    private AnimationTimer timer;
+
     /**
      * Creates a new crowd wave controller.
      * @param onComplete the on complete
@@ -49,11 +51,19 @@ public class CrowdWaveController {
      */
     @FXML
     public void initialize() {
+        tapButton.setText("Continue");
+        resultLabel.setText("Get ready...");
+        tapButton.setOnAction(e -> onStartClicked());
+    }
+
+    @FXML
+    private void onStartClicked() {
+        tapButton.setText("TAP");
+        tapButton.setOnAction(e -> handleTap());
+
         startTime = System.currentTimeMillis();
 
-        tapButton.setText("TAP");
-
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (gameEnded) {

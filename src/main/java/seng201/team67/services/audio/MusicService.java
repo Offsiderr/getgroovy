@@ -35,6 +35,9 @@ public class MusicService {
     /** The current clip. */
     private static Clip currentClip = null;
 
+    /** The current track. */
+    private String currentTrack = null;
+
     /**
      * Creates a new music service.
      * @param gameEnvironment the active game environment
@@ -51,6 +54,7 @@ public class MusicService {
     {
         if (!currentlyPlaying) {
             currentlyPlaying = true;
+            currentTrack = studioMusicPath;
             play(studioMusicPath, getConfiguredMusicVolume());
         }
     }
@@ -60,8 +64,12 @@ public class MusicService {
      */
     public void playLocalTourMusic()
     {
+        if (localTourMusicPath.equals(currentTrack) && currentClip != null && currentClip.isRunning()) {
+            return;
+        }
         stop();
         currentlyPlaying = true;
+        currentTrack = localTourMusicPath;
         play(localTourMusicPath, getConfiguredMusicVolume());
     }
 
@@ -70,8 +78,12 @@ public class MusicService {
      */
     public void playCountryTourMusic()
     {
+        if (countryTourMusicPath.equals(currentTrack) && currentClip != null && currentClip.isRunning()) {
+            return;
+        }
         stop();
         currentlyPlaying = true;
+        currentTrack = countryTourMusicPath;
         play(countryTourMusicPath, getConfiguredMusicVolume());
     }
 
@@ -80,8 +92,12 @@ public class MusicService {
      */
     public void playWorldTourMusic()
     {
+        if (worldTourMusicPath.equals(currentTrack) && currentClip != null && currentClip.isRunning()) {
+            return;
+        }
         stop();
         currentlyPlaying = true;
+        currentTrack = worldTourMusicPath;
         play(worldTourMusicPath, getConfiguredMusicVolume());
     }
 
@@ -105,6 +121,7 @@ public class MusicService {
     {
         stop();
         currentlyPlaying = false;
+        currentTrack = null;
     }
 
     /**
@@ -165,7 +182,7 @@ public class MusicService {
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             applyVolume(clip, volumePercent);
-            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             currentClip = clip;
             clip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
