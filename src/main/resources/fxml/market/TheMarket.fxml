@@ -118,13 +118,13 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="1068.0" layoutY="649.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="51.0" prefWidth="186.0" style="-fx-background-color: red; -fx-itemEffects: dropshadow(three-pass-box, red, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Return" textFill="WHITE">
+      <Button layoutX="1068.0" layoutY="649.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="51.0" prefWidth="186.0" style="-fx-itemEffects: dropshadow(three-pass-box, red, 5, 0.9, 0, 0);" stylesheets="@../../Styles/Style.css" text="Return">
          <font>
             <Font size="21.0" />
          </font>
          <styleClass>
             <String fx:value="root" />
-            <String fx:value="tiny-label" />
+            <String fx:value="small-label" />
          </styleClass>
       </Button>
       <Button fx:id="buyItemButton" layoutX="544.0" layoutY="632.0" mnemonicParsing="false" onAction="#handleBuyItem" prefHeight="50.0" prefWidth="200.0" text="Buy Item" visible="false">
@@ -132,13 +132,13 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="rerollItems" layoutX="97.0" layoutY="650.0" mnemonicParsing="false" onAction="#rerollItems" prefHeight="50.0" prefWidth="207.0" style="-fx-background-color: #272B39;" stylesheets="@../../Styles/Style.css" text="Reroll Items ($100)" textFill="WHITE">
+      <Button fx:id="rerollItems" layoutX="97.0" layoutY="650.0" mnemonicParsing="false" onAction="#rerollItems" prefHeight="50.0" prefWidth="207.0" stylesheets="@../../Styles/Style.css" text="Reroll Items ($100)">
          <font>
             <Font size="18.0" />
          </font>
          <styleClass>
             <String fx:value="root" />
-            <String fx:value="tiny-label" />
+            <String fx:value="small-label" />
          </styleClass>
       </Button>
       <HBox layoutX="228.0" layoutY="407.0" opacity="0.93" prefHeight="141.0" prefWidth="805.0" spacing="16.0">

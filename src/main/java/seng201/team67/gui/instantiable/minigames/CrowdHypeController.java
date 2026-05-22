@@ -28,6 +28,8 @@ public class CrowdHypeController {
     @FXML private Button hypeButton;
     /** FXML reference for the crowd image control. */
     @FXML private ImageView crowdImage;
+    @FXML private Button continueButton;
+    @FXML private Label pressStartLabel;
 
     /** Numeric value for the hype. */
     private double hype = 0.5;
@@ -53,9 +55,7 @@ public class CrowdHypeController {
     @FXML
     public void initialize() {
 
-        hypeButton.setText("Continue");
         resultLabel.setText("Get ready...");
-        hypeButton.setOnAction(e -> onStartClicked());
 
         ScaleTransition pulse = new ScaleTransition(Duration.seconds(0.6), hypeBar);
         pulse.setFromX(1);
@@ -67,7 +67,12 @@ public class CrowdHypeController {
 
     @FXML
     private void onStartClicked() {
-        hypeButton.setText("HYPE");
+        continueButton.setVisible(false);
+        continueButton.setManaged(false);
+        pressStartLabel.setVisible(false);
+        pressStartLabel.setManaged(false);
+        resultLabel.setVisible(false);
+        resultLabel.setManaged(false);
         hypeButton.setOnAction(e -> handleHype());
 
         timer = new AnimationTimer() {
@@ -121,6 +126,8 @@ public class CrowdHypeController {
     private void endGameWin() {
         timer.stop();
 
+        resultLabel.setVisible(true);
+        resultLabel.setManaged(true);
         resultLabel.setText("THE CROWD GOT TURNT!");
         resultLabel.setStyle("-fx-text-fill: black; -fx-font-size: 40px; -fx-effect: dropshadow(gaussian, #00ff00, 7, 0.6, 0, 0);");
 
@@ -128,15 +135,17 @@ public class CrowdHypeController {
 
         MiniGameResult result = new MiniGameResult(30, 0);
 
-        hypeButton.setDisable(false);
-        hypeButton.setText("Continue");
-        hypeButton.setVisible(true);
-        hypeButton.setOnAction(e -> onComplete.accept(result));
+        hypeButton.setDisable(true);
+        continueButton.setVisible(true);
+        continueButton.setManaged(true);
+        continueButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void endGameLose() {
         timer.stop();
 
+        resultLabel.setVisible(true);
+        resultLabel.setManaged(true);
         resultLabel.setText("CROWD LOST HYPE...");
         resultLabel.setStyle("-fx-text-fill: black; -fx-font-size: 40px; -fx-effect: dropshadow(gaussian, #ff0000, 7, 0.6, 0, 0);");
 
@@ -144,10 +153,10 @@ public class CrowdHypeController {
 
         MiniGameResult result = new MiniGameResult(-10, 0);
 
-        hypeButton.setDisable(false);
-        hypeButton.setText("Continue");
-        hypeButton.setVisible(true);
-        hypeButton.setOnAction(e -> onComplete.accept(result));
+        hypeButton.setDisable(true);
+        continueButton.setVisible(true);
+        continueButton.setManaged(true);
+        continueButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void playPopAnimation() {

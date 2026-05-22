@@ -18,6 +18,8 @@ public class CrowdWaveController {
     @FXML private Button tapButton;
     @FXML private Label resultLabel;
     @FXML private Button continueButton;
+    @FXML private Label pressStartLabel;
+    @FXML private Label clickWhenGreenLabel;
 
     private long startTime;
     private long beatInterval = 1000;
@@ -42,12 +44,20 @@ public class CrowdWaveController {
         continueButton.setText("Continue");
         resultLabel.setText("Get ready...");
 
+        clickWhenGreenLabel.setVisible(false);
+        clickWhenGreenLabel.setManaged(false);
+
         continueButton.setOnAction(e -> startGame());
     }
 
     private void startGame() {
         continueButton.setVisible(false);
+        pressStartLabel.setVisible(false);
+        pressStartLabel.setManaged(false);
         tapButton.setVisible(true);
+
+        clickWhenGreenLabel.setVisible(true);
+        clickWhenGreenLabel.setManaged(true);
 
         tapButton.setText("TAP");
         tapButton.setOnAction(e -> handleTap());
