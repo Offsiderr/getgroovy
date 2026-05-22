@@ -100,4 +100,13 @@ jacocoTestReport {
     reports {
         html.outputLocation = layout.buildDirectory.dir("reports/tests/coverage")
     }
+
+    //Exclude GUI packages from coverage
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'seng201/team67/gui/**'
+            ])
+        }))
+    }
 }

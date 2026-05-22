@@ -1,4 +1,4 @@
-package seng201.team67.services.gameplay;
+package seng201.team67.unittests.services.gameplay;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +8,7 @@ import seng201.team67.models.Label;
 import seng201.team67.models.artists.Artist;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.enums.RandomEvent;
+import seng201.team67.services.gameplay.RandomEventService;
 import seng201.team67.services.setup.DifficultyService;
 
 import java.util.List;

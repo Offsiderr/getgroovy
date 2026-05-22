@@ -18,5 +18,8 @@
       <Button layoutX="286.0" layoutY="174.0" mnemonicParsing="false" onAction="#setWinStreakToThree" prefHeight="69.0" prefWidth="213.0" text="Set win streak to 3" />
       <Button layoutX="34.0" layoutY="277.0" mnemonicParsing="false" onAction="#runApplyItemConcertModifiers" prefHeight="69.0" prefWidth="213.0" text="run applyItemConcertModifiers" />
       <Button layoutX="286.0" layoutY="277.0" mnemonicParsing="false" onAction="#setRetirementRiskForAllToOneHundred" prefHeight="69.0" prefWidth="213.0" text="Set retirement risk for all to 100%" />
+      <Button layoutX="542.0" layoutY="71.0" mnemonicParsing="false" onAction="#setStaminaForAllToFive" prefHeight="69.0" prefWidth="213.0" text="Set Stamina of all artists to 5" />
+      <Button layoutX="542.0" layoutY="174.0" mnemonicParsing="false" onAction="#setMoneyToNegativeOneThousand" prefHeight="69.0" prefWidth="213.0" text="Set money to -$1000" />
+      <Button layoutX="527.0" layoutY="279.0" mnemonicParsing="false" onAction="#givePlayerOneThousand" prefHeight="69.0" prefWidth="213.0" text="Give player $1000" />
    </children>
 </AnchorPane>

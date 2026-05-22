@@ -17,6 +17,7 @@ import seng201.team67.gui.util.ArtistDetailBoxFiller;
 import seng201.team67.gui.util.ScreenNavigator;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.services.gameplay.GameStatusService;
 import seng201.team67.services.gameplay.ScoreService;
 import seng201.team67.services.gameplay.TourService;
 
@@ -37,6 +38,8 @@ public class TourResultsController {
     private TourService tourService;
     /** Service used to manage score behaviour. */
     private final ScoreService scoreService = new ScoreService();
+    /** Service used to manage game status behaviour. */
+    private final GameStatusService gameStatusService = new GameStatusService();
     /** Whether stamina loss. */
     private Boolean staminaLoss;
 
@@ -189,6 +192,11 @@ public class TourResultsController {
 
         boolean finishedSelectedExpeditions = gameEnvironment.getTourCount() >= gameEnvironment.getSelectedNumTours();
         boolean completedSuccessfully = tourService.isTourComplete() && !staminaLoss;
+
+        if (gameStatusService.isGameLost(gameEnvironment)) {
+            screenNavigator.navigate(event, "/fxml/results/LoseScreen.fxml", new LoseScreenController(gameEnvironment));
+            return;
+        }
 
         if (finishedSelectedExpeditions && completedSuccessfully) {
             screenNavigator.navigate(event, "/fxml/results/WinScreen.fxml", new WinScreenController(gameEnvironment));

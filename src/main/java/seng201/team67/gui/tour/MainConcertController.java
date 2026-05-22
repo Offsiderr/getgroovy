@@ -251,9 +251,14 @@ public class MainConcertController {
             return;
         }
 
-        effectText.setText(result);
-        effectText.setVisible(true);
+        showEffectText(result);
         refreshView();
+    }
+
+    private void showEffectText(String text)
+    {
+        effectText.setText(text);
+        effectText.setVisible(!text.isBlank());
     }
 
     private void populateQuestion() throws IOException {
@@ -385,6 +390,7 @@ public class MainConcertController {
     private void handleAnswer(Answer answer) {
         try {
             Outcome outcome = concertService.handleAnswer(answer);
+            showEffectText(tourService.getConditionalEffectText());
             refreshView();
             loadOutcome(outcome);
         } catch (IOException e) {
@@ -555,6 +561,39 @@ public class MainConcertController {
         {
             artist.increaseRetirementChance(retirementRisk - artist.getRetirementChance());
         }
+        refreshView();
+    }
+
+    /**
+     * Processes the debug set stamina for all artists.
+     * @param stamina the numeric value for the stamina
+     */
+    public void debugSetStaminaForAll(int stamina)
+    {
+        for (Artist artist : gameEnvironment.getLabelService().getAllArtists())
+        {
+            artist.setStamina(stamina);
+        }
+        refreshView();
+    }
+
+    /**
+     * Processes the debug set money.
+     * @param money the numeric value for the money
+     */
+    public void debugSetMoney(double money)
+    {
+        gameEnvironment.getLabel().money = money;
+        refreshView();
+    }
+
+    /**
+     * Processes the debug give money.
+     * @param money the numeric value for the money
+     */
+    public void debugGiveMoney(double money)
+    {
+        gameEnvironment.getLabelService().giveMoney(money);
         refreshView();
     }
 }

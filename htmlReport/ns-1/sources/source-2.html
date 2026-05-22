@@ -48,18 +48,18 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">GameEnvironment</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    14.3%
+    0%
   </span>
   <span class="absValue">
-    (7/49)
+    (0/49)
   </span>
 </td>
 <td class="coverageStat">
@@ -72,10 +72,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    36.1%
+    0%
   </span>
   <span class="absValue">
-    (26/72)
+    (0/72)
   </span>
 </td>
 </tr>
@@ -127,32 +127,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    /** Numeric value for the selected num tours. */
 &nbsp;    private int selectedNumTours;
 &nbsp;    /** Numeric value for the tour count. */
-<b class="fc">&nbsp;    private int tourCount = 0;</b>
+<b class="nc">&nbsp;    private int tourCount = 0;</b>
 &nbsp;    /** Numeric value for the concert count. */
-<b class="fc">&nbsp;    private int concertCount = 0;</b>
+<b class="nc">&nbsp;    private int concertCount = 0;</b>
 &nbsp;    /** The difficulty. */
 &nbsp;    private Difficulty difficulty;
 &nbsp;    /** Numeric value for the game score. */
-<b class="fc">&nbsp;    private int gameScore = 0;</b>
+<b class="nc">&nbsp;    private int gameScore = 0;</b>
 &nbsp;    /** Numeric value for the total money spent. */
-<b class="fc">&nbsp;    private double totalMoneySpent = 0;</b>
+<b class="nc">&nbsp;    private double totalMoneySpent = 0;</b>
 &nbsp;    /** Numeric value for the total money earnt. */
-<b class="fc">&nbsp;    private double totalMoneyEarnt = 0;</b>
+<b class="nc">&nbsp;    private double totalMoneyEarnt = 0;</b>
 &nbsp;
 &nbsp;    /** Service used to manage music behaviour. */
 &nbsp;    private final MusicService musicService;
 &nbsp;
 &nbsp;    /** Collection that stores the artist pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Artist&gt; artistPool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Artist&gt; artistPool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Collection that stores the artist purchase pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Artist&gt; artistPurchasePool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Artist&gt; artistPurchasePool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Whether artist pool generated. */
-<b class="fc">&nbsp;    private boolean artistPoolGenerated = false;</b>
+<b class="nc">&nbsp;    private boolean artistPoolGenerated = false;</b>
 &nbsp;
 &nbsp;    /** Collection that stores the item purchase pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Item&gt; itemPurchasePool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Item&gt; itemPurchasePool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Whether item pool generated. */
-<b class="fc">&nbsp;    private boolean itemPoolGenerated = false;</b>
+<b class="nc">&nbsp;    private boolean itemPoolGenerated = false;</b>
 &nbsp;
 &nbsp;    /** The game config. */
 &nbsp;    private GameConfig gameConfig;
@@ -162,16 +162,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private StaminaTier staminaTier;
 &nbsp;
 &nbsp;    /** Collection that stores the common question pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Question&gt; commonQuestionPool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Question&gt; commonQuestionPool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Collection that stores the local question pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Question&gt; localQuestionPool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Question&gt; localQuestionPool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Collection that stores the country question pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Question&gt; countryQuestionPool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Question&gt; countryQuestionPool = new ArrayList&lt;&gt;();</b>
 &nbsp;    /** Collection that stores the world question pool. */
-<b class="fc">&nbsp;    private ArrayList&lt;Question&gt; worldQuestionPool = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Question&gt; worldQuestionPool = new ArrayList&lt;&gt;();</b>
 &nbsp;
 &nbsp;    /** Collection that stores the all items. */
-<b class="fc">&nbsp;    private ArrayList&lt;Item&gt; allItems = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    private ArrayList&lt;Item&gt; allItems = new ArrayList&lt;&gt;();</b>
 &nbsp;
 &nbsp;    /** Service used to manage skill loader behaviour. */
 &nbsp;    private SkillLoaderService skillLoaderService;
@@ -180,10 +180,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Creates a new game environment.
 &nbsp;     */
 &nbsp;    public GameEnvironment()
-<b class="fc">&nbsp;    {</b>
-<b class="fc">&nbsp;        this.musicService = new MusicService(this);</b>
-<b class="fc">&nbsp;        this.skillLoaderService = new SkillLoaderService();</b>
-<b class="fc">&nbsp;        new GameInitialisationService().initialise(this);</b>
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.musicService = new MusicService(this);</b>
+<b class="nc">&nbsp;        this.skillLoaderService = new SkillLoaderService();</b>
+<b class="nc">&nbsp;        new GameInitialisationService().initialise(this);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -246,8 +246,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setArtistPool(List&lt;Artist&gt; artistList)
 &nbsp;    {
-<b class="fc">&nbsp;        artistPool.clear();</b>
-<b class="fc">&nbsp;        artistPool.addAll(artistList);</b>
+<b class="nc">&nbsp;        artistPool.clear();</b>
+<b class="nc">&nbsp;        artistPool.addAll(artistList);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -498,7 +498,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setCommonQuestionPool(List&lt;Question&gt; commonQuestionPool)
 &nbsp;    {
-<b class="fc">&nbsp;        this.commonQuestionPool = new ArrayList&lt;&gt;(commonQuestionPool);</b>
+<b class="nc">&nbsp;        this.commonQuestionPool = new ArrayList&lt;&gt;(commonQuestionPool);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -516,7 +516,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setLocalQuestionPool(List&lt;Question&gt; localQuestionPool)
 &nbsp;    {
-<b class="fc">&nbsp;        this.localQuestionPool = new ArrayList&lt;&gt;(localQuestionPool);</b>
+<b class="nc">&nbsp;        this.localQuestionPool = new ArrayList&lt;&gt;(localQuestionPool);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -534,7 +534,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setCountryQuestionPool(List&lt;Question&gt; countryQuestionPool)
 &nbsp;    {
-<b class="fc">&nbsp;        this.countryQuestionPool = new ArrayList&lt;&gt;(countryQuestionPool);</b>
+<b class="nc">&nbsp;        this.countryQuestionPool = new ArrayList&lt;&gt;(countryQuestionPool);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -552,7 +552,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setWorldQuestionPool(List&lt;Question&gt; worldQuestionPool)
 &nbsp;    {
-<b class="fc">&nbsp;        this.worldQuestionPool = new ArrayList&lt;&gt;(worldQuestionPool);</b>
+<b class="nc">&nbsp;        this.worldQuestionPool = new ArrayList&lt;&gt;(worldQuestionPool);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -570,7 +570,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void setAllItems(List&lt;Item&gt; allItems)
 &nbsp;    {
-<b class="fc">&nbsp;        this.allItems = new ArrayList&lt;&gt;(allItems);</b>
+<b class="nc">&nbsp;        this.allItems = new ArrayList&lt;&gt;(allItems);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -650,7 +650,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

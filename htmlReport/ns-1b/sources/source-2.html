@@ -67,7 +67,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/14)
+    (0/16)
   </span>
 </td>
 <td class="coverageStat">
@@ -75,7 +75,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/17)
+    (0/19)
   </span>
 </td>
 </tr>
@@ -98,6 +98,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * @author Keenan Aubrey
 &nbsp; */
 <b class="nc">&nbsp;public class GameStatusService {</b>
+&nbsp;    /** Balance where the player loses from debt. */
+&nbsp;    public static final double BANKRUPTCY_LIMIT = -500.0;
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns whether game lost.
@@ -106,6 +108,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public boolean isGameLost(GameEnvironment gameEnvironment)
 &nbsp;    {
+<b class="nc">&nbsp;        if (gameEnvironment.getLabelService().getMoney() &lt;= BANKRUPTCY_LIMIT)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
 <b class="nc">&nbsp;        boolean noArtists = gameEnvironment.getLabelService().getAllArtists().isEmpty();</b>
 <b class="nc">&nbsp;        if (!noArtists)</b>
 &nbsp;        {
@@ -160,7 +167,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

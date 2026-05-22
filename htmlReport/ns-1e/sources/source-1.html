@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > StatModifier</title>
+  <title>Coverage Report > Usable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.team67.interfaces</a>
 </div>
 
-<h1>Coverage Summary for Class: StatModifier (seng201.team67.interfaces)</h1>
+<h1>Coverage Summary for Class: Usable (seng201.team67.interfaces)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">StatModifier</td>
+  <td class="name">Usable</td>
 </tr>
 
 </table>
@@ -40,24 +40,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.interfaces;
-&nbsp;
-&nbsp;import seng201.team67.models.artists.Artist;
-&nbsp;
 &nbsp;/**
-&nbsp; * Defines a modifier for stat behaviour.
+&nbsp; * Defines behaviour for objects that are usable.
 &nbsp; * @author Louie Campion
 &nbsp; * @author Keenan Aubrey
 &nbsp; */
-&nbsp;@FunctionalInterface
-&nbsp;public interface StatModifier {
+&nbsp;public interface Usable {
+&nbsp;
 &nbsp;    /**
-&nbsp;     * Processes applying a stat modifier.
-&nbsp;     * @param artist the artist
-&nbsp;     * @param value the numeric value for the value
-&nbsp;     * @return The apply.
+&nbsp;     * Returns the uses. How many times this object CAN be used.
+&nbsp;     * @return The uses.
 &nbsp;     */
-&nbsp;    int apply(Artist artist, double value);
+&nbsp;    public int getUses();
+&nbsp;    /**
+&nbsp;     * Returns the use amount. How much this object HAS been used
+&nbsp;     * @return The use amount.
+&nbsp;     */
+&nbsp;    public int getUseAmount();
 &nbsp;}
+&nbsp;
 </code>
 </pre>
 </div>
@@ -81,7 +82,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

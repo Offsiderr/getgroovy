@@ -1,4 +1,4 @@
-package seng201.team67.services.management;
+package seng201.team67.unittests.services.management;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +12,7 @@ import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.items.EquippedItem;
 import seng201.team67.models.items.Item;
+import seng201.team67.services.management.LabelService;
 import seng201.team67.services.setup.DifficultyService;
 
 import java.util.List;

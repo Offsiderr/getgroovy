@@ -22,7 +22,7 @@ public class TourService {
     /** Shared game state for the current session. */
     private GameEnvironment gameEnvironment;
     /** Numeric value for the mini game trigger chance. */
-    private static double miniGameTriggerChance; //TODO: decide a percentage
+    private static double miniGameTriggerChance;
     /** The random. */
     private final Random random = new Random();
 

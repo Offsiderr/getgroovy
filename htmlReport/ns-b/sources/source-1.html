@@ -37,6 +37,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
@@ -63,7 +67,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/15)
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
   </span>
 </td>
 </tr>
@@ -83,6 +95,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import seng201.team67.GameEnvironment;
 &nbsp;import seng201.team67.gui.setup.StartController;
 &nbsp;import seng201.team67.gui.util.ScreenNavigator;
+&nbsp;import seng201.team67.services.gameplay.GameStatusService;
 &nbsp;
 &nbsp;import java.io.IOException;
 &nbsp;
@@ -109,6 +122,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @FXML private Label finishingBalance;
 &nbsp;    /** FXML reference for the final score control. */
 &nbsp;    @FXML private Label finalScore;
+&nbsp;    /** FXML reference for the loss reason control. */
+&nbsp;    @FXML private Label lossReason;
 &nbsp;
 &nbsp;    /** Shared game state for the current session. */
 &nbsp;    private final GameEnvironment gameEnvironment;
@@ -132,6 +147,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @FXML
 &nbsp;    public void initialize() {
 <b class="nc">&nbsp;        labelName.setText(gameEnvironment.getLabelService().getLabelName());</b>
+<b class="nc">&nbsp;        if (gameEnvironment.getLabelService().getMoney() &lt;= GameStatusService.BANKRUPTCY_LIMIT) {</b>
+<b class="nc">&nbsp;            lossReason.setText(&quot;You went past -$500, so the bank repo&#39;d your office equipment, and the artists all left.&quot;);</b>
+&nbsp;        }
 <b class="nc">&nbsp;        selectedTours.setText(&quot;Selected Tours: &quot; + gameEnvironment.getSelectedNumTours());</b>
 <b class="nc">&nbsp;        tourCount.setText(&quot;Total Tours: &quot; + gameEnvironment.getTourCount());</b>
 <b class="nc">&nbsp;        concertCount.setText(&quot;Total Concerts: &quot; + gameEnvironment.getConcertCount());</b>
@@ -190,7 +208,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

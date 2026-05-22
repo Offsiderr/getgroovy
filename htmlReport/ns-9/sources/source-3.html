@@ -64,7 +64,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/64)
+    (0/68)
   </span>
 </td>
 </tr>
@@ -118,7 +118,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/74)
+    (0/78)
   </span>
 </td>
 </tr>
@@ -343,6 +343,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @FXML public void startTour(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().stopAndReset();</b>
 <b class="nc">&nbsp;        soundEffectsService.playYes();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/tour/SelectTour.fxml&quot;, new SelectTourController(gameEnvironment));</b>
 &nbsp;    }
@@ -354,6 +355,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @FXML public void startRoster(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().stopAndReset();</b>
 <b class="nc">&nbsp;        soundEffectsService.playYes();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/mainmenu/ArtistRoster.fxml&quot;, new RosterController(gameEnvironment));</b>
 &nbsp;    }
@@ -365,6 +367,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @FXML public void startMarket(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().stopAndReset();</b>
 <b class="nc">&nbsp;        soundEffectsService.playYes();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/market/TheMarket.fxml&quot;, new TheMarketController(gameEnvironment));</b>
 &nbsp;    }
@@ -376,6 +379,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @FXML public void startStudio(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().stopAndReset();</b>
 <b class="nc">&nbsp;        soundEffectsService.playYes();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/studio/TheStudio.fxml&quot;, new TheStudioController(gameEnvironment));</b>
 &nbsp;    }
@@ -435,7 +439,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

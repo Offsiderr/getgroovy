@@ -82,4 +82,34 @@ public class DevFunctionsInGameController {
     {
         mainConcertController.debugSetRetirementRiskForAll(100);
     }
+
+    /**
+     * Sets the stamina of all artists to five.
+     * @param event the action event that triggered the request
+     */
+    @FXML
+    public void setStaminaForAllToFive(ActionEvent event)
+    {
+        mainConcertController.debugSetStaminaForAll(5);
+    }
+
+    /**
+     * Sets the player money to negative one thousand.
+     * @param event the action event that triggered the request
+     */
+    @FXML
+    public void setMoneyToNegativeOneThousand(ActionEvent event)
+    {
+        mainConcertController.debugSetMoney(-1000);
+    }
+
+    /**
+     * Gives the player one thousand dollars.
+     * @param event the action event that triggered the request
+     */
+    @FXML
+    public void givePlayerOneThousand(ActionEvent event)
+    {
+        mainConcertController.debugGiveMoney(1000);
+    }
 }

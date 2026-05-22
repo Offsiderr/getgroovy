@@ -15,7 +15,7 @@ public class SkillEffectBehaviours {
 
 
     /**
-     * Processes the flat stamina boost.
+     * Boosts an artist's stamina by a flat amount, scaled by their skill level.
      * @param amount the amount to apply
      * @return The stat modifier.
      */
@@ -25,7 +25,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the flat star power boost.
+     * Reduces the stamina cost of an action by a percentage, scaled by skill level.
+     * Returns the cost as an integer percentage eg. 80 = 20% reduction
      * @param amount the amount to apply
      * @return The stat modifier.
      */
@@ -35,7 +36,7 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the stamina cost reduction.
+     * Applies a payout bonus only when the concert ends with high crowd energy >= 75
      * @param multiplier the multiplier used by the calculation
      * @return The stat modifier.
      */
@@ -45,7 +46,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the retirement risk.
+     * Calculates the threshold at which an artist risks retirement, 60% of their
+     * current tolerance stat.
      * @return The stat modifier.
      */
     public static StatModifier retirementRisk()
@@ -55,7 +57,8 @@ public class SkillEffectBehaviours {
 
 
     /**
-     * Processes the flat credit bonus.
+     * Adds a flat credit bonus to any non-zero payout, scaled by the artist's skill level.
+     * Has no effect if the base payout is zero.
      * @param amount the amount to apply
      * @return The payout modifier.
      */
@@ -66,7 +69,7 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the payout multiplier.
+     * Multiplies any positive payout by a skill-scaled factor. Penalties are left unchanged.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -78,8 +81,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the great payout multiplier.
-     * It updates related state as needed while performing the operation.
+     * Amplifies positive payouts on GREAT outcomes and negative payouts on BAD outcomes.
+     * Rewards high performance while making bad concerts hurt more — both scaled by skill level.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -95,7 +98,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the terrible payout reduction.
+     * Softens the credit penalty on BAD or TERRIBLE concert outcomes.
+     * The reduction is capped at 1.0 so it can never flip a penalty into a reward.
      * @param reduction the numeric value for the reduction
      * @return The payout modifier.
      */
@@ -110,7 +114,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the ok payout multiplier.
+     * Boosts the payout for OK-rated concerts, rewarding consistency even without a standout performance.
+     * Has no effect on GREAT, BAD, or TERRIBLE outcomes.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -123,7 +128,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the headliner bonus.
+     * Grants a bonus when the artist is the sole performer in the lineup.
+     * Applies to both positive and negative payouts — going it alone carries risk too.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -136,7 +142,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the collab bonus.
+     * Rewards lineups featuring more than one artist type: rap, pop, rock, etc.
+     * Applies to both positive and negative payouts.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -149,8 +156,9 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the amp it up bonus.
-     * It updates related state as needed while performing the operation.
+     * Grows the payout multiplier with each completed concert in the tour.
+     * Each additional concert compounds the step bonus, so later shows pay out
+     * progressively more
      * @param multiplierStep the numeric value for the multiplier step
      * @return The payout modifier.
      */
@@ -168,8 +176,8 @@ public class SkillEffectBehaviours {
     }
 
     /**
-     * Processes the encore machine bonus.
-     * It updates related state as needed while performing the operation.
+     * Grants a bonus when the concert ends on a high note — crowd energy at or above 75
+     * and the outcome marks the concert as finished. Has no effect on zero or negative payouts.
      * @param multiplier the multiplier used by the calculation
      * @return The payout modifier.
      */
@@ -184,6 +192,12 @@ public class SkillEffectBehaviours {
                         : basePayout;
     }
 
+    /**
+     * Scales a flat effect amount by the artist's skill level, with a minimum scale of 1.
+     *
+     * @param amount     the base flat value
+     * @param skillLevel the artist's current skill level
+     */
     private static int scaleFlatEffect(int amount, int skillLevel)
     {
         return amount * Math.max(1, skillLevel);

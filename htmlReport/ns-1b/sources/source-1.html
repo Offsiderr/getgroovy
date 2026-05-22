@@ -48,7 +48,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/52)
+    (0/55)
   </span>
 </td>
 <td class="coverageStat">
@@ -56,7 +56,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/112)
+    (0/140)
   </span>
 </td>
 <td class="coverageStat">
@@ -64,7 +64,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/224)
+    (0/260)
   </span>
 </td>
 </tr>
@@ -94,7 +94,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/53)
+    (0/56)
   </span>
 </td>
 <td class="coverageStat">
@@ -102,7 +102,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/112)
+    (0/140)
   </span>
 </td>
 <td class="coverageStat">
@@ -110,7 +110,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/226)
+    (0/262)
   </span>
 </td>
 </tr>
@@ -132,6 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import seng201.team67.models.enums.Minigame;
 &nbsp;import seng201.team67.models.minigames.MiniGameResult;
 &nbsp;import seng201.team67.models.enums.questions.PayoutType;
+&nbsp;import seng201.team67.models.items.CosumableItem;
 &nbsp;import seng201.team67.models.items.ConditionalItem;
 &nbsp;import seng201.team67.models.items.Item;
 &nbsp;import seng201.team67.models.questionmodels.Answer;
@@ -340,8 +341,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));</b>
 <b class="nc">&nbsp;        applyAnsweringArtistOutcomeSkills(answeringArtist, outcome);</b>
 <b class="nc">&nbsp;        updateConcertWinState(outcome);</b>
-<b class="nc">&nbsp;        applyItemConcertModifiers();</b>
-<b class="nc">&nbsp;        applyConditionalItemEffects();</b>
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; triggeredEffects = applyItemConcertModifiers();</b>
+<b class="nc">&nbsp;        triggeredEffects.addAll(applyConditionalItemEffects());</b>
+<b class="nc">&nbsp;        tourService.setConditionalEffectText(String.join(&quot;\n&quot;, triggeredEffects));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -361,6 +363,63 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        {
 <b class="nc">&nbsp;            gameEnvironment.getLabelService().takeMoney(-result.getCreditResult());</b>
 &nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Uses a consumable item during the concert.
+&nbsp;     * @param artist the artist holding the item
+&nbsp;     * @param item the item involved in the operation
+&nbsp;     * @return A display message describing the result.
+&nbsp;     */
+&nbsp;    public String useConsumable(Artist artist, Item item)
+&nbsp;    {
+<b class="nc">&nbsp;        if (!(item instanceof CosumableItem consumable) || !artist.getItems().contains(item))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return &quot;&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; effectMessages = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (ItemEffects itemEffects : item.getEffects())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            if (itemEffects.getTargetStat() != null)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                int effectValue = artist.getEffectValue(item, itemEffects);</b>
+<b class="nc">&nbsp;                if (!artist.calculateEffect(item, itemEffects))</b>
+&nbsp;                {
+&nbsp;                    continue;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                effectMessages.add(itemEffects.getName() + &quot; applied +&quot; + effectValue + &quot; &quot;</b>
+<b class="nc">&nbsp;                        + itemEffects.getTargetStat().toString().toLowerCase().replace(&#39;_&#39;, &#39; &#39;));</b>
+&nbsp;                continue;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (itemEffects.getConcertModifier() != null)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                double effectValue = resolveEffectValue(item, itemEffects);</b>
+<b class="nc">&nbsp;                concertModifierTriggered = false;</b>
+<b class="nc">&nbsp;                itemEffects.getGameplayEffect().createConcertModifier(effectValue).apply(this);</b>
+<b class="nc">&nbsp;                if (consumeConcertModifierTriggered())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    effectMessages.add(itemEffects.getName() + &quot; applied +&quot; + formatEffectValue(effectValue) + &quot; crowd meter&quot;);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        consumable.consumeUse();</b>
+<b class="nc">&nbsp;        if (consumable.getUses() &lt;= 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            artist.removeItem(item);</b>
+<b class="nc">&nbsp;            item.dispose();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (effectMessages.isEmpty())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return item.getName() + &quot; was used but nothing happened.&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return item.getName() + &quot;: &quot; + String.join(&quot;, &quot;, effectMessages)</b>
+<b class="nc">&nbsp;                + &quot; (&quot; + consumable.getUses() + &quot; use(s) left)&quot;;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -559,8 +618,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        return staminaService.getStaminaChangeAmount(gameEnvironment, outcome.getOutcomeType());</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    private void applyItemConcertModifiers()
+&nbsp;    private ArrayList&lt;String&gt; applyItemConcertModifiers()
 &nbsp;    {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; triggeredEffects = new ArrayList&lt;&gt;();</b>
 <b class="nc">&nbsp;        concertModifierTriggered = false;</b>
 &nbsp;
 <b class="nc">&nbsp;        for (Artist artist : gameEnvironment.getLabelService().getLineup())</b>
@@ -569,6 +629,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            {
 <b class="nc">&nbsp;                for (ItemEffects itemEffects : item.getEffects())</b>
 &nbsp;                {
+<b class="nc">&nbsp;                    if (item instanceof CosumableItem)</b>
+&nbsp;                    {
+&nbsp;                        continue;
+&nbsp;                    }
+&nbsp;
 <b class="nc">&nbsp;                    if (isOneTimeConditionalEffect(itemEffects) &amp;&amp; consumedConditionalEffects.contains(buildConsumedEffectKey(artist, item, itemEffects)))</b>
 &nbsp;                    {
 &nbsp;                        continue;
@@ -577,14 +642,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                    if (itemEffects.getConcertModifier() != null)</b>
 &nbsp;                    {
 <b class="nc">&nbsp;                        itemEffects.getConcertModifier().apply(this);</b>
-<b class="nc">&nbsp;                        if (consumeConcertModifierTriggered() &amp;&amp; isOneTimeConditionalEffect(itemEffects))</b>
+<b class="nc">&nbsp;                        if (consumeConcertModifierTriggered())</b>
 &nbsp;                        {
-<b class="nc">&nbsp;                            consumedConditionalEffects.add(buildConsumedEffectKey(artist, item, itemEffects));</b>
+<b class="nc">&nbsp;                            if (item instanceof ConditionalItem)</b>
+&nbsp;                            {
+<b class="nc">&nbsp;                                triggeredEffects.add(item.getName() + &quot; triggered: &quot; + itemEffects.getName());</b>
+&nbsp;                            }
+&nbsp;
+<b class="nc">&nbsp;                            if (isOneTimeConditionalEffect(itemEffects))</b>
+&nbsp;                            {
+<b class="nc">&nbsp;                                consumedConditionalEffects.add(buildConsumedEffectKey(artist, item, itemEffects));</b>
+&nbsp;                            }
 &nbsp;                        }
 &nbsp;                    }
 &nbsp;                }
 &nbsp;            }
 &nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return triggeredEffects;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private void updateConcertWinState(Outcome outcome)
@@ -621,7 +696,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        tourService.advanceLineupStaminaIndex();</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    private void applyConditionalItemEffects()
+&nbsp;    private ArrayList&lt;String&gt; applyConditionalItemEffects()
 &nbsp;    {
 <b class="nc">&nbsp;        ArrayList&lt;String&gt; triggeredEffects = new ArrayList&lt;&gt;();</b>
 &nbsp;
@@ -653,7 +728,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        tourService.setConditionalEffectText(String.join(&quot;\n&quot;, triggeredEffects));</b>
+<b class="nc">&nbsp;        return triggeredEffects;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private String formatStatName(ItemEffects itemEffects)
@@ -756,6 +831,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private String buildConsumedEffectKey(Artist artist, Item item, ItemEffects itemEffects)
 &nbsp;    {
 <b class="nc">&nbsp;        return artist.getName() + &quot;:&quot; + item.getName() + &quot;:&quot; + itemEffects.name();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private double resolveEffectValue(Item item, ItemEffects itemEffects)
+&nbsp;    {
+<b class="nc">&nbsp;        if (item != null &amp;&amp; item.getMultiplier() != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return item.getMultiplier();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return itemEffects.getDefaultValue();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String formatEffectValue(double value)
+&nbsp;    {
+<b class="nc">&nbsp;        if (value == Math.rint(value))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return Integer.toString((int) value);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return Double.toString(value);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -900,7 +993,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

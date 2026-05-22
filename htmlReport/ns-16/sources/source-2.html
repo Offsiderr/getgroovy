@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    14.3%
+    42.9%
   </span>
   <span class="absValue">
-    (1/7)
+    (3/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    50%
   </span>
   <span class="absValue">
-    (3/9)
+    (6/12)
   </span>
 </td>
 </tr>
@@ -103,7 +103,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public CosumableItem() {
 <b class="nc">&nbsp;        super();</b>
-&nbsp;    }
+<b class="nc">&nbsp;    }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Creates a new cosumable item.
@@ -124,7 +124,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        super(name, description, cost, rarity, itemEffects);</b>
 <b class="fc">&nbsp;        this.concert_uses = uses;</b>
 <b class="fc">&nbsp;        this.initialUses = uses;</b>
-&nbsp;    }
+<b class="fc">&nbsp;    }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the uses.
@@ -132,7 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Override
 &nbsp;    public int getUses() {
-<b class="nc">&nbsp;        return concert_uses;</b>
+<b class="fc">&nbsp;        return concert_uses;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -141,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Override
 &nbsp;    public int getUseAmount() {
-<b class="nc">&nbsp;        return 1;</b>
+<b class="fc">&nbsp;        return 1;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -158,7 +158,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void consumeUse()
 &nbsp;    {
 <b class="nc">&nbsp;        concert_uses = Math.max(0, concert_uses - getUseAmount());</b>
-&nbsp;    }
+<b class="nc">&nbsp;    }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the type.
@@ -192,7 +192,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

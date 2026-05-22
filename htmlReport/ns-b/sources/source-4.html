@@ -67,7 +67,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/16)
+    (0/18)
   </span>
 </td>
 <td class="coverageStat">
@@ -75,7 +75,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/70)
+    (0/73)
   </span>
 </td>
 </tr>
@@ -106,6 +106,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import seng201.team67.gui.util.ScreenNavigator;
 &nbsp;import seng201.team67.models.ConcertResults;
 &nbsp;import seng201.team67.models.artists.Artist;
+&nbsp;import seng201.team67.services.gameplay.GameStatusService;
 &nbsp;import seng201.team67.services.gameplay.ScoreService;
 &nbsp;import seng201.team67.services.gameplay.TourService;
 &nbsp;
@@ -126,6 +127,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private TourService tourService;
 &nbsp;    /** Service used to manage score behaviour. */
 <b class="nc">&nbsp;    private final ScoreService scoreService = new ScoreService();</b>
+&nbsp;    /** Service used to manage game status behaviour. */
+<b class="nc">&nbsp;    private final GameStatusService gameStatusService = new GameStatusService();</b>
 &nbsp;    /** Whether stamina loss. */
 &nbsp;    private Boolean staminaLoss;
 &nbsp;
@@ -279,6 +282,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        boolean finishedSelectedExpeditions = gameEnvironment.getTourCount() &gt;= gameEnvironment.getSelectedNumTours();</b>
 <b class="nc">&nbsp;        boolean completedSuccessfully = tourService.isTourComplete() &amp;&amp; !staminaLoss;</b>
 &nbsp;
+<b class="nc">&nbsp;        if (gameStatusService.isGameLost(gameEnvironment)) {</b>
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/results/LoseScreen.fxml&quot;, new LoseScreenController(gameEnvironment));</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
 <b class="nc">&nbsp;        if (finishedSelectedExpeditions &amp;&amp; completedSuccessfully) {</b>
 <b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/results/WinScreen.fxml&quot;, new WinScreenController(gameEnvironment));</b>
 &nbsp;            return;
@@ -310,7 +318,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

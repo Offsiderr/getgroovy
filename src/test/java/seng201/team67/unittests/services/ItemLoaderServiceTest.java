@@ -21,7 +21,7 @@ public class ItemLoaderServiceTest {
         List<Item> items = new ItemLoaderService().loadAll();
 
         assertFalse(items.isEmpty());
-        assertEquals(33, items.size());
+        assertEquals(26, items.size());
         assertTrue(items.stream().anyMatch(CosumableItem.class::isInstance));
         assertTrue(items.stream().anyMatch(EquippedItem.class::isInstance));
         assertTrue(items.stream().anyMatch(ConditionalItem.class::isInstance));

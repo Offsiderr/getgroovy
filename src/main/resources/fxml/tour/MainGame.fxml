@@ -121,15 +121,6 @@
             <String fx:value="root" />
          </styleClass>
       </Label>
-      <Label fx:id="effectText" layoutX="433.0" layoutY="596.0" prefHeight="62.0" prefWidth="293.0" style="-fx-background-color: transperant;" stylesheets="@../../Styles/Style.css" text="this itemEffects applied" wrapText="true">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <styleClass>
-            <String fx:value="root" />
-            <String fx:value="small-label" />
-         </styleClass>
-      </Label>
       <AnchorPane fx:id="mapAnchorPane" layoutX="355.0" layoutY="78.0" prefHeight="507.0" prefWidth="898.0" />
       <AnchorPane fx:id="cancelTourPane" prefHeight="958.0" prefWidth="1422.0">
          <children>

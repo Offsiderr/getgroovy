@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ConcertModifier</title>
+  <title>Coverage Report > Purchasable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.team67.interfaces</a>
 </div>
 
-<h1>Coverage Summary for Class: ConcertModifier (seng201.team67.interfaces)</h1>
+<h1>Coverage Summary for Class: Purchasable (seng201.team67.interfaces)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ConcertModifier</td>
+  <td class="name">Purchasable</td>
 </tr>
 
 </table>
@@ -40,21 +40,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.interfaces;
-&nbsp;
-&nbsp;import seng201.team67.services.gameplay.ConcertService;
-&nbsp;
 &nbsp;/**
-&nbsp; * Defines a modifier for concert behaviour.
+&nbsp; * Defines behaviour for objects that are purchasable.
 &nbsp; * @author Louie Campion
 &nbsp; * @author Keenan Aubrey
 &nbsp; */
-&nbsp;@FunctionalInterface
-&nbsp;public interface ConcertModifier {
+&nbsp;public interface Purchasable {
+&nbsp;
 &nbsp;    /**
-&nbsp;     * Processes applying a concert modifier.
-&nbsp;     * @param concertService the concert service to use
+&nbsp;     * Returns the cost.
+&nbsp;     * @return The cost.
 &nbsp;     */
-&nbsp;    void apply(ConcertService concertService);
+&nbsp;    public double getCost();
 &nbsp;}
 </code>
 </pre>
@@ -79,7 +76,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

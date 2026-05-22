@@ -48,18 +48,18 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">SkillEffectBehaviours</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    48.1%
+    0%
   </span>
   <span class="absValue">
-    (13/27)
+    (0/27)
   </span>
 </td>
 <td class="coverageStat">
@@ -72,10 +72,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    25%
+    0%
   </span>
   <span class="absValue">
-    (13/52)
+    (0/52)
   </span>
 </td>
 </tr>
@@ -104,17 +104,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the flat stamina boost.
+&nbsp;     * Boosts an artist&#39;s stamina by a flat amount, scaled by their skill level.
 &nbsp;     * @param amount the amount to apply
 &nbsp;     * @return The stat modifier.
 &nbsp;     */
 &nbsp;    public static StatModifier flatStaminaBoost(int amount)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, value) -&gt; scaleFlatEffect(amount, artist.getSkillLevel());</b>
+<b class="nc">&nbsp;        return (artist, value) -&gt; scaleFlatEffect(amount, artist.getSkillLevel());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the flat star power boost.
+&nbsp;     * Reduces the stamina cost of an action by a percentage, scaled by skill level.
+&nbsp;     * Returns the cost as an integer percentage eg. 80 = 20% reduction
 &nbsp;     * @param amount the amount to apply
 &nbsp;     * @return The stat modifier.
 &nbsp;     */
@@ -124,57 +125,59 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the stamina cost reduction.
+&nbsp;     * Applies a payout bonus only when the concert ends with high crowd energy &gt;= 75
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The stat modifier.
 &nbsp;     */
 &nbsp;    public static StatModifier staminaCostReduction(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, value) -&gt; (int) Math.round(scaleMultiplierEffect(multiplier, artist.getSkillLevel()) * 100);</b>
+<b class="nc">&nbsp;        return (artist, value) -&gt; (int) Math.round(scaleMultiplierEffect(multiplier, artist.getSkillLevel()) * 100);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the retirement risk.
+&nbsp;     * Calculates the threshold at which an artist risks retirement, 60% of their
+&nbsp;     * current tolerance stat.
 &nbsp;     * @return The stat modifier.
 &nbsp;     */
 &nbsp;    public static StatModifier retirementRisk()
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, value) -&gt; (int) Math.round(artist.getTolerance() * 0.6);</b>
+<b class="nc">&nbsp;        return (artist, value) -&gt; (int) Math.round(artist.getTolerance() * 0.6);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the flat credit bonus.
+&nbsp;     * Adds a flat credit bonus to any non-zero payout, scaled by the artist&#39;s skill level.
+&nbsp;     * Has no effect if the base payout is zero.
 &nbsp;     * @param amount the amount to apply
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier flatCreditBonus(int amount)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 <b class="nc">&nbsp;                basePayout == 0 ? basePayout : basePayout + amount;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the payout multiplier.
+&nbsp;     * Multiplies any positive payout by a skill-scaled factor. Penalties are left unchanged.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier payoutMultiplier(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 <b class="nc">&nbsp;                basePayout &gt; 0 ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))</b>
 <b class="nc">&nbsp;                        : basePayout;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the great payout multiplier.
-&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * Amplifies positive payouts on GREAT outcomes and negative payouts on BAD outcomes.
+&nbsp;     * Rewards high performance while making bad concerts hurt more — both scaled by skill level.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier greatPayoutMultiplier(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
 <b class="nc">&nbsp;            if (isOutcomeType(outcome, &quot;GREAT&quot;) &amp;&amp; basePayout &gt; 0)</b>
 <b class="nc">&nbsp;                return (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()));</b>
 <b class="nc">&nbsp;            if (isOutcomeType(outcome, &quot;BAD&quot;) &amp;&amp; basePayout &lt; 0)</b>
@@ -184,13 +187,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the terrible payout reduction.
+&nbsp;     * Softens the credit penalty on BAD or TERRIBLE concert outcomes.
+&nbsp;     * The reduction is capped at 1.0 so it can never flip a penalty into a reward.
 &nbsp;     * @param reduction the numeric value for the reduction
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier terriblePayoutReduction(double reduction)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
 <b class="nc">&nbsp;            boolean isBadOrTerrible = isOutcomeType(outcome, &quot;TERRIBLE&quot;) || isOutcomeType(outcome, &quot;BAD&quot;);</b>
 <b class="nc">&nbsp;            if (isBadOrTerrible &amp;&amp; basePayout &lt; 0)</b>
 <b class="nc">&nbsp;                return (int) Math.round(basePayout * Math.min(1.0, scaleMultiplierEffect(reduction, artist.getSkillLevel())));</b>
@@ -199,53 +203,57 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the ok payout multiplier.
+&nbsp;     * Boosts the payout for OK-rated concerts, rewarding consistency even without a standout performance.
+&nbsp;     * Has no effect on GREAT, BAD, or TERRIBLE outcomes.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier okPayoutMultiplier(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 <b class="nc">&nbsp;                isOutcomeType(outcome, &quot;OK&quot;) &amp;&amp; basePayout &gt; 0</b>
 <b class="nc">&nbsp;                        ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))</b>
 <b class="nc">&nbsp;                        : basePayout;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the headliner bonus.
+&nbsp;     * Grants a bonus when the artist is the sole performer in the lineup.
+&nbsp;     * Applies to both positive and negative payouts — going it alone carries risk too.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier headlinerBonus(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 <b class="nc">&nbsp;                lineup.size() == 1 &amp;&amp; basePayout != 0</b>
 <b class="nc">&nbsp;                        ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))</b>
 <b class="nc">&nbsp;                        : basePayout;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the collab bonus.
+&nbsp;     * Rewards lineups featuring more than one artist type: rap, pop, rock, etc.
+&nbsp;     * Applies to both positive and negative payouts.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier collabBonus(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 <b class="nc">&nbsp;                hasMultipleArtistTypes(lineup) &amp;&amp; basePayout != 0</b>
 <b class="nc">&nbsp;                        ? (int) Math.round(basePayout * scaleMultiplierEffect(multiplier, artist.getSkillLevel()))</b>
 <b class="nc">&nbsp;                        : basePayout;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the amp it up bonus.
-&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * Grows the payout multiplier with each completed concert in the tour.
+&nbsp;     * Each additional concert compounds the step bonus, so later shows pay out
+&nbsp;     * progressively more
 &nbsp;     * @param multiplierStep the numeric value for the multiplier step
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier ampItUpBonus(double multiplierStep)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt; {</b>
 <b class="nc">&nbsp;            if (basePayout == 0)</b>
 &nbsp;            {
 <b class="nc">&nbsp;                return 0;</b>
@@ -257,14 +265,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Processes the encore machine bonus.
-&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * Grants a bonus when the concert ends on a high note — crowd energy at or above 75
+&nbsp;     * and the outcome marks the concert as finished. Has no effect on zero or negative payouts.
 &nbsp;     * @param multiplier the multiplier used by the calculation
 &nbsp;     * @return The payout modifier.
 &nbsp;     */
 &nbsp;    public static PayoutModifier encoreMachineBonus(double multiplier)
 &nbsp;    {
-<b class="fc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
+<b class="nc">&nbsp;        return (artist, basePayout, outcome, lineup, crowdEnergy, completedConcerts, eventNumber, totalEvents) -&gt;</b>
 &nbsp;                outcome != null
 <b class="nc">&nbsp;                        &amp;&amp; outcome.getConcertEnds()</b>
 &nbsp;                        &amp;&amp; crowdEnergy &gt;= 75
@@ -273,9 +281,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                        : basePayout;</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Scales a flat effect amount by the artist&#39;s skill level, with a minimum scale of 1.
+&nbsp;     *
+&nbsp;     * @param amount     the base flat value
+&nbsp;     * @param skillLevel the artist&#39;s current skill level
+&nbsp;     */
 &nbsp;    private static int scaleFlatEffect(int amount, int skillLevel)
 &nbsp;    {
-<b class="fc">&nbsp;        return amount * Math.max(1, skillLevel);</b>
+<b class="nc">&nbsp;        return amount * Math.max(1, skillLevel);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private static double scaleMultiplierEffect(double multiplier, int skillLevel)
@@ -320,7 +334,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

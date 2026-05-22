@@ -266,7 +266,6 @@ public class Label {
      */
     public boolean equipItem(Artist artist, Item item)
     {
-        //TODO: make constant through game config
         if(artist.getItems().size() < 3 && items.contains(item))
         {
             artist.addItem(item);

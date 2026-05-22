@@ -56,9 +56,6 @@ public class MainGameController {
     @FXML private Label cancelTourLabel;
     /** FXML reference for the stamina text control. */
     @FXML private Label staminaText;
-    /** FXML reference for the effect text control. */
-    @FXML private Label effectText;
-
     /** The tour progress bar. */
     @FXML private ProgressBar tourProgressBar;
 
@@ -120,8 +117,6 @@ public class MainGameController {
         updateCancelTourLabel();
 
         staminaText.setText(Integer.toString((int) Math.round(tourService.getTotalStamina())));
-        effectText.setText(tourService.getConditionalEffectText());
-        effectText.setVisible(!tourService.getConditionalEffectText().isBlank());
 
         loadLineup();
 

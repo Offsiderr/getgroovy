@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -71,10 +70,11 @@ public class ItemDetailBoxFiller {
         textBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(textBox, Priority.ALWAYS);
 
+        Label descriptionLabel = createLabel(item.getDescription());
         Label effectsLabel = createLabel("Effects(s): " + item.getEffects());
         textBox.getChildren().addAll(
                 createLabel(item.getName()),
-                createLabel(item.getDescription()),
+                descriptionLabel,
                 createOptionalLabel(showPrice ? "Price: $" + item.getCost() : null),
                 createLabel(item.getRarity().toString()),
                 createLabel(item.getType()),
@@ -86,15 +86,15 @@ public class ItemDetailBoxFiller {
         String tooltipText = "";
         for (ItemEffects effect : item.getEffects())
         {
-            tooltipText = tooltipText + effect.getDescription() + "/n";
+            tooltipText = tooltipText + effect.getDescription() + "\n";
         }
 
+        Tooltip.install(descriptionLabel, new Tooltip(item.getDescription()));
         Tooltip.install(effectsLabel, new Tooltip(tooltipText));
 
 
 
         container.getChildren().addAll(imageView, textBox);
-        container.setMouseTransparent(true);
         card.getChildren().add(container);
 
     }
@@ -134,6 +134,7 @@ public class ItemDetailBoxFiller {
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER_LEFT);
         label.setMaxWidth(Double.MAX_VALUE);
+        label.setWrapText(true);
         return label;
     }
 

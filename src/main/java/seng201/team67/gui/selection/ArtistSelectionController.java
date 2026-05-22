@@ -81,7 +81,9 @@ public class ArtistSelectionController {
     @FXML
     public void initialize() throws IOException {
         selectArtists.setDisable(true);
-        selectThreeLabel.setVisible(false);
+        if (selectThreeLabel != null) {
+            selectThreeLabel.setVisible(false);
+        }
 
 
         GachaController gachaController = new GachaController(gameEnvironment);
@@ -154,7 +156,11 @@ public class ArtistSelectionController {
                             new SequentialTransition(growTransition, settleTransition)
                     )
             );
-            selectThreeLabel.setVisible(true);
+
+            //No select three label in the market or studio gachas, so a null guard is important
+            if (selectThreeLabel != null) {
+                selectThreeLabel.setVisible(true);
+            }
         }
 
         sequence.play();

@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import seng201.team67.GameEnvironment;
 import seng201.team67.gui.setup.StartController;
 import seng201.team67.gui.util.ScreenNavigator;
+import seng201.team67.services.gameplay.GameStatusService;
 
 import java.io.IOException;
 
@@ -32,6 +33,8 @@ public class LoseScreenController {
     @FXML private Label finishingBalance;
     /** FXML reference for the final score control. */
     @FXML private Label finalScore;
+    /** FXML reference for the loss reason control. */
+    @FXML private Label lossReason;
 
     /** Shared game state for the current session. */
     private final GameEnvironment gameEnvironment;
@@ -55,6 +58,9 @@ public class LoseScreenController {
     @FXML
     public void initialize() {
         labelName.setText(gameEnvironment.getLabelService().getLabelName());
+        if (gameEnvironment.getLabelService().getMoney() <= GameStatusService.BANKRUPTCY_LIMIT) {
+            lossReason.setText("You went past -$500, so the bank repo'd your office equipment, and the artists all left.");
+        }
         selectedTours.setText("Selected Tours: " + gameEnvironment.getSelectedNumTours());
         tourCount.setText("Total Tours: " + gameEnvironment.getTourCount());
         concertCount.setText("Total Concerts: " + gameEnvironment.getConcertCount());

@@ -48,7 +48,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/30)
+    (0/34)
   </span>
 </td>
 <td class="coverageStat">
@@ -56,7 +56,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/70)
+    (0/72)
   </span>
 </td>
 <td class="coverageStat">
@@ -64,7 +64,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/179)
+    (0/188)
   </span>
 </td>
 </tr>
@@ -121,7 +121,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/33)
+    (0/37)
   </span>
 </td>
 <td class="coverageStat">
@@ -129,7 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/76)
+    (0/78)
   </span>
 </td>
 <td class="coverageStat">
@@ -137,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/191)
+    (0/200)
   </span>
 </td>
 </tr>
@@ -395,15 +395,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        String result = gameEnvironment.getLabelService().useConsumable(artist, item);</b>
+<b class="nc">&nbsp;        String result = concertService.useConsumable(artist, item);</b>
 <b class="nc">&nbsp;        if (result.isBlank())</b>
 &nbsp;        {
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        effectText.setText(result);</b>
-<b class="nc">&nbsp;        effectText.setVisible(true);</b>
+<b class="nc">&nbsp;        showEffectText(result);</b>
 <b class="nc">&nbsp;        refreshView();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showEffectText(String text)
+&nbsp;    {
+<b class="nc">&nbsp;        effectText.setText(text);</b>
+<b class="nc">&nbsp;        effectText.setVisible(!text.isBlank());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private void populateQuestion() throws IOException {
@@ -535,6 +540,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private void handleAnswer(Answer answer) {
 &nbsp;        try {
 <b class="nc">&nbsp;            Outcome outcome = concertService.handleAnswer(answer);</b>
+<b class="nc">&nbsp;            showEffectText(tourService.getConditionalEffectText());</b>
 <b class="nc">&nbsp;            refreshView();</b>
 <b class="nc">&nbsp;            loadOutcome(outcome);</b>
 &nbsp;        } catch (IOException e) {
@@ -707,6 +713,39 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        }
 <b class="nc">&nbsp;        refreshView();</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the debug set stamina for all artists.
+&nbsp;     * @param stamina the numeric value for the stamina
+&nbsp;     */
+&nbsp;    public void debugSetStaminaForAll(int stamina)
+&nbsp;    {
+<b class="nc">&nbsp;        for (Artist artist : gameEnvironment.getLabelService().getAllArtists())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            artist.setStamina(stamina);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        refreshView();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the debug set money.
+&nbsp;     * @param money the numeric value for the money
+&nbsp;     */
+&nbsp;    public void debugSetMoney(double money)
+&nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getLabel().money = money;</b>
+<b class="nc">&nbsp;        refreshView();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the debug give money.
+&nbsp;     * @param money the numeric value for the money
+&nbsp;     */
+&nbsp;    public void debugGiveMoney(double money)
+&nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getLabelService().giveMoney(money);</b>
+<b class="nc">&nbsp;        refreshView();</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -731,7 +770,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

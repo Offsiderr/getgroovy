@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">GameInitialisationService</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (4/4)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    0%
   </span>
   <span class="absValue">
-    (4/6)
+    (0/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94.7%
+    0%
   </span>
   <span class="absValue">
-    (18/19)
+    (0/19)
   </span>
 </td>
 </tr>
@@ -108,10 +108,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * @author Louie Campion
 &nbsp; * @author Keenan Aubrey
 &nbsp; */
-<b class="fc">&nbsp;public class GameInitialisationService {</b>
+<b class="nc">&nbsp;public class GameInitialisationService {</b>
 &nbsp;
 &nbsp;    /** The random. */
-<b class="fc">&nbsp;    private static final Random random = new Random();</b>
+<b class="nc">&nbsp;    private static final Random random = new Random();</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Initialises the game by loading in all the skills, artists, items and questions.
@@ -120,26 +120,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void initialise(GameEnvironment gameEnvironment)
 &nbsp;    {
-<b class="fc">&nbsp;        List&lt;Artist&gt; allArtists = new ArtistLoaderService().loadAll();</b>
+<b class="nc">&nbsp;        List&lt;Artist&gt; allArtists = new ArtistLoaderService().loadAll();</b>
 &nbsp;
-<b class="fc">&nbsp;        SkillLoaderService skillLoaderService = new SkillLoaderService();</b>
-<b class="fc">&nbsp;        for (Artist artist : allArtists)</b>
+<b class="nc">&nbsp;        SkillLoaderService skillLoaderService = new SkillLoaderService();</b>
+<b class="nc">&nbsp;        for (Artist artist : allArtists)</b>
 &nbsp;        {
-<b class="fc">&nbsp;            artist.setSkill(pickRandom(skillLoaderService.getEligibleSkills(artist)));</b>
+<b class="nc">&nbsp;            artist.setSkill(pickRandom(skillLoaderService.getEligibleSkills(artist)));</b>
 &nbsp;        }
 &nbsp;
-<b class="fc">&nbsp;        ArrayList&lt;Artist&gt; artistPool = new ArrayList&lt;&gt;(allArtists);</b>
-<b class="fc">&nbsp;        Collections.shuffle(artistPool);</b>
-<b class="fc">&nbsp;        gameEnvironment.setArtistPool(artistPool);</b>
+<b class="nc">&nbsp;        ArrayList&lt;Artist&gt; artistPool = new ArrayList&lt;&gt;(allArtists);</b>
+<b class="nc">&nbsp;        Collections.shuffle(artistPool);</b>
+<b class="nc">&nbsp;        gameEnvironment.setArtistPool(artistPool);</b>
 &nbsp;
-<b class="fc">&nbsp;        List&lt;Item&gt; allItems = new ItemLoaderService().loadAll();</b>
-<b class="fc">&nbsp;        gameEnvironment.setAllItems(allItems);</b>
+<b class="nc">&nbsp;        List&lt;Item&gt; allItems = new ItemLoaderService().loadAll();</b>
+<b class="nc">&nbsp;        gameEnvironment.setAllItems(allItems);</b>
 &nbsp;
-<b class="fc">&nbsp;        QuestionLoaderService questionLoaderService = new QuestionLoaderService();</b>
-<b class="fc">&nbsp;        gameEnvironment.setCommonQuestionPool(questionLoaderService.loadEventPool(&quot;common&quot;));</b>
-<b class="fc">&nbsp;        gameEnvironment.setLocalQuestionPool(questionLoaderService.loadEventPool(&quot;local&quot;));</b>
-<b class="fc">&nbsp;        gameEnvironment.setCountryQuestionPool(questionLoaderService.loadEventPool(&quot;country&quot;));</b>
-<b class="fc">&nbsp;        gameEnvironment.setWorldQuestionPool(questionLoaderService.loadEventPool(&quot;world&quot;));</b>
+<b class="nc">&nbsp;        QuestionLoaderService questionLoaderService = new QuestionLoaderService();</b>
+<b class="nc">&nbsp;        gameEnvironment.setCommonQuestionPool(questionLoaderService.loadEventPool(&quot;common&quot;));</b>
+<b class="nc">&nbsp;        gameEnvironment.setLocalQuestionPool(questionLoaderService.loadEventPool(&quot;local&quot;));</b>
+<b class="nc">&nbsp;        gameEnvironment.setCountryQuestionPool(questionLoaderService.loadEventPool(&quot;country&quot;));</b>
+<b class="nc">&nbsp;        gameEnvironment.setWorldQuestionPool(questionLoaderService.loadEventPool(&quot;world&quot;));</b>
 &nbsp;
 &nbsp;    }
 &nbsp;
@@ -149,10 +149,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return Random Skill
 &nbsp;     */
 &nbsp;    private Skill pickRandom(List&lt;Skill&gt; array) {
-<b class="pc">&nbsp;        if (array == null || array.size() == 0) {</b>
+<b class="nc">&nbsp;        if (array == null || array.size() == 0) {</b>
 <b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Array must not be null or empty&quot;);</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return array.get(random.nextInt(array.size()));</b>
+<b class="nc">&nbsp;        return array.get(random.nextInt(array.size()));</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -178,7 +178,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

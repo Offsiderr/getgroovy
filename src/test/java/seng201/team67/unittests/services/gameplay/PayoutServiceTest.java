@@ -1,10 +1,11 @@
-package seng201.team67.services.gameplay;
+package seng201.team67.unittests.services.gameplay;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import seng201.team67.GameEnvironment;
 import seng201.team67.models.enums.questions.PayoutType;
+import seng201.team67.services.gameplay.PayoutService;
 import seng201.team67.services.setup.DifficultyService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

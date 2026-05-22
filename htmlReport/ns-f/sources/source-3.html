@@ -64,7 +64,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/33)
+    (0/36)
   </span>
 </td>
 </tr>
@@ -118,7 +118,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/44)
+    (0/47)
   </span>
 </td>
 </tr>
@@ -295,6 +295,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @FXML
 &nbsp;    public void startLocalTour(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().playLocalTourMusic();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/tour/MainGame.fxml&quot;,</b>
 &nbsp;                new MainGameController(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment)));
 &nbsp;    }
@@ -307,6 +308,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @FXML
 &nbsp;    public void startCountryTour(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().playCountryTourMusic();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/tour/MainGame.fxml&quot;,</b>
 &nbsp;                new MainGameController(gameEnvironment, new TourService(new Tour(COUNTRY), gameEnvironment)));
 &nbsp;    }
@@ -319,6 +321,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @FXML
 &nbsp;    public void startWorldTour(ActionEvent event) throws IOException
 &nbsp;    {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().playWorldTourMusic();</b>
 <b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/tour/MainGame.fxml&quot;,</b>
 &nbsp;                new MainGameController(gameEnvironment, new TourService(new Tour(TourType.WORLD), gameEnvironment)));
 &nbsp;    }
@@ -356,7 +359,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 12:59</div>
+    <div style="float:right;">generated on 2026-05-22 14:56</div>
 </div>
 </body>
 </html>

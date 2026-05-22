@@ -9,6 +9,8 @@ import seng201.team67.models.artists.Artist;
  * @author Keenan Aubrey
  */
 public class GameStatusService {
+    /** Balance where the player loses from debt. */
+    public static final double BANKRUPTCY_LIMIT = -500.0;
 
     /**
      * Returns whether game lost.
@@ -17,6 +19,11 @@ public class GameStatusService {
      */
     public boolean isGameLost(GameEnvironment gameEnvironment)
     {
+        if (gameEnvironment.getLabelService().getMoney() <= BANKRUPTCY_LIMIT)
+        {
+            return true;
+        }
+
         boolean noArtists = gameEnvironment.getLabelService().getAllArtists().isEmpty();
         if (!noArtists)
         {

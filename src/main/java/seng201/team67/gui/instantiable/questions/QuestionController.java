@@ -21,8 +21,6 @@ import java.util.function.Consumer;
  */
 public class QuestionController {
 
-    //TODO: impltement .setManaged to allow collapsing of layout space in the future.
-
     /** The question. */
     private final Question question;
     /** FXML reference for the question title control. */
