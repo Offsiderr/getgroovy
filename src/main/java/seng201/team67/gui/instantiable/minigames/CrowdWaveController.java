@@ -18,6 +18,7 @@ public class CrowdWaveController {
     @FXML private Button tapButton;
     @FXML private Label resultLabel;
     @FXML private Button continueButton;
+    @FXML private Label pressStartLabel;
 
     private long startTime;
     private long beatInterval = 1000;
@@ -47,6 +48,8 @@ public class CrowdWaveController {
 
     private void startGame() {
         continueButton.setVisible(false);
+        pressStartLabel.setVisible(false);
+        pressStartLabel.setManaged(false);
         tapButton.setVisible(true);
 
         tapButton.setText("TAP");
