@@ -53,7 +53,9 @@ public class CrowdHypeController {
     @FXML
     public void initialize() {
 
-        hypeButton.setVisible(false);
+        hypeButton.setText("Continue");
+        resultLabel.setText("Get ready...");
+        hypeButton.setOnAction(e -> onStartClicked());
 
         ScaleTransition pulse = new ScaleTransition(Duration.seconds(0.6), hypeBar);
         pulse.setFromX(1);
@@ -61,13 +63,14 @@ public class CrowdHypeController {
         pulse.setAutoReverse(true);
         pulse.setCycleCount(ScaleTransition.INDEFINITE);
         pulse.play();
+    }
+
+    @FXML
+    private void onStartClicked() {
+        hypeButton.setText("HYPE");
+        hypeButton.setOnAction(e -> handleHype());
 
         timer = new AnimationTimer() {
-            /**
-             * Processes the handle.
-             * It updates related state as needed while performing the operation.
-             * @param now the numeric value for the now
-             */
             @Override
             public void handle(long now) {
                 if (gameEnded) return;

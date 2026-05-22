@@ -15,49 +15,40 @@ import java.util.function.Consumer;
  */
 public class CrowdWaveController {
 
-    /** FXML reference for the tap button control. */
     @FXML private Button tapButton;
-    /** FXML reference for the result label control. */
     @FXML private Label resultLabel;
+    @FXML private Button continueButton;
 
-    /** Numeric value for the start time. */
     private long startTime;
-    /** Numeric value for the beat interval. */
     private long beatInterval = 1000;
-    /** Whether game ended. */
     private boolean gameEnded = false;
 
-    /** Numeric value for the perfect count. */
     private int perfectCount = 0;
-    /** Numeric value for the fail count. */
     private int failCount = 0;
 
-    /** The on complete. */
     private Consumer<MiniGameResult> onComplete;
 
     private AnimationTimer timer;
 
-    /**
-     * Creates a new crowd wave controller.
-     * @param onComplete the on complete
-     */
     public CrowdWaveController(Consumer<MiniGameResult> onComplete) {
         this.onComplete = onComplete;
     }
 
-    /**
-     * Initializes the controller state and populates the initial view data.
-     * It also attaches any required event handlers for the screen.
-     */
     @FXML
     public void initialize() {
-        tapButton.setText("Continue");
+        tapButton.setVisible(false);
+
+        continueButton.setVisible(true);
+        continueButton.setText("Continue");
         resultLabel.setText("Get ready...");
-        tapButton.setOnAction(e -> onStartClicked());
+
+        continueButton.setOnAction(e -> startGame());
     }
 
-    @FXML
-    private void onStartClicked() {
+    private void startGame() {
+        continueButton.setVisible(false);
+        tapButton.setVisible(true);
+
         tapButton.setText("TAP");
         tapButton.setOnAction(e -> handleTap());
 
@@ -121,9 +112,10 @@ public class CrowdWaveController {
 
         MiniGameResult result = new MiniGameResult(30, 0);
 
-        tapButton.setDisable(false);
-        tapButton.setText("Continue");
-        tapButton.setOnAction(e -> onComplete.accept(result));
+        tapButton.setVisible(false);
+        continueButton.setVisible(true);
+        continueButton.setText("Continue");
+        continueButton.setOnAction(e -> onComplete.accept(result));
     }
 
     private void endGameLose() {
@@ -133,8 +125,9 @@ public class CrowdWaveController {
 
         MiniGameResult result = new MiniGameResult(-10, 0);
 
-        tapButton.setDisable(false);
-        tapButton.setText("Continue");
-        tapButton.setOnAction(e -> onComplete.accept(result));
+        tapButton.setVisible(false);
+        continueButton.setVisible(true);
+        continueButton.setText("Continue");
+        continueButton.setOnAction(e -> onComplete.accept(result));
     }
 }
