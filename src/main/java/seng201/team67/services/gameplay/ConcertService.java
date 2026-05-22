@@ -83,12 +83,18 @@ public class ConcertService {
         return gameEnvironment.getConfig().concertQuestionsCount;
     }
 
+    /**
+     * Generates the questions for the concert
+     * @return The list of concert questions
+     */
     private List<Question> generateConcertQuestions()
     {
         List<Question> concertQuestions = new ArrayList<>();
 
         for(int i = 1; i <= generateQuestionCount(); i++)
         {
+            //We roll for the type of question. Common questions are across the 3 tours,
+            //while the other type of questions are specific to that tour.
             String type = "";
             boolean result = Math.random() < gameEnvironment.getConfig().questionCommonChance;
             if(result)
@@ -411,7 +417,6 @@ public class ConcertService {
 
     /**
      * Creates the concert results.
-     * It updates related state as needed while performing the operation.
      * @return The resulting concert results.
      */
     public ConcertResults createConcertResults()
