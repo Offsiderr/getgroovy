@@ -1,0 +1,567 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ArtistDetailBoxFiller</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.gui.util</a>
+</div>
+
+<h1>Coverage Summary for Class: ArtistDetailBoxFiller (seng201.team67.gui.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ArtistDetailBoxFiller</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/162)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.gui.util;
+&nbsp;
+&nbsp;import javafx.geometry.Insets;
+&nbsp;import javafx.geometry.Pos;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.input.ClipboardContent;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.control.Tooltip;
+&nbsp;import javafx.scene.image.Image;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import javafx.scene.input.Dragboard;
+&nbsp;import javafx.scene.input.TransferMode;
+&nbsp;import javafx.scene.layout.HBox;
+&nbsp;import javafx.scene.layout.Priority;
+&nbsp;import javafx.scene.layout.StackPane;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import seng201.team67.models.artists.Artist;
+&nbsp;import seng201.team67.models.items.Item;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.function.Consumer;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the artist detail box filler used by the game. This class fills a Vbox with all the details about an artist.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class ArtistDetailBoxFiller {
+&nbsp;    /** Numeric value for the card width. */
+&nbsp;    private static final double CARD_WIDTH = 315.0;
+&nbsp;    /** Numeric value for the card height. */
+&nbsp;    private static final double CARD_HEIGHT = 250.0;
+&nbsp;    /** Numeric value for the image size. */
+&nbsp;    private static final double IMAGE_SIZE = 84.0;
+&nbsp;    /** Numeric value for the item slot size. */
+&nbsp;    private static final double ITEM_SLOT_SIZE = 48.0;
+&nbsp;
+&nbsp;    /** Text value for the base style. */
+&nbsp;    private static final String BASE_STYLE =
+&nbsp;            &quot;-fx-border-color: #888888; -fx-border-width: 2; -fx-background-color: #f5f5f5;&quot;;
+&nbsp;
+&nbsp;    /** Text value for the selected style. */
+&nbsp;    private static final String SELECTED_STYLE =
+&nbsp;            &quot;-fx-border-color: #0078d7; -fx-border-width: 3; -fx-background-color: #dce9f7;&quot;;
+&nbsp;
+&nbsp;    /** Text value for the item slot style. */
+&nbsp;    private static final String ITEM_SLOT_STYLE =
+&nbsp;            &quot;-fx-border-color: #aaaaaa; -fx-border-width: 1.5; -fx-background-color: #ececec;&quot;;
+&nbsp;
+&nbsp;    private ArtistDetailBoxFiller() {
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Populates the artist box.
+&nbsp;     * @param card the card
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     */
+&nbsp;    public static void populateArtistBox(VBox card, Artist artist, Consumer&lt;String&gt; onItemDropped) {
+<b class="nc">&nbsp;        populateArtistBox(card, artist, onItemDropped, null, null, null, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Populates the artist box.
+&nbsp;     * @param card the card
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     */
+&nbsp;    public static void populateArtistBox(VBox card, Artist artist, Consumer&lt;String&gt; onItemDropped, Consumer&lt;Item&gt; onItemClicked) {
+<b class="nc">&nbsp;        populateArtistBox(card, artist, onItemDropped, null, null, onItemClicked, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Populates the artist box.
+&nbsp;     * @param card the card
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemDragged the on item dragged
+&nbsp;     * @param onItemDragReleasedOutside the on item drag released outside
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     */
+&nbsp;    public static void populateArtistBox(VBox card,
+&nbsp;                                         Artist artist,
+&nbsp;                                         Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                         Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                         Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                         Consumer&lt;Item&gt; onItemClicked) {
+<b class="nc">&nbsp;        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Populates the artist box.
+&nbsp;     * @param card the card
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemDragged the on item dragged
+&nbsp;     * @param onItemDragReleasedOutside the on item drag released outside
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     * @param showEmptyItemSlots whether empty item slots should be shown
+&nbsp;     */
+&nbsp;    public static void populateArtistBox(VBox card,
+&nbsp;                                         Artist artist,
+&nbsp;                                         Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                         Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                         Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                         Consumer&lt;Item&gt; onItemClicked,
+&nbsp;                                         boolean showEmptyItemSlots) {
+<b class="nc">&nbsp;        card.getChildren().clear();</b>
+&nbsp;
+<b class="nc">&nbsp;        applyBaseStyle(card);</b>
+<b class="nc">&nbsp;        card.setPadding(new Insets(8));</b>
+<b class="nc">&nbsp;        card.setSpacing(5);</b>
+<b class="nc">&nbsp;        card.setAlignment(Pos.CENTER_LEFT);</b>
+<b class="nc">&nbsp;        card.setFillWidth(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        HBox container = new HBox(10);</b>
+<b class="nc">&nbsp;        container.setAlignment(Pos.TOP_LEFT);</b>
+<b class="nc">&nbsp;        container.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        HBox.setHgrow(container, Priority.ALWAYS);</b>
+&nbsp;
+<b class="nc">&nbsp;        ImageView imageView = createArtistImage(artist);</b>
+&nbsp;
+<b class="nc">&nbsp;        VBox detailsBox = new VBox(4);</b>
+<b class="nc">&nbsp;        detailsBox.setAlignment(Pos.TOP_LEFT);</b>
+<b class="nc">&nbsp;        detailsBox.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        HBox.setHgrow(detailsBox, Priority.ALWAYS);</b>
+&nbsp;
+<b class="nc">&nbsp;        detailsBox.getChildren().addAll(</b>
+<b class="nc">&nbsp;                createLabel(artist.getName()),</b>
+<b class="nc">&nbsp;                createLabel(artist.getType()),</b>
+<b class="nc">&nbsp;                createLabel(&quot;Star Power: &quot; + artist.getStarPower()),</b>
+<b class="nc">&nbsp;                createLabel(&quot;Stamina: &quot; + artist.getStamina()),</b>
+<b class="nc">&nbsp;                createLabel(&quot;Tolerance: &quot; + artist.getHealth()),</b>
+<b class="nc">&nbsp;                createLabel(&quot;Hire: $&quot; + (int) artist.getCost()),</b>
+<b class="nc">&nbsp;                createLabel(&quot;Pay : $&quot; + (int) artist.getPay()),</b>
+<b class="nc">&nbsp;                createSkillLabel(artist)</b>
+&nbsp;        );
+&nbsp;
+<b class="nc">&nbsp;        VBox itemSlots = createItemSlots(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, showEmptyItemSlots);</b>
+&nbsp;
+<b class="nc">&nbsp;        HBox detailsRow = new HBox(10);</b>
+<b class="nc">&nbsp;        detailsRow.setAlignment(Pos.TOP_LEFT);</b>
+<b class="nc">&nbsp;        detailsRow.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        HBox.setHgrow(detailsRow, Priority.ALWAYS);</b>
+<b class="nc">&nbsp;        detailsRow.getChildren().addAll(detailsBox, itemSlots);</b>
+&nbsp;
+<b class="nc">&nbsp;        container.getChildren().addAll(imageView, detailsRow);</b>
+<b class="nc">&nbsp;        card.getChildren().add(container);</b>
+<b class="nc">&nbsp;        card.setUserData(artist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates the artist box.
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @return The resulting v box.
+&nbsp;     */
+&nbsp;    public static VBox createArtistBox(Artist artist, Consumer&lt;String&gt; onItemDropped) {
+<b class="nc">&nbsp;        return createArtistBox(artist, onItemDropped, null, null, null, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates the artist box.
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     * @return The resulting v box.
+&nbsp;     */
+&nbsp;    public static VBox createArtistBox(Artist artist, Consumer&lt;String&gt; onItemDropped, Consumer&lt;Item&gt; onItemClicked) {
+<b class="nc">&nbsp;        return createArtistBox(artist, onItemDropped, null, null, onItemClicked, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates the artist box.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemDragged the on item dragged
+&nbsp;     * @param onItemDragReleasedOutside the on item drag released outside
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     * @return The resulting v box.
+&nbsp;     */
+&nbsp;    public static VBox createArtistBox(Artist artist,
+&nbsp;                                       Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                       Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                       Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                       Consumer&lt;Item&gt; onItemClicked) {
+<b class="nc">&nbsp;        return createArtistBox(artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates the artist box.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param artist the artist
+&nbsp;     * @param onItemDropped the on item dropped
+&nbsp;     * @param onItemDragged the on item dragged
+&nbsp;     * @param onItemDragReleasedOutside the on item drag released outside
+&nbsp;     * @param onItemClicked the on item clicked
+&nbsp;     * @param showEmptyItemSlots whether empty item slots should be shown
+&nbsp;     * @return The resulting v box.
+&nbsp;     */
+&nbsp;    public static VBox createArtistBox(Artist artist,
+&nbsp;                                       Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                       Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                       Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                       Consumer&lt;Item&gt; onItemClicked,
+&nbsp;                                       boolean showEmptyItemSlots) {
+<b class="nc">&nbsp;        VBox card = new VBox(8);</b>
+<b class="nc">&nbsp;        card.setPrefWidth(CARD_WIDTH);</b>
+<b class="nc">&nbsp;        card.setMinWidth(CARD_WIDTH);</b>
+<b class="nc">&nbsp;        card.setPrefHeight(CARD_HEIGHT);</b>
+<b class="nc">&nbsp;        card.setMinHeight(CARD_HEIGHT);</b>
+<b class="nc">&nbsp;        card.setAlignment(Pos.TOP_CENTER);</b>
+&nbsp;
+<b class="nc">&nbsp;        populateArtistBox(card, artist, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked, showEmptyItemSlots);</b>
+<b class="nc">&nbsp;        return card;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the fire button.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param card the card
+&nbsp;     * @param buttonText the text value for the button text
+&nbsp;     * @param action the action
+&nbsp;     */
+&nbsp;    public static void addFireButton(VBox card, String buttonText, Runnable action) {
+<b class="nc">&nbsp;        Button actionButton = new Button(buttonText);</b>
+<b class="nc">&nbsp;        actionButton.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        actionButton.setStyle(&quot;-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;&quot;);</b>
+<b class="nc">&nbsp;        actionButton.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            event.consume();</b>
+<b class="nc">&nbsp;            action.run();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        VBox.setVgrow(actionButton, Priority.NEVER);</b>
+<b class="nc">&nbsp;        card.getChildren().add(actionButton);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the action button.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param card the card
+&nbsp;     * @param buttonText the text value for the button text
+&nbsp;     * @param action the action
+&nbsp;     */
+&nbsp;    public static void addActionButton(VBox card, String buttonText, Runnable action) {
+<b class="nc">&nbsp;        card.getChildren().removeIf(node -&gt; node instanceof Button button &amp;&amp; Boolean.TRUE.equals(button.getUserData()));</b>
+&nbsp;
+<b class="nc">&nbsp;        Button actionButton = new Button(buttonText);</b>
+<b class="nc">&nbsp;        actionButton.setUserData(true);</b>
+<b class="nc">&nbsp;        actionButton.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        actionButton.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            event.consume();</b>
+<b class="nc">&nbsp;            action.run();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        VBox.setVgrow(actionButton, Priority.NEVER);</b>
+<b class="nc">&nbsp;        card.getChildren().add(actionButton);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies the base style.
+&nbsp;     * @param card the card
+&nbsp;     */
+&nbsp;    public static void applyBaseStyle(VBox card) {
+<b class="nc">&nbsp;        card.setStyle(BASE_STYLE);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies the selected style.
+&nbsp;     * @param card the card
+&nbsp;     */
+&nbsp;    public static void applySelectedStyle(VBox card) {
+<b class="nc">&nbsp;        card.setStyle(SELECTED_STYLE);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Label createLabel(String text) {
+<b class="nc">&nbsp;        Label label = new Label(text);</b>
+<b class="nc">&nbsp;        label.setAlignment(Pos.CENTER_LEFT);</b>
+<b class="nc">&nbsp;        label.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        label.setWrapText(true);</b>
+<b class="nc">&nbsp;        return label;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Label createLabel(String text, String tooltipText) {
+<b class="nc">&nbsp;        Label label = new Label(text);</b>
+<b class="nc">&nbsp;        Tooltip.install(label, new Tooltip(tooltipText));</b>
+<b class="nc">&nbsp;        label.setAlignment(Pos.CENTER_LEFT);</b>
+<b class="nc">&nbsp;        label.setMaxWidth(Double.MAX_VALUE);</b>
+<b class="nc">&nbsp;        label.setWrapText(true);</b>
+<b class="nc">&nbsp;        return label;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Label createSkillLabel(Artist artist) {
+<b class="nc">&nbsp;        if (!artist.hasSkill()) {</b>
+<b class="nc">&nbsp;            return createLabel(&quot;Skill: None&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return createLabel(</b>
+<b class="nc">&nbsp;                &quot;Skill: &quot; + artist.getSkill().getName() + &quot; (Level &quot; + artist.getSkillLevel() + &quot;)&quot;,</b>
+<b class="nc">&nbsp;                artist.getSkill().getDescription()</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private static VBox createItemSlots(Artist artist,
+&nbsp;                                        Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                        Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                        Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                        Consumer&lt;Item&gt; onItemClicked,
+&nbsp;                                        boolean showEmptyItemSlots) {
+<b class="nc">&nbsp;        VBox itemSlots = new VBox(6);</b>
+<b class="nc">&nbsp;        itemSlots.setAlignment(Pos.TOP_CENTER);</b>
+<b class="nc">&nbsp;        itemSlots.setMinWidth(ITEM_SLOT_SIZE);</b>
+<b class="nc">&nbsp;        itemSlots.setPrefWidth(ITEM_SLOT_SIZE);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Item&gt; items = artist.getItems();</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; 3; i++) {</b>
+<b class="nc">&nbsp;            Item item = i &lt; items.size() ? items.get(i) : null;</b>
+<b class="nc">&nbsp;            if (item != null || showEmptyItemSlots) {</b>
+<b class="nc">&nbsp;                itemSlots.getChildren().add(createItemSlot(item, onItemDropped, onItemDragged, onItemDragReleasedOutside, onItemClicked));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return itemSlots;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static StackPane createItemSlot(Item item,
+&nbsp;                                            Consumer&lt;String&gt; onItemDropped,
+&nbsp;                                            Consumer&lt;Item&gt; onItemDragged,
+&nbsp;                                            Consumer&lt;Item&gt; onItemDragReleasedOutside,
+&nbsp;                                            Consumer&lt;Item&gt; onItemClicked) {
+<b class="nc">&nbsp;        StackPane slot = new StackPane();</b>
+<b class="nc">&nbsp;        slot.setMinSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);</b>
+<b class="nc">&nbsp;        slot.setPrefSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);</b>
+<b class="nc">&nbsp;        slot.setMaxSize(ITEM_SLOT_SIZE, ITEM_SLOT_SIZE);</b>
+<b class="nc">&nbsp;        slot.setStyle(ITEM_SLOT_STYLE);</b>
+&nbsp;
+<b class="nc">&nbsp;        slot.setOnDragOver(dragEvent -&gt;</b>
+&nbsp;        {
+<b class="nc">&nbsp;            if (dragEvent.getGestureSource() != slot &amp;&amp; dragEvent.getDragboard().hasString())</b>
+&nbsp;            {
+<b class="nc">&nbsp;                dragEvent.acceptTransferModes(TransferMode.MOVE);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            dragEvent.consume();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        slot.setOnDragExited(dragEvent -&gt;</b>
+&nbsp;        {
+<b class="nc">&nbsp;            slot.setStyle(ITEM_SLOT_STYLE);</b>
+<b class="nc">&nbsp;            dragEvent.consume();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        slot.setOnDragDropped(dragEvent -&gt;</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Dragboard db = dragEvent.getDragboard();</b>
+<b class="nc">&nbsp;            if (db.hasString() &amp;&amp; onItemDropped != null)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                onItemDropped.accept(db.getString());</b>
+<b class="nc">&nbsp;                dragEvent.setDropCompleted(true);</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                dragEvent.setDropCompleted(false);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            dragEvent.consume();</b>
+&nbsp;        });
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        if (item == null) {</b>
+<b class="nc">&nbsp;            Label placeholder = new Label(&quot;Item&quot;);</b>
+<b class="nc">&nbsp;            placeholder.setStyle(&quot;-fx-text-fill: #888888; -fx-font-size: 10px;&quot;);</b>
+<b class="nc">&nbsp;            slot.getChildren().add(placeholder);</b>
+<b class="nc">&nbsp;            return slot;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        ImageView itemImage = createItemImage(item);</b>
+<b class="nc">&nbsp;        itemImage.setFitWidth(36);</b>
+<b class="nc">&nbsp;        itemImage.setFitHeight(36);</b>
+&nbsp;
+<b class="nc">&nbsp;        slot.getChildren().add(itemImage);</b>
+<b class="nc">&nbsp;        slot.setUserData(item);</b>
+<b class="nc">&nbsp;        if (onItemDragged != null || onItemDragReleasedOutside != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            slot.setOnDragDetected(mouseEvent -&gt; {</b>
+<b class="nc">&nbsp;                Dragboard dragboard = slot.startDragAndDrop(TransferMode.MOVE);</b>
+<b class="nc">&nbsp;                ClipboardContent content = new ClipboardContent();</b>
+<b class="nc">&nbsp;                content.putString(&quot;equipped:&quot; + item.getName());</b>
+<b class="nc">&nbsp;                dragboard.setContent(content);</b>
+<b class="nc">&nbsp;                dragboard.setDragView(itemImage.snapshot(null, null), 18, 18);</b>
+<b class="nc">&nbsp;                if (onItemDragged != null) {</b>
+<b class="nc">&nbsp;                    onItemDragged.accept(item);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                mouseEvent.consume();</b>
+&nbsp;            });
+&nbsp;        }
+<b class="nc">&nbsp;        if (onItemDragReleasedOutside != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            slot.setOnDragDone(dragEvent -&gt; {</b>
+<b class="nc">&nbsp;                if (!dragEvent.isDropCompleted()) {</b>
+<b class="nc">&nbsp;                    onItemDragReleasedOutside.accept(item);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                dragEvent.consume();</b>
+&nbsp;            });
+&nbsp;        }
+<b class="nc">&nbsp;        if (onItemClicked != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            slot.setOnMouseClicked(mouseEvent -&gt; onItemClicked.accept(item));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        String remainingUsesText = ItemDisplayFormatter.getRemainingUsesText(item);</b>
+<b class="nc">&nbsp;        String tooltipText = item.getName() + &quot;\n&quot; + item.getDescription();</b>
+<b class="nc">&nbsp;        if (!remainingUsesText.isBlank()) {</b>
+<b class="nc">&nbsp;            tooltipText += &quot;\n&quot; + remainingUsesText;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        Tooltip.install(slot, new Tooltip(tooltipText));</b>
+<b class="nc">&nbsp;        return slot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static ImageView createArtistImage(Artist artist) {
+<b class="nc">&nbsp;        var stream = ArtistDetailBoxFiller.class.getResourceAsStream(artist.getImagePath());</b>
+&nbsp;
+<b class="nc">&nbsp;        if (stream == null) {</b>
+<b class="nc">&nbsp;            stream = ArtistDetailBoxFiller.class.getResourceAsStream(&quot;/images/Artists/placeholder.png&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Image image = new Image(stream);</b>
+<b class="nc">&nbsp;        ImageView imageView = new ImageView(image);</b>
+&nbsp;
+<b class="nc">&nbsp;        imageView.setFitWidth(IMAGE_SIZE);</b>
+<b class="nc">&nbsp;        imageView.setFitHeight(IMAGE_SIZE);</b>
+<b class="nc">&nbsp;        imageView.setPreserveRatio(true);</b>
+<b class="nc">&nbsp;        imageView.setSmooth(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        return imageView;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static ImageView createItemImage(Item item) {
+<b class="nc">&nbsp;        var stream = ArtistDetailBoxFiller.class.getResourceAsStream(item.getImagePath());</b>
+&nbsp;
+<b class="nc">&nbsp;        if (stream == null) {</b>
+<b class="nc">&nbsp;            stream = ArtistDetailBoxFiller.class.getResourceAsStream(&quot;/images/Artists/placeholder.png&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Image image = new Image(stream);</b>
+<b class="nc">&nbsp;        ImageView imageView = new ImageView(image);</b>
+<b class="nc">&nbsp;        imageView.setPreserveRatio(true);</b>
+<b class="nc">&nbsp;        imageView.setSmooth(true);</b>
+<b class="nc">&nbsp;        return imageView;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

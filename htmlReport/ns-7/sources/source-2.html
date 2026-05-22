@@ -1,0 +1,267 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > QuestionController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.gui.instantiable.questions</a>
+</div>
+
+<h1>Coverage Summary for Class: QuestionController (seng201.team67.gui.instantiable.questions)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuestionController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">QuestionController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.gui.instantiable.questions;
+&nbsp;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.layout.GridPane;
+&nbsp;import javafx.scene.layout.RowConstraints;
+&nbsp;import javafx.scene.image.Image;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import seng201.team67.models.questionmodels.Answer;
+&nbsp;import seng201.team67.models.questionmodels.Question;
+&nbsp;import seng201.team67.services.gameplay.TourService;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.function.Consumer;
+&nbsp;
+&nbsp;/**
+&nbsp; * Controls the question view and coordinates its user interactions.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class QuestionController {
+&nbsp;
+&nbsp;    //TODO: impltement .setManaged to allow collapsing of layout space in the future.
+&nbsp;
+&nbsp;    /** The question. */
+&nbsp;    private final Question question;
+&nbsp;    /** FXML reference for the question title control. */
+&nbsp;    @FXML private Label questionTitle;
+&nbsp;
+&nbsp;    /** FXML reference for the answer one control. */
+&nbsp;    @FXML private Button answerOne;
+&nbsp;    /** FXML reference for the answer two control. */
+&nbsp;    @FXML private Button answerTwo;
+&nbsp;    /** FXML reference for the answer three control. */
+&nbsp;    @FXML private Button answerThree;
+&nbsp;    /** FXML reference for the answer four control. */
+&nbsp;    @FXML private Button answerFour;
+&nbsp;
+&nbsp;    /** FXML reference for the event background control. */
+&nbsp;    @FXML private ImageView eventBackground;
+&nbsp;
+&nbsp;    /** The on answer. */
+&nbsp;    private final Consumer&lt;Answer&gt; onAnswer;
+&nbsp;    /** Service used to manage tour behaviour. */
+&nbsp;    private final TourService tourService;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new question controller.
+&nbsp;     * @param question the question being processed
+&nbsp;     * @param onAnswer the on answer
+&nbsp;     * @param tourService the tour service for the current run
+&nbsp;     */
+&nbsp;    public QuestionController(Question question, Consumer&lt;Answer&gt; onAnswer, TourService tourService)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.question = question;</b>
+<b class="nc">&nbsp;        this.onAnswer = onAnswer;</b>
+<b class="nc">&nbsp;        this.tourService = tourService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML private void initialize()
+&nbsp;    {
+&nbsp;        String imagePath;
+&nbsp;
+<b class="nc">&nbsp;        switch (tourService.getTourType()) {</b>
+&nbsp;            case LOCAL:
+<b class="nc">&nbsp;                imagePath = &quot;/images/local_stage.png&quot;;</b>
+&nbsp;                break;
+&nbsp;            case COUNTRY:
+<b class="nc">&nbsp;                imagePath = &quot;/images/country_stage.png&quot;;</b>
+&nbsp;                break;
+&nbsp;            case WORLD:
+<b class="nc">&nbsp;                imagePath = &quot;/images/world_stage.png&quot;;</b>
+&nbsp;                break;
+&nbsp;            default:
+<b class="nc">&nbsp;                imagePath = &quot;/images/local_stage.png&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        eventBackground.setImage(new Image(getClass().getResourceAsStream(imagePath)));</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Button&gt; answerButtons = List.of(answerOne, answerTwo, answerThree, answerFour);</b>
+&nbsp;
+<b class="nc">&nbsp;        for(Button button : answerButtons)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            button.setVisible(false);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        questionTitle.setText(question.getPrompt());</b>
+&nbsp;
+<b class="nc">&nbsp;        setAnswers(answerButtons);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML private void setAnswers(List&lt;Button&gt; buttons)
+&nbsp;    {
+<b class="nc">&nbsp;        List&lt;Answer&gt; answers = question.getAnswers();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; buttons.size(); i++) {</b>
+<b class="nc">&nbsp;            Button btn = buttons.get(i);</b>
+<b class="nc">&nbsp;            if (i &lt; answers.size()) {</b>
+<b class="nc">&nbsp;                Answer choice = answers.get(i);</b>
+<b class="nc">&nbsp;                btn.setText(choice.getLabel());</b>
+<b class="nc">&nbsp;                btn.setVisible(true);</b>
+<b class="nc">&nbsp;                btn.setManaged(true);</b>
+<b class="nc">&nbsp;                btn.setOnAction(e -&gt; onAnswer.accept(choice));</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                btn.setVisible(false);</b>
+<b class="nc">&nbsp;                btn.setManaged(false);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        GridPane grid = (GridPane) answerOne.getParent();</b>
+<b class="nc">&nbsp;        List&lt;RowConstraints&gt; rows = grid.getRowConstraints();</b>
+<b class="nc">&nbsp;        boolean row1Used = answers.size() &gt; 2;</b>
+<b class="nc">&nbsp;        rows.get(1).setPercentHeight(row1Used ? 50.0 : 0.0);</b>
+<b class="nc">&nbsp;        rows.get(1).setMaxHeight(row1Used ? Double.MAX_VALUE : 0.0);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

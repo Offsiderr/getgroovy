@@ -1,0 +1,329 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ItemCardController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.gui.instantiable</a>
+</div>
+
+<h1>Coverage Summary for Class: ItemCardController (seng201.team67.gui.instantiable)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ItemCardController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.gui.instantiable;
+&nbsp;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.image.Image;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import seng201.team67.GameEnvironment;
+&nbsp;import seng201.team67.gui.mainmenu.RosterController;
+&nbsp;import seng201.team67.gui.util.ItemDisplayFormatter;
+&nbsp;import seng201.team67.models.items.Item;
+&nbsp;
+&nbsp;import java.net.URL;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;/**
+&nbsp; * Controls the item card view and coordinates its user interactions. Depreciated in favour of the item detail card
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class ItemCardController {
+&nbsp;
+&nbsp;    //This class is no longer in use.
+&nbsp;
+&nbsp;    /** Shared game state for the current session. */
+&nbsp;    private final GameEnvironment gameEnvironment;
+&nbsp;    /** The roster controller. */
+&nbsp;    private final RosterController rosterController;
+&nbsp;
+&nbsp;    /** The item. */
+&nbsp;    public Item item;
+&nbsp;    /** Whether selected. */
+<b class="nc">&nbsp;    private boolean selected = false;</b>
+&nbsp;    /** The on selection changed. */
+&nbsp;    private Runnable onSelectionChanged;
+&nbsp;
+&nbsp;    /** FXML reference for the card root control. */
+&nbsp;    @FXML private VBox CardRoot;
+&nbsp;    /** FXML reference for the name control. */
+&nbsp;    @FXML private Label name;
+&nbsp;    /** FXML reference for the description control. */
+&nbsp;    @FXML private Label description;
+&nbsp;    /** FXML reference for the item cost control. */
+&nbsp;    @FXML private Label itemCost;
+&nbsp;    /** FXML reference for the rarity control. */
+&nbsp;    @FXML private Label rarity;
+&nbsp;    /** FXML reference for the type control. */
+&nbsp;    @FXML private Label type;
+&nbsp;    /** FXML reference for the uses control. */
+&nbsp;    @FXML private Label uses;
+&nbsp;    /** FXML reference for the effects control. */
+&nbsp;    @FXML private Label effects;
+&nbsp;    /** FXML reference for the item image control. */
+&nbsp;    @FXML private ImageView itemImage;
+&nbsp;    /** FXML reference for the action button control. */
+&nbsp;    @FXML private Button actionButton;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new item card controller.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @param rosterController the roster controller to use
+&nbsp;     */
+&nbsp;    public ItemCardController(GameEnvironment gameEnvironment, RosterController rosterController)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.gameEnvironment = gameEnvironment;</b>
+<b class="nc">&nbsp;        this.rosterController = rosterController;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the selection handler.
+&nbsp;     * @param onSelectionChanged the on selection changed
+&nbsp;     */
+&nbsp;    public void setSelectionHandler(Runnable onSelectionChanged)
+&nbsp;    {
+<b class="nc">&nbsp;        this.onSelectionChanged = onSelectionChanged;</b>
+<b class="nc">&nbsp;        CardRoot.setOnMouseClicked(e -&gt; toggleSelected());</b>
+<b class="nc">&nbsp;        CardRoot.setStyle(&quot;-fx-cursor: hand;&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether the item card is selected.
+&nbsp;     * @return True if selected, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean isSelected()
+&nbsp;    {
+<b class="nc">&nbsp;        return selected;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the item.
+&nbsp;     * It normalizes the stored value to keep the state consistent.
+&nbsp;     * @param item the item involved in the operation
+&nbsp;     */
+&nbsp;    public void setItem(Item item)
+&nbsp;    {
+<b class="nc">&nbsp;        this.item = item;</b>
+<b class="nc">&nbsp;        this.name.setText(item.getName());</b>
+<b class="nc">&nbsp;        this.description.setText(item.getDescription());</b>
+<b class="nc">&nbsp;        this.itemCost.setText(String.format(&quot;$%.2f&quot;, item.getCost()));</b>
+<b class="nc">&nbsp;        this.rarity.setText(item.getRarity().toString());</b>
+<b class="nc">&nbsp;        this.type.setText(item.getType());</b>
+<b class="nc">&nbsp;        this.uses.setText(ItemDisplayFormatter.getRemainingUsesText(item));</b>
+<b class="nc">&nbsp;        this.uses.setVisible(!this.uses.getText().isBlank());</b>
+<b class="nc">&nbsp;        this.uses.setManaged(!this.uses.getText().isBlank());</b>
+<b class="nc">&nbsp;        this.effects.setText(formatEffects(item));</b>
+<b class="nc">&nbsp;        this.itemImage.setImage(loadItemImage(item));</b>
+&nbsp;
+<b class="nc">&nbsp;        if (rosterController == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            actionButton.setVisible(false);</b>
+<b class="nc">&nbsp;            actionButton.setManaged(false);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            actionButton.setVisible(true);</b>
+<b class="nc">&nbsp;            actionButton.setManaged(true);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Loads the item image.
+&nbsp;     * @param item the item involved in the operation
+&nbsp;     * @return The image.
+&nbsp;     */
+&nbsp;    public Image loadItemImage(Item item)
+&nbsp;    {
+<b class="nc">&nbsp;        URL resource = getClass().getResource(item.getImagePath());</b>
+&nbsp;
+<b class="nc">&nbsp;        if (resource != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return new Image(resource.toExternalForm());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return new Image(getClass().getResource(&quot;/images/Artists/placeholder.png&quot;).toExternalForm());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String formatEffects(Item item)
+&nbsp;    {
+<b class="nc">&nbsp;        if (item.getEffects() == null || item.getEffects().isEmpty())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            return &quot;No effects&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return item.getEffects().stream()</b>
+<b class="nc">&nbsp;                .map(effect -&gt; effect.getName())</b>
+<b class="nc">&nbsp;                .collect(Collectors.joining(&quot;, &quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void toggleSelected()
+&nbsp;    {
+<b class="nc">&nbsp;        selected = !selected;</b>
+<b class="nc">&nbsp;        updateStyle();</b>
+<b class="nc">&nbsp;        if (onSelectionChanged != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            onSelectionChanged.run();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * If the card is selected, then we give it a border and make it slightly transparent
+&nbsp;     * to make it obvious to the player they have selected this item
+&nbsp;     */
+&nbsp;    private void updateStyle()
+&nbsp;    {
+<b class="nc">&nbsp;        if (selected)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            CardRoot.setStyle(&quot;-fx-border-color: #00cc66; -fx-border-width: 3; -fx-border-radius: 6; -fx-background-color: #e6fff2; -fx-cursor: hand;&quot;);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            CardRoot.setStyle(&quot;-fx-border-color: transparent; -fx-background-color: transparent; -fx-cursor: hand;&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the selectable.
+&nbsp;     * @param selectable whether selectable
+&nbsp;     */
+&nbsp;    public void setSelectable(boolean selectable)
+&nbsp;    {
+<b class="nc">&nbsp;        if (selectable)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            CardRoot.setOpacity(1.0);</b>
+<b class="nc">&nbsp;            CardRoot.setOnMouseClicked(e -&gt; toggleSelected());</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            CardRoot.setOpacity(0.4);</b>
+<b class="nc">&nbsp;            CardRoot.setOnMouseClicked(null);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the card root.
+&nbsp;     * @return The card root.
+&nbsp;     */
+&nbsp;    public VBox getCardRoot()
+&nbsp;    {
+<b class="nc">&nbsp;        return CardRoot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the use button.
+&nbsp;     */
+&nbsp;    @FXML public void actionButton()
+&nbsp;    {
+<b class="nc">&nbsp;        if (rosterController != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            rosterController.refreshView();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

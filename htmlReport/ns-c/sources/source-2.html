@@ -1,0 +1,454 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GachaSelectionController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.gui.selection</a>
+</div>
+
+<h1>Coverage Summary for Class: GachaSelectionController (seng201.team67.gui.selection)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GachaSelectionController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/90)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GachaSelectionController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/100)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.gui.selection;
+&nbsp;
+&nbsp;import javafx.animation.AnimationTimer;
+&nbsp;import javafx.event.ActionEvent;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.layout.StackPane;
+&nbsp;import javafx.scene.layout.AnchorPane;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import seng201.team67.GameEnvironment;
+&nbsp;import seng201.team67.gui.instantiable.GachaController;
+&nbsp;import seng201.team67.gui.market.TheMarketController;
+&nbsp;import seng201.team67.gui.studio.TheStudioController;
+&nbsp;import seng201.team67.gui.util.ItemDetailBoxFiller;
+&nbsp;import seng201.team67.gui.util.ScreenNavigator;
+&nbsp;import seng201.team67.gui.util.ViewLoader;
+&nbsp;import seng201.team67.models.artists.Artist;
+&nbsp;import seng201.team67.models.enums.Rarity;
+&nbsp;import seng201.team67.models.items.Item;
+&nbsp;import seng201.team67.services.setup.GachaService;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Controls the gacha selection view and coordinates its user interactions.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class GachaSelectionController extends ArtistSelectionController {
+&nbsp;
+&nbsp;    //This is quite similar to the starting artist selection. A decision was made not to make it modular due to the difficulty
+&nbsp;    //in making the split panes adjustable.
+&nbsp;
+&nbsp;    /** Shared game state for the current session. */
+&nbsp;    public final GameEnvironment gameEnvironment;
+&nbsp;    /** Service used to manage gacha behaviour. */
+&nbsp;    private final GachaService gachaService;
+&nbsp;    /** Whether artists. */
+&nbsp;    private boolean artists; //Yes if artists are being opened, otherwise it is items.
+&nbsp;
+&nbsp;    /** FXML reference for the item one control. */
+&nbsp;    @FXML private VBox itemOne;
+&nbsp;    /** FXML reference for the item two control. */
+&nbsp;    @FXML private VBox itemTwo;
+&nbsp;    /** FXML reference for the item three control. */
+&nbsp;    @FXML private VBox itemThree;
+&nbsp;    /** The gacha container. */
+&nbsp;    @FXML private StackPane gachaContainer;
+&nbsp;    /** FXML reference for the root control. */
+&nbsp;    @FXML private AnchorPane root;
+&nbsp;    /** FXML reference for the bg1 control. */
+&nbsp;    @FXML private ImageView bg1;
+&nbsp;    /** FXML reference for the bg2 control. */
+&nbsp;    @FXML private ImageView bg2;
+&nbsp;    /** FXML reference for the bg3 control. */
+&nbsp;    @FXML private ImageView bg3;
+&nbsp;    /** FXML reference for the select artists control. */
+&nbsp;    @FXML private Button selectArtists;
+&nbsp;
+&nbsp;    /** Numeric value for the hbox size. */
+&nbsp;    private int hboxSize;
+&nbsp;
+&nbsp;    /** The rarity. */
+&nbsp;    private Rarity rarity;
+&nbsp;
+&nbsp;    //this needs to be implemented in the super class later... hard coded for now.
+&nbsp;    /** Numeric value for the selection size. */
+&nbsp;    private int selectionSize;
+&nbsp;    /** The screen navigator. */
+<b class="nc">&nbsp;    private final ScreenNavigator screenNavigator = new ScreenNavigator();</b>
+&nbsp;    /** The view loader. */
+<b class="nc">&nbsp;    private final ViewLoader viewLoader = new ViewLoader();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new gacha selection controller.
+&nbsp;     * It initializes the state needed for the surrounding game flow.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @param artists whether artists
+&nbsp;     * @param hboxSize the numeric value for the hbox size
+&nbsp;     * @param rarity the rarity
+&nbsp;     */
+&nbsp;    public GachaSelectionController(GameEnvironment gameEnvironment, Boolean artists, int hboxSize, Rarity rarity) {
+<b class="nc">&nbsp;        super(gameEnvironment);</b>
+<b class="nc">&nbsp;        this.gameEnvironment = gameEnvironment;</b>
+<b class="nc">&nbsp;        this.artists = artists;</b>
+<b class="nc">&nbsp;        this.hboxSize = hboxSize;</b>
+<b class="nc">&nbsp;        this.rarity = rarity;</b>
+<b class="nc">&nbsp;        gachaService = new GachaService(gameEnvironment);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initializes the controller state and populates the initial view data.
+&nbsp;     * It also attaches any required event handlers for the screen.
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    public void initialize() throws IOException {
+<b class="nc">&nbsp;        selectArtists.setDisable(true);</b>
+<b class="nc">&nbsp;        if (artists)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            selectArtists.setText(&quot;Select Arist&quot;);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            selectArtists.setText(&quot;Select Item&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        String source = artists ? &quot;studio&quot; : &quot;market&quot;;</b>
+<b class="nc">&nbsp;        GachaController gachaController = new GachaController(gameEnvironment, source);</b>
+<b class="nc">&nbsp;        gachaController.setOnGachaComplete(() -&gt; {if(artists){showArtistCards();}else{showItemCards();}});</b>
+<b class="nc">&nbsp;        viewLoader.loadInto(gachaContainer, &quot;/fxml/components/Gatcha.fxml&quot;, gachaController);</b>
+&nbsp;
+<b class="nc">&nbsp;        AnimationTimer timer = new AnimationTimer() {</b>
+&nbsp;            @Override
+&nbsp;            public void handle(long now) {
+<b class="nc">&nbsp;                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {</b>
+<b class="nc">&nbsp;                    bg1.setLayoutX(0);</b>
+<b class="nc">&nbsp;                    bg2.setLayoutX(bg1.getFitWidth());</b>
+&nbsp;                    return;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                bg1.setLayoutX(bg1.getLayoutX() - 0.5);</b>
+<b class="nc">&nbsp;                bg2.setLayoutX(bg2.getLayoutX() - 0.5);</b>
+&nbsp;
+<b class="nc">&nbsp;                if (bg1.getLayoutX() + bg1.getFitWidth() &lt;= 0) {</b>
+<b class="nc">&nbsp;                    bg1.setLayoutX(bg2.getLayoutX() + bg2.getFitWidth());</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (bg2.getLayoutX() + bg2.getFitWidth() &lt;= 0) {</b>
+<b class="nc">&nbsp;                    bg2.setLayoutX(bg1.getLayoutX() + bg1.getFitWidth());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        };
+<b class="nc">&nbsp;        timer.start();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showArtistCards() {
+<b class="nc">&nbsp;        gachaContainer.setVisible(false);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;VBox&gt; slots = List.of(itemOne, itemTwo, itemThree);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Artist&gt; picked = gachaService.getPickedArtists(slots.size(), rarity);</b>
+<b class="nc">&nbsp;        populateArtistCards(slots, picked);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showItemCards() {
+<b class="nc">&nbsp;        gachaContainer.setVisible(false);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;VBox&gt; slots = List.of(itemOne, itemTwo, itemThree);</b>
+<b class="nc">&nbsp;        List&lt;Item&gt; picked = gachaService.getPickedItems(slots.size(), rarity);</b>
+<b class="nc">&nbsp;        List&lt;VBox&gt; animatedCards = new java.util.ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; slots.size(); i++) {</b>
+<b class="nc">&nbsp;            VBox slot = slots.get(i);</b>
+<b class="nc">&nbsp;            slot.getChildren().clear();</b>
+<b class="nc">&nbsp;            if (i &gt;= picked.size()) {</b>
+<b class="nc">&nbsp;                clearItemSlot(slot);</b>
+&nbsp;                continue;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Item item = picked.get(i);</b>
+<b class="nc">&nbsp;            ItemDetailBoxFiller.populateArtistBox(slot, item);</b>
+<b class="nc">&nbsp;            slot.setUserData(item);</b>
+<b class="nc">&nbsp;            slot.setOpacity(1.0);</b>
+<b class="nc">&nbsp;            slot.setDisable(false);</b>
+<b class="nc">&nbsp;            setItemSelected(slot, false);</b>
+<b class="nc">&nbsp;            slot.setOnMouseClicked(e -&gt; toggleItemSelection(slot));</b>
+<b class="nc">&nbsp;            animatedCards.add(slot);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        animateCardsIn(animatedCards);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the on selection changed.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     */
+&nbsp;    public void onSelectionChanged() {
+<b class="nc">&nbsp;        if (artists) {</b>
+<b class="nc">&nbsp;            long selectedCount = updateArtistSelectionAvailability(getMaxArtistSelections());</b>
+<b class="nc">&nbsp;            selectArtists.setDisable(selectedCount != getMaxArtistSelections());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            long selectedCount = updateItemSelectionAvailability();</b>
+<b class="nc">&nbsp;            selectArtists.setDisable(selectedCount != 1);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the max artist selections.
+&nbsp;     * @return The max artist selections.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    protected int getMaxArtistSelections() {
+<b class="nc">&nbsp;        return gameEnvironment.getConfig().maxGachaPicks;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the selected items.
+&nbsp;     * It derives the value from the current state before returning it.
+&nbsp;     * @return The selected items.
+&nbsp;     */
+&nbsp;    public List&lt;Item&gt; getSelectedItems() {
+<b class="nc">&nbsp;        List&lt;VBox&gt; itemSlots = List.of(itemOne, itemTwo, itemThree);</b>
+&nbsp;
+<b class="nc">&nbsp;        return itemSlots.stream()</b>
+<b class="nc">&nbsp;                .filter(slot -&gt; !slot.isDisable())</b>
+<b class="nc">&nbsp;                .filter(this::isItemSelected)</b>
+<b class="nc">&nbsp;                .map(slot -&gt; (Item) slot.getUserData())</b>
+<b class="nc">&nbsp;                .toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void toggleItemSelection(VBox slot) {
+<b class="nc">&nbsp;        setItemSelected(slot, !isItemSelected(slot));</b>
+<b class="nc">&nbsp;        onSelectionChanged();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private long updateItemSelectionAvailability() {
+<b class="nc">&nbsp;        List&lt;VBox&gt; itemSlots = List.of(itemOne, itemTwo, itemThree);</b>
+<b class="nc">&nbsp;        long selectedCount = itemSlots.stream()</b>
+<b class="nc">&nbsp;                .filter(slot -&gt; !slot.isDisable())</b>
+<b class="nc">&nbsp;                .filter(this::isItemSelected)</b>
+<b class="nc">&nbsp;                .count();</b>
+&nbsp;
+<b class="nc">&nbsp;        itemSlots.stream()</b>
+<b class="nc">&nbsp;                .filter(slot -&gt; !slot.isDisable())</b>
+<b class="nc">&nbsp;                .forEach(slot -&gt; {</b>
+<b class="nc">&nbsp;                    boolean selected = isItemSelected(slot);</b>
+<b class="nc">&nbsp;                    updateItemCardStyle(slot, selected);</b>
+<b class="nc">&nbsp;                    if (selected) {</b>
+<b class="nc">&nbsp;                        slot.setOpacity(1.0);</b>
+<b class="nc">&nbsp;                        slot.setOnMouseClicked(e -&gt; toggleItemSelection(slot));</b>
+&nbsp;                        return;
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    boolean selectable = selectedCount &lt; 1;</b>
+<b class="nc">&nbsp;                    slot.setOpacity(selectable ? 1.0 : 0.4);</b>
+<b class="nc">&nbsp;                    slot.setOnMouseClicked(selectable ? e -&gt; toggleItemSelection(slot) : null);</b>
+&nbsp;                });
+&nbsp;
+<b class="nc">&nbsp;        return selectedCount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clearItemSlot(VBox slot) {
+<b class="nc">&nbsp;        slot.getChildren().clear();</b>
+<b class="nc">&nbsp;        slot.setUserData(null);</b>
+<b class="nc">&nbsp;        slot.setDisable(true);</b>
+<b class="nc">&nbsp;        slot.setOnMouseClicked(null);</b>
+<b class="nc">&nbsp;        slot.setOpacity(0.4);</b>
+<b class="nc">&nbsp;        ItemDetailBoxFiller.applyBaseStyle(slot);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isItemSelected(VBox slot) {
+<b class="nc">&nbsp;        return Boolean.TRUE.equals(slot.getProperties().get(&quot;selected&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setItemSelected(VBox slot, boolean selected) {
+<b class="nc">&nbsp;        slot.getProperties().put(&quot;selected&quot;, selected);</b>
+<b class="nc">&nbsp;        updateItemCardStyle(slot, selected);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void updateItemCardStyle(VBox slot, boolean selected) {
+<b class="nc">&nbsp;        if (selected) {</b>
+<b class="nc">&nbsp;            ItemDetailBoxFiller.applySelectedStyle(slot);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            ItemDetailBoxFiller.applyBaseStyle(slot);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the artists selected.
+&nbsp;     * @param event the action event that triggered the request
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    public void artistsSelected(ActionEvent event) throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        if (artists) {</b>
+<b class="nc">&nbsp;            gameEnvironment.getLabelService().hireArtist(getSelectedArtists().get(0), 0);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            gameEnvironment.getLabelService().buyItem(getSelectedItems().get(0), 0);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        moveScene(event);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void moveScene(ActionEvent event) throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        if (artists) {</b>
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/studio/TheStudio.fxml&quot;, new TheStudioController(gameEnvironment));</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/market/TheMarket.fxml&quot;, new TheMarketController(gameEnvironment));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

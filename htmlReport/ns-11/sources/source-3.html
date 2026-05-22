@@ -1,0 +1,610 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GameConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.models</a>
+</div>
+
+<h1>Coverage Summary for Class: GameConfig (seng201.team67.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/67)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GameConfig$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/68)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.models;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonCreator;
+&nbsp;import com.fasterxml.jackson.annotation.JsonProperty;
+&nbsp;import seng201.team67.models.enums.TourType;
+&nbsp;
+&nbsp;/**
+&nbsp; * Stores configuration values that control game setup and balance.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class GameConfig {
+&nbsp;
+&nbsp;    /** Numeric value for the starting credits. */
+&nbsp;    public final int startingCredits;
+&nbsp;
+&nbsp;    /** Numeric value for the artists roster limit. */
+&nbsp;    public final int artistsRosterLimit;
+&nbsp;
+&nbsp;    /** Numeric value for the line up limit. */
+&nbsp;    public final int lineUpLimit;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha standard cost. */
+&nbsp;    public final int gachaStandardCost;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha golden cost. */
+&nbsp;    public final int gachaGoldenCost;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha platinum cost. */
+&nbsp;    public final int gachaPlatinumCost;
+&nbsp;
+&nbsp;    /** Numeric value for the artist reroll cost. */
+&nbsp;    public final int artistRerollCost;
+&nbsp;
+&nbsp;    /** Numeric value for the item sellback rate. */
+&nbsp;    public final double itemSellbackRate;
+&nbsp;
+&nbsp;    /** Numeric value for the mini game trigger chance. */
+&nbsp;    public final double miniGameTriggerChance;
+&nbsp;
+&nbsp;    /** Numeric value for the question common chance. */
+&nbsp;    public final double questionCommonChance;
+&nbsp;
+&nbsp;    /** Numeric value for the random event trigger chance. */
+&nbsp;    public final double randomEventTriggerChance;
+&nbsp;
+&nbsp;    /** Numeric value for the max sp in starting selection. */
+&nbsp;    public final int maxSPInStartingSelection;
+&nbsp;
+&nbsp;    /** Numeric value for the min tour count. */
+&nbsp;    public final int minTourCount;
+&nbsp;
+&nbsp;    /** Numeric value for the max tour count. */
+&nbsp;    public final int maxTourCount;
+&nbsp;
+&nbsp;    /** Numeric value for the default tour count. */
+&nbsp;    public final int defaultTourCount;
+&nbsp;
+&nbsp;    /** Numeric value for the starting artist pool size. */
+&nbsp;    public final int startingArtistPoolSize;
+&nbsp;
+&nbsp;    /** Numeric value for the max starting artists. */
+&nbsp;    public final int maxStartingArtists;
+&nbsp;
+&nbsp;    /** Numeric value for the required lineup size. */
+&nbsp;    public final int requiredLineupSize;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha pool size. */
+&nbsp;    public final int gachaPoolSize;
+&nbsp;
+&nbsp;    /** Numeric value for the max gacha picks. */
+&nbsp;    public final int maxGachaPicks;
+&nbsp;
+&nbsp;    /** Numeric value for the concert questions count. */
+&nbsp;    public final int concertQuestionsCount;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha min clicks. */
+&nbsp;    public final int gachaMinClicks;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha max clicks. */
+&nbsp;    public final int gachaMaxClicks;
+&nbsp;
+&nbsp;    /** Numeric value for the gacha stage count. */
+&nbsp;    public final int gachaStageCount;
+&nbsp;
+&nbsp;    /** Numeric value for the sound engineer target min. */
+&nbsp;    public final double soundEngineerTargetMin;
+&nbsp;
+&nbsp;    /** Numeric value for the sound engineer target range. */
+&nbsp;    public final double soundEngineerTargetRange;
+&nbsp;
+&nbsp;    /** Numeric value for the sound engineer flash duration seconds. */
+&nbsp;    public final double soundEngineerFlashDurationSeconds;
+&nbsp;
+&nbsp;    /** Numeric value for the sound engineer match tolerance. */
+&nbsp;    public final double soundEngineerMatchTolerance;
+&nbsp;
+&nbsp;    /** Numeric value for the sound engineer slider default. */
+&nbsp;    public final double soundEngineerSliderDefault;
+&nbsp;
+&nbsp;    /** Numeric value for the label name min length. */
+&nbsp;    public final int labelNameMinLength;
+&nbsp;
+&nbsp;    /** Numeric value for the label name max length. */
+&nbsp;    public final int labelNameMaxLength;
+&nbsp;
+&nbsp;    /** Numeric value for the local tour cancel penalty. */
+&nbsp;    public final int localTourCancelPenalty;
+&nbsp;
+&nbsp;    /** Numeric value for the country tour cancel penalty. */
+&nbsp;    public final int countryTourCancelPenalty;
+&nbsp;
+&nbsp;    /** Numeric value for the world tour cancel penalty. */
+&nbsp;    public final int worldTourCancelPenalty;
+&nbsp;
+&nbsp;    /** Numeric value for the ticket sales amount. */
+&nbsp;    public final double ticketSalesAmount;
+&nbsp;
+&nbsp;    /** Numeric value for the local tour artist pay multiplier. */
+&nbsp;    public final double localTourArtistPayMultiplier;
+&nbsp;
+&nbsp;    /** Numeric value for the country tour artist pay multiplier. */
+&nbsp;    public final double countryTourArtistPayMultiplier;
+&nbsp;
+&nbsp;    /** Numeric value for the world tour artist pay multiplier. */
+&nbsp;    public final double worldTourArtistPayMultiplier;
+&nbsp;
+&nbsp;    /** Numeric value for the retirement chance increase per three tours without break. */
+&nbsp;    public final int retirementChanceIncreasePerThreeToursWithoutBreak;
+&nbsp;
+&nbsp;    //Score tuning
+&nbsp;    /** Numeric value for the concert completion score. */
+&nbsp;    public final int concertCompletionScore;
+&nbsp;
+&nbsp;    /** Numeric value for the question answered score. */
+&nbsp;    public final int questionAnsweredScore;
+&nbsp;
+&nbsp;    /** Numeric value for the crowd hype score multiplier. */
+&nbsp;    public final double crowdHypeScoreMultiplier;
+&nbsp;
+&nbsp;    /** Numeric value for the net earnings score divisor. */
+&nbsp;    public final double netEarningsScoreDivisor;
+&nbsp;
+&nbsp;    /** Numeric value for the local tour completion score. */
+&nbsp;    public final int localTourCompletionScore;
+&nbsp;
+&nbsp;    /** Numeric value for the country tour completion score. */
+&nbsp;    public final int countryTourCompletionScore;
+&nbsp;
+&nbsp;    /** Numeric value for the world tour completion score. */
+&nbsp;    public final int worldTourCompletionScore;
+&nbsp;
+&nbsp;    /** Numeric value for the exhaustion score penalty. */
+&nbsp;    public final int exhaustionScorePenalty;
+&nbsp;
+&nbsp;    /** Numeric value for the main volume. */
+&nbsp;    public double mainVolume;
+&nbsp;
+&nbsp;    /** Numeric value for the music volume. */
+&nbsp;    public double musicVolume;
+&nbsp;
+&nbsp;    /** Numeric value for the sound effects volume. */
+&nbsp;    public double soundEffectsVolume;
+&nbsp;
+&nbsp;    /** Whether moving background enabled. */
+&nbsp;    public boolean movingBackgroundEnabled;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new game config.
+&nbsp;     * It initializes the state needed for the surrounding game flow.
+&nbsp;     * @param startingCredits the numeric value for the starting credits
+&nbsp;     * @param artistsRosterLimit the numeric value for the artists roster limit
+&nbsp;     * @param lineUpLimit the numeric value for the line up limit
+&nbsp;     * @param gachaStandardCost the numeric value for the gacha standard cost
+&nbsp;     * @param gachaGoldenCost the numeric value for the gacha golden cost
+&nbsp;     * @param gachaPlatinumCost the numeric value for the gacha platinum cost
+&nbsp;     * @param artistRerollCost the numeric value for the artist reroll cost
+&nbsp;     * @param itemSellbackRate the numeric value for the item sellback rate
+&nbsp;     * @param miniGameTriggerChance the numeric value for the mini game trigger chance
+&nbsp;     * @param questionCommonChance the numeric value for the question common chance
+&nbsp;     * @param randomEventTriggerChance the numeric value for the random event trigger chance
+&nbsp;     * @param maxSPInStartingSelection the numeric value for the max sp in starting selection
+&nbsp;     * @param minTourCount the numeric value for the min tour count
+&nbsp;     * @param maxTourCount the numeric value for the max tour count
+&nbsp;     * @param defaultTourCount the numeric value for the default tour count
+&nbsp;     * @param startingArtistPoolSize the numeric value for the starting artist pool size
+&nbsp;     * @param maxStartingArtists the numeric value for the max starting artists
+&nbsp;     * @param requiredLineupSize the numeric value for the required lineup size
+&nbsp;     * @param gachaPoolSize the numeric value for the gacha pool size
+&nbsp;     * @param maxGachaPicks the numeric value for the max gacha picks
+&nbsp;     * @param concertQuestionsCount the numeric value for the concert questions count
+&nbsp;     * @param gachaMinClicks the numeric value for the gacha min clicks
+&nbsp;     * @param gachaMaxClicks the numeric value for the gacha max clicks
+&nbsp;     * @param gachaStageCount the numeric value for the gacha stage count
+&nbsp;     * @param soundEngineerTargetMin the numeric value for the sound engineer target min
+&nbsp;     * @param soundEngineerTargetRange the numeric value for the sound engineer target range
+&nbsp;     * @param soundEngineerFlashDurationSeconds the numeric value for the sound engineer flash duration seconds
+&nbsp;     * @param soundEngineerMatchTolerance the numeric value for the sound engineer match tolerance
+&nbsp;     * @param soundEngineerSliderDefault the numeric value for the sound engineer slider default
+&nbsp;     * @param labelNameMinLength the numeric value for the label name min length
+&nbsp;     * @param labelNameMaxLength the numeric value for the label name max length
+&nbsp;     * @param localTourCancelPenalty the numeric value for the local tour cancel penalty
+&nbsp;     * @param countryTourCancelPenalty the numeric value for the country tour cancel penalty
+&nbsp;     * @param worldTourCancelPenalty the numeric value for the world tour cancel penalty
+&nbsp;     * @param ticketSalesAmount the numeric value for the ticket sales amount
+&nbsp;     * @param localTourArtistPayMultiplier the numeric value for the local tour artist pay multiplier
+&nbsp;     * @param countryTourArtistPayMultiplier the numeric value for the country tour artist pay multiplier
+&nbsp;     * @param worldTourArtistPayMultiplier the numeric value for the world tour artist pay multiplier
+&nbsp;     * @param retirementChanceIncreasePerThreeToursWithoutBreak the numeric value for the retirement chance increase per three tours without break
+&nbsp;     * @param concertCompletionScore the numeric value for the concert completion score
+&nbsp;     * @param questionAnsweredScore the numeric value for the question answered score
+&nbsp;     * @param crowdHypeScoreMultiplier the numeric value for the crowd hype score multiplier
+&nbsp;     * @param netEarningsScoreDivisor the numeric value for the net earnings score divisor
+&nbsp;     * @param localTourCompletionScore the numeric value for the local tour completion score
+&nbsp;     * @param countryTourCompletionScore the numeric value for the country tour completion score
+&nbsp;     * @param worldTourCompletionScore the numeric value for the world tour completion score
+&nbsp;     * @param exhaustionScorePenalty the numeric value for the exhaustion score penalty
+&nbsp;     * @param mainVolume the numeric value for the main volume
+&nbsp;     * @param musicVolume the numeric value for the music volume
+&nbsp;     * @param soundEffectsVolume the numeric value for the sound effects volume
+&nbsp;     * @param movingBackgroundEnabled whether moving background enabled
+&nbsp;     */
+&nbsp;    @JsonCreator
+&nbsp;    public GameConfig(
+&nbsp;            // Economy
+&nbsp;            //double artistBasePay,
+&nbsp;            //double artistBaseHiringCost,
+&nbsp;            @JsonProperty(&quot;startingCredits&quot;) int    startingCredits,
+&nbsp;            @JsonProperty(&quot;artistsRosterLimit&quot;) int    artistsRosterLimit,
+&nbsp;            @JsonProperty(&quot;lineUpLimit&quot;) int    lineUpLimit,
+&nbsp;            @JsonProperty(&quot;gachaStandardCost&quot;) int    gachaStandardCost,
+&nbsp;            @JsonProperty(&quot;gachaGoldenCost&quot;) int    gachaGoldenCost,
+&nbsp;            @JsonProperty(&quot;gachaPlatinumCost&quot;) int    gachaPlatinumCost,
+&nbsp;            @JsonProperty(&quot;artistRerollCost&quot;) int    artistRerollCost,
+&nbsp;            @JsonProperty(&quot;itemSellbackRate&quot;) double itemSellbackRate,
+&nbsp;            @JsonProperty(&quot;miniGameTriggerChance&quot;) double miniGameTriggerChance,
+&nbsp;            @JsonProperty(&quot;questionCommonChance&quot;) double questionCommonChance,
+&nbsp;            @JsonProperty(&quot;randomEventTriggerChance&quot;) double randomEventTriggerChance,
+&nbsp;            @JsonProperty(&quot;maxSPInStartingSelection&quot;) int maxSPInStartingSelection,
+&nbsp;            // Expedition Parameters
+&nbsp;            @JsonProperty(&quot;minTourCount&quot;) int    minTourCount,
+&nbsp;            @JsonProperty(&quot;maxTourCount&quot;) int    maxTourCount,
+&nbsp;            @JsonProperty(&quot;defaultTourCount&quot;) int    defaultTourCount,
+&nbsp;            @JsonProperty(&quot;startingArtistPoolSize&quot;) int    startingArtistPoolSize,
+&nbsp;            @JsonProperty(&quot;maxStartingArtists&quot;) int    maxStartingArtists,
+&nbsp;            @JsonProperty(&quot;requiredLineupSize&quot;) int    requiredLineupSize,
+&nbsp;            @JsonProperty(&quot;gachaPoolSize&quot;) int    gachaPoolSize,
+&nbsp;            @JsonProperty(&quot;maxGachaPicks&quot;) int    maxGachaPicks,
+&nbsp;            @JsonProperty(&quot;concertQuestionsCount&quot;) int    concertQuestionsCount,
+&nbsp;            @JsonProperty(&quot;gachaMinClicks&quot;) int    gachaMinClicks,
+&nbsp;            @JsonProperty(&quot;gachaMaxClicks&quot;) int    gachaMaxClicks,
+&nbsp;            @JsonProperty(&quot;gachaStageCount&quot;) int    gachaStageCount,
+&nbsp;            @JsonProperty(&quot;soundEngineerTargetMin&quot;) double soundEngineerTargetMin,
+&nbsp;            @JsonProperty(&quot;soundEngineerTargetRange&quot;) double soundEngineerTargetRange,
+&nbsp;            @JsonProperty(&quot;soundEngineerFlashDurationSeconds&quot;) double soundEngineerFlashDurationSeconds,
+&nbsp;            @JsonProperty(&quot;soundEngineerMatchTolerance&quot;) double soundEngineerMatchTolerance,
+&nbsp;            @JsonProperty(&quot;soundEngineerSliderDefault&quot;) double soundEngineerSliderDefault,
+&nbsp;            // UI / Validation
+&nbsp;            @JsonProperty(&quot;labelNameMinLength&quot;) int labelNameMinLength,
+&nbsp;            @JsonProperty(&quot;labelNameMaxLength&quot;) int labelNameMaxLength,
+&nbsp;            @JsonProperty(&quot;localTourCancelPenalty&quot;) Integer localTourCancelPenalty,
+&nbsp;            @JsonProperty(&quot;countryTourCancelPenalty&quot;) Integer countryTourCancelPenalty,
+&nbsp;            @JsonProperty(&quot;worldTourCancelPenalty&quot;) Integer worldTourCancelPenalty,
+&nbsp;            @JsonProperty(&quot;cancelTourPenalty&quot;) Integer cancelTourPenalty,
+&nbsp;            @JsonProperty(&quot;ticketSalesAmount&quot;) double ticketSalesAmount,
+&nbsp;            @JsonProperty(&quot;localTourArtistPayMultiplier&quot;) double localTourArtistPayMultiplier,
+&nbsp;            @JsonProperty(&quot;countryTourArtistPayMultiplier&quot;) double countryTourArtistPayMultiplier,
+&nbsp;            @JsonProperty(&quot;worldTourArtistPayMultiplier&quot;) double worldTourArtistPayMultiplier,
+&nbsp;            @JsonProperty(&quot;retirementChanceIncreasePerThreeToursWithoutBreak&quot;) int retirementChanceIncreasePerThreeToursWithoutBreak,
+&nbsp;            @JsonProperty(&quot;concertCompletionScore&quot;) int concertCompletionScore,
+&nbsp;            @JsonProperty(&quot;questionAnsweredScore&quot;) int questionAnsweredScore,
+&nbsp;            @JsonProperty(&quot;crowdHypeScoreMultiplier&quot;) double crowdHypeScoreMultiplier,
+&nbsp;            @JsonProperty(&quot;netEarningsScoreDivisor&quot;) double netEarningsScoreDivisor,
+&nbsp;            @JsonProperty(&quot;localTourCompletionScore&quot;) int localTourCompletionScore,
+&nbsp;            @JsonProperty(&quot;countryTourCompletionScore&quot;) int countryTourCompletionScore,
+&nbsp;            @JsonProperty(&quot;worldTourCompletionScore&quot;) int worldTourCompletionScore,
+&nbsp;            @JsonProperty(&quot;exhaustionScorePenalty&quot;) int exhaustionScorePenalty,
+&nbsp;            //Game settings
+&nbsp;            @JsonProperty(&quot;mainVolume&quot;) double mainVolume,
+&nbsp;            @JsonProperty(&quot;musicVolume&quot;) double musicVolume,
+&nbsp;            @JsonProperty(&quot;soundEffectsVolume&quot;) double soundEffectsVolume,
+&nbsp;            @JsonProperty(&quot;movingBackgroundEnabled&quot;) boolean movingBackgroundEnabled
+<b class="nc">&nbsp;    ) {</b>
+&nbsp;        //this.artistBasePay                    = artistBasePay;
+&nbsp;        //this.artistBaseHiringCost             = artistBaseHiringCost;
+<b class="nc">&nbsp;        this.startingCredits                  = startingCredits;</b>
+<b class="nc">&nbsp;        this.artistsRosterLimit               = artistsRosterLimit;</b>
+<b class="nc">&nbsp;        this.lineUpLimit                      = lineUpLimit;</b>
+<b class="nc">&nbsp;        this.gachaStandardCost                = gachaStandardCost;</b>
+<b class="nc">&nbsp;        this.gachaGoldenCost                  = gachaGoldenCost;</b>
+<b class="nc">&nbsp;        this.gachaPlatinumCost                = gachaPlatinumCost;</b>
+<b class="nc">&nbsp;        this.artistRerollCost                 = artistRerollCost;</b>
+<b class="nc">&nbsp;        this.itemSellbackRate                 = itemSellbackRate;</b>
+<b class="nc">&nbsp;        this.miniGameTriggerChance            = miniGameTriggerChance;</b>
+<b class="nc">&nbsp;        this.questionCommonChance             = questionCommonChance;</b>
+<b class="nc">&nbsp;        this.randomEventTriggerChance        = randomEventTriggerChance;</b>
+<b class="nc">&nbsp;        this.maxSPInStartingSelection         = maxSPInStartingSelection;</b>
+<b class="nc">&nbsp;        this.minTourCount                     = minTourCount;</b>
+<b class="nc">&nbsp;        this.maxTourCount                     = maxTourCount;</b>
+<b class="nc">&nbsp;        this.defaultTourCount                 = defaultTourCount;</b>
+<b class="nc">&nbsp;        this.startingArtistPoolSize           = startingArtistPoolSize;</b>
+<b class="nc">&nbsp;        this.maxStartingArtists               = maxStartingArtists;</b>
+<b class="nc">&nbsp;        this.requiredLineupSize               = requiredLineupSize;</b>
+<b class="nc">&nbsp;        this.gachaPoolSize                    = gachaPoolSize;</b>
+<b class="nc">&nbsp;        this.maxGachaPicks                    = maxGachaPicks;</b>
+<b class="nc">&nbsp;        this.concertQuestionsCount            = concertQuestionsCount;</b>
+<b class="nc">&nbsp;        this.gachaMinClicks                   = gachaMinClicks;</b>
+<b class="nc">&nbsp;        this.gachaMaxClicks                   = gachaMaxClicks;</b>
+<b class="nc">&nbsp;        this.gachaStageCount                  = gachaStageCount;</b>
+<b class="nc">&nbsp;        this.soundEngineerTargetMin           = soundEngineerTargetMin;</b>
+<b class="nc">&nbsp;        this.soundEngineerTargetRange         = soundEngineerTargetRange;</b>
+<b class="nc">&nbsp;        this.soundEngineerFlashDurationSeconds = soundEngineerFlashDurationSeconds;</b>
+<b class="nc">&nbsp;        this.soundEngineerMatchTolerance      = soundEngineerMatchTolerance;</b>
+<b class="nc">&nbsp;        this.soundEngineerSliderDefault       = soundEngineerSliderDefault;</b>
+<b class="nc">&nbsp;        this.labelNameMinLength               = labelNameMinLength;</b>
+<b class="nc">&nbsp;        this.labelNameMaxLength               = labelNameMaxLength;</b>
+<b class="nc">&nbsp;        int fallbackCancelPenalty = cancelTourPenalty == null ? 0 : cancelTourPenalty;</b>
+<b class="nc">&nbsp;        this.localTourCancelPenalty           = localTourCancelPenalty == null ? fallbackCancelPenalty : localTourCancelPenalty;</b>
+<b class="nc">&nbsp;        this.countryTourCancelPenalty         = countryTourCancelPenalty == null ? fallbackCancelPenalty : countryTourCancelPenalty;</b>
+<b class="nc">&nbsp;        this.worldTourCancelPenalty           = worldTourCancelPenalty == null ? fallbackCancelPenalty : worldTourCancelPenalty;</b>
+<b class="nc">&nbsp;        this.ticketSalesAmount                = ticketSalesAmount;</b>
+<b class="nc">&nbsp;        this.localTourArtistPayMultiplier     = localTourArtistPayMultiplier;</b>
+<b class="nc">&nbsp;        this.countryTourArtistPayMultiplier   = countryTourArtistPayMultiplier;</b>
+<b class="nc">&nbsp;        this.worldTourArtistPayMultiplier     = worldTourArtistPayMultiplier;</b>
+<b class="nc">&nbsp;        this.retirementChanceIncreasePerThreeToursWithoutBreak = retirementChanceIncreasePerThreeToursWithoutBreak;</b>
+<b class="nc">&nbsp;        this.concertCompletionScore           = concertCompletionScore;</b>
+<b class="nc">&nbsp;        this.questionAnsweredScore            = questionAnsweredScore;</b>
+<b class="nc">&nbsp;        this.crowdHypeScoreMultiplier         = crowdHypeScoreMultiplier;</b>
+<b class="nc">&nbsp;        this.netEarningsScoreDivisor          = netEarningsScoreDivisor;</b>
+<b class="nc">&nbsp;        this.localTourCompletionScore         = localTourCompletionScore;</b>
+<b class="nc">&nbsp;        this.countryTourCompletionScore       = countryTourCompletionScore;</b>
+<b class="nc">&nbsp;        this.worldTourCompletionScore         = worldTourCompletionScore;</b>
+<b class="nc">&nbsp;        this.exhaustionScorePenalty           = exhaustionScorePenalty;</b>
+<b class="nc">&nbsp;        this.mainVolume                       = mainVolume;</b>
+<b class="nc">&nbsp;        this.musicVolume                      = musicVolume;</b>
+<b class="nc">&nbsp;        this.soundEffectsVolume               = soundEffectsVolume;</b>
+<b class="nc">&nbsp;        this.movingBackgroundEnabled          = movingBackgroundEnabled;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the artist pay multiplier.
+&nbsp;     * @param tourType the tour type
+&nbsp;     * @return The artist pay multiplier.
+&nbsp;     */
+&nbsp;    public double getArtistPayMultiplier(TourType tourType)
+&nbsp;    {
+<b class="nc">&nbsp;        return switch (tourType)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            case LOCAL -&gt; localTourArtistPayMultiplier;</b>
+<b class="nc">&nbsp;            case COUNTRY -&gt; countryTourArtistPayMultiplier;</b>
+<b class="nc">&nbsp;            case WORLD -&gt; worldTourArtistPayMultiplier;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the cancellation refund amount for the given tour type.
+&nbsp;     * @param tourType the tour type
+&nbsp;     * @return The cancellation refund amount.
+&nbsp;     */
+&nbsp;    public int getCancelTourPenalty(TourType tourType)
+&nbsp;    {
+<b class="nc">&nbsp;        return switch (tourType)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            case LOCAL -&gt; localTourCancelPenalty;</b>
+<b class="nc">&nbsp;            case COUNTRY -&gt; countryTourCancelPenalty;</b>
+<b class="nc">&nbsp;            case WORLD -&gt; worldTourCancelPenalty;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Stores the easy difficulty.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @return The game config.
+&nbsp;     */
+&nbsp;    public static GameConfig easy() {
+<b class="nc">&nbsp;        return new GameConfig(</b>
+&nbsp;                // Economy
+&nbsp;                500,  // startingCredits
+&nbsp;                12, 3,
+&nbsp;                150, 1500, 3000, 100,
+&nbsp;                0.7,
+&nbsp;                // Probabilities
+&nbsp;                0.15, 0.5, 0.25, 3,
+&nbsp;                // Expedition
+&nbsp;                5, 15, 5,
+&nbsp;                5, 3, 1, 3, 1,
+&nbsp;                5,
+&nbsp;                7, 10, 4,
+&nbsp;                20.0, 60.0, 1.0, 15.0, 50.0,
+&nbsp;                // UI
+<b class="nc">&nbsp;                3, 15, 100, 200, 300, 300, 250,</b>
+&nbsp;                1.0, 1.5, 2.0, 5,
+&nbsp;                // Score tuning
+&nbsp;                25, 5, 0.5, 20.0, 40, 90, 150, 50,
+&nbsp;                //Game config
+&nbsp;                30.0, 30.0, 30.0, true
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Stores the A challenge difficulty.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @return The game config.
+&nbsp;     */
+&nbsp;    public static GameConfig aChallenge() {
+<b class="nc">&nbsp;        return new GameConfig(</b>
+&nbsp;                // Economy
+&nbsp;                300,  // startingCredits
+&nbsp;                12, 3,
+&nbsp;                150, 1500, 3000, 120,
+&nbsp;                0.7,
+&nbsp;                // Probabilities
+&nbsp;                0.15, 0.5, 0.30, 2,
+&nbsp;                // Expedition
+&nbsp;                5, 15, 5,
+&nbsp;                5, 3, 1, 3, 1,
+&nbsp;                7,
+&nbsp;                7, 10, 4,
+&nbsp;                20.0, 60.0, 1.0, 10.0, 50.0,
+&nbsp;                // UI
+<b class="nc">&nbsp;                3, 15, 300, 450, 600, 300, 250,</b>
+&nbsp;                1.0, 1.5, 2.0, 5,
+&nbsp;                // Score tuning
+&nbsp;                30, 5, 0.6, 18.0, 50, 110, 180, 75,
+&nbsp;                //Game config
+&nbsp;                30.0, 30.0, 30.0, true
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Stores the hard difficulty.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @return The game config.
+&nbsp;     */
+&nbsp;    public static GameConfig hard() {
+<b class="nc">&nbsp;        return new GameConfig(</b>
+&nbsp;                // Economy
+&nbsp;                150,  // startingCredits
+&nbsp;                12, 3,
+&nbsp;                150, 1500, 3000, 150,
+&nbsp;                0.7,
+&nbsp;                // Probabilities
+&nbsp;                0.15, 0.5, 0.40, 1,
+&nbsp;                // Expedition
+&nbsp;                5, 15, 5,
+&nbsp;                5, 3, 1, 3, 1,
+&nbsp;                9,
+&nbsp;                7, 10, 4,
+&nbsp;                20.0, 60.0, 1.0, 7.0, 50.0,
+&nbsp;                // UI
+<b class="nc">&nbsp;                3, 15, 500, 700, 900, 300, 250,</b>
+&nbsp;                1.0, 1.5, 2.0, 5,
+&nbsp;                // Score tuning
+&nbsp;                35, 6, 0.75, 15.0, 60, 130, 220, 100,
+&nbsp;                //Game config
+&nbsp;                30.0, 30.0, 30.0, true
+&nbsp;        );
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

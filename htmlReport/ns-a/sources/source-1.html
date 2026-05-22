@@ -1,0 +1,441 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TheMarketController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.gui.market</a>
+</div>
+
+<h1>Coverage Summary for Class: TheMarketController (seng201.team67.gui.market)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TheMarketController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/70)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TheMarketController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/84)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.gui.market;
+&nbsp;
+&nbsp;import javafx.animation.AnimationTimer;
+&nbsp;import javafx.event.ActionEvent;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import seng201.team67.GameEnvironment;
+&nbsp;import seng201.team67.gui.mainmenu.MainMenuController;
+&nbsp;import seng201.team67.gui.selection.GachaSelectionController;
+&nbsp;import seng201.team67.gui.util.ArtistDetailBoxFiller;
+&nbsp;import seng201.team67.gui.util.ItemDetailBoxFiller;
+&nbsp;import seng201.team67.gui.util.ScreenNavigator;
+&nbsp;import seng201.team67.models.items.Item;
+&nbsp;import seng201.team67.services.audio.MusicService;
+&nbsp;import seng201.team67.services.management.MarketService;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;import static seng201.team67.models.enums.Rarity.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * Controls the the market view and coordinates its user interactions.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class TheMarketController {
+&nbsp;
+&nbsp;    /** Shared game state for the current session. */
+&nbsp;    private final GameEnvironment gameEnvironment;
+&nbsp;    /** The selected item. */
+&nbsp;    private Item selectedItem;
+&nbsp;    /** Service used to manage market behaviour. */
+&nbsp;    private final MarketService marketService;
+&nbsp;    /** The screen navigator. */
+<b class="nc">&nbsp;    private final ScreenNavigator screenNavigator = new ScreenNavigator();</b>
+&nbsp;
+&nbsp;    /** The label name. */
+&nbsp;    @FXML
+&nbsp;    public javafx.scene.control.Label labelName;
+&nbsp;    /** FXML reference for the money text control. */
+&nbsp;    @FXML public Label moneyText;
+&nbsp;    /** FXML reference for the artist card one control. */
+&nbsp;    @FXML private VBox artistCardOne;
+&nbsp;    /** FXML reference for the artist card two control. */
+&nbsp;    @FXML private VBox artistCardTwo;
+&nbsp;    /** FXML reference for the artist card three control. */
+&nbsp;    @FXML private VBox artistCardThree;
+&nbsp;    /** FXML reference for the buy item button control. */
+&nbsp;    @FXML private Button buyItemButton;
+&nbsp;    /** FXML reference for the insufficient funds warning control. */
+&nbsp;    @FXML private Label insufficientFundsWarning;
+&nbsp;    /** FXML reference for the bg1 control. */
+&nbsp;    @FXML private ImageView bg1;
+&nbsp;    /** FXML reference for the bg2 control. */
+&nbsp;    @FXML private ImageView bg2;
+&nbsp;    /** FXML reference for the bootleg text control. */
+&nbsp;    @FXML private Label bootlegText;
+&nbsp;    /** FXML reference for the certified text control. */
+&nbsp;    @FXML private Label certifiedText;
+&nbsp;    /** FXML reference for the godlike text control. */
+&nbsp;    @FXML private Label godlikeText;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new the market controller.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     */
+&nbsp;    public TheMarketController(GameEnvironment gameEnvironment)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.gameEnvironment = gameEnvironment;</b>
+<b class="nc">&nbsp;        this.marketService = new MarketService(gameEnvironment);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initializes the controller state and populates the initial view data.
+&nbsp;     * It also attaches any required event handlers for the screen.
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML public void initialize() throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        this.labelName.setText(gameEnvironment.getLabelService().getLabelName());</b>
+<b class="nc">&nbsp;        this.moneyText.setText(String.format(&quot;$%.2f&quot;, gameEnvironment.getLabelService().getMoney()));</b>
+<b class="nc">&nbsp;        insufficientFundsWarning.setVisible(false);</b>
+<b class="nc">&nbsp;        bootlegText.setText(String.format(&quot;$%d&quot;, gameEnvironment.getConfig().gachaStandardCost));</b>
+<b class="nc">&nbsp;        certifiedText.setText(String.format(&quot;$%d&quot;, gameEnvironment.getConfig().gachaGoldenCost));</b>
+<b class="nc">&nbsp;        godlikeText.setText(String.format(&quot;$%d&quot;, gameEnvironment.getConfig().gachaPlatinumCost));</b>
+&nbsp;
+<b class="nc">&nbsp;        loadItemPool();</b>
+&nbsp;
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().playTheStudioMusic();</b>
+&nbsp;
+<b class="nc">&nbsp;        AnimationTimer bgScroll = new AnimationTimer() {</b>
+<b class="nc">&nbsp;            private boolean initialized = false;</b>
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void handle(long now) {
+<b class="nc">&nbsp;                double width = bg1.getBoundsInParent().getWidth();</b>
+&nbsp;
+<b class="nc">&nbsp;                if (!initialized) {</b>
+<b class="nc">&nbsp;                    bg1.setLayoutX(0);</b>
+<b class="nc">&nbsp;                    bg2.setLayoutX(width);</b>
+<b class="nc">&nbsp;                    initialized = true;</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (!gameEnvironment.getConfig().movingBackgroundEnabled) {</b>
+&nbsp;                    return;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                bg1.setLayoutX(bg1.getLayoutX() - 0.4);</b>
+<b class="nc">&nbsp;                bg2.setLayoutX(bg2.getLayoutX() - 0.4);</b>
+&nbsp;
+<b class="nc">&nbsp;                if (bg1.getLayoutX() + width &lt;= 0) {</b>
+<b class="nc">&nbsp;                    bg1.setLayoutX(bg1.getLayoutX() + width * 2);</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (bg2.getLayoutX() + width &lt;= 0) {</b>
+<b class="nc">&nbsp;                    bg2.setLayoutX(bg2.getLayoutX() + width * 2);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        };
+<b class="nc">&nbsp;        bgScroll.start();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadItemPool()
+&nbsp;    {
+<b class="nc">&nbsp;        ArrayList&lt;Item&gt; pool = getItemPool();</b>
+<b class="nc">&nbsp;        VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; cards.length; i++) {</b>
+<b class="nc">&nbsp;            VBox card = cards[i];</b>
+<b class="nc">&nbsp;            if (i &lt; pool.size()) {</b>
+<b class="nc">&nbsp;                Item item = pool.get(i);</b>
+<b class="nc">&nbsp;                card.setDisable(false);</b>
+<b class="nc">&nbsp;                ItemDetailBoxFiller.populateMarketBox(card, item);</b>
+<b class="nc">&nbsp;                card.setOnMouseClicked(e -&gt; selectItem(card, item));</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                clearArtistCard(card);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        selectedItem = null;</b>
+<b class="nc">&nbsp;        buyItemButton.setVisible(false);</b>
+<b class="nc">&nbsp;        hideInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clearArtistCard(VBox card) {
+<b class="nc">&nbsp;        card.getChildren().clear();</b>
+<b class="nc">&nbsp;        card.setDisable(true);</b>
+<b class="nc">&nbsp;        card.setOnMouseClicked(null);</b>
+<b class="nc">&nbsp;        ArtistDetailBoxFiller.applyBaseStyle(card);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void selectItem(VBox card, Item item)
+&nbsp;    {
+<b class="nc">&nbsp;        VBox[] cards = { artistCardOne, artistCardTwo, artistCardThree };</b>
+<b class="nc">&nbsp;        for (VBox c : cards) {</b>
+<b class="nc">&nbsp;            if (!c.isDisable()) {</b>
+<b class="nc">&nbsp;                ItemDetailBoxFiller.applyBaseStyle(c);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        ItemDetailBoxFiller.applySelectedStyle(card);</b>
+<b class="nc">&nbsp;        selectedItem = item;</b>
+<b class="nc">&nbsp;        buyItemButton.setVisible(true);</b>
+<b class="nc">&nbsp;        hideInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handles the buy item.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     */
+&nbsp;    @FXML public void handleBuyItem()
+&nbsp;    {
+<b class="nc">&nbsp;        if (selectedItem == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (gameEnvironment.getLabelService().buyItem(selectedItem))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            gameEnvironment.removeItemFromPurchasePool(selectedItem);</b>
+<b class="nc">&nbsp;            moneyText.setText(String.format(&quot;$%.2f&quot;, gameEnvironment.getLabelService().getMoney()));</b>
+<b class="nc">&nbsp;            loadItemPool();</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        showInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the player to the main menu
+&nbsp;     * @param event the action event that triggered the request
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML public void returnToMainMenu(ActionEvent event) throws IOException {
+<b class="nc">&nbsp;        gameEnvironment.getMusicService().stopAndReset();</b>
+<b class="nc">&nbsp;        screenNavigator.navigate(event, &quot;/fxml/mainmenu/MainMenu.fxml&quot;, new MainMenuController(gameEnvironment));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Buys a standard item gacha
+&nbsp;     * @param event the action event that triggered the request
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML public void buyStandard(ActionEvent event) throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaStandardCost))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            hideInsufficientFundsWarning();</b>
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/market/GatchaSelection.fxml&quot;,</b>
+<b class="nc">&nbsp;                    new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, RARE));</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        showInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Buys a golden item gacha
+&nbsp;     * @param event the action event that triggered the request
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML public void buyGolden(ActionEvent event) throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaGoldenCost))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            hideInsufficientFundsWarning();</b>
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/market/GatchaSelection.fxml&quot;,</b>
+<b class="nc">&nbsp;                    new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, VERY_RARE));</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        showInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Buys a platinum item gacha
+&nbsp;     * @param event the action event that triggered the request
+&nbsp;     * @throws IOException if an input or output error occurs
+&nbsp;     */
+&nbsp;    @FXML public void buyPlatinum(ActionEvent event) throws IOException
+&nbsp;    {
+<b class="nc">&nbsp;        if(gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().gachaPlatinumCost))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            hideInsufficientFundsWarning();</b>
+<b class="nc">&nbsp;            screenNavigator.navigate(event, &quot;/fxml/market/GatchaSelection.fxml&quot;,</b>
+<b class="nc">&nbsp;                    new GachaSelectionController(gameEnvironment, false, gameEnvironment.getConfig().gachaPoolSize, ULTRA));</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        showInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private ArrayList&lt;Item&gt; getItemPool()
+&nbsp;    {
+<b class="nc">&nbsp;        return marketService.getItemPurchasePool();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rerolls the purcahsable items
+&nbsp;     */
+&nbsp;    @FXML public void rerollItems()
+&nbsp;    {
+<b class="nc">&nbsp;        if (gameEnvironment.getLabelService().buyItem(gameEnvironment.getConfig().artistRerollCost)) {</b>
+<b class="nc">&nbsp;            gameEnvironment.setItemPoolGenerated(false);</b>
+<b class="nc">&nbsp;            moneyText.setText(String.format(&quot;$%.2f&quot;, gameEnvironment.getLabelService().getMoney()));</b>
+<b class="nc">&nbsp;            loadItemPool();</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        showInsufficientFundsWarning();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showInsufficientFundsWarning() {
+<b class="nc">&nbsp;        insufficientFundsWarning.setVisible(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void hideInsufficientFundsWarning() {
+<b class="nc">&nbsp;        insufficientFundsWarning.setVisible(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

@@ -45,14 +45,6 @@ public enum GameplayEffect {
         }
     },
 
-    STAR_POWER_MULTIPLIER {
-        @Override
-        public StatModifier createStatModifier(double value)
-        {
-            return ItemEffectBehaviours.starPowerMultiplier();
-        }
-    },
-
     STAMINA_MULTIPLIER {
         @Override
         public StatModifier createStatModifier(double value)
@@ -65,7 +57,7 @@ public enum GameplayEffect {
         @Override
         public ConcertModifier createConcertModifier(double value)
         {
-            return ItemEffectBehaviours.flatCrowdBoost(10);
+            return ItemEffectBehaviours.flatCrowdBoost(value);
         }
     },
 
@@ -73,7 +65,7 @@ public enum GameplayEffect {
         @Override
         public ConcertModifier createConcertModifier(double value)
         {
-            return ItemEffectBehaviours.crowdMultiplier(1.05);
+            return ItemEffectBehaviours.crowdMultiplier(value);
         }
     },
 

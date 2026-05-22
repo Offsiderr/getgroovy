@@ -245,7 +245,7 @@ public class MainConcertController {
             return;
         }
 
-        String result = gameEnvironment.getLabelService().useConsumable(artist, item);
+        String result = concertService.useConsumable(artist, item);
         if (result.isBlank())
         {
             return;

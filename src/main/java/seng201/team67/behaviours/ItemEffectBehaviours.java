@@ -4,7 +4,8 @@ import seng201.team67.interfaces.ConcertModifier;
 import seng201.team67.interfaces.StatModifier;
 
 /**
- * Provides reusable item effect behaviours behaviour definitions for the game systems.
+ * Provides reusable item effect behaviours. This class holds the behaviour for the
+ * different item effects in the game.
  * @author Louie Campion
  * @author Keenan Aubrey
  */
@@ -14,44 +15,40 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the low stamina boost.
+     * Gives a stamina boost if it below the threshold
      * @param threshold the threshold value used by the calculation
      * @return The stat modifier.
      */
     public static StatModifier lowStaminaBoost(int threshold)
     {
-        // Boosts a stat if stamina drops below the threshold.
         return (artist, value) -> artist.getStamina() < threshold ? (int) Math.round(value) : 0;
     }
 
     /**
-     * Processes the high star power stamina boost.
+     * if the artist's star power is above a certain threshold, it boosts their stamina
      * @param threshold the threshold value used by the calculation
      * @return The stat modifier.
      */
     public static StatModifier highStarPowerStaminaBoost(int threshold)
     {
-        // Boosts stamina if star power is above the threshold.
         return (artist, value) -> artist.getStarPower() > threshold ? (int) Math.round(value) : 0;
     }
 
     /**
-     * Processes the instant boost.
+     * Gives an instant boost to the artist's passed in statistic
      * @return The stat modifier.
      */
     public static StatModifier instantBoost()
     {
-        // Applies a one-off flat bonus when the item is used.
         return (artist, value) -> (int) Math.round(value);
     }
 
     /**
-     * Restores the up to base.
+     * Restores an artist's stamina fully up to the base
      * @return The stat modifier.
      */
     public static StatModifier restoreUpToBase()
     {
-        // Restores only the missing stamina, capped by the item value.
         return (artist, value) -> Math.min(
                 (int) Math.round(value),
                 artist.getBaseStamina() - artist.getCurrentStaminaValue()
@@ -59,7 +56,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the flat boost.
+     * Gives a flat boost to the stat
      * @return The stat modifier.
      */
     public static StatModifier flatBoost()
@@ -69,29 +66,18 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the star power multiplier.
-     * @return The stat modifier.
-     */
-    public static StatModifier starPowerMultiplier()
-    {
-        // Converts a multiplier such as 1.25 into an additive bonus on the base stat.
-        return (artist, value) -> (int) Math.round(artist.getBaseStarPowerValue() * (value - 1.0));
-    }
-
-    /**
-     * Processes the stamina multiplier.
+     * Converts a multiplier such as 1.15 into an additive bonus on base stamina.
      * @return The stat modifier.
      */
     public static StatModifier staminaMultiplier()
     {
-        // Converts a multiplier such as 1.15 into an additive bonus on base stamina.
         return (artist, value) -> (int) Math.round(artist.getBaseStamina() * (value));
     }
 
     //Concert Modifiers
 
     /**
-     * Processes the flat crowd boost.
+     * Gives the crowd meter a flat boost
      * @param amount the amount to apply
      * @return The concert modifier.
      */
@@ -104,7 +90,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the crowd multiplier.
+     * Multiplies the crowd meter by a certain amount
      * @param multiplier the multiplier used by the calculation
      * @return The concert modifier.
      */
@@ -117,10 +103,10 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the crowd boost if win streak.
-     * @param requiredStreak the numeric value for the required streak
-     * @param multiplier the multiplier used by the calculation
-     * @return The concert modifier.
+     * Multiplies the crowd meter if the player is on a win streak at or above the threshold
+     * @param requiredStreak The required streak of GREAT, GOOD outcomes
+     * @param multiplier The crowd meter multiplier
+     * @return The concert modifier
      */
     public static ConcertModifier crowdBoostIfWinStreak(int requiredStreak, double multiplier)
     {
@@ -134,8 +120,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the crowd boost if stamina below after event.
-     * It updates related state as needed while performing the operation.
+     * Gives a crowd meter boost if the artist's stamina is below a certain threshold after an event.
      * @param threshold the threshold value used by the calculation
      * @param eventNumberThreshold the numeric value for the event number threshold
      * @param amount the amount to apply
@@ -160,7 +145,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the crowd boost if lineup full.
+     * Processes the crowd boost if the lineup is full.
      * @param fullSize the numeric value for the full size
      * @param amount the amount to apply
      * @return The concert modifier.
@@ -177,7 +162,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Processes the crowd and stamina boost if first event won.
+     * Processes the crowd and stamina boost if the first event is won.
      * It updates related state as needed while performing the operation.
      * @param crowdAmount the numeric value for the crowd amount
      * @param staminaAmount the numeric value for the stamina amount
@@ -290,8 +275,7 @@ public class ItemEffectBehaviours {
     }
 
     /**
-     * Restores the all stamina if lowest below.
-     * It updates related state as needed while performing the operation.
+     * Restores all artist's stamina in the lineup if the lowest artist's stamina is below a certain amount
      * @param threshold the threshold value used by the calculation
      * @param amount the amount to apply
      * @return The concert modifier.

@@ -9,6 +9,7 @@ import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Minigame;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.questions.PayoutType;
+import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.items.Item;
 import seng201.team67.models.questionmodels.Answer;
@@ -217,8 +218,9 @@ public class ConcertService {
         concert.addEnergy((int) calculateCrowdGain(outcome.getCrowdEnergyChange()));
         applyAnsweringArtistOutcomeSkills(answeringArtist, outcome);
         updateConcertWinState(outcome);
-        applyItemConcertModifiers();
-        applyConditionalItemEffects();
+        ArrayList<String> triggeredEffects = applyItemConcertModifiers();
+        triggeredEffects.addAll(applyConditionalItemEffects());
+        tourService.setConditionalEffectText(String.join("\n", triggeredEffects));
     }
 
     /**
@@ -238,6 +240,63 @@ public class ConcertService {
         {
             gameEnvironment.getLabelService().takeMoney(-result.getCreditResult());
         }
+    }
+
+    /**
+     * Uses a consumable item during the concert.
+     * @param artist the artist holding the item
+     * @param item the item involved in the operation
+     * @return A display message describing the result.
+     */
+    public String useConsumable(Artist artist, Item item)
+    {
+        if (!(item instanceof CosumableItem consumable) || !artist.getItems().contains(item))
+        {
+            return "";
+        }
+
+        ArrayList<String> effectMessages = new ArrayList<>();
+        for (ItemEffects itemEffects : item.getEffects())
+        {
+            if (itemEffects.getTargetStat() != null)
+            {
+                int effectValue = artist.getEffectValue(item, itemEffects);
+                if (!artist.calculateEffect(item, itemEffects))
+                {
+                    continue;
+                }
+
+                effectMessages.add(itemEffects.getName() + " applied +" + effectValue + " "
+                        + itemEffects.getTargetStat().toString().toLowerCase().replace('_', ' '));
+                continue;
+            }
+
+            if (itemEffects.getConcertModifier() != null)
+            {
+                double effectValue = resolveEffectValue(item, itemEffects);
+                concertModifierTriggered = false;
+                itemEffects.getGameplayEffect().createConcertModifier(effectValue).apply(this);
+                if (consumeConcertModifierTriggered())
+                {
+                    effectMessages.add(itemEffects.getName() + " applied +" + formatEffectValue(effectValue) + " crowd meter");
+                }
+            }
+        }
+
+        consumable.consumeUse();
+        if (consumable.getUses() <= 0)
+        {
+            artist.removeItem(item);
+            item.dispose();
+        }
+
+        if (effectMessages.isEmpty())
+        {
+            return item.getName() + " was used but nothing happened.";
+        }
+
+        return item.getName() + ": " + String.join(", ", effectMessages)
+                + " (" + consumable.getUses() + " use(s) left)";
     }
 
     /**
@@ -436,8 +495,9 @@ public class ConcertService {
         return staminaService.getStaminaChangeAmount(gameEnvironment, outcome.getOutcomeType());
     }
 
-    private void applyItemConcertModifiers()
+    private ArrayList<String> applyItemConcertModifiers()
     {
+        ArrayList<String> triggeredEffects = new ArrayList<>();
         concertModifierTriggered = false;
 
         for (Artist artist : gameEnvironment.getLabelService().getLineup())
@@ -446,6 +506,11 @@ public class ConcertService {
             {
                 for (ItemEffects itemEffects : item.getEffects())
                 {
+                    if (item instanceof CosumableItem)
+                    {
+                        continue;
+                    }
+
                     if (isOneTimeConditionalEffect(itemEffects) && consumedConditionalEffects.contains(buildConsumedEffectKey(artist, item, itemEffects)))
                     {
                         continue;
@@ -454,14 +519,24 @@ public class ConcertService {
                     if (itemEffects.getConcertModifier() != null)
                     {
                         itemEffects.getConcertModifier().apply(this);
-                        if (consumeConcertModifierTriggered() && isOneTimeConditionalEffect(itemEffects))
+                        if (consumeConcertModifierTriggered())
                         {
-                            consumedConditionalEffects.add(buildConsumedEffectKey(artist, item, itemEffects));
+                            if (item instanceof ConditionalItem)
+                            {
+                                triggeredEffects.add(item.getName() + " triggered: " + itemEffects.getName());
+                            }
+
+                            if (isOneTimeConditionalEffect(itemEffects))
+                            {
+                                consumedConditionalEffects.add(buildConsumedEffectKey(artist, item, itemEffects));
+                            }
                         }
                     }
                 }
             }
         }
+
+        return triggeredEffects;
     }
 
     private void updateConcertWinState(Outcome outcome)
@@ -498,7 +573,7 @@ public class ConcertService {
         tourService.advanceLineupStaminaIndex();
     }
 
-    private void applyConditionalItemEffects()
+    private ArrayList<String> applyConditionalItemEffects()
     {
         ArrayList<String> triggeredEffects = new ArrayList<>();
 
@@ -513,6 +588,11 @@ public class ConcertService {
 
                 for (ItemEffects itemEffects : item.getEffects())
                 {
+                    if (itemEffects.getTargetStat() == null)
+                    {
+                        continue;
+                    }
+
                     int effectValue = artist.getEffectValue(item, itemEffects);
                     if (!artist.calculateEffect(item, itemEffects))
                     {
@@ -525,7 +605,7 @@ public class ConcertService {
             }
         }
 
-        tourService.setConditionalEffectText(String.join("\n", triggeredEffects));
+        return triggeredEffects;
     }
 
     private String formatStatName(ItemEffects itemEffects)
@@ -628,6 +708,24 @@ public class ConcertService {
     private String buildConsumedEffectKey(Artist artist, Item item, ItemEffects itemEffects)
     {
         return artist.getName() + ":" + item.getName() + ":" + itemEffects.name();
+    }
+
+    private double resolveEffectValue(Item item, ItemEffects itemEffects)
+    {
+        if (item != null && item.getMultiplier() != null)
+        {
+            return item.getMultiplier();
+        }
+        return itemEffects.getDefaultValue();
+    }
+
+    private String formatEffectValue(double value)
+    {
+        if (value == Math.rint(value))
+        {
+            return Integer.toString((int) value);
+        }
+        return Double.toString(value);
     }
 
     /**

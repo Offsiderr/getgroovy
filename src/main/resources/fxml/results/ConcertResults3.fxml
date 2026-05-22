@@ -119,11 +119,6 @@
             <String fx:value="tiny-label" />
          </styleClass>
       </Label>
-      <ImageView fitHeight="780.0" fitWidth="1409.0" layoutX="-21.0" layoutY="-2.0" opacity="0.2" pickOnBounds="true" smooth="false">
-         <image>
-            <Image url="@../../images/Confetti.gif" />
-         </image>
-      </ImageView>
       <Button layoutX="835.0" layoutY="449.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="54.0" prefWidth="131.0" stylesheets="@../../Styles/Style.css" text="Continue">
          <font>
             <Font size="29.0" />

@@ -114,9 +114,12 @@
          <font><Font size="20.0" /></font>
       </Button>
       <Button layoutX="103.0" layoutY="633.0" mnemonicParsing="false" onAction="#rerollArtists" prefHeight="50.0" prefWidth="207.0" stylesheets="@../../Styles/Style.css" text="Reroll Artists ($100)">
+         <font>
+            <Font size="6.0" />
+         </font>
          <styleClass>
+            <String fx:value="tiny-label" />
             <String fx:value="root" />
-            <String fx:value="small-label" />
          </styleClass>
       </Button>
       <Button layoutX="1074.0" layoutY="633.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="51.0" prefWidth="186.0" stylesheets="@../../Styles/Style.css" text="Return">

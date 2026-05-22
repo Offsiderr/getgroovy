@@ -1,0 +1,222 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > QuestionLoaderService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.services.data</a>
+</div>
+
+<h1>Coverage Summary for Class: QuestionLoaderService (seng201.team67.services.data)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuestionLoaderService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">QuestionLoaderService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (14/16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.services.data;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.core.type.TypeReference;
+&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+&nbsp;import seng201.team67.models.questionmodels.Question;
+&nbsp;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.lang.reflect.Array;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Provides question loader operations for the game.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+<b class="fc">&nbsp;public class QuestionLoaderService {</b>
+&nbsp;
+&nbsp;    //We need to load, common and tour specific questions here.
+&nbsp;    //we use Jackson as we do with the artists.
+&nbsp;
+&nbsp;    //Questions are loaded ONCE instead of for every concert.
+&nbsp;
+&nbsp;    /** Text value for the common events resource path. */
+&nbsp;    private static final String commonEventsResourcePath = &quot;/data/events/common.json&quot;;
+&nbsp;    /** Text value for the local events resource path. */
+&nbsp;    private static final String localEventsResourcePath = &quot;/data/events/local.json&quot;;
+&nbsp;    /** Text value for the country events resource path. */
+&nbsp;    private static final String countryEventsResourcePath = &quot;/data/events/country.json&quot;;
+&nbsp;    /** Text value for the world events resource path. */
+&nbsp;    private static final String worldEventsResourcePath = &quot;/data/events/world.json&quot;;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Loads the event pool.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param type the text value for the type
+&nbsp;     * @return A list containing the event pool.
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Question&gt; loadEventPool(String type) {
+<b class="fc">&nbsp;        ArrayList&lt;Question&gt; pool = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="pc">&nbsp;        switch (type)</b>
+&nbsp;        {
+<b class="fc">&nbsp;            case &quot;common&quot; -&gt; pool.addAll(loadAll(commonEventsResourcePath));</b>
+<b class="fc">&nbsp;            case &quot;local&quot; -&gt; pool.addAll(loadAll(localEventsResourcePath));</b>
+<b class="fc">&nbsp;            case &quot;country&quot; -&gt; pool.addAll(loadAll(countryEventsResourcePath));</b>
+<b class="fc">&nbsp;            case &quot;world&quot; -&gt; pool.addAll(loadAll(worldEventsResourcePath));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Collections.shuffle(pool);</b>
+<b class="fc">&nbsp;        return pool;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private ArrayList&lt;Question&gt; loadAll(String resourcePath) {
+<b class="fc">&nbsp;        ObjectMapper mapper = new ObjectMapper();</b>
+<b class="fc">&nbsp;        try (InputStream is = getClass().getResourceAsStream(resourcePath)) {</b>
+<b class="pc">&nbsp;            if (is == null) {</b>
+<b class="nc">&nbsp;                throw new RuntimeException(&quot;Event file not found at &quot; + resourcePath);</b>
+&nbsp;            }
+&nbsp;            /**
+&nbsp;             * Represents the value used by the game.
+&nbsp;             * @author Louie Campion
+&nbsp;             * @author Keenan Aubrey
+&nbsp;             */
+<b class="fc">&nbsp;            return mapper.readValue(is, new TypeReference&lt;ArrayList&lt;Question&gt;&gt;() {});</b>
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;Failed to load events from &quot; + resourcePath + &quot;: &quot; + e.getMessage(), e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

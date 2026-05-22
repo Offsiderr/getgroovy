@@ -3,6 +3,7 @@ package seng201.team67.models.artists;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seng201.team67.interfaces.Purchasable;
+import seng201.team67.interfaces.StatModifier;
 import seng201.team67.models.Skill;
 import seng201.team67.models.enums.GameplayEffect;
 import seng201.team67.models.enums.ItemEffects;
@@ -432,8 +433,10 @@ public abstract class Artist implements Purchasable {
      */
     public Boolean calculateEffect(Item item, ItemEffects itemEffects)
     {
+        if (itemEffects.getTargetStat() == null) return false;
+
         int value = getEffectValue(item, itemEffects);
-        if (value == 0 || itemEffects.getTargetStat() == null) return false;
+        if (value == 0) return false;
 
         switch (itemEffects.getTargetStat()) {
             case STAR_POWER -> starPower = clampBaseStarPower(starPower + value);
@@ -461,9 +464,13 @@ public abstract class Artist implements Purchasable {
      */
     public int getEffectValue(Item item, ItemEffects itemEffects)
     {
-        return itemEffects.getGameplayEffect()
-                .createStatModifier(resolveEffectValue(item, itemEffects))
-                .apply(this, resolveEffectValue(item, itemEffects));
+        double effectValue = resolveEffectValue(item, itemEffects);
+        StatModifier statModifier = itemEffects.getGameplayEffect().createStatModifier(effectValue);
+        if (statModifier == null)
+        {
+            return 0;
+        }
+        return statModifier.apply(this, effectValue);
     }
 
     /**

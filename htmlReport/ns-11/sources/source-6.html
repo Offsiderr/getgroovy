@@ -1,0 +1,375 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Tour</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Tour (seng201.team67.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Tour</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.models;
+&nbsp;
+&nbsp;import seng201.team67.models.enums.TourType;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the tour used by the game.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class Tour {
+&nbsp;
+&nbsp;    /** The type. */
+&nbsp;    public final TourType type;
+&nbsp;    /** Collection that stores the stop order. */
+&nbsp;    private List&lt;Integer&gt; stopOrder;
+&nbsp;    /** Collection that stores the concert results. */
+&nbsp;    private List&lt;ConcertResults&gt; concertResults;
+&nbsp;    /** Numeric value for the current stop index. */
+&nbsp;    public int currentStopIndex;
+&nbsp;    /** Numeric value for the current lineup stamina index. */
+&nbsp;    public int currentLineupStaminaIndex;
+&nbsp;    /** Numeric value for the credits earned. */
+&nbsp;    public double creditsEarned;
+&nbsp;    /** Numeric value for the accrued artist pay. */
+&nbsp;    public double accruedArtistPay;
+&nbsp;    /** Numeric value for the total stamina drained. */
+&nbsp;    public double totalStaminaDrained;
+&nbsp;    /** Whether concert finished. */
+<b class="nc">&nbsp;    public boolean concertFinished = false;</b>
+&nbsp;    /** Whether ended by exhaustion. */
+<b class="nc">&nbsp;    public boolean endedByExhaustion = false;</b>
+&nbsp;    /** Whether artist pay settled. */
+<b class="nc">&nbsp;    public boolean artistPaySettled = false;</b>
+&nbsp;    /** Numeric value for the exhaustion refund. */
+<b class="nc">&nbsp;    public double exhaustionRefund = 0;</b>
+&nbsp;    /** Numeric value for the early cancellation refund. */
+<b class="nc">&nbsp;    public double cancellationRefund = 0;</b>
+&nbsp;    /** Text value for the conditional effect text. */
+<b class="nc">&nbsp;    public String conditionalEffectText = &quot;&quot;;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new tour.
+&nbsp;     * @param type the type
+&nbsp;     */
+&nbsp;    public Tour(TourType type)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.type = type;</b>
+<b class="nc">&nbsp;        this.concertResults = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the stamina.
+&nbsp;     * @param stamina the stamina value to apply
+&nbsp;     */
+&nbsp;    public void addStamina(double stamina)
+&nbsp;    {
+<b class="nc">&nbsp;        totalStaminaDrained += stamina;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the total stamina drained.
+&nbsp;     * @return The total stamina drained.
+&nbsp;     */
+&nbsp;    public double getTotalStaminaDrained()
+&nbsp;    {
+<b class="nc">&nbsp;        return totalStaminaDrained;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the stop order.
+&nbsp;     * @param stopOrder the list of stop order
+&nbsp;     */
+&nbsp;    public void setStopOrder(List&lt;Integer&gt; stopOrder)
+&nbsp;    {
+<b class="nc">&nbsp;        this.stopOrder = stopOrder;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the stop order.
+&nbsp;     * @return The stop order.
+&nbsp;     */
+&nbsp;    public List&lt;Integer&gt; getStopOrder()
+&nbsp;    {
+<b class="nc">&nbsp;        return stopOrder;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether stop order.
+&nbsp;     * @return True if stop order, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean hasStopOrder()
+&nbsp;    {
+<b class="nc">&nbsp;        return stopOrder != null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether complete.
+&nbsp;     * @return True if complete, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean isComplete() {
+<b class="nc">&nbsp;        return type.getStops() &gt; 0 &amp;&amp; currentStopIndex &gt;= type.getStops();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the credits earned.
+&nbsp;     * @return The credits earned.
+&nbsp;     */
+&nbsp;    public double getCreditsEarned()
+&nbsp;    {
+<b class="nc">&nbsp;        return creditsEarned;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the credits earned.
+&nbsp;     * @param creditsEarned the numeric value for the credits earned
+&nbsp;     */
+&nbsp;    public void addCreditsEarned(double creditsEarned)
+&nbsp;    {
+<b class="nc">&nbsp;        this.creditsEarned += creditsEarned;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the accrued artist pay.
+&nbsp;     * @return The accrued artist pay.
+&nbsp;     */
+&nbsp;    public double getAccruedArtistPay()
+&nbsp;    {
+<b class="nc">&nbsp;        return accruedArtistPay;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the accrued artist pay.
+&nbsp;     * @param accruedArtistPay the numeric value for the accrued artist pay
+&nbsp;     */
+&nbsp;    public void addAccruedArtistPay(double accruedArtistPay)
+&nbsp;    {
+<b class="nc">&nbsp;        this.accruedArtistPay += accruedArtistPay;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the pay multiplier.
+&nbsp;     * @return The pay multiplier.
+&nbsp;     */
+&nbsp;    public double getPayMultiplier()
+&nbsp;    {
+<b class="nc">&nbsp;        return type.getPayMultiplier();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds the concert result.
+&nbsp;     * @param concertResult the concert result
+&nbsp;     */
+&nbsp;    public void addConcertResult(ConcertResults concertResult)
+&nbsp;    {
+<b class="nc">&nbsp;        concertResults.add(concertResult);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the concert results.
+&nbsp;     * @return The concert results.
+&nbsp;     */
+&nbsp;    public List&lt;ConcertResults&gt; getConcertResults()
+&nbsp;    {
+<b class="nc">&nbsp;        return concertResults;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the ended by exhaustion.
+&nbsp;     * @param endedByExhaustion whether ended by exhaustion
+&nbsp;     */
+&nbsp;    public void setEndedByExhaustion(boolean endedByExhaustion)
+&nbsp;    {
+<b class="nc">&nbsp;        this.endedByExhaustion = endedByExhaustion;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether ended by exhaustion.
+&nbsp;     * @return True if ended by exhaustion, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean isEndedByExhaustion()
+&nbsp;    {
+<b class="nc">&nbsp;        return endedByExhaustion;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether artist pay settled.
+&nbsp;     * @return True if artist pay settled, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean isArtistPaySettled()
+&nbsp;    {
+<b class="nc">&nbsp;        return artistPaySettled;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the artist pay settled.
+&nbsp;     * @param artistPaySettled whether artist pay settled
+&nbsp;     */
+&nbsp;    public void setArtistPaySettled(boolean artistPaySettled)
+&nbsp;    {
+<b class="nc">&nbsp;        this.artistPaySettled = artistPaySettled;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the exhaustion refund.
+&nbsp;     * @param exhaustionRefund the numeric value for the exhaustion refund
+&nbsp;     */
+&nbsp;    public void setExhaustionRefund(double exhaustionRefund)
+&nbsp;    {
+<b class="nc">&nbsp;        this.exhaustionRefund = exhaustionRefund;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the exhaustion refund.
+&nbsp;     * @return The exhaustion refund.
+&nbsp;     */
+&nbsp;    public double getExhaustionRefund()
+&nbsp;    {
+<b class="nc">&nbsp;        return exhaustionRefund;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the cancellation refund.
+&nbsp;     * @param cancellationRefund the numeric value for the cancellation refund
+&nbsp;     */
+&nbsp;    public void setCancellationRefund(double cancellationRefund)
+&nbsp;    {
+<b class="nc">&nbsp;        this.cancellationRefund = cancellationRefund;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the cancellation refund.
+&nbsp;     * @return The cancellation refund.
+&nbsp;     */
+&nbsp;    public double getCancellationRefund()
+&nbsp;    {
+<b class="nc">&nbsp;        return cancellationRefund;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the conditional effect text.
+&nbsp;     * @return The conditional effect text.
+&nbsp;     */
+&nbsp;    public String getConditionalEffectText()
+&nbsp;    {
+<b class="nc">&nbsp;        return conditionalEffectText;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the conditional effect text.
+&nbsp;     * @param conditionalEffectText the text value for the conditional effect text
+&nbsp;     */
+&nbsp;    public void setConditionalEffectText(String conditionalEffectText)
+&nbsp;    {
+<b class="nc">&nbsp;        this.conditionalEffectText = conditionalEffectText;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

@@ -122,16 +122,6 @@
   },
   {
     "type": "EQUIPPED",
-    "name": "Off-Brand Designer",
-    "description": "Looks designer, probably isn't. Adds a 1.05x star power multiplier.",
-    "cost": 150,
-    "rarity": "COMMON",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Common/off_brand_designer.png",
-    "multiplier": 1.05
-  },
-  {
-    "type": "EQUIPPED",
     "name": "The Triangle",
     "description": "Not exactly rock and roll, but the crowd appreciates it. Adds a 1.05x crowd multiplier.",
     "cost": 150,
@@ -139,16 +129,6 @@
     "effects": ["CROWD_MULTIPLIER"],
     "imagePath": "/images/Items/Common/the_triangle.png",
     "multiplier": 1.05
-  },
-  {
-    "type": "EQUIPPED",
-    "name": "Autotune",
-    "description": "Love it or hate it, it works. Adds a 1.1x star power multiplier.",
-    "cost": 300,
-    "rarity": "RARE",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Rare/Autotune.png",
-    "multiplier": 1.1
   },
   {
     "type": "EQUIPPED",
@@ -162,16 +142,6 @@
   },
   {
     "type": "EQUIPPED",
-    "name": "Lucky Microphone",
-    "description": "Something about this mic just brings out stronger performances. Adds a 1.25x star power multiplier.",
-    "cost": 150,
-    "rarity": "RARE",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Rare/Lucky broken microphone.png",
-    "multiplier": 1.25
-  },
-  {
-    "type": "EQUIPPED",
     "name": "Mixing EQ",
     "description": "Dialled-in sound keeps the artist performing longer. Adds a 1.15x stamina multiplier.",
     "cost": 300,
@@ -182,16 +152,6 @@
   },
   {
     "type": "EQUIPPED",
-    "name": "Designer Clothes",
-    "description": "The real deal. Looking this good commands attention. Adds a 1.2x star power multiplier.",
-    "cost": 500,
-    "rarity": "VERY_RARE",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Epic/designer_clothes.png",
-    "multiplier": 1.2
-  },
-  {
-    "type": "EQUIPPED",
     "name": "Jimi Hendrix Guitar",
     "description": "You don't even have to play it. Its presence alone electrifies the crowd. Adds a 1.2x crowd multiplier.",
     "cost": 500,
@@ -199,36 +159,6 @@
     "effects": ["CROWD_MULTIPLIER"],
     "imagePath": "/images/Items/Epic/jimi_hendrix_guitar.png",
     "multiplier": 1.2
-  },
-  {
-    "type": "EQUIPPED",
-    "name": "Diamond Chains",
-    "description": "Dripping in ice. The crowd can't look away. Adds a 1.25x star power multiplier.",
-    "cost": 500,
-    "rarity": "VERY_RARE",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Epic/diamond_chains.png",
-    "multiplier": 1.25
-  },
-  {
-    "type": "EQUIPPED",
-    "name": "Alien Microphone",
-    "description": "Ancient and unearthly. Use with caution. Adds a 1.35x star power and crowd multiplier.",
-    "cost": 600,
-    "rarity": "ULTRA",
-    "effects": ["STAR_POWER_MULTIPLIER", "CROWD_MULTIPLIER"],
-    "imagePath": "/images/Items/Mythic/Alien microphone.png",
-    "multiplier": 1.35
-  },
-  {
-    "type": "EQUIPPED",
-    "name": "Michael's Glove",
-    "description": "Wearing it fills you with unmatched confidence. Adds a 1.5x star power multiplier.",
-    "cost": 600,
-    "rarity": "MYTHIC",
-    "effects": ["STAR_POWER_MULTIPLIER"],
-    "imagePath": "/images/Items/Mythic/michaels_glove.png",
-    "multiplier": 1.5
   },
   {
     "type": "CONDITIONAL",

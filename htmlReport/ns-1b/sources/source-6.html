@@ -1,0 +1,497 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RandomEventService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.services.gameplay</a>
+</div>
+
+<h1>Coverage Summary for Class: RandomEventService (seng201.team67.services.gameplay)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RandomEventService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/93)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/118)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RandomEventService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/93)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/119)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.services.gameplay;
+&nbsp;
+&nbsp;import seng201.team67.GameEnvironment;
+&nbsp;import seng201.team67.models.GameConfig;
+&nbsp;import seng201.team67.models.Skill;
+&nbsp;import seng201.team67.models.artists.Artist;
+&nbsp;import seng201.team67.models.enums.EventType;
+&nbsp;import seng201.team67.models.enums.RandomEvent;
+&nbsp;import seng201.team67.services.data.SkillLoaderService;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * Provides random event operations for the game.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class RandomEventService {
+&nbsp;
+&nbsp;    /** The random. */
+&nbsp;    private final Random random;
+&nbsp;    /** Service used to load eligible skills. */
+<b class="nc">&nbsp;    private final SkillLoaderService skillLoaderService = new SkillLoaderService();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new random event service.
+&nbsp;     */
+&nbsp;    public RandomEventService() {
+<b class="nc">&nbsp;        this(new Random());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new random event service.
+&nbsp;     * @param random the random
+&nbsp;     */
+<b class="nc">&nbsp;    public RandomEventService(Random random) {</b>
+<b class="nc">&nbsp;        this.random = random;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the trigger random event.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @return True if trigger random event, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean shouldTriggerRandomEvent(GameEnvironment gameEnvironment) {
+<b class="nc">&nbsp;        return shouldTriggerRandomEvent(gameEnvironment.getConfig(), Math.random());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the trigger random event.
+&nbsp;     * @param gameConfig the game config
+&nbsp;     * @param roll the numeric value for the roll
+&nbsp;     * @return True if trigger random event, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean shouldTriggerRandomEvent(GameConfig gameConfig, double roll) {
+<b class="nc">&nbsp;        return roll &lt; gameConfig.randomEventTriggerChance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the random affected artist.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @return The random affected artist.
+&nbsp;     */
+&nbsp;    public Artist getRandomAffectedArtist(GameEnvironment gameEnvironment) {
+<b class="nc">&nbsp;        return getRandomAffectedArtist(gameEnvironment.getLabelService().getAllArtists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the random affected artist.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @param randomEvent the random event
+&nbsp;     * @return The random affected artist.
+&nbsp;     */
+&nbsp;    public Artist getRandomAffectedArtist(GameEnvironment gameEnvironment, RandomEvent randomEvent) {
+<b class="nc">&nbsp;        return getRandomAffectedArtist(randomEvent, gameEnvironment.getLabelService().getAllArtists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rolls the retirement artist.
+&nbsp;     * It uses the current game state and supplied context when producing the result.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @return The resulting artist, or `null` if no value is available.
+&nbsp;     */
+&nbsp;    public Artist rollRetirementArtist(GameEnvironment gameEnvironment) {
+<b class="nc">&nbsp;        List&lt;Artist&gt; artists = new ArrayList&lt;&gt;(gameEnvironment.getLabelService().getAllArtists());</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Artist artist : artists) {</b>
+<b class="nc">&nbsp;            if (!doesArtistRetire(artist)) {</b>
+&nbsp;                continue;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (gameEnvironment.getLabelService().retireArtist(artist)) {</b>
+<b class="nc">&nbsp;                return artist;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the random affected artist.
+&nbsp;     * @param artists the list of artists
+&nbsp;     * @return The resolved random affected artist, or `null` if no value is available.
+&nbsp;     */
+&nbsp;    public Artist getRandomAffectedArtist(List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        if (artists == null || artists.isEmpty()) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return artists.get(random.nextInt(artists.size()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the random affected artist.
+&nbsp;     * @param randomEvent the random event
+&nbsp;     * @param artists the list of artists
+&nbsp;     * @return The resolved random affected artist, or `null` if no value is available.
+&nbsp;     */
+&nbsp;    public Artist getRandomAffectedArtist(RandomEvent randomEvent, List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        List&lt;Artist&gt; eligibleArtists = getEligibleArtists(randomEvent, artists);</b>
+<b class="nc">&nbsp;        if (eligibleArtists.isEmpty()) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return eligibleArtists.get(random.nextInt(eligibleArtists.size()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies the random event.
+&nbsp;     * It updates related state as needed while performing the operation.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @param randomEvent the random event
+&nbsp;     * @param affectedArtist the affected artist
+&nbsp;     * @return True if random event, otherwise false.
+&nbsp;     */
+&nbsp;    public boolean applyRandomEvent(GameEnvironment gameEnvironment, RandomEvent randomEvent, Artist affectedArtist) {
+<b class="nc">&nbsp;        if (randomEvent == null || affectedArtist == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (randomEvent.getType() == EventType.RETIREMENT) {</b>
+<b class="nc">&nbsp;            boolean retired = gameEnvironment.getLabelService().retireArtist(affectedArtist);</b>
+<b class="nc">&nbsp;            if (!retired) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            gameEnvironment.getLabelService().giveMoney(randomEvent.getValue());</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (randomEvent.getType() == EventType.SKILL) {</b>
+<b class="nc">&nbsp;            if (randomEvent == RandomEvent.BREAKTHROUGH_SESSION) {</b>
+<b class="nc">&nbsp;                return applyNewSkillEvent(affectedArtist);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            affectedArtist.changeSkillLevel(randomEvent.getValue());</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return applyStatChange(randomEvent, affectedArtist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean applyStatChange(RandomEvent randomEvent, Artist affectedArtist) {
+<b class="nc">&nbsp;        if (randomEvent.getStat() == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return switch (randomEvent.getStat()) {</b>
+&nbsp;            case &quot;stamina&quot; -&gt; {
+<b class="nc">&nbsp;                int before = affectedArtist.getCurrentStaminaValue();</b>
+<b class="nc">&nbsp;                affectedArtist.setStamina(before + randomEvent.getValue());</b>
+<b class="nc">&nbsp;                yield affectedArtist.getCurrentStaminaValue() != before;</b>
+&nbsp;            }
+&nbsp;            case &quot;star_power&quot; -&gt; {
+<b class="nc">&nbsp;                int before = affectedArtist.getBaseStarPowerValue();</b>
+<b class="nc">&nbsp;                affectedArtist.changeStarPower(randomEvent.getValue());</b>
+<b class="nc">&nbsp;                yield affectedArtist.getBaseStarPowerValue() != before;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            default -&gt; false;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean doesArtistRetire(Artist artist) {
+<b class="nc">&nbsp;        if (artist == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int retirementChance = Math.max(0, artist.getRetirementChance());</b>
+<b class="nc">&nbsp;        if (retirementChance &lt;= 0) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (retirementChance &gt;= 100) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return random.nextInt(100) &lt; retirementChance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the weighted random event.
+&nbsp;     * It derives the value from the current state before returning it.
+&nbsp;     * @return The weighted random event.
+&nbsp;     */
+&nbsp;    public RandomEvent getWeightedRandomEvent() {
+<b class="nc">&nbsp;        RandomEvent[] events = RandomEvent.values();</b>
+<b class="nc">&nbsp;        int totalWeight = 0;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (RandomEvent event : events) {</b>
+<b class="nc">&nbsp;            totalWeight += event.getWeight();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int roll = random.nextInt(totalWeight);</b>
+<b class="nc">&nbsp;        int cumulativeWeight = 0;</b>
+<b class="nc">&nbsp;        for (RandomEvent event : events) {</b>
+<b class="nc">&nbsp;            cumulativeWeight += event.getWeight();</b>
+<b class="nc">&nbsp;            if (roll &lt; cumulativeWeight) {</b>
+<b class="nc">&nbsp;                return event;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return events[events.length - 1];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a weighted random event.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     * @return The weighted random event.
+&nbsp;     */
+&nbsp;    public RandomEvent getWeightedRandomEvent(GameEnvironment gameEnvironment) {
+<b class="nc">&nbsp;        return getWeightedRandomEvent(gameEnvironment.getLabelService().getAllArtists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a weighted random event.
+&nbsp;     * @param artists the list of artists
+&nbsp;     * @return The resolved weighted random event, or `null` if no value is available.
+&nbsp;     */
+&nbsp;    public RandomEvent getWeightedRandomEvent(List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        RandomEvent[] events = RandomEvent.values();</b>
+<b class="nc">&nbsp;        List&lt;RandomEvent&gt; eligibleEvents = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        int totalWeight = 0;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (RandomEvent event : events) {</b>
+<b class="nc">&nbsp;            if (!isEventEligible(event, artists)) {</b>
+&nbsp;                continue;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            eligibleEvents.add(event);</b>
+<b class="nc">&nbsp;            totalWeight += event.getWeight();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (eligibleEvents.isEmpty()) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int roll = random.nextInt(totalWeight);</b>
+<b class="nc">&nbsp;        int cumulativeWeight = 0;</b>
+<b class="nc">&nbsp;        for (RandomEvent event : eligibleEvents) {</b>
+<b class="nc">&nbsp;            cumulativeWeight += event.getWeight();</b>
+<b class="nc">&nbsp;            if (roll &lt; cumulativeWeight) {</b>
+<b class="nc">&nbsp;                return event;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return eligibleEvents.get(eligibleEvents.size() - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isEventEligible(RandomEvent randomEvent, List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        return !getEligibleArtists(randomEvent, artists).isEmpty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Artist&gt; getEligibleArtists(RandomEvent randomEvent, List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        if (randomEvent == null || artists == null || artists.isEmpty()) {</b>
+<b class="nc">&nbsp;            return List.of();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return switch (randomEvent.getType()) {</b>
+<b class="nc">&nbsp;            case RETIREMENT -&gt; artists.size() &gt; 1 ? new ArrayList&lt;&gt;(artists) : List.of();</b>
+<b class="nc">&nbsp;            case STAT -&gt; getEligibleArtistsForStatEvent(randomEvent, artists);</b>
+<b class="nc">&nbsp;            case SKILL -&gt; getEligibleArtistsForSkillEvent(randomEvent, artists);</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Artist&gt; getEligibleArtistsForSkillEvent(RandomEvent randomEvent, List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        if (randomEvent != RandomEvent.BREAKTHROUGH_SESSION) {</b>
+<b class="nc">&nbsp;            return new ArrayList&lt;&gt;(artists);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Artist&gt; eligibleArtists = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Artist artist : artists) {</b>
+<b class="nc">&nbsp;            if (canArtistLearnNewSkill(artist)) {</b>
+<b class="nc">&nbsp;                eligibleArtists.add(artist);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return eligibleArtists;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Artist&gt; getEligibleArtistsForStatEvent(RandomEvent randomEvent, List&lt;Artist&gt; artists) {
+<b class="nc">&nbsp;        if (!&quot;star_power&quot;.equals(randomEvent.getStat())) {</b>
+<b class="nc">&nbsp;            return new ArrayList&lt;&gt;(artists);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Artist&gt; eligibleArtists = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Artist artist : artists) {</b>
+<b class="nc">&nbsp;            int baseStarPower = artist.getBaseStarPowerValue();</b>
+<b class="nc">&nbsp;            if (baseStarPower &gt; 1 &amp;&amp; baseStarPower &lt; 5) {</b>
+<b class="nc">&nbsp;                eligibleArtists.add(artist);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return eligibleArtists;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean applyNewSkillEvent(Artist affectedArtist) {
+<b class="nc">&nbsp;        Skill learnedSkill = getRandomLearnableSkill(affectedArtist);</b>
+<b class="nc">&nbsp;        if (learnedSkill == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        affectedArtist.setSkill(learnedSkill);</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean canArtistLearnNewSkill(Artist artist) {
+<b class="nc">&nbsp;        return getRandomLearnableSkill(artist) != null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Skill getRandomLearnableSkill(Artist artist) {
+<b class="nc">&nbsp;        if (artist == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Skill&gt; eligibleSkills = new ArrayList&lt;&gt;(skillLoaderService.getEligibleSkills(artist));</b>
+<b class="nc">&nbsp;        Skill currentSkill = artist.getSkill();</b>
+<b class="nc">&nbsp;        if (currentSkill != null) {</b>
+<b class="nc">&nbsp;            eligibleSkills.removeIf(skill -&gt; skill.getId().equals(currentSkill.getId()));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (eligibleSkills.isEmpty()) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return eligibleSkills.get(random.nextInt(eligibleSkills.size()));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,295 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MusicService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.services.audio</a>
+</div>
+
+<h1>Coverage Summary for Class: MusicService (seng201.team67.services.audio)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MusicService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.7%
+  </span>
+  <span class="absValue">
+    (5/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (4/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    48%
+  </span>
+  <span class="absValue">
+    (24/50)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.services.audio;
+&nbsp;
+&nbsp;import seng201.team67.GameEnvironment;
+&nbsp;
+&nbsp;import javax.sound.sampled.*;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URL;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * Provides the music for the game.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+&nbsp;public class MusicService {
+&nbsp;
+&nbsp;    /** Shared game state for the current session. */
+&nbsp;    private final GameEnvironment gameEnvironment;
+&nbsp;
+&nbsp;    /** Text value for the studio music path. */
+<b class="fc">&nbsp;    private final String studioMusicPath = &quot;/sound/Music/MarketThemePlaceholder.wav&quot;;</b>
+&nbsp;    /** Text value for the local tour music path. */
+<b class="fc">&nbsp;    private final String localTourMusicPath = &quot;/sound/Music/Local_tour.wav&quot;;</b>
+&nbsp;
+&nbsp;    /** Whether currently playing. */
+<b class="fc">&nbsp;    private Boolean currentlyPlaying = false;</b>
+&nbsp;
+&nbsp;    /** Constant that defines the max volume percent. */
+&nbsp;    private static final double MAX_VOLUME_PERCENT = 100.0;
+&nbsp;
+&nbsp;    /** The current clip. */
+<b class="fc">&nbsp;    private static Clip currentClip = null;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new music service.
+&nbsp;     * @param gameEnvironment the active game environment
+&nbsp;     */
+&nbsp;    public MusicService(GameEnvironment gameEnvironment)
+<b class="fc">&nbsp;    {</b>
+<b class="fc">&nbsp;        this.gameEnvironment = gameEnvironment;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the the studio music.
+&nbsp;     */
+&nbsp;    public void playTheStudioMusic()
+&nbsp;    {
+<b class="nc">&nbsp;        if (!currentlyPlaying) {</b>
+<b class="nc">&nbsp;            currentlyPlaying = true;</b>
+<b class="nc">&nbsp;            play(studioMusicPath, getConfiguredMusicVolume());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the local tour music.
+&nbsp;     */
+&nbsp;    public void playLocalTourMusic()
+&nbsp;    {
+<b class="nc">&nbsp;        stop();</b>
+<b class="nc">&nbsp;        currentlyPlaying = true;</b>
+<b class="nc">&nbsp;        play(localTourMusicPath, getConfiguredMusicVolume());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Stops the music.
+&nbsp;     */
+&nbsp;    public static void stop()
+&nbsp;    {
+<b class="nc">&nbsp;        if (currentClip != null &amp;&amp; currentClip.isRunning())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            currentClip.stop();</b>
+<b class="nc">&nbsp;            currentClip.close();</b>
+<b class="nc">&nbsp;            currentClip = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Stops the music and sets currentlyPlaying to false
+&nbsp;     */
+&nbsp;    public void stopAndReset()
+&nbsp;    {
+<b class="nc">&nbsp;        stop();</b>
+<b class="nc">&nbsp;        currentlyPlaying = false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays music
+&nbsp;     * @param resourcePath the text value for the resource path
+&nbsp;     */
+&nbsp;    public static void play(String resourcePath) {
+<b class="nc">&nbsp;        play(resourcePath, MAX_VOLUME_PERCENT);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calculates the effective volume.
+&nbsp;     * @param mainVolume the numeric value for the main volume
+&nbsp;     * @param soundEffectsVolume the numeric value for the sound effects volume
+&nbsp;     * @return The effective volume.
+&nbsp;     */
+&nbsp;    public static double calculateEffectiveVolume(double mainVolume, double soundEffectsVolume) {
+<b class="nc">&nbsp;        double clampedMainVolume = clampVolume(mainVolume);</b>
+<b class="nc">&nbsp;        double clampedEffectsVolume = clampVolume(soundEffectsVolume);</b>
+<b class="nc">&nbsp;        return (clampedMainVolume * clampedEffectsVolume) / MAX_VOLUME_PERCENT;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private double getConfiguredMusicVolume() {
+<b class="nc">&nbsp;        return calculateEffectiveVolume(</b>
+<b class="nc">&nbsp;                gameEnvironment.getConfig().mainVolume,</b>
+<b class="nc">&nbsp;                gameEnvironment.getConfig().musicVolume</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private double getConfiguredEffectsVolume() {
+<b class="nc">&nbsp;        return calculateEffectiveVolume(</b>
+<b class="nc">&nbsp;                gameEnvironment.getConfig().mainVolume,</b>
+<b class="nc">&nbsp;                gameEnvironment.getConfig().soundEffectsVolume</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private static double clampVolume(double volume) {
+<b class="fc">&nbsp;        return Math.max(0.0, Math.min(MAX_VOLUME_PERCENT, volume));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays music
+&nbsp;     * @param resourcePath the text value for the resource path
+&nbsp;     * @param volumePercent the numeric value for the volume percent
+&nbsp;     */
+&nbsp;    public static void play(String resourcePath, double volumePercent) {
+<b class="pc">&nbsp;        if (clampVolume(volumePercent) &lt;= 0.0) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            URL url = SoundEffectsService.class.getResource(resourcePath);</b>
+<b class="pc">&nbsp;            if (url == null) {</b>
+<b class="nc">&nbsp;                System.err.println(&quot;Audio file not found: &quot; + resourcePath);</b>
+&nbsp;                return;
+&nbsp;            }
+<b class="fc">&nbsp;            AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);</b>
+<b class="fc">&nbsp;            Clip clip = AudioSystem.getClip();</b>
+<b class="fc">&nbsp;            clip.open(audioIn);</b>
+<b class="fc">&nbsp;            applyVolume(clip, volumePercent);</b>
+<b class="fc">&nbsp;            clip.start();</b>
+<b class="fc">&nbsp;            currentClip = clip;</b>
+<b class="fc">&nbsp;            clip.addLineListener(event -&gt; {</b>
+<b class="nc">&nbsp;                if (event.getType() == LineEvent.Type.STOP) {</b>
+&nbsp;                    clip.close();
+&nbsp;                }
+&nbsp;            });
+&nbsp;        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Failed to play audio: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies the selected volume settings set by the player to the music
+&nbsp;     * @param clip
+&nbsp;     * @param volumePercent
+&nbsp;     */
+&nbsp;    private static void applyVolume(Clip clip, double volumePercent) {
+<b class="pc">&nbsp;        if (!clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);</b>
+<b class="fc">&nbsp;        double clampedVolume = clampVolume(volumePercent);</b>
+&nbsp;        float gain;
+&nbsp;
+<b class="pc">&nbsp;        if (clampedVolume &lt;= 0.0) {</b>
+<b class="nc">&nbsp;            gain = gainControl.getMinimum();</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            double gainDb = 20.0 * Math.log10(clampedVolume / MAX_VOLUME_PERCENT);</b>
+<b class="fc">&nbsp;            gain = (float) Math.max(gainControl.getMinimum(), Math.min(gainControl.getMaximum(), gainDb));</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        gainControl.setValue(gain);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

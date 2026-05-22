@@ -6,14 +6,17 @@ import seng201.team67.GameEnvironment;
 import seng201.team67.models.ConcertResults;
 import seng201.team67.models.Skill;
 import seng201.team67.models.artists.Artist;
+import seng201.team67.models.items.ConditionalItem;
 import seng201.team67.models.minigames.MiniGameResult;
 import seng201.team67.models.enums.GameplayEffect;
+import seng201.team67.models.enums.ItemEffects;
 import seng201.team67.models.enums.Rarity;
 import seng201.team67.models.artists.Popstar;
 import seng201.team67.models.artists.Rapper;
 import seng201.team67.models.Tour;
 import seng201.team67.models.enums.questions.PayoutType;
 import seng201.team67.models.enums.TourType;
+import seng201.team67.models.items.CosumableItem;
 import seng201.team67.models.questionmodels.Answer;
 import seng201.team67.models.questionmodels.Outcome;
 import seng201.team67.services.gameplay.ConcertService;
@@ -24,6 +27,7 @@ import seng201.team67.services.setup.DifficultyService;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -63,6 +67,99 @@ public class ConcertServiceTest {
         assertEquals(1, tourService.getCurrentLineupStaminaIndex());
         assertEquals(11, service.getCrowdEnergy());
         assertEquals(5.0, service.totalStaminaDrain(), 0.0001);
+    }
+
+    @Test
+    void handleAnswerWithConditionalConcertItemDoesNotAskForStatModifier() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+        Artist artist = gameEnvironment.getLabelService().getLineup().getFirst();
+        artist.addItem(new ConditionalItem(
+                "Crowd Charm",
+                "Boosts crowd under a concert condition.",
+                10,
+                Rarity.COMMON,
+                List.of(ItemEffects.CROWD_BOOST_PER_EVENT_IF_LINEUP_FULL)
+        ));
+
+        Outcome outcome = new Outcome(1, "Gain momentum", PayoutType.NONE, 0, 10, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        assertDoesNotThrow(() -> service.handleAnswer(answer));
+    }
+
+    @Test
+    void handleAnswerReportsTriggeredConcertConditionalItem() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+        Artist artist = gameEnvironment.getLabelService().getLineup().getFirst();
+        artist.addItem(new ConditionalItem(
+                "Good Start",
+                "Boosts crowd and stamina after the first win.",
+                150,
+                Rarity.COMMON,
+                List.of(ItemEffects.CROWD_AND_STAMINA_BOOST_IF_FIRST_EVENT_WIN)
+        ));
+        service.setAnsweredQuestionCountForDebug(1);
+
+        Outcome outcome = new Outcome(1, "Win opener", PayoutType.MAJOR_REWARD, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        service.handleAnswer(answer);
+
+        assertTrue(tourService.getConditionalEffectText().contains("Good Start triggered"));
+    }
+
+    @Test
+    void useConsumableWithCrowdBoostRaisesCrowdMeter() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        ConcertService service = new ConcertService(gameEnvironment, new TourService(new Tour(TourType.LOCAL), gameEnvironment));
+        Artist artist = gameEnvironment.getLabelService().getLineup().getFirst();
+        CosumableItem item = new CosumableItem(
+                "Bundy Aftershave",
+                "Boosts the crowd meter.",
+                3,
+                100,
+                Rarity.COMMON,
+                List.of(ItemEffects.CROWD_BOOST)
+        );
+        item.setMultiplier(10.0);
+        artist.addItem(item);
+
+        String result = service.useConsumable(artist, item);
+
+        assertEquals(10, service.getCrowdEnergy());
+        assertEquals(2, item.getUses());
+        assertTrue(artist.getItems().contains(item));
+        assertTrue(result.contains("Crowd Boost applied +10 crowd meter"));
+    }
+
+    @Test
+    void handleAnswerDoesNotApplyConsumableCrowdBoostPassively() {
+        GameEnvironment gameEnvironment = createEnvironmentWithLabel();
+        TourService tourService = new TourService(new Tour(TourType.LOCAL), gameEnvironment);
+        ConcertService service = new ConcertService(gameEnvironment, tourService);
+        Artist artist = gameEnvironment.getLabelService().getLineup().getFirst();
+        CosumableItem item = new CosumableItem(
+                "Bundy Aftershave",
+                "Boosts the crowd meter.",
+                3,
+                100,
+                Rarity.COMMON,
+                List.of(ItemEffects.CROWD_BOOST)
+        );
+        item.setMultiplier(10.0);
+        artist.addItem(item);
+
+        Outcome outcome = new Outcome(1, "No crowd gain", PayoutType.NONE, 0, 0, false);
+        Answer answer = new Answer("Choose this", List.of(outcome));
+
+        service.handleAnswer(answer);
+
+        assertEquals(0, service.getCrowdEnergy());
+        assertEquals(3, item.getUses());
     }
 
     @Test

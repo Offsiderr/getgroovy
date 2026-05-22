@@ -1,0 +1,251 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RandomEvent</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.team67.models.enums</a>
+</div>
+
+<h1>Coverage Summary for Class: RandomEvent (seng201.team67.models.enums)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RandomEvent</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.team67.models.enums;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the available random events that can occur in the game.
+&nbsp; * @author Louie Campion
+&nbsp; * @author Keenan Aubrey
+&nbsp; */
+<b class="nc">&nbsp;public enum RandomEvent {</b>
+&nbsp;
+&nbsp;    /** The vocal strain. */
+<b class="nc">&nbsp;    VOCAL_STRAIN(&quot;Vocal Strain&quot;,</b>
+&nbsp;            &quot;The relentless tour schedule has taken a toll. This artist&#39;s stamina takes a hit.&quot;,
+&nbsp;            40, EventType.STAT, -20, &quot;stamina&quot;),
+&nbsp;
+&nbsp;    /** The gym arc. */
+<b class="nc">&nbsp;    GYM_ARC(&quot;Gym Arc&quot;,</b>
+&nbsp;            &quot;The artist spent their days off working on their fitness. Stamina increases slightly.&quot;,
+&nbsp;            30, EventType.STAT, 15, &quot;stamina&quot;),
+&nbsp;
+&nbsp;    /** The bad press. */
+<b class="nc">&nbsp;    BAD_PRESS(&quot;Bad Press&quot;,</b>
+&nbsp;            &quot;A tabloid expose has damaged the artist&#39;s public image. Star power has dropped.&quot;,
+&nbsp;            20, EventType.STAT, -1, &quot;star_power&quot;),
+&nbsp;
+&nbsp;    /** The viral moment. */
+<b class="nc">&nbsp;    VIRAL_MOMENT(&quot;Viral Moment&quot;,</b>
+&nbsp;            &quot;A clip from the last concert exploded online. The artist&#39;s star power surges.&quot;,
+&nbsp;            10, EventType.STAT, 2, &quot;star_power&quot;),
+&nbsp;
+&nbsp;    /** The fan inspiration. */
+<b class="nc">&nbsp;    FAN_INSPIRATION(&quot;Fan Inspiration&quot;,</b>
+&nbsp;            &quot;A heartfelt conversation with a superfan has reignited the artist&#39;s passion. +1 to their skill.&quot;,
+&nbsp;            40, EventType.SKILL, 1, null),
+&nbsp;
+&nbsp;    /** The studio session. */
+<b class="nc">&nbsp;    STUDIO_SESSION(&quot;Studio Session&quot;,</b>
+&nbsp;            &quot;A veteran producer sat in on a private session and shared some trade secrets. +1 to a skill.&quot;,
+&nbsp;            30, EventType.SKILL, 1, null),
+&nbsp;
+&nbsp;    /** The creative breakthrough. */
+<b class="nc">&nbsp;    CREATIVE_BREAKTHROUGH(&quot;Creative Breakthrough&quot;,</b>
+&nbsp;            &quot;Somewhere between cities, inspiration struck. The artist has refined their craft. +1 to a skill.&quot;,
+&nbsp;            20, EventType.SKILL, 1, null),
+&nbsp;
+&nbsp;    /** The legendary mentorship. */
+<b class="nc">&nbsp;    LEGENDARY_MENTORSHIP(&quot;Legendary Mentorship&quot;,</b>
+&nbsp;            &quot;A legendary industry figure has taken notice and offered personal mentorship. +2 to a skill.&quot;,
+&nbsp;            10, EventType.SKILL, 2, null),
+&nbsp;
+&nbsp;    /** The breakthrough session. */
+<b class="nc">&nbsp;    BREAKTHROUGH_SESSION(&quot;Breakthrough Session&quot;,</b>
+&nbsp;            &quot;Something clicks after the tour, and the artist comes away with an entirely new skill.&quot;,
+&nbsp;            2, EventType.SKILL, 0, null),
+&nbsp;
+&nbsp;    /** The amicable exit. */
+<b class="nc">&nbsp;    AMICABLE_EXIT(&quot;Amicable Exit&quot;,</b>
+&nbsp;            &quot;The artist has decided to step back from touring to focus on their personal life. They leave on good terms.&quot;,
+&nbsp;            40, EventType.RETIREMENT, 500, null),
+&nbsp;
+&nbsp;    /** The burnout. */
+<b class="nc">&nbsp;    BURNOUT(&quot;Burnout&quot;,</b>
+&nbsp;            &quot;The grind has become too much. The artist announces they&#39;re &#39;taking a break from the industry&#39; indefinitely.&quot;,
+&nbsp;            30, EventType.RETIREMENT, 250, null),
+&nbsp;
+&nbsp;    /** The rival label poaching. */
+<b class="nc">&nbsp;    RIVAL_LABEL_POACHING(&quot;Rival Label Poaching&quot;,</b>
+&nbsp;            &quot;A rival label made an offer too good to refuse. The artist has signed elsewhere â€” effective immediately.&quot;,
+&nbsp;            20, EventType.RETIREMENT, 100, null),
+&nbsp;
+&nbsp;    /** The went off grid. */
+<b class="nc">&nbsp;    WENT_OFF_GRID(&quot;Went Off Grid&quot;,</b>
+&nbsp;            &quot;No calls, no texts. The artist has deleted all their socials and vanished. No refund forthcoming.&quot;,
+&nbsp;            10, EventType.RETIREMENT, 0, null);
+&nbsp;
+&nbsp;    /** Text value for the name. */
+&nbsp;    private final String name;
+&nbsp;
+&nbsp;    /** Text value for the description. */
+&nbsp;    private final String description;
+&nbsp;
+&nbsp;    /** Numeric value for the weight. */
+&nbsp;    private final int weight;
+&nbsp;
+&nbsp;    /** The type. */
+&nbsp;    private final EventType type;
+&nbsp;
+&nbsp;    /** Numeric value for the value. */
+&nbsp;    private final int value;
+&nbsp;
+&nbsp;    /** Text value for the stat. */
+&nbsp;    private final String stat;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new random event.
+&nbsp;     * It initializes the state needed for the surrounding game flow.
+&nbsp;     * @param name the name value to use
+&nbsp;     * @param description the description text to use
+&nbsp;     * @param weight the numeric value for the weight
+&nbsp;     * @param type the type
+&nbsp;     * @param value the numeric value for the value
+&nbsp;     * @param stat the text value for the stat
+&nbsp;     */
+<b class="nc">&nbsp;    RandomEvent(String name, String description, int weight, EventType type, int value, String stat) {</b>
+<b class="nc">&nbsp;        this.name = name;</b>
+<b class="nc">&nbsp;        this.description = description;</b>
+<b class="nc">&nbsp;        this.weight = weight;</b>
+<b class="nc">&nbsp;        this.type = type;</b>
+<b class="nc">&nbsp;        this.value = value;</b>
+<b class="nc">&nbsp;        this.stat = stat;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the name.
+&nbsp;     * @return The name.
+&nbsp;     */
+<b class="nc">&nbsp;    public String getName() { return name; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the description.
+&nbsp;     * @return The description.
+&nbsp;     */
+<b class="nc">&nbsp;    public String getDescription() { return description; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the weight.
+&nbsp;     * @return The weight.
+&nbsp;     */
+<b class="nc">&nbsp;    public int getWeight() { return weight; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the type.
+&nbsp;     * @return The type.
+&nbsp;     */
+<b class="nc">&nbsp;    public EventType getType() { return type; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the value.
+&nbsp;     * @return The value.
+&nbsp;     */
+<b class="nc">&nbsp;    public int getValue() { return value; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the stat.
+&nbsp;     * @return The stat.
+&nbsp;     */
+<b class="nc">&nbsp;    public String getStat() { return stat; }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 12:59</div>
+</div>
+</body>
+</html>

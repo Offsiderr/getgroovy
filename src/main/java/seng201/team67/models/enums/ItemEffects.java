@@ -54,18 +54,6 @@ public enum ItemEffects {
             2.0,
             GameplayEffect.STAR_POWER_BOOST
     ),
-
-    /** The star power multiplier. */
-    STAR_POWER_MULTIPLIER(
-            "Star Power Multiplier",
-            "Improves star power while equipped.",
-            Rarity.COMMON,
-            StatType.STAR_POWER,
-            ItemType.EQUIPPED,
-            1.05,
-            GameplayEffect.STAR_POWER_MULTIPLIER
-    ),
-
     /** The stamina multiplier. */
     STAMINA_MULTIPLIER(
             "Stamina Multiplier",

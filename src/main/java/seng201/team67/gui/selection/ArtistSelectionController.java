@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -51,6 +52,8 @@ public class ArtistSelectionController {
     @FXML private StackPane gachaContainer;
     /** FXML reference for the select artists control. */
     @FXML private Button selectArtists;
+    /** Select three label. disabled until the artists show */
+    @FXML private Label selectThreeLabel;
     /** The screen navigator. */
     private final ScreenNavigator screenNavigator = new ScreenNavigator();
     /** The view loader. */
@@ -78,6 +81,8 @@ public class ArtistSelectionController {
     @FXML
     public void initialize() throws IOException {
         selectArtists.setDisable(true);
+        selectThreeLabel.setVisible(false);
+
 
         GachaController gachaController = new GachaController(gameEnvironment);
         gachaController.setOnGachaComplete(() -> showArtistCards());
@@ -149,6 +154,7 @@ public class ArtistSelectionController {
                             new SequentialTransition(growTransition, settleTransition)
                     )
             );
+            selectThreeLabel.setVisible(true);
         }
 
         sequence.play();
