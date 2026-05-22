@@ -20,7 +20,7 @@
          </image>
       </ImageView>
 
-      <Label fx:id="questionTitle" layoutX="1.0" layoutY="14.0" prefWidth="785.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(gaussian, white, 10, 0.8, 0, 0);" styleClass="root" stylesheets="@../../Styles/Style.css" text="QUESTION ONE" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="14.0">
+      <Label fx:id="questionTitle" layoutX="1.0" layoutY="14.0" prefWidth="785.0" style="-fx-background-color: trans; -fx-itemEffects: dropshadow(gaussian, white, 10, 0.8, 0, 0); -fx-effect: dropshadow(gaussian, black, 10, 0.7, 0, 0);;" styleClass="root" stylesheets="@../../Styles/Style.css" text="QUESTION ONE" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="32.0" />
          </font>
