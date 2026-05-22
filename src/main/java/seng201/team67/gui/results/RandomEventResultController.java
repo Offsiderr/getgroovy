@@ -153,6 +153,11 @@ public class RandomEventResultController {
         AnimationTimer bgTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (bg1.getScene() == null) {
+                    stop();
+                    return;
+                }
+
                 bg1.setLayoutX(bg1.getLayoutX() - 0.5);
                 bg2.setLayoutX(bg2.getLayoutX() - 0.5);
 

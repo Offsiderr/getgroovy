@@ -231,6 +231,11 @@ public class TourMapController {
                 new KeyFrame(Duration.millis(1000),e -> target.setOpacity(1.0))
         );
         pulseTimeline.setCycleCount(Timeline.INDEFINITE);
+        target.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene == null) {
+                stopPulse();
+            }
+        });
         pulseTimeline.play();
     }
 

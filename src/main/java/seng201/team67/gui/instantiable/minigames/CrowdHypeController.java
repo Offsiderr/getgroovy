@@ -62,6 +62,11 @@ public class CrowdHypeController {
         pulse.setToX(1.03);
         pulse.setAutoReverse(true);
         pulse.setCycleCount(ScaleTransition.INDEFINITE);
+        hypeBar.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene == null) {
+                pulse.stop();
+            }
+        });
         pulse.play();
     }
 
@@ -78,6 +83,11 @@ public class CrowdHypeController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (hypeBar.getScene() == null) {
+                    stop();
+                    return;
+                }
+
                 if (gameEnded) return;
 
                 hype -= 0.004;
