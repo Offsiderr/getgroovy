@@ -67,6 +67,11 @@ public class CrowdWaveController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (tapButton.getScene() == null) {
+                    stop();
+                    return;
+                }
+
                 if (gameEnded) {
                     stop();
                     return;

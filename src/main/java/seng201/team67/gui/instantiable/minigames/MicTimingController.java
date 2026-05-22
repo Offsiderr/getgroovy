@@ -79,6 +79,11 @@ public class MicTimingController {
              */
             @Override
             public void handle(long now) {
+                if (timingSlider.getScene() == null) {
+                    stop();
+                    return;
+                }
+
                 double value = timingSlider.getValue();
                 value += direction * 3;
 

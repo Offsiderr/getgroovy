@@ -97,6 +97,11 @@ public class TheMarketController {
 
             @Override
             public void handle(long now) {
+                if (bg1.getScene() == null) {
+                    stop();
+                    return;
+                }
+
                 double width = bg1.getBoundsInParent().getWidth();
 
                 if (!initialized) {
